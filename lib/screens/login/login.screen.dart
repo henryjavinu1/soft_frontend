@@ -36,15 +36,15 @@ class _LoginState extends State<Login> {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text("Iniciar Sesión"),
+                      Text("Login"),
                       TextField(
-                          decoration: InputDecoration(labelText: "Usuario")),
+                          decoration: InputDecoration(labelText: "User")),
                       TextField(
                           obscureText: true,
                           decoration: InputDecoration(labelText: "Password")),
                       RaisedButton(
                           color: Colors.blue,
-                          child: Text("Iniciar",
+                          child: Text("Log In",
                               style: TextStyle(color: Colors.white)),
                           onPressed: () {})
                     ]),
