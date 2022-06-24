@@ -43,7 +43,7 @@ class _LoginState extends State<Login> {
                           obscureText: true,
                           decoration: InputDecoration(labelText: "Password")),
                       RaisedButton(
-                          color: Colors.blue,
+                          color: Colors.green,
                           child: Text("Iniciar",
                               style: TextStyle(color: Colors.white)),
                           onPressed: () {})
