@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:google_fonts/google_fonts.dart';
-
-enum Gender {
-  Email,
-  password,
-}
 
 class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
   @override
   State<Login> createState() => _LoginState();
 }

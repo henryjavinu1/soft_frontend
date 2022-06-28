@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:soft_frontend/screens/login/login.screen.dart';
+import 'package:soft_frontend/screens/screens.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,11 +12,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Soft',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Login(),
+      initialRoute: 'login',
+      routes: {
+        'login': (_) => const Login(),
+        'principalmantenimiento': (_) => const PrincipalMantenimiento(),
+        'gestionusuarios': (_) => const GestionUsuarios(),
+      },
     );
   }
 }
