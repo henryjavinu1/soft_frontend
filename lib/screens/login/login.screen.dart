@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import "package:soft_frontend/controllers/user.controller.dart";
+
+import '../home/home.screen.dart';
 
 enum Gender {
   Email,
@@ -13,11 +15,13 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final emailController = TextEditingController();
+  final passController = TextEditingController();
   @override
   Widget build(context) =>
       Scaffold(body: LayoutBuilder(builder: (context, constraints) {
         return AnimatedContainer(
-            duration: Duration(milliseconds: 500),
+            duration: const Duration(milliseconds: 500),
             color: Colors.lightGreen[200],
             padding: constraints.maxWidth < 500
                 ? EdgeInsets.zero
@@ -26,7 +30,7 @@ class _LoginState extends State<Login> {
               child: Container(
                 padding: const EdgeInsets.symmetric(
                     vertical: 30.0, horizontal: 25.0),
-                constraints: BoxConstraints(
+                constraints: const BoxConstraints(
                   maxWidth: 500,
                 ),
                 decoration: BoxDecoration(
@@ -36,17 +40,47 @@ class _LoginState extends State<Login> {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text("Iniciar Sesión"),
+                      const Text("Iniciar Sesión"),
                       TextField(
-                          decoration: InputDecoration(labelText: "Usuario")),
+                          controller: emailController,
+                          decoration:
+                              const InputDecoration(labelText: "Usuario")),
                       TextField(
+                          controller: passController,
                           obscureText: true,
-                          decoration: InputDecoration(labelText: "Password")),
+                          decoration:
+                              const InputDecoration(labelText: "Password")),
                       RaisedButton(
-                          color: Colors.green,
-                          child: Text("Iniciar",
+                          color: Colors.blue,
+                          child: const Text("Iniciar",
                               style: TextStyle(color: Colors.white)),
-                          onPressed: () {})
+                          onPressed: () async {
+                            bool resp = await login_controller(
+                                emailController.text, passController.text);
+                            if (resp) {
+                              Fluttertoast.showToast(
+                                  msg: "Bienvenido",
+                                  toastLength: Toast.LENGTH_LONG,
+                                  gravity: ToastGravity.TOP,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: Colors.green,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0);
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MyHomePage()));
+                            } else {
+                              Fluttertoast.showToast(
+                                  msg: "Usuario Incorrecto",
+                                  toastLength: Toast.LENGTH_LONG,
+                                  gravity: ToastGravity.TOP,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: Colors.red,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0);
+                            }
+                          })
                     ]),
               ),
             ));
