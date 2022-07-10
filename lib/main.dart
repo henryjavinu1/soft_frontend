@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:soft_frontend/screens/login/login.screen.dart';
+import 'package:soft_frontend/screens/screens.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,11 +12,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'El mejor frot-end',
+      debugShowCheckedModeBanner: false,
+      title: 'Soft',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Login(),
+      initialRoute: 'crear_cliente',
+      routes: {
+        'login': (_) => const Login(),
+        'pantalla_principal': (_) => const PantallaPrincipal(),
+        'mantenimiento': (_) => const Mantenimiento(),
+        'crear_cliente': (_) => CrearClientes(),
+      },
     );
   }
 }
