@@ -1,9 +1,6 @@
 import 'dart:convert';
 
-import 'package:soft_frontend/models/rol.model.dart';
-import 'package:soft_frontend/models/sesion.model.dart';
-
-import 'empleado.model.dart';
+import 'package:soft_frontend/models/models.dart';
 
 class User {
     User({

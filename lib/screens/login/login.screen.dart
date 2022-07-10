@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:soft_frontend/services/login.service.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -88,7 +88,7 @@ class _LoginState extends State<Login> {
                               onPressed: null,
                               child: Center(
                                 child: ElevatedButton(
-                                    onPressed: () => login(),
+                                    onPressed: () => login(usuarioController.text, passwordController.text, context),
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 10, vertical: 10),
@@ -104,30 +104,7 @@ class _LoginState extends State<Login> {
             ),
           ),
         );
-      }));
+      })
+      );
 
-  Future<void> login() async {
-    if (usuarioController.text.isNotEmpty &&
-        passwordController.text.isNotEmpty) {
-      var response = await http.post(
-          Uri.parse("http://localhost:8080/api/user/login"),
-          body: ({
-            'username': usuarioController.text,
-            'password': passwordController.text
-          }));
-      if (response.statusCode == 200) {
-        Navigator.pushNamed(context, 'pantalla_principal',
-            arguments: response.body);
-      } else if (response.statusCode == 401) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("Contraseña Incorrecta")));
-      } else {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("Datos Incorrectos")));
-      }
-    } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Campos en blanco")));
-    }
-  }
 }

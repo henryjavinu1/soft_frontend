@@ -10,10 +10,14 @@ class PantallaPrincipalMovil extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     Object? response = ModalRoute.of(context)!.settings.arguments;
     User user = User.fromJson(response.toString());
-    String rol = user.rol.rol;
+    List<Permiso> rol = user.rol.permisos;
+
+    final permisos = <String>[];
+    for (var permiso in rol) {
+      permisos.add(permiso.permiso);
+    }
     return Scaffold(
       body: SingleChildScrollView(
-        
         scrollDirection: Axis.vertical,
         child: Container(
           width: size.width,
@@ -29,7 +33,7 @@ class PantallaPrincipalMovil extends StatelessWidget {
                 const SizedBox(
                   height: 50,
                 ),
-                if (rol == "root") ...[
+                if (permisos.contains("Modulo de Mantenimiento")) ...[
                   Visibility(
                       visible: true,
                       child: TextButtons(
@@ -43,17 +47,22 @@ class PantallaPrincipalMovil extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                TextButtons(
-                  argument: response,
-                  name: "Módulo de Ventas",
-                  route: 'mantenimiento',
-                  width: 0.8,
-                  fontSize: 15,
-                ),
+                if (permisos.contains("Modulo de Ventas")) ...[
+                  Visibility(
+                    visible: true,
+                    child: TextButtons(
+                      argument: response,
+                      name: "Módulo de Ventas",
+                      route: 'mantenimiento',
+                      width: 0.8,
+                      fontSize: 15,
+                    ),
+                  ),
+                ],
                 const SizedBox(
                   height: 30,
                 ),
-                if (rol == "root") ...[
+                if (permisos.contains("Modulo de Inventario")) ...[
                   Visibility(
                       visible: true,
                       child: TextButtons(
@@ -67,7 +76,7 @@ class PantallaPrincipalMovil extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                if (rol == "root") ...[
+                if (permisos.contains("Gestion de Usuarios")) ...[
                   Visibility(
                       visible: true,
                       child: TextButtons(
