@@ -17,11 +17,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: 'login',
+      initialRoute: 'crear_cliente',
       routes: {
         'login': (_) => const Login(),
         'pantalla_principal': (_) => const PantallaPrincipal(),
         'mantenimiento': (_) => const Mantenimiento(),
+        'crear_cliente': (_) => CrearClientes(),
       },
     );
   }
