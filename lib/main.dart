@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soft_frontend/screens/screens.dart';
 
-
 void main() {
   runApp(const MyApp());
 }
@@ -20,11 +19,10 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: 'login',
       routes: {
-        'login' : (_) => const Login(),
-        'pantalla_principal' : (_) => const PantallaPrincipal(),
-        'mantenimiento' : (_) => const Mantenimiento(),
+        'login': (_) => const Login(),
+        'pantalla_principal': (_) => const PantallaPrincipal(),
+        'mantenimiento': (_) => const Mantenimiento(),
       },
-
     );
   }
 }

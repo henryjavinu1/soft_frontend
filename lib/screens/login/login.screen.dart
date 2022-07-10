@@ -88,7 +88,10 @@ class _LoginState extends State<Login> {
                               onPressed: null,
                               child: Center(
                                 child: ElevatedButton(
-                                    onPressed: () => login(usuarioController.text, passwordController.text, context),
+                                    onPressed: () => login(
+                                        usuarioController.text,
+                                        passwordController.text,
+                                        context),
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 10, vertical: 10),
@@ -104,7 +107,5 @@ class _LoginState extends State<Login> {
             ),
           ),
         );
-      })
-      );
-
+      }));
 }
