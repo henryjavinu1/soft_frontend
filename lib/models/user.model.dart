@@ -1,13 +1,39 @@
-class Usuario {
-  String usuario;
-  int id;
+import 'dart:convert';
 
-  Usuario({
-    required this.id,
-    required this.usuario,
-  });
+import 'package:soft_frontend/models/models.dart';
 
-  Usuario.fromJson(Map<String, dynamic> json)
-      : usuario = json["usuario"],
-        id = json["id"];
+class User {
+    User({
+        required this.id,
+        required this.usuario,
+        required this.empleado,
+        required this.rol,
+        required this.sesion,
+    });
+
+    int id;
+    String usuario;
+    Empleado empleado;
+    Rol rol;
+    Sesion sesion;
+
+    factory User.fromJson(String str) => User.fromMap(json.decode(str));
+
+    String toJson() => json.encode(toMap());
+
+    factory User.fromMap(Map<String, dynamic> json) => User(
+        id: json["id"],
+        usuario: json["usuario"],
+        empleado: Empleado.fromMap(json["empleado"]),
+        rol: Rol.fromMap(json["rol"]),
+        sesion: Sesion.fromMap(json["sesion"]),
+    );
+
+    Map<String, dynamic> toMap() => {
+        "id": id,
+        "usuario": usuario,
+        "empleado": empleado.toMap(),
+        "rol": rol.toMap(),
+        "sesion": sesion.toMap(),
+    };
 }

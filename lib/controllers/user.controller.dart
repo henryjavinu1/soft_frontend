@@ -7,7 +7,7 @@ import '../services/user.service.dart';
 //
 
 Future<bool> login_controller(String email, String passwd) async {
-  Usuario? user = await login(email, passwd);
+  User? user = await login(email, passwd);
   if (user != null) {
     return true;
   } else {
