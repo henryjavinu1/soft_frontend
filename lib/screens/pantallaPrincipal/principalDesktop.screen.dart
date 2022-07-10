@@ -75,7 +75,7 @@ class _PantallaPrincipalDesktopState extends State<PantallaPrincipalDesktop> {
                       visible: true,
                       child: TextButtons(
                         argument: finalresponse,
-                        name: "Módulo de Mantenimiento",
+                        name: "Facturas",
                         route: 'mantenimiento',
                         width: 0.3,
                         fontSize: 22,
@@ -89,7 +89,7 @@ class _PantallaPrincipalDesktopState extends State<PantallaPrincipalDesktop> {
                     visible: true,
                     child: TextButtons(
                       argument: finalresponse,
-                      name: "Módulo de Ventas",
+                      name: "Modulo de Ventas",
                       route: 'mantenimiento',
                       width: 0.3,
                       fontSize: 22,
