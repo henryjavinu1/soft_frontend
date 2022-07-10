@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
         'login': (_) => const Login(),
         'pantalla_principal': (_) => const PantallaPrincipal(),
         'mantenimiento': (_) => const Mantenimiento(),
+        'ventas': (_) => const Ventas(),
       },
     );
   }
