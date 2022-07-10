@@ -14,7 +14,7 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
     return Scaffold(
       body: LayoutBuilder(builder: (context, constraints) {
         if (constraints.maxWidth < 600) {
-          return const PantallaPrincipalMovil();
+          return  const PantallaPrincipalMovil();
         } else {
           return const PantallaPrincipalDesktop();
         }
