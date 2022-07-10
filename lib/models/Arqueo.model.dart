@@ -1,14 +1,27 @@
+import 'dart:convert';
+import 'package:soft_frontend/models/models.dart';
+
 class Arqueo {
-  int idUsuario;
-  int idSesion;
-  double efectivoApertura;
   Arqueo({
-    required this.idUsuario,
+    required this.id,
     required this.idSesion,
     required this.efectivoApertura,
   });
-  Arqueo.fromJson(Map<String, dynamic> json)
-      : idUsuario = json["idUsuario"],
-        idSesion = json["idSesion"],
-        efectivoApertura = json["efectivoApertura"];
+  int id;
+  int idSesion;
+  double efectivoApertura;
+
+  factory Arqueo.fromJson(String str) => Arqueo.fromMap(json.decode(str));
+  String toJson() => json.encode(toMap());
+  factory Arqueo.fromMap(Map<String, dynamic> json) => Arqueo(
+        id: json["id"],
+        idSesion: json["idSesion"],
+        efectivoApertura: json["efectivoApertura"],
+      );
+
+  Map<String, dynamic> toMap() => {
+        "id": id,
+        "idSesion": idSesion,
+        "efectivoApertura": efectivoApertura,
+      };
 }

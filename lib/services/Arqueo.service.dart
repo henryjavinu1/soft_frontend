@@ -1,28 +1,25 @@
-import 'dart:convert';
-import 'dart:developer';
-import '../models/Arqueo.model.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:soft_frontend/constans.dart';
 
-Future<Arqueo?> createArqueo(
-    int idUsuario, int idSesion, double efectivoApertura) async {
-  var arque = http.Client();
-  Arqueo? arqueo = null;
-  try {
-    var response =
-        await arque.post(Uri.parse(API_URL + "arqueo/createArqueo"), body: {
-      'idUsuario': idUsuario,
-      'idSesion': idSesion,
-      'efectivoApertura': efectivoApertura
-    });
+Future<void> createArqueo(
+    String idUsuario, String idSesion, String efectivoApertura, context) async {
+  if (idUsuario.toString().isNotEmpty &&
+      idSesion.toString().isNotEmpty &&
+      efectivoApertura.toString().isNotEmpty) {
+    var response = await http.post(
+        Uri.parse("http://localhost:8080/api/arqueo/createArqueo"),
+        body: ({
+          'idUsuario': idUsuario,
+          'idSesion': idSesion,
+          'efectivoApertura': efectivoApertura
+        }));
+
     if (response.statusCode == 200) {
-      Arqueo arqueo = Arqueo.fromJson(json.decode(response.body));
-      log(arqueo.toString());
-      return arqueo;
-    } else {
-      return arqueo;
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("Arqueo Creado")));
     }
-  } finally {
-    arque.close();
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Error al crear un arqueo")));
   }
 }

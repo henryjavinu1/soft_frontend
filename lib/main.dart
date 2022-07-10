@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
         'pantalla_principal': (_) => const PantallaPrincipal(),
         'mantenimiento': (_) => const Mantenimiento(),
         'crear_cliente': (_) => CrearClientes(),
+        'crear_arqueo': (_) => CrearArqueo(),
       },
     );
   }
