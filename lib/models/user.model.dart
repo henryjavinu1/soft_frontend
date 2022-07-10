@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'dart:convert';
 
 import 'package:soft_frontend/models/models.dart';
@@ -37,3 +38,18 @@ class User {
         "sesion": sesion.toMap(),
     };
 }
+=======
+class Usuario {
+  String usuario;
+  int id;
+
+  Usuario({
+    required this.id,
+    required this.usuario,
+  });
+
+  Usuario.fromJson(Map<String, dynamic> json)
+      : usuario = json["usuario"],
+        id = json["id"];
+}
+>>>>>>> main
