@@ -17,13 +17,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: 'crear_cliente',
+      initialRoute: 'mostrar_Arqueo',
       routes: {
         'login': (_) => const Login(),
         'pantalla_principal': (_) => const PantallaPrincipal(),
         'mantenimiento': (_) => const Mantenimiento(),
         'crear_cliente': (_) => CrearClientes(),
-        'crear_arqueo': (_) => CrearArqueo(),
+        'mostrar_arqueo': (_) => MostrarArqueo(),
       },
     );
   }
