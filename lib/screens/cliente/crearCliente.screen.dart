@@ -32,7 +32,7 @@ class _CrearClientesState extends State<CrearClientes> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    "Crear Usuario",
+                    "Crear Cliente",
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 3),
@@ -117,8 +117,9 @@ class _CrearClientesState extends State<CrearClientes> {
                                 height: 40,
                               ),
                               Text(
-                                "Email", 
-                                style: TextStyle(fontSize: 18),),
+                                "Email",
+                                style: TextStyle(fontSize: 18),
+                              ),
                               TextFormField(
                                 controller: emailController,
                                 decoration: InputDecoration(
@@ -138,11 +139,12 @@ class _CrearClientesState extends State<CrearClientes> {
                                           rtnController.text,
                                           nombreController.text,
                                           direccionController.text,
-                                          telefonoController.text, context),
+                                          telefonoController.text,
+                                          context),
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 10, vertical: 10),
-                                        child: Text('Continuar'),
+                                        child: Text('Aceptar'),
                                       )),
                                 ),
                               ),
