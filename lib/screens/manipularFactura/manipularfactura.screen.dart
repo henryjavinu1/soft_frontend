@@ -1,7 +1,6 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'package:soft_frontend/models/facturaBuscada.model.dart';
 import 'package:soft_frontend/models/unaFacturaBuscada.model.dart';
 import 'package:soft_frontend/services/manipularfactura.service.dart';
@@ -14,7 +13,9 @@ class ManipularFactura extends StatefulWidget {
 
 class _ManipularFacturaState extends State<ManipularFactura> {
   final _textController = new TextEditingController();
+  final _textController2 = new TextEditingController();
   List<FacturaBuscada> facturas = [];
+  int campos = 1000;
 
   @override
   void initState() {
@@ -39,140 +40,169 @@ class _ManipularFacturaState extends State<ManipularFactura> {
             vertical: size.height * 0.02, horizontal: size.width * 0.03),
         child: Column(
           children: [
-            Row(children: [
-              Center(
-                child: Padding(
-                  padding: EdgeInsets.only(right: size.width * 0.01),
-                  child: Text(
-                    'Buscar Factura',
-                    style: GoogleFonts.poppins(
-                        color: Colors.black87,
-                        fontSize: size.width * 0.015,
-                        fontWeight: FontWeight.w600),
+            Row(
+              children: [
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(right: size.width * 0.01),
+                    child: Text(
+                      'Buscar Factura',
+                      style: GoogleFonts.poppins(
+                          color: Colors.black87,
+                          fontSize: size.width * 0.015,
+                          fontWeight: FontWeight.w600),
+                    ),
                   ),
                 ),
+              ],
+            ),
+            Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              DropdownButton(
+                hint: Text('Número de factura'),
+                items: const [
+                  DropdownMenuItem(
+                    child: Text('Buscar por número de factura'),
+                    value: 0,
+                  ),
+                  DropdownMenuItem(
+                    child: Text('Filtrar por cliente'),
+                    value: 1,
+                  ),
+                  DropdownMenuItem(
+                    child: Text('Filtrar por fecha'),
+                    value: 2,
+                  ),
+                  DropdownMenuItem(
+                    child: Text('Filtrar por talonario'),
+                    value: 3,
+                  ),
+                  DropdownMenuItem(
+                    child: Text('Filtrar por empleado'),
+                    value: 4,
+                  ),
+                ],
+                onChanged: (int? value) {
+                  if (value == 1) {
+                    campos = 1;
+                    setState(() {});
+                  } else if (value == 2) {
+                    campos = 2;
+                    setState(() {});
+                  } else if (value == 3) {
+                    campos = 3;
+                    setState(() {});
+                  } else if (value == 4) {
+                    campos = 4;
+                    setState(() {});
+                  }
+                  if (value == 0) {
+                    campos = 0;
+                    setState(() {});
+                  }
+                },
               ),
               Expanded(
                   child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
-                child: TextField(
-                  controller: _textController,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Número de factura',
-                  ),
-                ),
+                child: CamposDeBusqueda(
+                    textController: _textController,
+                    textController2: _textController2,
+                    campo: campos),
               )),
               ElevatedButton(
                 onPressed: () async {
                   if (_textController.text.trim().isNotEmpty) {
-                    if (await buscarFacturaPorNumero(
-                        _textController.text.trim()) is UnaFacturaBuscada) {
-                      UnaFacturaBuscada facturaBuscada =
-                          await buscarFacturaPorNumero(
-                              _textController.text.trim());
-                      FacturaBuscada factura = FacturaBuscada(
-                          idFactura: facturaBuscada.unafactura.idFactura,
-                          numeroFactura:
-                              facturaBuscada.unafactura.numeroFactura,
-                          fechaFactura: facturaBuscada.unafactura.fechaFactura,
-                          descuentoTotalFactura:
-                              facturaBuscada.unafactura.descuentoTotalFactura,
-                          isvTotalFactura:
-                              facturaBuscada.unafactura.isvTotalFactura,
-                          totalFactura: facturaBuscada.unafactura.totalFactura,
-                          subTotalFactura:
-                              facturaBuscada.unafactura.subTotalFactura,
-                          cantidadLetras:
-                              facturaBuscada.unafactura.cantidadLetras,
-                          idEmpleado: facturaBuscada.unafactura.idEmpleado,
-                          nombreEmpleado:
-                              facturaBuscada.unafactura.empleado.nombre +
-                                  ' ' +
-                                  facturaBuscada.unafactura.empleado.apellido,
-                          tipoPago:
-                              facturaBuscada.unafactura.tipopago.tipoDePago,
-                          cai: facturaBuscada.unafactura.talonario.cai,
-                          nombreCliente:
-                              facturaBuscada.unafactura.cliente.nombreCliente,
-                          rtn: facturaBuscada.unafactura.cliente.rtn,
-                          direccionCliente:
-                              facturaBuscada.unafactura.cliente.direccion,
-                          telefonoCliente: facturaBuscada
-                              .unafactura.cliente.telefonoCliente);
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                                title: Text('Resultado de la búsqueda'),
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    textAlertDialogFactura(
-                                      'Número de factura',
-                                      'Fecha de emisión',
-                                      'Empleado',
-                                      facturaBuscada.unafactura.numeroFactura
-                                          .toString(),
-                                      facturaBuscada.unafactura.fechaFactura.toString(),
-                                      facturaBuscada.unafactura.empleado.nombre+' '+facturaBuscada.unafactura.empleado.apellido
-                                    ),
-                                    SizedBox(
-                                      height: size.height * 0.02,
-                                    ),
-                                    textAlertDialogFactura(
-                                      'Nombre de cliente',
-                                      'RTN',
-                                      'CAI',
-                                      facturaBuscada.unafactura.cliente.nombreCliente
-                                          .toString(),
-                                      facturaBuscada.unafactura.cliente.rtn.toString(),
-                                      facturaBuscada.unafactura.talonario.cai
-                                    ),
-                                    SizedBox(
-                                      height: size.height * 0.02,
-                                    ),
-                                    textAlertDialogFactura(
-                                      'Total de factura',
-                                      '',
-                                      '',
-                                      facturaBuscada.unafactura.totalFactura,
-                                      '',
-                                      ''
-                                    ),
+                    if (campos == 0) {
+                      if (await buscarFacturaPorNumero(
+                          _textController.text.trim()) is UnaFacturaBuscada) {
+                        UnaFacturaBuscada facturaBuscada =
+                            await buscarFacturaPorNumero(
+                                _textController.text.trim());
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                                  title: Text('Resultado de la búsqueda'),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      textAlertDialogFactura(
+                                          'Número de factura',
+                                          'Fecha de emisión',
+                                          'Empleado',
+                                          facturaBuscada
+                                              .unafactura.numeroFactura
+                                              .toString(),
+                                          facturaBuscada.unafactura.fechaFactura
+                                              .toString(),
+                                          facturaBuscada
+                                                  .unafactura.empleado.nombre +
+                                              ' ' +
+                                              facturaBuscada.unafactura.empleado
+                                                  .apellido),
+                                      SizedBox(
+                                        height: size.height * 0.02,
+                                      ),
+                                      textAlertDialogFactura(
+                                          'Nombre de cliente',
+                                          'RTN',
+                                          'CAI',
+                                          facturaBuscada
+                                              .unafactura.cliente.nombreCliente
+                                              .toString(),
+                                          facturaBuscada.unafactura.cliente.rtn
+                                              .toString(),
+                                          facturaBuscada
+                                              .unafactura.talonario.cai),
+                                      SizedBox(
+                                        height: size.height * 0.02,
+                                      ),
+                                      textAlertDialogFactura(
+                                          'Total de factura',
+                                          '',
+                                          '',
+                                          facturaBuscada
+                                              .unafactura.totalFactura,
+                                          '',
+                                          ''),
+                                    ],
+                                  ),
+                                  actions: [
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text('Ver factura')),
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text('Cerrar')),
                                   ],
-                                ),
-                                actions: [
-                                  ElevatedButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: Text('Ver factura')),
-                                  ElevatedButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: Text('Cerrar')),
-                                ],
-                              ));
-                      // facturas.clear();
-                      // facturas.add(factura);
-                      setState(() {});
-                    } else if (await buscarFacturaPorNumero(
-                            _textController.text.trim()) ==
-                        404) {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                                title: Text(
-                                    'No se encontró ningún resultado para la factura con número: ${_textController.text.trim()}'),
-                                actions: [
-                                  ElevatedButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: Text('Cerrar'))
-                                ],
-                              ));
+                                ));
+                        // facturas.clear();
+                        // facturas.add(factura);
+                        setState(() {});
+                      } else if (await buscarFacturaPorNumero(
+                              _textController.text.trim()) ==
+                          404) {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                                  title: Text(
+                                      'No se encontró ningún resultado para la factura con número: ${_textController.text.trim()}'),
+                                  actions: [
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text('Cerrar'))
+                                  ],
+                                ));
+                      }
+                    } else if ( campos == 1){
+
+                    } else if ( campos == 2){
+                      
                     }
                   } else {
                     showDialog(
@@ -293,18 +323,26 @@ class _ManipularFacturaState extends State<ManipularFactura> {
   RichText textAlertDialogFactura(String campo1, String campo2, String campo3,
       String atributo1, String atributo2, String atributo3) {
     return RichText(
-        text: TextSpan(text: '     '+campo1+': ', children: <TextSpan>[
+        text: TextSpan(text: '     ' + campo1 + ': ', children: <TextSpan>[
       TextSpan(
           text: atributo1,
           style: GoogleFonts.poppins(fontWeight: FontWeight.w600)),
-      (campo2.isNotEmpty)?TextSpan(text: '     '+campo2+': '):TextSpan(),
-      (campo2.isNotEmpty)?TextSpan(
-          text: atributo2,
-          style: GoogleFonts.poppins(fontWeight: FontWeight.w600)):TextSpan(),
-      (campo3.isNotEmpty)?TextSpan(text: '     '+campo3+': '):TextSpan(),
-      (campo3.isNotEmpty)?TextSpan(
-          text: atributo3,
-          style: GoogleFonts.poppins(fontWeight: FontWeight.w600)):TextSpan(),
+      (campo2.isNotEmpty)
+          ? TextSpan(text: '     ' + campo2 + ': ')
+          : TextSpan(),
+      (campo2.isNotEmpty)
+          ? TextSpan(
+              text: atributo2,
+              style: GoogleFonts.poppins(fontWeight: FontWeight.w600))
+          : TextSpan(),
+      (campo3.isNotEmpty)
+          ? TextSpan(text: '     ' + campo3 + ': ')
+          : TextSpan(),
+      (campo3.isNotEmpty)
+          ? TextSpan(
+              text: atributo3,
+              style: GoogleFonts.poppins(fontWeight: FontWeight.w600))
+          : TextSpan(),
     ]));
   }
 
@@ -420,5 +458,216 @@ class _ManipularFacturaState extends State<ManipularFactura> {
             // ),
           ],
         ));
+  }
+}
+
+class CamposDeBusqueda extends StatefulWidget {
+  const CamposDeBusqueda({
+    Key? key,
+    required TextEditingController textController,
+    required this.campo,
+    required this.textController2, 
+  })  : _textController = textController,
+        super(key: key);
+
+  final TextEditingController _textController;
+  final TextEditingController textController2;
+  final int campo;
+
+  @override
+  State<CamposDeBusqueda> createState() => _CamposDeBusquedaState();
+}
+
+class _CamposDeBusquedaState extends State<CamposDeBusqueda> {
+  String label = 'Nombre de cliente';
+  int opciones = 0;
+  @override
+  Widget build(BuildContext context) {
+    if (widget.campo == 1) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TextField(
+            controller: widget._textController,
+            onChanged: (value) {
+              // value = value+opciones.toString();
+              print(value);
+            },
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: label,
+            ),
+          ),
+          SizedBox(height: 15),
+          Row(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  label = 'Nombre de cliente';
+                  opciones = 0;
+                  setState(() {});
+                },
+                child: Text('Nombre de cliente'),
+                style: ButtonStyle(
+                  backgroundColor: (opciones == 0)
+                      ? MaterialStateProperty.all(Colors.blue)
+                      : MaterialStateProperty.all(Colors.grey),
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  label = 'RTN';
+                  opciones = 1;
+                  setState(() {});
+                },
+                child: Text('RTN'),
+                style: ButtonStyle(
+                  backgroundColor: (opciones == 1)
+                      ? MaterialStateProperty.all(Colors.blue)
+                      : MaterialStateProperty.all(Colors.grey),
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  label = 'DNI';
+                  opciones = 2;
+                  setState(() {});
+                },
+                child: Text('DNI'),
+                style: ButtonStyle(
+                  backgroundColor: (opciones == 2)
+                      ? MaterialStateProperty.all(Colors.blue)
+                      : MaterialStateProperty.all(Colors.grey),
+                ),
+              ),
+            ],
+          )
+        ],
+      );
+    } else if (widget.campo == 2) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TextField(
+            controller: widget._textController,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Fecha 1',
+              hintText: 'YYYY-MM-DD',
+            ),
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          TextField(
+            controller: widget.textController2,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Fecha2',
+              hintText: 'YYYY-MM-DD',
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          RichText(
+            text: TextSpan(
+                text: 'Puede realizar la búsqueda especificando la ',
+                children: <TextSpan>[
+                  TextSpan(
+                      text: 'fecha 1',
+                      style: GoogleFonts.poppins(fontWeight: FontWeight.w600)),
+                  TextSpan(text: ' o la '),
+                  TextSpan(
+                      text: 'fecha 1',
+                      style: GoogleFonts.poppins(fontWeight: FontWeight.w600)),
+                  TextSpan(text: ' y '),
+                  TextSpan(
+                      text: 'fecha 2.',
+                      style: GoogleFonts.poppins(fontWeight: FontWeight.w600)),
+                  TextSpan(text: ' El formato'),
+                  TextSpan(
+                      text: ' YYYY-MM-DD ',
+                      style: GoogleFonts.poppins(fontWeight: FontWeight.w600)),
+                  TextSpan(text: 'tiene la siguiente forma'),
+                  TextSpan(
+                      text: ' 2022-12-28 ',
+                      style: GoogleFonts.poppins(fontWeight: FontWeight.w600)),
+                ]),
+          )
+        ],
+      );
+    } else if (widget.campo == 3) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TextField(
+            controller: widget._textController,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: label,
+            ),
+          ),
+          SizedBox(height: 15),
+          Row(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  label = 'Id de talonario';
+                  opciones = 0;
+                  setState(() {});
+                },
+                child: Text('Id de talonario'),
+                style: ButtonStyle(
+                  backgroundColor: (opciones == 0)
+                      ? MaterialStateProperty.all(Colors.blue)
+                      : MaterialStateProperty.all(Colors.grey),
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  label = 'CAI';
+                  opciones = 1;
+                  setState(() {});
+                },
+                child: Text('CAI'),
+                style: ButtonStyle(
+                  backgroundColor: (opciones == 1)
+                      ? MaterialStateProperty.all(Colors.blue)
+                      : MaterialStateProperty.all(Colors.grey),
+                ),
+              ),
+            ],
+          )
+        ],
+      );
+    } else if (widget.campo == 4) {
+      return TextField(
+        controller: widget._textController,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(),
+          labelText: 'Id de empleado',
+        ),
+      );
+    } else {
+      return TextField(
+        controller: widget._textController,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(),
+          labelText: 'Número de factura',
+        ),
+      );
+    }
   }
 }

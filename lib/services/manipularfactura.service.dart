@@ -50,3 +50,27 @@ Future buscarFacturaPorNumero(String numeroFactura) async {
     return e;
   }
 }
+
+Future<List<FacturaBuscada>> filtrarFacturasPorCliente(String nombre, String rtn, String dni) async {
+  List<FacturaBuscada> facturaVacia = [];
+  String url = 'localhost:8080/api/buscarfacturaporcliente/';
+  try {
+    if (nombre.isNotEmpty) {
+      url = url+'?nombreCliente=$nombre';
+    } else if (rtn.isNotEmpty) {
+      url = url+'?rtn=$rtn';
+    } else if (dni.isNotEmpty) {
+      url = url+'?dni=$dni';
+    }
+    var response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      final facturas = manipularFacturaResponseFromJson(response.body);
+      print(facturas.facturas);
+      return facturas.facturas;
+    }
+    return facturaVacia;
+  } catch (e) {
+    print(e);
+    return facturaVacia;
+  }
+}
