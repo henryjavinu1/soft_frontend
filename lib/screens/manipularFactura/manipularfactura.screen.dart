@@ -5,6 +5,7 @@ import 'package:soft_frontend/models/errorPeticion.model.dart';
 import 'package:soft_frontend/models/facturaBuscada.model.dart';
 import 'package:soft_frontend/models/unaFacturaBuscada.model.dart';
 import 'package:soft_frontend/screens/manipularFactura/components/cabeceradetabla.component.dart';
+import 'package:soft_frontend/screens/mostrarUnaFactura/mostrarunafactura.screen.dart';
 import 'package:soft_frontend/services/manipularfactura.service.dart';
 
 typedef void IntCallback(int opcion);
@@ -133,337 +134,131 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                 onPressed: () async {
                   // Valida si el campo de búsqueda está vacío.
                   if (_textController.text.trim().isNotEmpty) {
+                    // Si la búsqueda se hace por cliente.
                     if (campos == 1) {
-                      print(_atributoSeleccionado);
+                      // Si se hace por el atributo nombre cliente. 
                       if (_atributoSeleccionado == 0) {
-                        if (await filtrarFacturasPorCliente(
-                                _textController.text.trim(), '', '')
-                            is List<FacturaBuscada>) {
-                          facturas = await filtrarFacturasPorCliente(
-                              _textController.text.trim(), '', '');
-                        } else if (await filtrarFacturasPorCliente(
-                                _textController.text.trim(), '', '') ==
-                            404) {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                    title: Text(
-                                        'No se encontró ningún resultado para la factura con número: ${_textController.text.trim()}'),
-                                    actions: [
-                                      ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text('Cerrar'))
-                                    ],
-                                  ));
+                        final response = await filtrarFacturasPorCliente(
+                            _textController.text.trim(), '', '');
+                        if (response is List<FacturaBuscada>) {
+                          facturas = response;
+                          setState(() {});
+                        } else if (response == 404) {
+                          dialogMensajeProblema(context,
+                              'No se encontró ningún resultado para la factura con número: ${_textController.text.trim()}');
                         }
                         setState(() {});
                       } else if (_atributoSeleccionado == 1) {
-                        if (await filtrarFacturasPorCliente(
-                                '', _textController.text.trim(), '')
-                            is List<FacturaBuscada>) {
-                          facturas = await filtrarFacturasPorCliente(
-                              '', _textController.text.trim(), '');
-                        } else if (await filtrarFacturasPorCliente(
-                                '', _textController.text.trim(), '') ==
-                            404) {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                    title: Text(
-                                        'No se encontró ningún resultado para la factura con número: ${_textController.text.trim()}'),
-                                    actions: [
-                                      ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text('Cerrar'))
-                                    ],
-                                  ));
-                        } else if (await filtrarFacturasPorCliente(
-                                '', _textController.text.trim(), '')
-                            is MensajePeticion) {
-                          MensajePeticion mensajeError =
-                              await filtrarFacturasPorCliente(
-                                  '', _textController.text.trim(), '');
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                      title: Text(mensajeError.msg),
-                                      actions: [
-                                        ElevatedButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: Text('Cerrar'))
-                                      ]));
+                        final response = await filtrarFacturasPorCliente(
+                            '', _textController.text.trim(), '');
+                        if (response is List<FacturaBuscada>) {
+                          facturas = response;
+                          setState(() {});
+                        } else if (response == 404) {
+                          dialogMensajeProblema(context,
+                              'No se encontró ningún resultado para la factura con número: ${_textController.text.trim()}');
+                        } else if (response is MensajePeticion) {
+                          MensajePeticion mensajeError = response;
+                          dialogMensajeProblema(context, mensajeError.msg);
                         }
                         setState(() {});
                       } else if (_atributoSeleccionado == 2) {
-                        if (await filtrarFacturasPorCliente(
-                                '', '', _textController.text.trim())
-                            is List<FacturaBuscada>) {
-                          facturas = await filtrarFacturasPorCliente(
-                              '', '', _textController.text.trim());
+                        final response = await filtrarFacturasPorCliente(
+                            '', '', _textController.text.trim());
+                        if (response is List<FacturaBuscada>) {
+                          facturas = response;
                           setState(() {});
-                        } else if (await filtrarFacturasPorCliente(
-                                '', '', _textController.text.trim()) ==
-                            404) {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                    title: Text(
-                                        'No se encontró ningún resultado para la factura con número: ${_textController.text.trim()}'),
-                                    actions: [
-                                      ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text('Cerrar'))
-                                    ],
-                                  ));
-                        } else if (await filtrarFacturasPorCliente(
-                                '', '', _textController.text.trim())
-                            is MensajePeticion) {
-                          MensajePeticion mensajeError =
-                              await filtrarFacturasPorCliente(
-                                  '', '', _textController.text.trim());
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                      title: Text(mensajeError.msg),
-                                      actions: [
-                                        ElevatedButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: Text('Cerrar'))
-                                      ]));
+                        } else if (response == 404) {
+                          dialogMensajeProblema(context,
+                              'No se encontró ningún resultado para la factura con número: ${_textController.text.trim()}');
+                        } else if (response is MensajePeticion) {
+                          MensajePeticion mensajeError = response;
+                          dialogMensajeProblema(context, mensajeError.msg);
                         }
                       }
+                      // Buscar por fecha
                     } else if (campos == 2) {
                       // Validar de que el segundo campo está vacío
                       if (_textController2.text.isEmpty) {
-                        if (await filtrarFacturasPorFecha(
-                                _textController.text.trim(), '')
-                            is List<FacturaBuscada>) {
-                          facturas = await filtrarFacturasPorFecha(
-                              _textController.text.trim(), '');
+                        final response = await filtrarFacturasPorFecha(
+                            _textController.text.trim(), '');
+                        if (response is List<FacturaBuscada>) {
+                          facturas = response;
                           setState(() {});
-                        } else if (await filtrarFacturasPorFecha(
-                                _textController.text.trim(), '') ==
-                            404) {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                    title: Text(
-                                        'No se encontró ningúna factura el día: ${_textController.text.trim()}'),
-                                    actions: [
-                                      ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text('Cerrar'))
-                                    ],
-                                  ));
-                        } else if (await filtrarFacturasPorFecha(
-                                _textController.text.trim(), '')
-                            is MensajePeticion) {
-                          MensajePeticion mensajeError =
-                              await filtrarFacturasPorFecha(
-                                  _textController.text.trim(), '');
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                      title: Text(mensajeError.msg),
-                                      actions: [
-                                        ElevatedButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: Text('Cerrar'))
-                                      ]));
+                        } else if (response == 404) {
+                          dialogMensajeProblema(context,
+                              'No se encontró ningúna factura el día: ${_textController.text.trim()}');
+                        } else if (response is MensajePeticion) {
+                          MensajePeticion mensajeError = response;
+                          dialogMensajeProblema(context, mensajeError.msg);
                         }
                         // Si ambos campos tienen datos
                       } else {
-                        if (await filtrarFacturasPorFecha(
-                                _textController.text.trim(),
-                                _textController2.text.trim())
-                            is List<FacturaBuscada>) {
-                          facturas = await filtrarFacturasPorFecha(
-                              _textController.text.trim(),
-                              _textController2.text.trim());
-                          setState(() {});
-                        } else if (await filtrarFacturasPorFecha(
-                                _textController.text.trim(),
-                                _textController2.text.trim()) ==
-                            404) {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                    title: Text(
-                                        'No se encontró ningúna factura el ${_textController.text.trim()} y el ${_textController2.text.trim()}'),
-                                    actions: [
-                                      ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text('Cerrar'))
-                                    ],
-                                  ));
-                        } else if (await filtrarFacturasPorFecha(
+                        final response = await filtrarFacturasPorFecha(
                             _textController.text.trim(),
-                            _textController2.text.trim()) is MensajePeticion) {
-                          MensajePeticion mensajeError =
-                              await filtrarFacturasPorFecha(
-                                  _textController.text.trim(),
-                                  _textController2.text.trim());
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                      title: Text(mensajeError.msg),
-                                      actions: [
-                                        ElevatedButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: Text('Cerrar'))
-                                      ]));
+                            _textController2.text.trim());
+                        if (response is List<FacturaBuscada>) {
+                          facturas = response;
+                          setState(() {});
+                        } else if (response == 404) {
+                          dialogMensajeProblema(context,
+                              'No se encontró ningúna factura el ${_textController.text.trim()} y el ${_textController2.text.trim()}');
+                        } else if (response is MensajePeticion) {
+                          MensajePeticion mensajeError = response;
+                          dialogMensajeProblema(context, mensajeError.msg);
                         }
                       }
+                      // Si la búsqueda es por talonario.
                     } else if (campos == 3) {
                       // Si la búsqueda es por IdFactura
                       if (_atributoSeleccionado == 0) {
                         // Si encontró facturas que las inserte a la lista.
-                        if (await filtrarFacturasPorTalonario(
-                                _textController.text.trim(), '')
-                            is List<FacturaBuscada>) {
-                          facturas = await filtrarFacturasPorTalonario(
-                              _textController.text.trim(), '');
+                        final response = await filtrarFacturasPorTalonario(
+                            _textController.text.trim(), '');
+                        if (response is List<FacturaBuscada>) {
+                          facturas = response;
                           // Si no encontró ningúna coincidencia.
-                        } else if (await filtrarFacturasPorTalonario(
-                                _textController.text.trim(), '') ==
-                            404) {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                    title: Text(
-                                        'No se encontró ningúna factura con el id de talonario: ${_textController.text.trim()}'),
-                                    actions: [
-                                      ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text('Cerrar'))
-                                    ],
-                                  ));
-                        } else if (await filtrarFacturasPorTalonario(
-                                _textController.text.trim(), '')
-                            is MensajePeticion) {
-                          MensajePeticion mensajeError =
-                              await filtrarFacturasPorTalonario(
-                                  _textController.text.trim(), '');
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                    title: Text(mensajeError.msg),
-                                    actions: [
-                                      ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text('Cerrar'))
-                                    ],
-                                  ));
+                        } else if (response == 404) {
+                          dialogMensajeProblema(context,
+                              'No se encontró ningúna factura con el id de talonario: ${_textController.text.trim()}');
+                        } else if (response is MensajePeticion) {
+                          MensajePeticion mensajeError = response;
+                          dialogMensajeProblema(context, mensajeError.msg);
                         }
                         // Si la búsqueda es por CAI
                       } else if (_atributoSeleccionado == 1) {
                         // Si encontró facturas que las inserte a la lista.
-                        if (await filtrarFacturasPorTalonario(
-                                '', _textController.text.trim())
-                            is List<FacturaBuscada>) {
-                          facturas = await filtrarFacturasPorTalonario(
-                              '', _textController.text.trim());
+                        final response = await filtrarFacturasPorTalonario(
+                            '', _textController.text.trim());
+                        if (response is List<FacturaBuscada>) {
+                          facturas = response;
                           // Si no encontró ningúna coincidencia.
-                        } else if (await filtrarFacturasPorTalonario(
-                                '', _textController.text.trim()) ==
-                            404) {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                    title: Text(
-                                        'No se encontró ningúna factura con el cai de talonario: ${_textController.text.trim()}'),
-                                    actions: [
-                                      ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text('Cerrar'))
-                                    ],
-                                  ));
-                        } else if (await filtrarFacturasPorTalonario(
-                                '', _textController.text.trim())
-                            is MensajePeticion) {
-                          MensajePeticion mensajeError =
-                              await filtrarFacturasPorTalonario(
-                                  '', _textController.text.trim());
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                    title: Text(mensajeError.msg),
-                                    actions: [
-                                      ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text('Cerrar'))
-                                    ],
-                                  ));
+                        } else if (response == 404) {
+                          dialogMensajeProblema(context,
+                              'No se encontró ningúna factura con el cai de talonario: ${_textController.text.trim()}');
+                        } else if (response is MensajePeticion) {
+                          MensajePeticion mensajeError = response;
+                          dialogMensajeProblema(context, mensajeError.msg);
                         }
                       }
+                      // Si la búsqueda es por empleado.
                     } else if (campos == 4) {
-                      if (await filtrarFacturasPorEmpleado(
-                              _textController.text.trim())
-                          is List<FacturaBuscada>) {
-                        facturas = await filtrarFacturasPorEmpleado(
-                            _textController.text.trim());
-                      } else if (await filtrarFacturasPorEmpleado(
-                              _textController.text.trim()) ==
-                          404) {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) => AlertDialog(
-                                  title: Text(
-                                      'No se encontró ningúna factura con el id de empleado: ${_textController.text.trim()}'),
-                                  actions: [
-                                    ElevatedButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: Text('Cerrar'))
-                                  ],
-                                ));
-                      } else if (await filtrarFacturasPorEmpleado(
-                          _textController.text.trim()) is MensajePeticion) {
+                      final response = await filtrarFacturasPorEmpleado(
+                          _textController.text.trim());
+                      if (response is List<FacturaBuscada>) {
+                        facturas = response;
+                      } else if (response == 404) {
+                        dialogMensajeProblema(context,
+                            'No se encontró ningúna factura con el id de empleado: ${_textController.text.trim()}');
+                      } else if (response is MensajePeticion) {
                         MensajePeticion mensajeError =
                             await filtrarFacturasPorEmpleado(
                                 _textController.text.trim());
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) => AlertDialog(
-                                  title: Text(mensajeError.msg),
-                                  actions: [
-                                    ElevatedButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: Text('Cerrar'))
-                                  ],
-                                ));
+                        dialogMensajeProblema(context, mensajeError.msg);
                       }
                     } else {
-                      final response = await buscarFacturaPorNumero(_textController.text.trim());
+                      final response = await buscarFacturaPorNumero(
+                          _textController.text.trim());
                       if (response is UnaFacturaBuscada) {
                         UnaFacturaBuscada facturaBuscada = response;
                         showDialog(
@@ -530,38 +325,15 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                         // facturas.clear();
                         // facturas.add(factura);
                         setState(() {});
-                      } else if (await buscarFacturaPorNumero(
-                              _textController.text.trim()) ==
-                          404) {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) => AlertDialog(
-                                  title: Text(
-                                      'No se encontró ningún resultado para la factura con número: ${_textController.text.trim()}'),
-                                  actions: [
-                                    ElevatedButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: Text('Cerrar'))
-                                  ],
-                                ));
+                      } else if (response == 404) {
+                        dialogMensajeProblema(context,
+                            'No se encontró ningún resultado para la factura con número: ${_textController.text.trim()}');
                       }
                     }
                     // Si está vacío indica la alerta.
                   } else {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                              title: Text('El campo de búsqueda está vacío.'),
-                              actions: [
-                                ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: Text('Cerrar'))
-                              ],
-                            ));
+                    dialogMensajeProblema(
+                        context, 'El campo de búsqueda está vacío.');
                   }
                 },
                 child: Text(
@@ -596,6 +368,21 @@ class _ManipularFacturaState extends State<ManipularFactura> {
         ),
       ),
     );
+  }
+
+  Future<dynamic> dialogMensajeProblema(BuildContext context, String texto) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              title: Text(texto),
+              actions: [
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text('Cerrar'))
+              ],
+            ));
   }
 
   RichText textAlertDialogFactura(String campo1, String campo2, String campo3,
@@ -693,12 +480,12 @@ class _ManipularFacturaState extends State<ManipularFactura> {
               ),
             ),
             Expanded(
-              flex: 1,
+                flex: 1,
                 child: ElevatedButton(
                     onPressed: () {
-                      // TODO: navegar hacia la página que muestra una factura vieja.
-                      print('Hola mundo');
-                    }, child: Icon(Icons.visibility)))
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => MostrarFactura(numeroFactura: factura.numeroFactura)));
+                    },
+                    child: Icon(Icons.visibility)))
           ],
         ));
   }
@@ -870,7 +657,7 @@ class _CamposDeBusquedaState extends State<CamposDeBusqueda> {
         ],
       );
     } else if (widget.campo == 3) {
-      if (primera2) {  
+      if (primera2) {
         opciones = 0;
         label = 'Id de talonario';
         primera2 = false;
