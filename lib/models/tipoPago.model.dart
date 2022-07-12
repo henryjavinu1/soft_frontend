@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class TipoPago {
   TipoPago({
     required this.idTipoPago,
@@ -10,7 +8,7 @@ class TipoPago {
     required this.updatedAt,
   });
 
-  Int idTipoPago;
+  int idTipoPago;
   String tipoDePago;
   String descripcionTipoPago;
   bool isDelete;

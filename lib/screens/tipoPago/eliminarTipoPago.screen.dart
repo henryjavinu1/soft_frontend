@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:soft_frontend/services/eliminarTipoPago.service.dart';
+import '../../models/tipoPagoBuscado.model.dart';
 
 class EliminarTipoPagos extends StatefulWidget {
+  final TipoPagoBuscado tipoPago;
+  const EliminarTipoPagos({Key? key, required this.tipoPago}) : super(key: key);
   @override
   State<EliminarTipoPagos> createState() => _EliminarTipoPagosState();
 }
@@ -11,6 +14,7 @@ class _EliminarTipoPagosState extends State<EliminarTipoPagos> {
   @override
   Widget build(context) =>
       Scaffold(body: LayoutBuilder(builder: (context, constraints) {
+        idTipoPagoController.text = widget.tipoPago.idTipoPago.toString();
         return SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:soft_frontend/models/tipoPagoBuscado.model.dart';
 import 'package:soft_frontend/models/manipularTipoPago.dart';
@@ -22,17 +23,22 @@ Future<List<TipoPagoBuscado>> traerPago() async {
   }
 }
 
-Future buscarPagoPorID(String idTipoPago) async {
+Future<TipoPagoBuscado?> buscarPagoPorID(String idTipoPago) async {
+  TipoPagoBuscado? tipoPago = null;
   try {
-    var response = await http
-        .get(Uri.parse("http://localhost:8080/api/gene/buscartipopagoid"));
+    var response = await http.post(
+        Uri.parse("http://localhost:8080/api/gene/buscartipopagoid"),
+        body: ({
+          'idTipoPago': idTipoPago,
+        }));
+    print(response.body.toString());
     if (response.statusCode == 200) {
-      final tipopagos = UnTipoPagoBuscadoFromJson(response.body);
+      final tipopagos = tipoPagoBuscadoFromJson(response.body);
       return tipopagos;
     } else {
-      return null;
+      return tipoPago;
     }
   } catch (e) {
-    return null;
+    return tipoPago;
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:soft_frontend/models/tipoPago.model.dart';
 import 'package:soft_frontend/models/tipoPagoBuscado.model.dart';
 import 'package:soft_frontend/models/unPagoBuscado.model.dart';
 import 'package:soft_frontend/screens/tipoPago/crearTipoPago.screen.dart';
@@ -65,7 +66,8 @@ class _BuscarTipoPagoState extends State<BuscarTipoPago> {
               ElevatedButton(
                 onPressed: () async {
                   if (_textController.text.trim().isNotEmpty) {
-                    TipoPagoBuscado tipoPago =
+                    print(_textController.text.trim());
+                    TipoPagoBuscado? tipoPago =
                         await buscarPagoPorID(_textController.text.trim());
                     print(tipoPago);
                   } else {
@@ -206,7 +208,9 @@ class _BuscarTipoPagoState extends State<BuscarTipoPago> {
               child: ElevatedButton(
                 onPressed: () => Navigator.of(context).push(
                   new MaterialPageRoute(
-                    builder: (BuildContext context) => new EditarTipoPagos(),
+                    builder: (BuildContext context) => new EditarTipoPagos(
+                      tipoPago: tipoPago,
+                    ),
                   ),
                 ),
                 child: Text('Editar'),
@@ -217,7 +221,8 @@ class _BuscarTipoPagoState extends State<BuscarTipoPago> {
               child: ElevatedButton(
                 onPressed: () => Navigator.of(context).push(
                   new MaterialPageRoute(
-                    builder: (BuildContext context) => new EditarTipoPagos(),
+                    builder: (BuildContext context) =>
+                        new EliminarTipoPagos(tipoPago: tipoPago),
                   ),
                 ),
                 child: Text('Eliminar'),
