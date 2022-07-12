@@ -324,6 +324,8 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                                         child: Text('Cerrar'))
                                   ],
                                 ));
+                        } else if (await filtrarFacturasPorFecha(_textController.text.trim(), '')) {
+
                         }
                       } else {
                         if (await filtrarFacturasPorFecha(_textController.text.trim(), _textController2.text.trim()) is List<FacturaBuscada>) {

@@ -105,7 +105,11 @@ Future filtrarFacturasPorFecha(String fecha1, String fecha2) async {
       return response.statusCode;
     } else if (response.statusCode == 400) {
       print(response.statusCode);
+      
+      
       final error = mensajePeticionFromJson(response.body);
+
+      
       print(error);
       return error; 
     }
