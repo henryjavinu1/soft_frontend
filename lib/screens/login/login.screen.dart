@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:soft_frontend/screens/talonarios/talonarios.screen.dart';
 
 enum Gender {
   Email,
@@ -37,8 +38,7 @@ class _LoginState extends State<Login> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text("Login"),
-                      TextField(
-                          decoration: InputDecoration(labelText: "User")),
+                      TextField(decoration: InputDecoration(labelText: "User")),
                       TextField(
                           obscureText: true,
                           decoration: InputDecoration(labelText: "Password")),
@@ -46,7 +46,11 @@ class _LoginState extends State<Login> {
                           color: Colors.blue,
                           child: Text("Log In",
                               style: TextStyle(color: Colors.white)),
-                          onPressed: () {})
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    const TalonariosScreen()));
+                          })
                     ]),
               ),
             ));

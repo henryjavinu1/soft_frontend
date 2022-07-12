@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soft_frontend/screens/login/login.screen.dart';
+import 'package:soft_frontend/screens/talonarios/talonarios.screen.dart';
 
 void main() {
   runApp(const MyApp());
