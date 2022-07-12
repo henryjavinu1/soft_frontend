@@ -1,7 +1,7 @@
 //ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:soft_frontend/services/arqueo.service.dart';
+import 'package:soft_frontend/models/Arqueo.model.dart';
 
 class MostrarArqueo extends StatefulWidget {
   @override
