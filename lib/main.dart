@@ -27,8 +27,8 @@ class MyApp extends StatelessWidget {
         'mantenimiento': (_) => const Mantenimiento(),
         'crear_cliente': (_) => CrearClientes(),
         'manipular_factura': (_) => ManipularFactura(),
-        'crear_tipopago': (_) => CrearTipoPagos(),
         'listar_tipopago': (_) => BuscarTipoPago(),
+        'crear_tipopago': (_) => CrearTipoPagos(),
       },
     );
   }
