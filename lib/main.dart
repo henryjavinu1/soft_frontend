@@ -30,7 +30,6 @@ class MyApp extends StatelessWidget {
         'listar_tipopago': (_) => BuscarTipoPago(),
         'crear_tipopago': (_) => CrearTipoPagos(),
         'mostrar_arqueo': (_) => MostrarArqueo(),
-        'manipular_factura': (_) => ManipularFactura(),
       },
     );
   }
