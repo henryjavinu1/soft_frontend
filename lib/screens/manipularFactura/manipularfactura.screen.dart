@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:soft_frontend/models/errorPeticion.model.dart';
 
 import 'package:soft_frontend/models/facturaBuscada.model.dart';
 import 'package:soft_frontend/models/unaFacturaBuscada.model.dart';
 import 'package:soft_frontend/services/manipularfactura.service.dart';
+
+typedef void IntCallback(int opcion);
 
 class ManipularFactura extends StatefulWidget {
   const ManipularFactura({Key? key}) : super(key: key);
@@ -14,8 +17,11 @@ class ManipularFactura extends StatefulWidget {
 class _ManipularFacturaState extends State<ManipularFactura> {
   final _textController = new TextEditingController();
   final _textController2 = new TextEditingController();
+  String hintText = 'Número de factura';
   List<FacturaBuscada> facturas = [];
+  List<FacturaBuscada> facturasPorCliente = [];
   int campos = 1000;
+  int _atributoSeleccionado = 0;
 
   @override
   void initState() {
@@ -28,6 +34,8 @@ class _ManipularFacturaState extends State<ManipularFactura> {
     setState(() {});
     // print(facturas.length);
   }
+
+  set intSele(int value) => setState(() => _atributoSeleccionado = value);
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +66,7 @@ class _ManipularFacturaState extends State<ManipularFactura> {
             ),
             Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
               DropdownButton(
-                hint: Text('Número de factura'),
+                hint: Text(hintText),
                 items: const [
                   DropdownMenuItem(
                     child: Text('Buscar por número de factura'),
@@ -84,19 +92,28 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                 onChanged: (int? value) {
                   if (value == 1) {
                     campos = 1;
+                    _atributoSeleccionado = 0;
+                    hintText = 'Filtrar por cliente';
                     setState(() {});
                   } else if (value == 2) {
                     campos = 2;
+                    _atributoSeleccionado = 0;
+                    hintText = 'Filtrar por fecha';
                     setState(() {});
                   } else if (value == 3) {
                     campos = 3;
+                    _atributoSeleccionado = 0;
+                    hintText = 'Filtrar por talonario';
                     setState(() {});
                   } else if (value == 4) {
                     campos = 4;
+                    _atributoSeleccionado = 0;
+                    hintText = 'Filtrar por empleado';
                     setState(() {});
-                  }
-                  if (value == 0) {
+                  } else {
                     campos = 0;
+                    _atributoSeleccionado = 0;
+                    hintText = 'Buscar por número de factura';
                     setState(() {});
                   }
                 },
@@ -107,17 +124,15 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                 child: CamposDeBusqueda(
                     textController: _textController,
                     textController2: _textController2,
-                    campo: campos),
+                    campo: campos,
+                    callback: (val) => setState(() => _atributoSeleccionado = val)),
               )),
               ElevatedButton(
                 onPressed: () async {
                   if (_textController.text.trim().isNotEmpty) {
                     if (campos == 0) {
-                      if (await buscarFacturaPorNumero(
-                          _textController.text.trim()) is UnaFacturaBuscada) {
-                        UnaFacturaBuscada facturaBuscada =
-                            await buscarFacturaPorNumero(
-                                _textController.text.trim());
+                      if (await buscarFacturaPorNumero(_textController.text.trim()) is UnaFacturaBuscada) {
+                        UnaFacturaBuscada facturaBuscada = await buscarFacturaPorNumero(_textController.text.trim());
                         showDialog(
                             context: context,
                             builder: (BuildContext context) => AlertDialog(
@@ -200,9 +215,124 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                                 ));
                       }
                     } else if ( campos == 1){
-
+                      print(_atributoSeleccionado);
+                      if (_atributoSeleccionado == 0) {
+                        if(await filtrarFacturasPorCliente(_textController.text.trim(), '', '') is List<FacturaBuscada>){
+                          facturas = await filtrarFacturasPorCliente(_textController.text.trim(), '', '');
+                        } else if (await filtrarFacturasPorCliente(_textController.text.trim(), '', '') == 404) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                                  title: Text(
+                                      'No se encontró ningún resultado para la factura con número: ${_textController.text.trim()}'),
+                                  actions: [
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text('Cerrar'))
+                                  ],
+                                ));
+                        }
+                        setState(() {
+                          
+                        });
+                      } else if (_atributoSeleccionado == 1) {
+                        if(await filtrarFacturasPorCliente('', _textController.text.trim(), '') is List<FacturaBuscada>){
+                          facturas = await filtrarFacturasPorCliente('', _textController.text.trim(), '');
+                        } else if (await filtrarFacturasPorCliente('', _textController.text.trim(), '') == 404) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                                  title: Text(
+                                      'No se encontró ningún resultado para la factura con número: ${_textController.text.trim()}'),
+                                  actions: [
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text('Cerrar'))
+                                  ],
+                                ));
+                        } else if (await filtrarFacturasPorCliente('', _textController.text.trim(), '') is MensajePeticion){
+                          MensajePeticion mensajeError = await filtrarFacturasPorCliente('', _textController.text.trim(), '');
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                                  title: Text(
+                                      mensajeError.msg),
+                                  actions: [
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text('Cerrar'))]));
+                        }
+                        setState(() {});
+                      } else if (_atributoSeleccionado == 2) {
+                        if(await filtrarFacturasPorCliente('', '', _textController.text.trim()) is List<FacturaBuscada>){
+                          facturas = await filtrarFacturasPorCliente('', '', _textController.text.trim());
+                          setState(() {});
+                        } else if (await filtrarFacturasPorCliente('', '', _textController.text.trim()) == 404) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                                  title: Text(
+                                      'No se encontró ningún resultado para la factura con número: ${_textController.text.trim()}'),
+                                  actions: [
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text('Cerrar'))
+                                  ],
+                                ));
+                        }else if (await filtrarFacturasPorCliente('', '', _textController.text.trim()) is MensajePeticion){
+                          MensajePeticion mensajeError = await filtrarFacturasPorCliente('', '', _textController.text.trim());
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                                  title: Text(
+                                      mensajeError.msg),
+                                  actions: [
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text('Cerrar'))]));
+                        }
+                        
+                      } 
                     } else if ( campos == 2){
-                      
+                      if (_textController2.text.isEmpty) {
+                        if (await filtrarFacturasPorFecha(_textController.text.trim(), '') is List<FacturaBuscada>) {
+                          facturas = await filtrarFacturasPorFecha(_textController.text.trim(), '');
+                          setState(() {
+                            
+                          });
+                        } else if (await filtrarFacturasPorFecha(_textController.text.trim(), '') == 404) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                                  title: Text(
+                                      'No se encontró ningún resultado para la factura con número: ${_textController.text.trim()}'),
+                                  actions: [
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text('Cerrar'))
+                                  ],
+                                ));
+                        }
+                      } else {
+                        if (await filtrarFacturasPorFecha(_textController.text.trim(), _textController2.text.trim()) is List<FacturaBuscada>) {
+                          facturas = await filtrarFacturasPorFecha(_textController.text.trim(), _textController2.text.trim());
+                          setState(() {
+                            
+                          });
+                        }
+                      }
                     }
                   } else {
                     showDialog(
@@ -459,6 +589,10 @@ class _ManipularFacturaState extends State<ManipularFactura> {
           ],
         ));
   }
+
+  int retornarOpcion(int opcion){
+    return opcion;
+  }
 }
 
 class CamposDeBusqueda extends StatefulWidget {
@@ -467,12 +601,14 @@ class CamposDeBusqueda extends StatefulWidget {
     required TextEditingController textController,
     required this.campo,
     required this.textController2, 
+    required this.callback, 
   })  : _textController = textController,
         super(key: key);
 
   final TextEditingController _textController;
   final TextEditingController textController2;
   final int campo;
+  final IntCallback callback;
 
   @override
   State<CamposDeBusqueda> createState() => _CamposDeBusquedaState();
@@ -481,6 +617,11 @@ class CamposDeBusqueda extends StatefulWidget {
 class _CamposDeBusquedaState extends State<CamposDeBusqueda> {
   String label = 'Nombre de cliente';
   int opciones = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     if (widget.campo == 1) {
@@ -491,8 +632,6 @@ class _CamposDeBusquedaState extends State<CamposDeBusqueda> {
           TextField(
             controller: widget._textController,
             onChanged: (value) {
-              // value = value+opciones.toString();
-              print(value);
             },
             decoration: InputDecoration(
               border: OutlineInputBorder(),
@@ -506,6 +645,7 @@ class _CamposDeBusquedaState extends State<CamposDeBusqueda> {
                 onPressed: () {
                   label = 'Nombre de cliente';
                   opciones = 0;
+                  widget.callback(0);
                   setState(() {});
                 },
                 child: Text('Nombre de cliente'),
@@ -522,6 +662,7 @@ class _CamposDeBusquedaState extends State<CamposDeBusqueda> {
                 onPressed: () {
                   label = 'RTN';
                   opciones = 1;
+                  widget.callback(1);
                   setState(() {});
                 },
                 child: Text('RTN'),
@@ -538,6 +679,7 @@ class _CamposDeBusquedaState extends State<CamposDeBusqueda> {
                 onPressed: () {
                   label = 'DNI';
                   opciones = 2;
+                  widget.callback(2);
                   setState(() {});
                 },
                 child: Text('DNI'),
@@ -623,6 +765,7 @@ class _CamposDeBusquedaState extends State<CamposDeBusqueda> {
                 onPressed: () {
                   label = 'Id de talonario';
                   opciones = 0;
+                  widget.callback(0);
                   setState(() {});
                 },
                 child: Text('Id de talonario'),
@@ -639,6 +782,7 @@ class _CamposDeBusquedaState extends State<CamposDeBusqueda> {
                 onPressed: () {
                   label = 'CAI';
                   opciones = 1;
+                  widget.callback(1);
                   setState(() {});
                 },
                 child: Text('CAI'),
