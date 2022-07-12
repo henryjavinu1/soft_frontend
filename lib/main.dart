@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:soft_frontend/screens/screens.dart';
+import 'package:soft_frontend/screens/tipoPago/buscarTipoPago.screen.dart';
+import 'package:soft_frontend/screens/tipoPago/crearTipoPago.screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,12 +19,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: 'crear_cliente',
+      initialRoute: 'listar_tipopago',
       routes: {
         'login': (_) => const Login(),
         'pantalla_principal': (_) => const PantallaPrincipal(),
         'mantenimiento': (_) => const Mantenimiento(),
         'crear_cliente': (_) => CrearClientes(),
+        'crear_tipopago': (_) => CrearTipoPagos(),
+        'listar_tipopago': (_) => BuscarTipoPago(),
       },
     );
   }
