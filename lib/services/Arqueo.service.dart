@@ -4,7 +4,7 @@ import 'package:soft_frontend/models/arqueo.model.dart';
 
 // ignore: non_constant_identifier_names
 
-Future<List<Arqueo>> mostrarArqueo() async {
+Future mostrarArqueo() async {
   List<Arqueo> arqueos = [];
   try {
     var response = await http
