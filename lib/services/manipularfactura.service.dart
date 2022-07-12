@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:soft_frontend/models/errorPeticion.model.dart';
 import 'package:soft_frontend/models/facturaBuscada.model.dart';
 import 'package:soft_frontend/models/manipularFacturaResponse.dart';
+import 'package:soft_frontend/models/mostrarUnaFactura.model.dart';
 import 'package:soft_frontend/models/unaFacturaBuscada.model.dart';
 
 // ignore: non_constant_identifier_names
@@ -173,6 +174,27 @@ Future filtrarFacturasPorEmpleado(String idEmpleado,) async {
   } catch (e) {
     print(e);
     return facturaVacia;
+  }
+}
+
+Future mostrarDatosDeUnaFactura(String numeroFactura) async {
+  String url = 'http://localhost:8080/api/traerunafactura/';
+  if (numeroFactura.isNotEmpty) {
+    url = url+'?numeroFactura=$numeroFactura';
+  }
+  try {
+    var response = await http.get(Uri.parse(url));
+    final datosFactura = mostrarUnaFacturaFromJson(response.body);
+    // print(response.request);
+    // print(response.statusCode);
+    if (response.statusCode == 200) {
+      // print(jsonDecode(response.body));
+      // print(datosFactura.facturaConDatos);
+    }
+    return datosFactura;
+  } catch (e) {
+    print(e);
+    return e;
   }
 }
 

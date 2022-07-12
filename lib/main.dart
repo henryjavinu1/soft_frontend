@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:soft_frontend/screens/manipularFactura/manipularfactura.screen.dart';
 import 'package:soft_frontend/screens/screens.dart';
+import 'package:soft_frontend/screens/tipoPago/buscarTipoPago.screen.dart';
+import 'package:soft_frontend/screens/tipoPago/crearTipoPago.screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,6 +26,9 @@ class MyApp extends StatelessWidget {
         'pantalla_principal': (_) => const PantallaPrincipal(),
         'mantenimiento': (_) => const Mantenimiento(),
         'crear_cliente': (_) => CrearClientes(),
+        'manipular_factura': (_) => ManipularFactura(),
+        'listar_tipopago': (_) => BuscarTipoPago(),
+        'crear_tipopago': (_) => CrearTipoPagos(),
         'mostrar_arqueo': (_) => MostrarArqueo(),
         'manipular_factura': (_) => ManipularFactura(),
       },
