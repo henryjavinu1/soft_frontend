@@ -105,11 +105,67 @@ Future filtrarFacturasPorFecha(String fecha1, String fecha2) async {
       return response.statusCode;
     } else if (response.statusCode == 400) {
       print(response.statusCode);
-      
-      
       final error = mensajePeticionFromJson(response.body);
+      print(error);
+      return error; 
+    }
+    return facturaVacia;
+  } catch (e) {
+    print(e);
+    return facturaVacia;
+  }
+}
 
-      
+Future filtrarFacturasPorTalonario(String idTalonario, String cai) async {
+  List<FacturaBuscada> facturaVacia = [];
+  String url = 'http://localhost:8080/api/buscarfacturaportalonario/';
+  try {
+    if (idTalonario.isEmpty && cai.isNotEmpty) {
+      url = url+'?cai=$cai';
+    } else {
+      url = url+'?idTalonario=$idTalonario';
+    } 
+    print(url);
+    var response = await http.get(Uri.parse(url));
+    print(response.request);
+    if (response.statusCode == 200) {
+      final facturas = manipularFacturaResponseFromJson(response.body);
+      print(facturas.facturas);
+      return facturas.facturas;
+    } else if (response.statusCode == 404) {
+      return response.statusCode;
+    } else if (response.statusCode == 400) {
+      print(response.statusCode);
+      final error = mensajePeticionFromJson(response.body);
+      print(error);
+      return error; 
+    }
+    return facturaVacia;
+  } catch (e) {
+    print(e);
+    return facturaVacia;
+  }
+}
+
+Future filtrarFacturasPorEmpleado(String idEmpleado,) async {
+  List<FacturaBuscada> facturaVacia = [];
+  String url = 'http://localhost:8080/api/buscarfacturaporempleado/';
+  try {
+    if(idEmpleado.isNotEmpty) {
+      url = url+'?idEmpleado=$idEmpleado';
+    } 
+    print(url);
+    var response = await http.get(Uri.parse(url));
+    print(response.request);
+    if (response.statusCode == 200) {
+      final facturas = manipularFacturaResponseFromJson(response.body);
+      print(facturas.facturas);
+      return facturas.facturas;
+    } else if (response.statusCode == 404) {
+      return response.statusCode;
+    } else if (response.statusCode == 400) {
+      print(response.statusCode);
+      final error = mensajePeticionFromJson(response.body);
       print(error);
       return error; 
     }
