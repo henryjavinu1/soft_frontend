@@ -1,7 +1,6 @@
 //ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_frontend/models/arqueo.model.dart';
 import 'package:soft_frontend/services/arqueo.service.dart';
 
@@ -26,229 +25,129 @@ class _MostrarArqueoState extends State<MostrarArqueo> {
   var updatedAtController = TextEditingController();
   var idUsuarioController = TextEditingController();
   var idSesionController = TextEditingController();*/
-  List<Arqueo> arqueo = [];
-  int campos = 1000;
-  int _atributoSeleccionado = 0;
-
+  //cargar la lista con los datos del archivo arqueo.service.dart
+  List<Arqueo> arqueos = [];
   @override
   void initState() {
     super.initState();
-    _cargarArqueo();
+    _cargarArqueos();
   }
 
-  _cargarArqueo() async {
-    this.arqueo = await mostrarArqueo();
+  _cargarArqueos() async {
+    this.arqueos = await mostrarArqueo();
     setState(() {});
   }
 
-  set intSale(int value) {
-    setState(() {
-      _atributoSeleccionado = value;
-    });
-  }
-
   @override
-  //crear una tabla usando dataTable de flutter
+  //crear una tabla usando un datatable
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: Padding(
-          padding: EdgeInsets.symmetric(
-              vertical: size.height * 0.05, horizontal: size.width * 0.05),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Center(
-                    child: Padding(
-                      padding: EdgeInsets.only(right: size.width * 0.05),
-                      child: Text(
-                        'Mostrar Arqueos',
-                        style: GoogleFonts.poppins(
-                          color: Colors.black,
-                          fontSize: size.width * 0.015,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+      appBar: AppBar(
+        title: Text('Mostrar Arqueo'),
+      ),
+      body: SingleChildScrollView(
+        child: DataTable(
+          columns: const [
+            DataColumn(
+              label: Text('ID'),
+            ),
+            DataColumn(
+              label: Text('Fecha Inicio'),
+            ),
+            DataColumn(
+              label: Text('Fecha Final'),
+            ),
+            DataColumn(
+              label: Text('Efectivo Apertura'),
+            ),
+            DataColumn(
+              label: Text('Efectivo Cierre'),
+            ),
+            DataColumn(
+              label: Text('Otros Pagos'),
+            ),
+            DataColumn(
+              label: Text('Venta Credito'),
+            ),
+            DataColumn(
+              label: Text('Venta Total'),
+            ),
+            DataColumn(
+              label: Text('Efectivo Total'),
+            ),
+            DataColumn(
+              label: Text('Created At'),
+            ),
+            DataColumn(
+              label: Text('Updated At'),
+            ),
+            DataColumn(
+              label: Text('Id Usuario'),
+            ),
+            DataColumn(
+              label: Text('Id Sesion'),
+            ),
+          ],
+          rows: arqueos
+              .map(
+                (arqueo) => DataRow(
+                  cells: [
+                    DataCell(
+                      Text(arqueo.id.toString()),
                     ),
-                  ),
-                ],
-              ),
-              Expanded(
-                  child: Container(
-                      margin:
-                          EdgeInsets.symmetric(vertical: size.height * 0.05),
-                      padding: EdgeInsets.symmetric(
-                          vertical: size.height * 0.02,
-                          horizontal: size.width * 0.03),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(5))),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  'ID',
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontSize: size.width * 0.01,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  'Fecha Inicio',
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontSize: size.width * 0.01,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  'Fecha Final',
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontSize: size.width * 0.01,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  'Efectivo Apertura',
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontSize: size.width * 0.01,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  'Efectivo Cierre',
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontSize: size.width * 0.01,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  'Otros Pagos',
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontSize: size.width * 0.01,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  'Venta Credito',
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontSize: size.width * 0.01,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  'Venta Total',
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontSize: size.width * 0.01,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  'Efectivo Total',
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontSize: size.width * 0.01,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  'Is Delete',
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontSize: size.width * 0.01,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  'Created At',
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontSize: size.width * 0.01,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  'Updated At',
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontSize: size.width * 0.01,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  'ID Usuario',
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontSize: size.width * 0.01,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  'ID Sesion',
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontSize: size.width * 0.01,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ))),
-            ],
+                    DataCell(
+                      Text(arqueo.fechaInicio.toString()),
+                    ),
+                    DataCell(
+                      Text(arqueo.fechaFinal.toString()),
+                    ),
+                    DataCell(
+                      Text(arqueo.efectivoApertura.toString()),
+                    ),
+                    DataCell(
+                      Text(arqueo.efectivoCierre.toString()),
+                    ),
+                    DataCell(
+                      Text(arqueo.otrosPagos.toString()),
+                    ),
+                    DataCell(
+                      Text(arqueo.ventaCredito.toString()),
+                    ),
+                    DataCell(
+                      Text(arqueo.ventaTotal.toString()),
+                    ),
+                    DataCell(
+                      Text(arqueo.efectivoTotal.toString()),
+                    ),
+                    DataCell(
+                      Text(arqueo.createdAt.toString()),
+                    ),
+                    DataCell(
+                      Text(arqueo.updatedAt.toString()),
+                    ),
+                    DataCell(
+                      Text(arqueo.idUsuario.toString()),
+                    ),
+                    DataCell(
+                      Text(arqueo.idSesion.toString()),
+                    ),
+                  ],
+                ),
+              )
+              .toList(),
+          border: TableBorder(
+            horizontalInside: BorderSide(
+              color: Colors.black,
+              width: 1,
+            ),
+            verticalInside: BorderSide(
+              color: Colors.black,
+              width: 1,
+            ),
           ),
-        ));
+          columnSpacing: 15,
+        ),
+      ),
+    );
   }
 }
