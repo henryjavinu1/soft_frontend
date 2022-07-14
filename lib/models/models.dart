@@ -4,4 +4,4 @@ export 'package:soft_frontend/models/permiso.model.dart';
 export 'package:soft_frontend/models/rol.model.dart';
 export 'package:soft_frontend/models/rolPermiso.model.dart';
 export 'package:soft_frontend/models/sesion.model.dart';
-export 'package:soft_frontend/models/arqueo.model.dart';
+export 'package:soft_frontend/models/mostrarArqueo.model.dart';

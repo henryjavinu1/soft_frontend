@@ -15,7 +15,7 @@ class Arqueo {
     required this.ventaCredito,
     required this.ventaTotal,
     required this.efectivoTotal,
-    required this.isDeleted,
+    required this.isDelete,
     required this.createdAt,
     required this.updatedAt,
     required this.idUsuario,
@@ -31,7 +31,7 @@ class Arqueo {
   double ventaCredito;
   double ventaTotal;
   double efectivoTotal;
-  bool isDeleted;
+  bool isDelete;
   DateTime createdAt;
   DateTime updatedAt;
   int idUsuario;
@@ -47,7 +47,7 @@ class Arqueo {
         ventaCredito: json["ventaCredito"].toDouble(),
         ventaTotal: json["ventaTotal"].toDouble(),
         efectivoTotal: json["efectivoTotal"].toDouble(),
-        isDeleted: json["isDelete"],
+        isDelete: json["isDelete"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
         idUsuario: json["idUsuario"],
@@ -64,7 +64,7 @@ class Arqueo {
         "ventaCredito": ventaCredito,
         "ventaTotal": ventaTotal,
         "efectivoTotal": efectivoTotal,
-        "isDelete": isDeleted,
+        "isDelete": isDelete,
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
         "idUsuario": idUsuario,

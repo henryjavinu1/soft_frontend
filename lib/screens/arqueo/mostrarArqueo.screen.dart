@@ -1,8 +1,12 @@
 //ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:soft_frontend/models/arqueo.model.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:soft_frontend/models/mostrarArqueo.model.dart';
 import 'package:soft_frontend/services/arqueo.service.dart';
+import 'package:soft_frontend/screens/arqueo/components/cabeceraDeTablaArqueo.component.dart';
+
+typedef void InCallBack(int opcion);
 
 class MostrarArqueo extends StatefulWidget {
   const MostrarArqueo({Key? key}) : super(key: key);
@@ -11,22 +15,8 @@ class MostrarArqueo extends StatefulWidget {
 }
 
 class _MostrarArqueoState extends State<MostrarArqueo> {
-  /*var idController = TextEditingController();
-  var fechaIncioController = TextEditingController();
-  var fechaFinalController = TextEditingController();
-  var efectivoAperturaController = TextEditingController();
-  var efectivoCierreController = TextEditingController();
-  var otrosPagosController = TextEditingController();
-  var ventaCreditoController = TextEditingController();
-  var ventaTotalController = TextEditingController();
-  var efectivoTotalController = TextEditingController();
-  var isDeleteController = TextEditingController();
-  var createdAtController = TextEditingController();
-  var updatedAtController = TextEditingController();
-  var idUsuarioController = TextEditingController();
-  var idSesionController = TextEditingController();*/
-  //cargar la lista con los datos del archivo arqueo.service.dart
   List<Arqueo> arqueos = [];
+
   @override
   void initState() {
     super.initState();
@@ -34,120 +24,186 @@ class _MostrarArqueoState extends State<MostrarArqueo> {
   }
 
   _cargarArqueos() async {
-    this.arqueos = await mostrarArqueo();
+    arqueos = await mostrarArqueo();
     setState(() {});
   }
 
   @override
-  //crear una tabla usando un datatable
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Mostrar Arqueo'),
-      ),
-      body: SingleChildScrollView(
-        child: DataTable(
-          columns: const [
-            DataColumn(
-              label: Text('ID'),
-            ),
-            DataColumn(
-              label: Text('Fecha Inicio'),
-            ),
-            DataColumn(
-              label: Text('Fecha Final'),
-            ),
-            DataColumn(
-              label: Text('Efectivo Apertura'),
-            ),
-            DataColumn(
-              label: Text('Efectivo Cierre'),
-            ),
-            DataColumn(
-              label: Text('Otros Pagos'),
-            ),
-            DataColumn(
-              label: Text('Venta Credito'),
-            ),
-            DataColumn(
-              label: Text('Venta Total'),
-            ),
-            DataColumn(
-              label: Text('Efectivo Total'),
-            ),
-            DataColumn(
-              label: Text('Created At'),
-            ),
-            DataColumn(
-              label: Text('Updated At'),
-            ),
-            DataColumn(
-              label: Text('Id Usuario'),
-            ),
-            DataColumn(
-              label: Text('Id Sesion'),
-            ),
-          ],
-          rows: arqueos
-              .map(
-                (arqueo) => DataRow(
-                  cells: [
-                    DataCell(
-                      Text(arqueo.id.toString()),
-                    ),
-                    DataCell(
-                      Text(arqueo.fechaInicio.toString()),
-                    ),
-                    DataCell(
-                      Text(arqueo.fechaFinal.toString()),
-                    ),
-                    DataCell(
-                      Text(arqueo.efectivoApertura.toString()),
-                    ),
-                    DataCell(
-                      Text(arqueo.efectivoCierre.toString()),
-                    ),
-                    DataCell(
-                      Text(arqueo.otrosPagos.toString()),
-                    ),
-                    DataCell(
-                      Text(arqueo.ventaCredito.toString()),
-                    ),
-                    DataCell(
-                      Text(arqueo.ventaTotal.toString()),
-                    ),
-                    DataCell(
-                      Text(arqueo.efectivoTotal.toString()),
-                    ),
-                    DataCell(
-                      Text(arqueo.createdAt.toString()),
-                    ),
-                    DataCell(
-                      Text(arqueo.updatedAt.toString()),
-                    ),
-                    DataCell(
-                      Text(arqueo.idUsuario.toString()),
-                    ),
-                    DataCell(
-                      Text(arqueo.idSesion.toString()),
-                    ),
-                  ],
-                ),
-              )
-              .toList(),
-          border: TableBorder(
-            horizontalInside: BorderSide(
-              color: Colors.black,
-              width: 1,
-            ),
-            verticalInside: BorderSide(
-              color: Colors.black,
-              width: 1,
-            ),
-          ),
-          columnSpacing: 15,
+      backgroundColor: Colors.white,
+      body: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: size.width * 0.03,
+          vertical: size.height * 0.02,
+        ),
+        child: Column(
+          children: [
+            Row(children: [
+              Center(
+                child: Padding(
+                    padding: EdgeInsets.only(right: size.width * 0.01),
+                    child: Text(
+                      'Arqueos',
+                      style: GoogleFonts.poppins(
+                          fontSize: size.width * 0.015,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black87),
+                    )),
+              ),
+            ]),
+            Expanded(
+                child: Container(
+                    margin: EdgeInsets.symmetric(vertical: size.width * 0.02),
+                    padding: EdgeInsets.symmetric(
+                        vertical: size.width * 0.02,
+                        horizontal: size.width * 0.03),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(5))),
+                    child: Column(
+                      children: [
+                        CabeceraDeTablaArqueo(size: size),
+                        SizedBox(height: size.height * 0.01),
+                        Expanded(child: _listViewArqueo()),
+                      ],
+                    ))),
+          ], //Children
         ),
       ),
     );
+  }
+
+  ListView _listViewArqueo() {
+    return ListView.separated(
+      physics: BouncingScrollPhysics(),
+      separatorBuilder: (_, i) => Divider(),
+      itemCount: arqueos.length,
+      itemBuilder: (_, i) => _arqueoItemList(arqueos[i]),
+    );
+  }
+
+  Container _arqueoItemList(Arqueo arqueo) {
+    Size size = MediaQuery.of(context).size;
+    return Container(
+        decoration: BoxDecoration(color: Colors.white),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              flex: 1,
+              child: Text(
+                arqueo.id.toString(),
+                style: GoogleFonts.lato(
+                    fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Text(
+                arqueo.fechaInicio.toString(),
+                style: GoogleFonts.lato(
+                    fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Text(
+                arqueo.fechaFinal.toString(),
+                style: GoogleFonts.lato(
+                    fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Text(
+                arqueo.efectivoApertura.toString(),
+                style: GoogleFonts.lato(
+                    fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Text(
+                arqueo.efectivoCierre.toString(),
+                style: GoogleFonts.lato(
+                    fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Text(
+                arqueo.otrosPagos.toString(),
+                style: GoogleFonts.lato(
+                    fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Text(
+                arqueo.ventaCredito.toString(),
+                style: GoogleFonts.lato(
+                    fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Text(
+                arqueo.ventaTotal.toString(),
+                style: GoogleFonts.lato(
+                    fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Text(
+                arqueo.efectivoTotal.toString(),
+                style: GoogleFonts.lato(
+                    fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Text(
+                arqueo.isDelete.toString(),
+                style: GoogleFonts.lato(
+                    fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Text(
+                arqueo.createdAt.toString(),
+                style: GoogleFonts.lato(
+                    fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Text(
+                arqueo.updatedAt.toString(),
+                style: GoogleFonts.lato(
+                    fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Text(
+                arqueo.idUsuario.toString(),
+                style: GoogleFonts.lato(
+                    fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Text(
+                arqueo.idSesion.toString(),
+                style: GoogleFonts.lato(
+                    fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+              ),
+            ),
+          ],
+        ));
   }
 }
