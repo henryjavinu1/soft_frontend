@@ -24,7 +24,7 @@ class _MostrarArqueoState extends State<MostrarArqueo> {
   }
 
   _cargarArqueos() async {
-    arqueos = await mostrarArqueo();
+    this.arqueos = await mostrarArqueo();
     setState(() {});
   }
 
@@ -53,22 +53,9 @@ class _MostrarArqueoState extends State<MostrarArqueo> {
                     )),
               ),
             ]),
-            Expanded(
-                child: Container(
-                    margin: EdgeInsets.symmetric(vertical: size.width * 0.02),
-                    padding: EdgeInsets.symmetric(
-                        vertical: size.width * 0.02,
-                        horizontal: size.width * 0.03),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(5))),
-                    child: Column(
-                      children: [
-                        CabeceraDeTablaArqueo(size: size),
-                        SizedBox(height: size.height * 0.01),
-                        Expanded(child: _listViewArqueo()),
-                      ],
-                    ))),
+            CabeceraDeTablaArqueo(size: size),
+            SizedBox(height: size.height * 0.01),
+            Expanded(child: _listViewArqueo()),
           ], //Children
         ),
       ),
