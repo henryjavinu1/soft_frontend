@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 
 class TextButtons extends StatelessWidget {
-  final Object? argument;
   final String name;
   final String route;
   final double width;
@@ -12,7 +11,6 @@ class TextButtons extends StatelessWidget {
 
   const TextButtons(
       {Key? key,
-      required this.argument,
       required this.name,
       required this.route, required this.width, required this.fontSize,})
       : super(key: key);
@@ -22,7 +20,7 @@ class TextButtons extends StatelessWidget {
   Size size = MediaQuery.of(context).size;
     return TextButton(
       onPressed: () {
-        Navigator.pushNamed(context, route, arguments: argument);
+        Navigator.pushNamed(context, route);
       },
       child: Container(
         width: size.width * width,

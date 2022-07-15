@@ -37,7 +37,6 @@ class PantallaPrincipalMovil extends StatelessWidget {
                   Visibility(
                       visible: true,
                       child: TextButtons(
-                        argument: response,
                         name: "Módulo de Mantenimiento",
                         route: 'mantenimiento',
                         width: 0.8,
@@ -51,7 +50,6 @@ class PantallaPrincipalMovil extends StatelessWidget {
                   Visibility(
                     visible: true,
                     child: TextButtons(
-                      argument: response,
                       name: "Módulo de Ventas",
                       route: 'mantenimiento',
                       width: 0.8,
@@ -66,7 +64,6 @@ class PantallaPrincipalMovil extends StatelessWidget {
                   Visibility(
                       visible: true,
                       child: TextButtons(
-                        argument: response,
                         name: "Módulo de Inventario",
                         route: 'mantenimiento',
                         width: 0.8,
@@ -80,7 +77,6 @@ class PantallaPrincipalMovil extends StatelessWidget {
                   Visibility(
                       visible: true,
                       child: TextButtons(
-                        argument: response,
                         name: "Gestión de Usuarios",
                         route: 'mantenimiento',
                         width: 0.8,
@@ -91,7 +87,6 @@ class PantallaPrincipalMovil extends StatelessWidget {
                   height: 100,
                 ),
                 TextButtons(
-                    argument: response,
                     name: 'Cerrar Sesión',
                     route: 'login',
                     width: 0.8,
