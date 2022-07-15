@@ -7,3 +7,4 @@ export 'package:soft_frontend/models/sesion.model.dart';
 export 'package:soft_frontend/models/cliente.model.dart';
 export 'package:soft_frontend/models/ventas.model.dart';
 export 'package:soft_frontend/models/detalleventa.model.dart';
+export 'package:soft_frontend/models/arqueo.model.dart';

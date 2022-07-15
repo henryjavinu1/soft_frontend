@@ -7,5 +7,4 @@ export 'package:soft_frontend/screens/pantallaPrincipal/principal.screen.dart';
 export 'package:soft_frontend/screens/mantenimiento/mantenimiento.screen.dart';
 export 'package:soft_frontend/screens/ventas/ventas.screen.dart';
 export 'package:soft_frontend/screens/cliente/crearCliente.screen.dart';
-
-
+export 'package:soft_frontend/screens/arqueo/mostrarArqueo.screen.dart';
