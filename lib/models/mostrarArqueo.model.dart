@@ -1,11 +1,12 @@
 import 'dart:convert';
 
-Arqueo mostrarArqueoFromJson(String str) => Arqueo.fromJson(json.decode(str));
+MostrarArqueo mostrarArqueoFromJson(String str) =>
+    MostrarArqueo.fromJson(json.decode(str));
 
-String mostrarArqueoToJson(Arqueo data) => json.encode(data.toJson());
+String mostrarArqueoToJson(MostrarArqueo data) => json.encode(data.toJson());
 
-class Arqueo {
-  Arqueo({
+class MostrarArqueo {
+  MostrarArqueo({
     required this.id,
     required this.fechaInicio,
     required this.fechaFinal,
@@ -37,7 +38,7 @@ class Arqueo {
   int idUsuario;
   int idSesion;
 
-  factory Arqueo.fromJson(Map<String, dynamic> json) => Arqueo(
+  factory MostrarArqueo.fromJson(Map<String, dynamic> json) => MostrarArqueo(
         id: json["id"],
         fechaInicio: DateTime.parse(json["fechaInicio"]),
         fechaFinal: DateTime.parse(json["fechaFinal"]),

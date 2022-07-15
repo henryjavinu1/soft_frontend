@@ -3,19 +3,19 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_frontend/models/mostrarArqueo.model.dart';
-import 'package:soft_frontend/services/arqueo.service.dart';
+import 'package:soft_frontend/services/Arqueo.service.dart';
 import 'package:soft_frontend/screens/arqueo/components/cabeceraDeTablaArqueo.component.dart';
 
 typedef void InCallBack(int opcion);
 
-class MostrarArqueo extends StatefulWidget {
-  const MostrarArqueo({Key? key}) : super(key: key);
+class MostrarArqueos extends StatefulWidget {
+  const MostrarArqueos({Key? key}) : super(key: key);
   @override
-  State<MostrarArqueo> createState() => _MostrarArqueoState();
+  State<MostrarArqueos> createState() => _MostrarArqueosState();
 }
 
-class _MostrarArqueoState extends State<MostrarArqueo> {
-  List<Arqueo> arqueos = [];
+class _MostrarArqueosState extends State<MostrarArqueos> {
+  List<MostrarArqueo> arqueos = [];
 
   @override
   void initState() {
@@ -24,7 +24,7 @@ class _MostrarArqueoState extends State<MostrarArqueo> {
   }
 
   _cargarArqueos() async {
-    this.arqueos = await mostrarArqueo();
+    this.arqueos = await traerArqueos();
     setState(() {});
   }
 
@@ -84,7 +84,7 @@ class _MostrarArqueoState extends State<MostrarArqueo> {
     );
   }
 
-  Container _arqueoItemList(Arqueo arqueo) {
+  Container _arqueoItemList(MostrarArqueo arqueos) {
     Size size = MediaQuery.of(context).size;
     return Container(
         decoration: BoxDecoration(color: Colors.white),
@@ -94,7 +94,7 @@ class _MostrarArqueoState extends State<MostrarArqueo> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueo.id.toString(),
+                arqueos.id.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),
@@ -102,7 +102,7 @@ class _MostrarArqueoState extends State<MostrarArqueo> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueo.fechaInicio.toString(),
+                arqueos.fechaInicio.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),
@@ -110,7 +110,7 @@ class _MostrarArqueoState extends State<MostrarArqueo> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueo.fechaFinal.toString(),
+                arqueos.fechaFinal.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),
@@ -118,7 +118,7 @@ class _MostrarArqueoState extends State<MostrarArqueo> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueo.efectivoApertura.toString(),
+                arqueos.efectivoApertura.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),
@@ -126,7 +126,7 @@ class _MostrarArqueoState extends State<MostrarArqueo> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueo.efectivoCierre.toString(),
+                arqueos.efectivoCierre.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),
@@ -134,7 +134,7 @@ class _MostrarArqueoState extends State<MostrarArqueo> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueo.otrosPagos.toString(),
+                arqueos.otrosPagos.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),
@@ -142,7 +142,7 @@ class _MostrarArqueoState extends State<MostrarArqueo> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueo.ventaCredito.toString(),
+                arqueos.ventaCredito.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),
@@ -150,7 +150,7 @@ class _MostrarArqueoState extends State<MostrarArqueo> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueo.ventaTotal.toString(),
+                arqueos.ventaTotal.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),
@@ -158,7 +158,7 @@ class _MostrarArqueoState extends State<MostrarArqueo> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueo.efectivoTotal.toString(),
+                arqueos.efectivoTotal.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),
@@ -166,7 +166,7 @@ class _MostrarArqueoState extends State<MostrarArqueo> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueo.isDelete.toString(),
+                arqueos.isDelete.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),
@@ -174,7 +174,7 @@ class _MostrarArqueoState extends State<MostrarArqueo> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueo.createdAt.toString(),
+                arqueos.createdAt.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),
@@ -182,7 +182,7 @@ class _MostrarArqueoState extends State<MostrarArqueo> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueo.updatedAt.toString(),
+                arqueos.updatedAt.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),
@@ -190,7 +190,7 @@ class _MostrarArqueoState extends State<MostrarArqueo> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueo.idUsuario.toString(),
+                arqueos.idUsuario.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),
@@ -198,7 +198,7 @@ class _MostrarArqueoState extends State<MostrarArqueo> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueo.idSesion.toString(),
+                arqueos.idSesion.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),

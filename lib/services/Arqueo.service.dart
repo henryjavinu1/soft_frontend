@@ -6,8 +6,8 @@ import 'package:soft_frontend/models/manipularArqueos.dart';
 
 // ignore: non_constant_identifier_names
 
-Future<List<Arqueo>> mostrarArqueo() async {
-  List<Arqueo> ArqueosVacio = [];
+Future<List<MostrarArqueo>> traerArqueos() async {
+  List<MostrarArqueo> ArqueosVacio = [];
   try {
     var response = await http.get(Uri.parse(API_URL + 'arqueo/mostrarArqueo'));
     if (response.statusCode == 200) {

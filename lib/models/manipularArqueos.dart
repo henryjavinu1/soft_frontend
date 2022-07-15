@@ -10,12 +10,12 @@ String ManipularArqueoToJson(ManipularArqueo data) =>
 class ManipularArqueo {
   ManipularArqueo({required this.arqueoss});
 
-  List<Arqueo> arqueoss;
+  List<MostrarArqueo> arqueoss;
 
   factory ManipularArqueo.fromJson(Map<String, dynamic> json) =>
       ManipularArqueo(
-        arqueoss:
-            List<Arqueo>.from(json["arqueos"].map((x) => Arqueo.fromJson(x))),
+        arqueoss: List<MostrarArqueo>.from(
+            json["arqueos"].map((x) => MostrarArqueo.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
