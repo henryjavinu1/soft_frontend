@@ -20,7 +20,7 @@ class _MostrarArqueoState extends State<MostrarArqueo> {
   @override
   void initState() {
     super.initState();
-    _cargarArqueos();
+    this._cargarArqueos();
   }
 
   _cargarArqueos() async {
@@ -53,9 +53,22 @@ class _MostrarArqueoState extends State<MostrarArqueo> {
                     )),
               ),
             ]),
-            CabeceraDeTablaArqueo(size: size),
-            SizedBox(height: size.height * 0.01),
-            Expanded(child: _listViewArqueo()),
+            Expanded(
+                child: Container(
+                    margin: EdgeInsets.symmetric(vertical: size.height * 0.02),
+                    padding: EdgeInsets.symmetric(
+                        vertical: size.height * 0.02,
+                        horizontal: size.height * 0.03),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(5))),
+                    child: Column(
+                      children: [
+                        CabeceraDeTablaArqueo(size: size),
+                        SizedBox(height: size.height * 0.01),
+                        Expanded(child: _listViewArqueo()),
+                      ],
+                    ))),
           ], //Children
         ),
       ),

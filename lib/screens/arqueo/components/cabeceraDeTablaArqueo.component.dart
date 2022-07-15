@@ -24,7 +24,7 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Text(
             'FechaInicio',
             style: GoogleFonts.lato(
@@ -32,7 +32,7 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Text(
             'FechaFinal',
             style: GoogleFonts.lato(
@@ -40,7 +40,7 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Text(
             'efectivoApertura',
             style: GoogleFonts.lato(
@@ -48,7 +48,7 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Text(
             'efectivoCierre',
             style: GoogleFonts.lato(
@@ -56,7 +56,7 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Text(
             'otrosPagos',
             style: GoogleFonts.lato(
@@ -64,7 +64,7 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Text(
             'ventaCredito',
             style: GoogleFonts.lato(
@@ -72,7 +72,7 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Text(
             'ventaTotal',
             style: GoogleFonts.lato(
@@ -80,7 +80,7 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Text(
             'efectivoTotal',
             style: GoogleFonts.lato(
