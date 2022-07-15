@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_frontend/models/mostrarArqueo.model.dart';
 import 'package:soft_frontend/services/Arqueo.service.dart';
 import 'package:soft_frontend/screens/arqueo/components/cabeceraDeTablaArqueo.component.dart';
+import 'package:soft_frontend/screens/arqueo/crearArqueo.screen.dart';
+import 'package:soft_frontend/screens/arqueo/eliminarArqueo.screen.dart';
 
 typedef void InCallBack(int opcion);
 
@@ -48,6 +50,21 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                         color: Colors.black87,
                         fontSize: size.width * 0.015,
                         fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: null,
+                child: Center(
+                  child: ElevatedButton(
+                    onPressed: () =>
+                        Navigator.of(context).push(new MaterialPageRoute(
+                      builder: (BuildContext context) => new CrearArque(),
+                    )),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                      child: Text('CrearNuevoArqueo'),
+                    ),
                   ),
                 ),
               ),
@@ -331,6 +348,18 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                 arqueosss.idSesion.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+              ),
+            ),
+            TextButton(
+              onPressed: null,
+              child: ElevatedButton(
+                onPressed: () => Navigator.of(context).push(
+                  new MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        new EliminarArque(arqueo: arqueosss),
+                  ),
+                ),
+                child: Text('Eliminar'),
               ),
             ),
           ],
