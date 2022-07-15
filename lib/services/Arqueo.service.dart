@@ -20,3 +20,23 @@ Future<List<MostrarArqueo>> traerArqueos() async {
     return ArqueosVacio;
   }
 }
+
+Future<MostrarArqueo?> buscarArqueoPorID(String idArqueo) async {
+  MostrarArqueo? arqueo = null;
+  try {
+    var response =
+        await http.post(Uri.parse(API_URL + 'arqueo/buscarPorUsuario'),
+            body: ({
+              'id': idArqueo,
+            }));
+    print(response.body.toString());
+    if (response.statusCode == 200) {
+      final arqueos = mostrarArqueoFromJson(response.body);
+      return arqueos;
+    } else {
+      return arqueo;
+    }
+  } catch (e) {
+    return arqueo;
+  }
+}

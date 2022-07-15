@@ -30,27 +30,26 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromARGB(255, 243, 243, 243),
       body: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: size.width * 0.03,
-          vertical: size.height * 0.02,
-        ),
+            vertical: size.height * 0.02, horizontal: size.width * 0.03),
         child: Column(
           children: [
             Row(children: [
               Center(
                 child: Padding(
-                    padding: EdgeInsets.only(right: size.width * 0.01),
-                    child: Text(
-                      'Arqueos',
-                      style: GoogleFonts.poppins(
-                          fontSize: size.width * 0.015,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black87),
-                    )),
+                  padding: EdgeInsets.only(right: size.width * 0.01),
+                  child: Text(
+                    'Arqueos',
+                    style: GoogleFonts.poppins(
+                        color: Colors.black87,
+                        fontSize: size.width * 0.015,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
               ),
             ]),
             Expanded(
@@ -64,12 +63,143 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                         borderRadius: BorderRadius.all(Radius.circular(5))),
                     child: Column(
                       children: [
-                        CabeceraDeTablaArqueo(size: size),
-                        SizedBox(height: size.height * 0.01),
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: Text(
+                                'id',
+                                style: GoogleFonts.lato(
+                                    fontSize: size.width * 0.01,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Text(
+                                'fechaInicio',
+                                style: GoogleFonts.lato(
+                                    fontSize: size.width * 0.01,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Text(
+                                'fechaFinal',
+                                style: GoogleFonts.lato(
+                                    fontSize: size.width * 0.01,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 2,
+                              child: Text(
+                                'efectivoApertura',
+                                style: GoogleFonts.lato(
+                                    fontSize: size.width * 0.01,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 2,
+                              child: Text(
+                                'efectivoCierre',
+                                style: GoogleFonts.lato(
+                                    fontSize: size.width * 0.01,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Text(
+                                'otrosPagos',
+                                style: GoogleFonts.lato(
+                                    fontSize: size.width * 0.01,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 2,
+                              child: Text(
+                                'ventaCredito',
+                                style: GoogleFonts.lato(
+                                    fontSize: size.width * 0.01,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 2,
+                              child: Text(
+                                'ventaTotal',
+                                style: GoogleFonts.lato(
+                                    fontSize: size.width * 0.01,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Text(
+                                'efectivoTotal',
+                                style: GoogleFonts.lato(
+                                    fontSize: size.width * 0.01,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Text(
+                                'isDelete',
+                                style: GoogleFonts.lato(
+                                    fontSize: size.width * 0.01,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Text(
+                                'createdAt',
+                                style: GoogleFonts.lato(
+                                    fontSize: size.width * 0.01,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Text(
+                                'updatedAt',
+                                style: GoogleFonts.lato(
+                                    fontSize: size.width * 0.01,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Text(
+                                'idUsuario',
+                                style: GoogleFonts.lato(
+                                    fontSize: size.width * 0.01,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Text(
+                                'idSesion',
+                                style: GoogleFonts.lato(
+                                    fontSize: size.width * 0.01,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: size.height * 0.01,
+                        ),
                         Expanded(child: _listViewArqueo()),
                       ],
-                    ))),
-          ], //Children
+                    )))
+          ],
         ),
       ),
     );
@@ -84,7 +214,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
     );
   }
 
-  Container _arqueoItemList(MostrarArqueo arqueos) {
+  Container _arqueoItemList(MostrarArqueo arqueosss) {
     Size size = MediaQuery.of(context).size;
     return Container(
         decoration: BoxDecoration(color: Colors.white),
@@ -94,7 +224,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueos.id.toString(),
+                arqueosss.id.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),
@@ -102,7 +232,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueos.fechaInicio.toString(),
+                arqueosss.fechaInicio.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),
@@ -110,7 +240,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueos.fechaFinal.toString(),
+                arqueosss.fechaFinal.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),
@@ -118,7 +248,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueos.efectivoApertura.toString(),
+                arqueosss.efectivoApertura.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),
@@ -126,7 +256,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueos.efectivoCierre.toString(),
+                arqueosss.efectivoCierre.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),
@@ -134,7 +264,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueos.otrosPagos.toString(),
+                arqueosss.otrosPagos.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),
@@ -142,7 +272,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueos.ventaCredito.toString(),
+                arqueosss.ventaCredito.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),
@@ -150,7 +280,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueos.ventaTotal.toString(),
+                arqueosss.ventaTotal.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),
@@ -158,7 +288,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueos.efectivoTotal.toString(),
+                arqueosss.efectivoTotal.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),
@@ -166,7 +296,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueos.isDelete.toString(),
+                arqueosss.isDelete.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),
@@ -174,7 +304,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueos.createdAt.toString(),
+                arqueosss.createdAt.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),
@@ -182,7 +312,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueos.updatedAt.toString(),
+                arqueosss.updatedAt.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),
@@ -190,7 +320,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueos.idUsuario.toString(),
+                arqueosss.idUsuario.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),
@@ -198,7 +328,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueos.idSesion.toString(),
+                arqueosss.idSesion.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),
