@@ -283,7 +283,7 @@ class _VentaState extends State<Venta> {
                   ),
                   Container(
                     width: size.width * 0.7,
-                    child: FutureBuilder(
+                    /*child: FutureBuilder(
                       future: mostrardetalleventa(),
                       builder: (BuildContext context, AsyncSnapshot snapshot){
                         
@@ -294,8 +294,8 @@ class _VentaState extends State<Venta> {
 
                       }
                       }
-                    ),
-               /* child: Table(
+                    ),*/
+                child: Table(
                   defaultColumnWidth: FixedColumnWidth(120.0),    
                         children: const  [
                           TableRow(
@@ -310,9 +310,9 @@ class _VentaState extends State<Venta> {
                           )
                         ],
                   
-                  */
+                  
                 ),
-              
+                  )
                 ],
               ),
               
