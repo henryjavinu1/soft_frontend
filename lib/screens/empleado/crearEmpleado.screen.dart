@@ -1,21 +1,19 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:soft_frontend/controllers/cliente.controller.dart';
-import 'package:soft_frontend/services/cliente.service.dart';
+//import 'package:soft_frontend/services/cliente.service.dart';
 
-class CrearClientes extends StatefulWidget {
+class crearEmpleados extends StatefulWidget {
   @override
-  State<CrearClientes> createState() => _CrearClientesState();
+  State<crearEmpleados> createState() => _CrearEmpleadosState();
 }
 
-class _CrearClientesState extends State<CrearClientes> {
-  var dniController = TextEditingController();
-  var rtnController = TextEditingController();
+class _CrearEmpleadosState extends State<crearEmpleados> {
   var nombreController = TextEditingController();
+  var apellidoController = TextEditingController();
   var direccionController = TextEditingController();
   var telefonoController = TextEditingController();
-  var emailController = TextEditingController();
+  var fechaNacimientoController = TextEditingController();
+  var sexoController = TextEditingController();
 
   @override
   Widget build(context) =>
@@ -33,12 +31,12 @@ class _CrearClientesState extends State<CrearClientes> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    "Crear Cliente",
+                    "Crear Empleado",
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 3),
                   const Text(
-                    "Por favor llene los campos",
+                    "llenar todos los campos",
                     style: TextStyle(fontSize: 15, color: Color(0xff606060)),
                   ),
                   const SizedBox(height: 40),
@@ -53,32 +51,6 @@ class _CrearClientesState extends State<CrearClientes> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Identificacion/DNI",
-                                style: TextStyle(fontSize: 18),
-                              ),
-                              TextFormField(
-                                controller: dniController,
-                                decoration: InputDecoration(
-                                    border: UnderlineInputBorder(),
-                                    hintText: '060190900404'),
-                              ),
-                              SizedBox(
-                                height: 40,
-                              ),
-                              Text(
-                                "RTN (Opcional)",
-                                style: TextStyle(fontSize: 18),
-                              ),
-                              TextFormField(
-                                controller: rtnController,
-                                decoration: InputDecoration(
-                                    border: UnderlineInputBorder(),
-                                    hintText: '0601909004043'),
-                              ),
-                              SizedBox(
-                                height: 40,
-                              ),
-                              Text(
                                 "Nombre",
                                 style: TextStyle(fontSize: 18),
                               ),
@@ -86,7 +58,20 @@ class _CrearClientesState extends State<CrearClientes> {
                                 controller: nombreController,
                                 decoration: InputDecoration(
                                     border: UnderlineInputBorder(),
-                                    hintText: 'Juan'),
+                                    hintText: 'Pedro'),
+                              ),
+                              SizedBox(
+                                height: 40,
+                              ),
+                              Text(
+                                "Apellido",
+                                style: TextStyle(fontSize: 18),
+                              ),
+                              TextFormField(
+                                controller: apellidoController,
+                                decoration: InputDecoration(
+                                    border: UnderlineInputBorder(),
+                                    hintText: 'Estrada'),
                               ),
                               SizedBox(
                                 height: 40,
@@ -99,7 +84,7 @@ class _CrearClientesState extends State<CrearClientes> {
                                 controller: direccionController,
                                 decoration: InputDecoration(
                                     border: UnderlineInputBorder(),
-                                    hintText: 'Barrio las vegas'),
+                                    hintText: 'Las colinas'),
                               ),
                               SizedBox(
                                 height: 40,
@@ -109,23 +94,36 @@ class _CrearClientesState extends State<CrearClientes> {
                                 style: TextStyle(fontSize: 18),
                               ),
                               TextFormField(
-                                controller: telefonoController,
+                                controller: fechaNacimientoController,
                                 decoration: InputDecoration(
                                     border: UnderlineInputBorder(),
-                                    hintText: '27820000'),
+                                    hintText: '33322232'),
                               ),
                               SizedBox(
                                 height: 40,
                               ),
                               Text(
-                                "Email",
+                                "Fecha Nacimiento",
                                 style: TextStyle(fontSize: 18),
                               ),
                               TextFormField(
-                                controller: emailController,
+                                controller: telefonoController,
                                 decoration: InputDecoration(
                                     border: UnderlineInputBorder(),
-                                    hintText: 'Example@dominio.com'),
+                                    hintText: 'Masculino '),
+                              ),
+                              SizedBox(
+                                height: 40,
+                              ),
+                              Text(
+                                "Sexo",
+                                style: TextStyle(fontSize: 18),
+                              ),
+                              TextFormField(
+                                controller: sexoController,
+                                decoration: InputDecoration(
+                                    border: UnderlineInputBorder(),
+                                    hintText: 'Masculino'),
                               ),
                               SizedBox(
                                 height: 40,
@@ -135,14 +133,13 @@ class _CrearClientesState extends State<CrearClientes> {
                                 child: Center(
                                   child: ElevatedButton(
                                       onPressed: () => crearCliente_Controller(
-                                          dniController.text,
-                                          emailController.text,
-                                          rtnController.text,
                                           nombreController.text,
+                                          apellidoController.text,
                                           direccionController.text,
                                           telefonoController.text,
-                                          context
-                                          ),
+                                          fechaNacimientoController.text,
+                                          sexoController.text,
+                                          context),
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 10, vertical: 10),

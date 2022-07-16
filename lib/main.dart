@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:soft_frontend/screens/cliente/todosLosClientes.screen.dart';
+import 'package:soft_frontend/screens/empleado/crearEmpleado.screen.dart';
 import 'package:soft_frontend/screens/screens.dart';
 
 void main() {
@@ -17,12 +19,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: 'login',
+      initialRoute: 'traer_clientes',
       routes: {
         'login': (_) => const Login(),
         'pantalla_principal': (_) => const PantallaPrincipal(),
         'mantenimiento': (_) => const Mantenimiento(),
         'crear_cliente': (_) => CrearClientes(),
+        'crear_empleado': (_) => crearEmpleados(),
+        'traer_clientes': (_) => TodosLosClientes2()
+        //'buscar_cliente': (_) => BuscarClientes(),
       },
     );
   }
