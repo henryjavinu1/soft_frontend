@@ -47,7 +47,7 @@ class _CrearArqueState extends State<CrearArque> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "idSesion",
+                                "Id Sesion",
                                 style: TextStyle(fontSize: 18),
                               ),
                               TextFormField(
@@ -59,7 +59,7 @@ class _CrearArqueState extends State<CrearArque> {
                                 height: 40,
                               ),
                               Text(
-                                "idUsuario",
+                                "Id Usuario",
                                 style: TextStyle(fontSize: 18),
                               ),
                               TextFormField(

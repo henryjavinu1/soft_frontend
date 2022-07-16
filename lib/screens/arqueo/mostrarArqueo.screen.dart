@@ -1,12 +1,13 @@
-//ignore_for_file: prefer_const_constructors
+//ignore_for_file: prefer_const_constructors, unnecessary_new
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_frontend/models/mostrarArqueo.model.dart';
 import 'package:soft_frontend/services/Arqueo.service.dart';
-import 'package:soft_frontend/screens/arqueo/components/cabeceraDeTablaArqueo.component.dart';
+//import 'package:soft_frontend/screens/arqueo/components/cabeceraDeTablaArqueo.component.dart';
 import 'package:soft_frontend/screens/arqueo/crearArqueo.screen.dart';
 import 'package:soft_frontend/screens/arqueo/eliminarArqueo.screen.dart';
+import 'package:soft_frontend/screens/arqueo/cerrarSesionActualizandoArqueo.screen.dart';
 
 typedef void InCallBack(int opcion);
 
@@ -63,7 +64,23 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                     )),
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                      child: Text('CrearNuevoArqueo'),
+                      child: Text('Crear Nuevo Arqueo'),
+                    ),
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: null,
+                child: Center(
+                  child: ElevatedButton(
+                    onPressed: () =>
+                        Navigator.of(context).push(new MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          new ActualizarArqueCerrandoSesion(),
+                    )),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                      child: Text('Cerrar Sesion'),
                     ),
                   ),
                 ),
