@@ -20,16 +20,19 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: 'login',
+      initialRoute: 'PrincipalVenta',
       routes: {
         'login': (_) => const Login(),
         'pantalla_principal': (_) => const PantallaPrincipal(),
-        'mantenimiento': (_) => const Mantenimiento(),
+        'mantenimiento': (_) => const PantallaMantenimientoPrincipal(),
         'crear_cliente': (_) => CrearClientes(),
         'manipular_factura': (_) => ManipularFactura(),
         'listar_tipopago': (_) => BuscarTipoPago(),
         'crear_tipopago': (_) => CrearTipoPagos(),
         'mostrar_arqueo': (_) => MostrarArqueo(),
+        'PrincipalVenta': (_) => PantallaPrincipalVenta(),
+        'PrincipalGestion': (_) => PantallaGestionPrincipal(),
+
       },
     );
   }

@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:soft_frontend/controllers/user.controller.dart';
-import 'package:soft_frontend/screens/screens.dart';
-import 'package:soft_frontend/services/login.service.dart';
 import '../../models/models.dart';
 import '../../widgets/widgets.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:soft_frontend/services/sharepreference.service.dart';
 
 class PantallaPrincipalDesktop extends StatefulWidget {
   const PantallaPrincipalDesktop({Key? key}) : super(key: key);
@@ -42,9 +37,21 @@ class PantallaDesktop extends StatelessWidget {
   });
   final User? user;
   final Size size;
-
   @override
   Widget build(BuildContext context) {
+
+
+  final int? cantidadPermisos = user?.rol.permisos.length;
+  final List <int?> permisosId = <int>[];
+
+  for (int i = 0; i < cantidadPermisos!; i++) {
+    permisosId.add(user?.rol.permisos[i].id);
+  }
+  for (int i = 0; i < cantidadPermisos; i++) {
+    print(permisosId[i]);
+  }
+
+
     
     return Scaffold(
       body: Container(
@@ -56,7 +63,7 @@ class PantallaDesktop extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                  Text(
-                  "Panel Principal",
+                  "Panel Principal ${user?.usuario}",
                   style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
@@ -84,26 +91,30 @@ class PantallaDesktop extends StatelessWidget {
               height: 100,
             ),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              if (permisosId.contains(8) || permisosId.contains(40) ) ...[
               Visibility(
                   visible: true,
-                  child: TextButtons(
-                    name: "Facturas",
+                  child: TextButtons (
+                    name: "Modulo de Mantenimiento",
                     route: 'mantenimiento',
                     width: 0.3,
                     fontSize: 22,
                   )),
-              const SizedBox(
+              ],
+               SizedBox(
                 width: 30,
               ),
+              if (permisosId.contains(44) || permisosId.contains(15) ) ...[
               Visibility(
                 visible: true,
                 child: TextButtons(
                   name: "Modulo de Ventas",
-                  route: 'mantenimiento',
+                  route: 'PrincipalVenta',
                   width: 0.3,
                   fontSize: 22,
                 ),
               ),
+              ],
             ]),
             const SizedBox(
               height: 30,
@@ -111,27 +122,17 @@ class PantallaDesktop extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                if (permisosId.contains(43) || permisosId.contains(28) || permisosId.contains(12) ) ...[
                 Visibility(
                   visible: true,
                   child: TextButtons(
-                    name: "Módulo de Inventario",
-                    route: 'mantenimiento',
+                    name: "Gestion de Usuarios",
+                    route: 'PrincipalGestion',
                     width: 0.3,
                     fontSize: 22,
                   ),
                 ),
-                const SizedBox(
-                  width: 30,
-                ),
-                Visibility(
-                  visible: true,
-                  child: TextButtons(
-                    name: "Gestión de Usuarios",
-                    route: 'mantenimiento',
-                    width: 0.3,
-                    fontSize: 22,
-                  ),
-                ),
+                ]
               ],
             )
           ]),

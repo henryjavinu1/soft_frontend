@@ -5,7 +5,7 @@ import 'dart:developer';
 import '../models/rol.model.dart';
 import 'package:soft_frontend/constans.dart';
 
-Future<Rol?> crearRol(String rol, String descripcion) async {
+Future<Rol?> crearRol(String rol, String descripcion, context ) async {
   var client = http.Client();
   Rol? rol = null;
   try {

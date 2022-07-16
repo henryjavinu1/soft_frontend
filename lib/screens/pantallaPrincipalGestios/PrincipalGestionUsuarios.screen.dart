@@ -6,14 +6,14 @@ import 'package:soft_frontend/screens/screens.dart';
 import '../../models/models.dart';
 import '../../widgets/widgets.dart';
 
-class PantallaMantenimientoPrincipal extends StatefulWidget {
-  const PantallaMantenimientoPrincipal({Key? key}) : super(key: key);
+class PantallaGestionPrincipal extends StatefulWidget {
+  const PantallaGestionPrincipal({Key? key}) : super(key: key);
 
   @override
-  State<PantallaMantenimientoPrincipal> createState() => _PantallaMantenimientoPrincipalState();
+  State<PantallaGestionPrincipal> createState() => _PantallaGestionPrincipalState();
 }
 
-class _PantallaMantenimientoPrincipalState extends State<PantallaMantenimientoPrincipal> {
+class _PantallaGestionPrincipalState extends State<PantallaGestionPrincipal> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -69,7 +69,7 @@ class _Pantalla extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  'Modulo de Mantenimiento',
+                  'Modulo de Gestion de usuarios',
                   style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
@@ -97,24 +97,38 @@ class _Pantalla extends StatelessWidget {
               height: 100,
             ),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              if (permisosId.contains(8)) ...[
+              if (permisosId.contains(12)) ...[
                 Visibility(
                     visible: true,
                     child: TextButtons(
-                      name: 'Clientes',
-                      route: 'crear_cliente',
-                      width: 0.3,
-                      fontSize: 22,
+                      name: 'Empleados',
+                      route: 'mantenimiento',
+                      width: 0.2,
+                      fontSize: 15,
                     )),
               ],
               SizedBox(
                 width: 30,
               ),
-              if (permisosId.contains(24)) ...[
+              if (permisosId.contains(43)) ...[
                 Visibility(
                   visible: true,
                   child: TextButtons(
-                    name: 'Productos',
+                    name: 'Usuarios',
+                    route: 'mantenimiento',
+                    width: 0.3,
+                    fontSize: 22,
+                  ),
+                ),
+              ],
+              SizedBox(
+                width: 30,
+              ),
+              if (permisosId.contains(28)) ...[
+                Visibility(
+                  visible: true,
+                  child: TextButtons(
+                    name: 'Rol',
                     route: 'mantenimiento',
                     width: 0.3,
                     fontSize: 22,

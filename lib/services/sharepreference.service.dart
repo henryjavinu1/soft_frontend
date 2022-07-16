@@ -2,7 +2,7 @@
 
 import '../models/models.dart';
   
-  Future<Object?> token() async {
+  Future<String> token() async {
 
     SharedPreferences prefs = await  SharedPreferences.getInstance();
     final String? response = prefs.getString("response");
