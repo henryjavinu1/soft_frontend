@@ -1,18 +1,28 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:soft_frontend/models/models.dart';
+import 'dart:convert';
+import 'dart:developer';
+import '../models/permiso.model.dart';
+import 'package:soft_frontend/constans.dart';
 
-Future<void> crearPermiso(String permiso, String descripcion, context) async {
-  if (permiso.isNotEmpty && descripcion.isNotEmpty) {
-    var response = await http.post(
-        Uri.parse("http://localhost:8080/api/permiso/crearpermiso"),
-        body: ({'permiso': permiso, 'descripcion': descripcion}));
+Future<Permiso?> crearPermiso(String permiso, String descripcion) async {
+  var client = http.Client();
+  Permiso? permisos = null;
+  try {
+    var response = await client.post(Uri.parse(API_URL + "permiso/create"),
+        body: {'permiso': permiso, 'descripcion': descripcion});
 
     if (response.statusCode == 200) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("Permiso Creado")));
+      Permiso permisos = Permiso.fromJson(json.decode(response.body));
+      log(permisos.toString());
+      return permisos;
+    } else {
+      return permisos;
     }
-  } else {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text("Error al crear Permiso")));
+  } finally {
+    client.close();
   }
 }
