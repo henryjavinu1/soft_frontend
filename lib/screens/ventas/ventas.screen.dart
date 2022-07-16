@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
+import 'package:soft_frontend/models/detalleventa.model.dart';
 
 import 'package:soft_frontend/services/cliente.service.dart';
 import 'package:soft_frontend/models/cliente.model.dart';
@@ -24,6 +25,7 @@ class _VentaState extends State<Venta> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     mostrardetalleventa();
+    mostrarVentas();
     return Scaffold(
       
       body: Container(
@@ -281,7 +283,19 @@ class _VentaState extends State<Venta> {
                   ),
                   Container(
                     width: size.width * 0.7,
-                child: Table(
+                    child: FutureBuilder(
+                      future: mostrardetalleventa(),
+                      builder: (BuildContext context, AsyncSnapshot snapshot){
+                        
+                        if ( snapshot.connectionState == ConnectionState.waiting){
+                        return Center(child:  CircularProgressIndicator());
+                      } else{ 
+                        return _ListaDetalles( snapshot.data );
+
+                      }
+                      }
+                    ),
+               /* child: Table(
                   defaultColumnWidth: FixedColumnWidth(120.0),    
                         children: const  [
                           TableRow(
@@ -296,9 +310,9 @@ class _VentaState extends State<Venta> {
                           )
                         ],
                   
-                  
+                  */
                 ),
-              )
+              
                 ],
               ),
               
@@ -307,5 +321,27 @@ class _VentaState extends State<Venta> {
         ),
       ),
     );
+  }
+}
+
+class _ListaDetalles extends StatelessWidget {
+   final List<TodosLosDetalle> detalles;
+   
+   _ListaDetalles( this.detalles);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: detalles.length,
+      itemBuilder: (BuildContext context, int i) {
+
+        final detalle  = detalles[i];
+        return ListTile(
+          
+          title: Text('${ detalle.id} ${ detalle.idProducto}'),
+
+        );
+
+     },);
   }
 }

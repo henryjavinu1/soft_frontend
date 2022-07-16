@@ -1,11 +1,13 @@
 import 'package:soft_frontend/models/models.dart';
 import 'package:http/http.dart' as http;
 
+import '../constans.dart';
+
 Future<List<TodosLosDetalle>> mostrardetalleventa() async {
   List<TodosLosDetalle> detalleVentaVacia = [];
   try {
     var response =
-        await http.post(Uri.parse("http://localhost:8080/api/mostrarDetalle"));
+        await http.post(Uri.parse(API_URL + "mostrarDetalle"));
    // print(response.body);
    // DetalleVenta detalleVenta = DetalleVenta.fromJson();
     if (response.statusCode == 200) {
