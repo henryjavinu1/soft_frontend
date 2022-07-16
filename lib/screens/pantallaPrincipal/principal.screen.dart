@@ -35,7 +35,8 @@ class Pantalla extends StatelessWidget {
     return Scaffold(
       body: LayoutBuilder(builder: (context, constraints) {
         if (constraints.maxWidth < 600) {
-          return const PantallaPrincipalMovil();
+          return const PantallaPrincipalDesktop();
+          //return const PantallaPrincipalMovil();
         } else {
           return const PantallaPrincipalDesktop();
         }
