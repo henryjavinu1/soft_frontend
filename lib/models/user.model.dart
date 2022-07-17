@@ -22,18 +22,18 @@ class User {
     String toJson() => json.encode(toMap());
 
     factory User.fromMap(Map<String, dynamic> json) => User(
-        id: json["id"],
-        usuario: json["usuario"],
-        empleado: Empleado.fromMap(json["empleado"]),
-        rol: Rol.fromMap(json["rol"]),
-        sesion: Sesion.fromMap(json["sesion"]),
+        id: json['id'],
+        usuario: json['usuario'],
+        empleado: Empleado.fromMap(json['empleado']),
+        rol: Rol.fromMap(json['rol']),
+        sesion: Sesion.fromMap(json['sesion']),
     );
 
     Map<String, dynamic> toMap() => {
-        "id": id,
-        "usuario": usuario,
-        "empleado": empleado.toMap(),
-        "rol": rol.toMap(),
-        "sesion": sesion.toMap(),
+        'id': id,
+        'usuario': usuario,
+        'empleado': empleado.toMap(),
+        'rol': rol.toMap(),
+        'sesion': sesion.toMap(),
     };
 }
