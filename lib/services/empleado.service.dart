@@ -3,6 +3,8 @@ import 'package:http/http.dart' as http;
 import 'package:soft_frontend/constans.dart';
 import 'package:soft_frontend/models/models.dart';
 
+import '../models/cliente.model.dart';
+
 Future<List<Empleado?>> crearEmpleado(
     String dni,
     String nombre,

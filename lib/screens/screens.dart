@@ -10,3 +10,4 @@ export 'package:soft_frontend/screens/cliente/actualizarCliente.screen.dart';
 
 
 
+export 'package:soft_frontend/screens/arqueo/mostrarArqueo.screen.dart';

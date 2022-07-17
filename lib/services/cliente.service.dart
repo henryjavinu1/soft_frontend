@@ -5,6 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:soft_frontend/constans.dart';
 import 'package:soft_frontend/models/models.dart';
 
+import '../models/cliente.model.dart';
+
 // ignore: non_constant_identifier_names
 Future<List<Cliente?>> crearCliente(String dni, String email, String rtn,/////////////////
     String nombre, String direccion, String telefono) async {

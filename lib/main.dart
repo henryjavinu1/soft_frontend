@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:soft_frontend/screens/cliente/todosLosClientes.screen.dart';
 import 'package:soft_frontend/screens/empleado/crearEmpleado.screen.dart';
+import 'package:soft_frontend/screens/manipularFactura/manipularfactura.screen.dart';
 import 'package:soft_frontend/screens/screens.dart';
+import 'package:soft_frontend/screens/tipoPago/buscarTipoPago.screen.dart';
+import 'package:soft_frontend/screens/tipoPago/crearTipoPago.screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: 'traer_clientes',
+      initialRoute: 'login',
       routes: {
         'login': (_) => const Login(),
         'pantalla_principal': (_) => const PantallaPrincipal(),
@@ -29,6 +32,10 @@ class MyApp extends StatelessWidget {
         'traer_clientes': (_) => const TodosLosClientes2(),
 
         //'buscar_cliente': (_) => BuscarClientes(),
+        'manipular_factura': (_) => ManipularFactura(),
+        'listar_tipopago': (_) => BuscarTipoPago(),
+        'crear_tipopago': (_) => CrearTipoPagos(),
+        'mostrar_arqueo': (_) => MostrarArqueo(),
       },
     );
   }
