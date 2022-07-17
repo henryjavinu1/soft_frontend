@@ -7,7 +7,7 @@ import '../services/rol.service.dart';
 //provider
 //
 
-Future<bool> CreaRol(String rol, String descripcion) async {
+Future<bool> CreaRol(String rol, String descripcion, context) async {
   Rol? Role = await crearRol(rol, descripcion, context);
   if (Role != null) {
     return true;
