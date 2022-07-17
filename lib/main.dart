@@ -26,7 +26,8 @@ class MyApp extends StatelessWidget {
         'mantenimiento': (_) => const Mantenimiento(),
         'crear_cliente': (_) => CrearClientes(),
         'crear_empleado': (_) => crearEmpleados(),
-        'traer_clientes': (_) => TodosLosClientes2()
+        'traer_clientes': (_) => const TodosLosClientes2(),
+
         //'buscar_cliente': (_) => BuscarClientes(),
       },
     );

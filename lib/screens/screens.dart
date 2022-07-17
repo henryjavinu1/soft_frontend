@@ -6,6 +6,7 @@ export 'package:soft_frontend/screens/pantallaPrincipal/principalMovil.screen.da
 export 'package:soft_frontend/screens/pantallaPrincipal/principal.screen.dart';
 export 'package:soft_frontend/screens/mantenimiento/mantenimiento.screen.dart';
 export 'package:soft_frontend/screens/cliente/crearCliente.screen.dart';
+export 'package:soft_frontend/screens/cliente/actualizarCliente.screen.dart';
 
 
 

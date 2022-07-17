@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soft_frontend/controllers/cliente.controller.dart';
+import 'package:soft_frontend/controllers/empleado.controller.dart';
 //import 'package:soft_frontend/services/cliente.service.dart';
 
 class crearEmpleados extends StatefulWidget {
@@ -8,6 +9,7 @@ class crearEmpleados extends StatefulWidget {
 }
 
 class _CrearEmpleadosState extends State<crearEmpleados> {
+  var dniController = TextEditingController();
   var nombreController = TextEditingController();
   var apellidoController = TextEditingController();
   var direccionController = TextEditingController();
@@ -94,7 +96,7 @@ class _CrearEmpleadosState extends State<crearEmpleados> {
                                 style: TextStyle(fontSize: 18),
                               ),
                               TextFormField(
-                                controller: fechaNacimientoController,
+                                controller: telefonoController,
                                 decoration: InputDecoration(
                                     border: UnderlineInputBorder(),
                                     hintText: '33322232'),
@@ -107,7 +109,7 @@ class _CrearEmpleadosState extends State<crearEmpleados> {
                                 style: TextStyle(fontSize: 18),
                               ),
                               TextFormField(
-                                controller: telefonoController,
+                                controller: fechaNacimientoController,
                                 decoration: InputDecoration(
                                     border: UnderlineInputBorder(),
                                     hintText: 'Masculino '),
@@ -132,7 +134,8 @@ class _CrearEmpleadosState extends State<crearEmpleados> {
                                 onPressed: null,
                                 child: Center(
                                   child: ElevatedButton(
-                                      onPressed: () => crearCliente_Controller(
+                                      onPressed: () => crearEmpleado_Controller(
+                                          dniController.text,
                                           nombreController.text,
                                           apellidoController.text,
                                           direccionController.text,
