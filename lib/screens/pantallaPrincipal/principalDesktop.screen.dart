@@ -37,7 +37,7 @@ class _PantallaPrincipalDesktopState extends State<PantallaPrincipalDesktop> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                 const  Text(
+                const Text(
                   "Panel Principal ",
                   style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                 ),
@@ -142,10 +142,8 @@ class _PantallaPrincipalDesktopState extends State<PantallaPrincipalDesktop> {
   Future<Object?> getDatos() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? response = prefs.getString("response");
-      finalresponse = response;
-      setState(() {
-        
-      });
+    finalresponse = response;
+    setState(() {});
     return finalresponse;
   }
 

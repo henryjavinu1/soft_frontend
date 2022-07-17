@@ -5,5 +5,6 @@ class AppTheme {
   static final ThemeData lightTheme = ThemeData.light().copyWith(
       primaryColor: const Color.fromRGBO(90, 97, 195, 1),
       textButtonTheme: TextButtonThemeData(
-          style: TextButton.styleFrom(primary: primaryColor)));
+          style: TextButton.styleFrom(
+              backgroundColor: primaryColor, primary: Colors.white)));
 }
