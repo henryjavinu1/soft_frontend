@@ -6,14 +6,14 @@ import 'package:soft_frontend/screens/screens.dart';
 import '../../models/models.dart';
 import '../../widgets/widgets.dart';
 
-class PantallaMantenimientoPrincipal extends StatefulWidget {
-  const PantallaMantenimientoPrincipal({Key? key}) : super(key: key);
+class PantallaPrincipalVenta extends StatefulWidget {
+  const PantallaPrincipalVenta({Key? key}) : super(key: key);
 
   @override
-  State<PantallaMantenimientoPrincipal> createState() => _PantallaMantenimientoPrincipalState();
+  State<PantallaPrincipalVenta> createState() => _PantallaPrincipalVentaState();
 }
 
-class _PantallaMantenimientoPrincipalState extends State<PantallaMantenimientoPrincipal> {
+class _PantallaPrincipalVentaState extends State<PantallaPrincipalVenta> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -69,7 +69,7 @@ class _Pantalla extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  'Modulo de Mantenimiento',
+                  'Modulo de Ventas',
                   style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
@@ -78,7 +78,7 @@ class _Pantalla extends StatelessWidget {
                 TextButton(
                   onPressed: () => Navigator.pop(context),
                   child: Container(
-                      width: size.width * 0.2,
+                      width: size.width * 0.3,
                       padding: const EdgeInsets.all(25),
                       child: const Text(
                         'Regresar',
@@ -97,26 +97,26 @@ class _Pantalla extends StatelessWidget {
               height: 100,
             ),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              if (permisosId.contains(8)) ...[
+              if (permisosId.contains(44)) ...[
                 Visibility(
                     visible: true,
                     child: TextButtons(
-                      name: 'Clientes',
-                      route: 'traer_clientes',
-                      width: 0.2,
+                      name: 'Nueva Venta',
+                      route: 'mantenimiento',
+                      width: 0.3,
                       fontSize: 18,
                     )),
               ],
               SizedBox(
                 width: 30,
               ),
-              if (permisosId.contains(24)) ...[
+              if (permisosId.contains(15)) ...[
                 Visibility(
                   visible: true,
                   child: TextButtons(
-                    name: 'Productos',
+                    name: 'Facturacion',
                     route: 'mantenimiento',
-                    width: 0.2,
+                    width: 0.3,
                     fontSize: 18,
                   ),
                 ),

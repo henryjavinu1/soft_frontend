@@ -25,22 +25,22 @@ class Sesion {
     String toJson() => json.encode(toMap());
 
     factory Sesion.fromMap(Map<String, dynamic> json) => Sesion(
-        fecha: DateTime.parse(json["fecha"]),
-        isDelete: json["isDelete"],
-        id: json["id"],
-        idUsuario: json["idUsuario"],
-        token: json["token"],
-        updatedAt: DateTime.parse(json["updatedAt"]),
-        createdAt: DateTime.parse(json["createdAt"]),
+        fecha: DateTime.parse(json['fecha']),
+        isDelete: json['isDelete'],
+        id: json['id'],
+        idUsuario: json['idUsuario'],
+        token: json['token'],
+        updatedAt: DateTime.parse(json['updatedAt']),
+        createdAt: DateTime.parse(json['createdAt']),
     );
 
     Map<String, dynamic> toMap() => {
-        "fecha": fecha.toIso8601String(),
-        "isDelete": isDelete,
-        "id": id,
-        "idUsuario": idUsuario,
-        "token": token,
-        "updatedAt": updatedAt.toIso8601String(),
-        "createdAt": createdAt.toIso8601String(),
+        'fecha': fecha.toIso8601String(),
+        'isDelete': isDelete,
+        'id': id,
+        'idUsuario': idUsuario,
+        'token': token,
+        'updatedAt': updatedAt.toIso8601String(),
+        'createdAt': createdAt.toIso8601String(),
     };
 }
