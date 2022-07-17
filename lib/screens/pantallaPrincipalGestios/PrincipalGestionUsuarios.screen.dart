@@ -84,7 +84,7 @@ class _Pantalla extends StatelessWidget {
                         'Regresar',
                         textAlign: TextAlign.center,
                         style:
-                            TextStyle(fontSize: 22, color: Color(0xff525252)),
+                            TextStyle(fontSize: 18, color: Color(0xff525252)),
                       )),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
@@ -104,7 +104,7 @@ class _Pantalla extends StatelessWidget {
                       name: 'Empleados',
                       route: 'mantenimiento',
                       width: 0.2,
-                      fontSize: 15,
+                      fontSize: 18,
                     )),
               ],
               SizedBox(
@@ -116,8 +116,8 @@ class _Pantalla extends StatelessWidget {
                   child: TextButtons(
                     name: 'Usuarios',
                     route: 'mantenimiento',
-                    width: 0.3,
-                    fontSize: 22,
+                    width: 0.2,
+                    fontSize: 18,
                   ),
                 ),
               ],
@@ -130,8 +130,8 @@ class _Pantalla extends StatelessWidget {
                   child: TextButtons(
                     name: 'Rol',
                     route: 'mantenimiento',
-                    width: 0.3,
-                    fontSize: 22,
+                    width: 0.2,
+                    fontSize: 18,
                   ),
                 ),
               ],

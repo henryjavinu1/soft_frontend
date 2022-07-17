@@ -47,10 +47,6 @@ class PantallaDesktop extends StatelessWidget {
   for (int i = 0; i < cantidadPermisos!; i++) {
     permisosId.add(user?.rol.permisos[i].id);
   }
-  for (int i = 0; i < cantidadPermisos; i++) {
-    print(permisosId[i]);
-  }
-
 
     
     return Scaffold(
@@ -78,7 +74,7 @@ class PantallaDesktop extends StatelessWidget {
                         "Cerrar Sesion",
                         textAlign: TextAlign.center,
                         style:
-                            TextStyle(fontSize: 22, color: Color(0xff525252)),
+                            TextStyle(fontSize: 18, color: Color(0xff525252)),
                       )),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
@@ -98,7 +94,7 @@ class PantallaDesktop extends StatelessWidget {
                     name: "Modulo de Mantenimiento",
                     route: 'mantenimiento',
                     width: 0.3,
-                    fontSize: 22,
+                    fontSize: 18,
                   )),
               ],
                SizedBox(
@@ -111,7 +107,7 @@ class PantallaDesktop extends StatelessWidget {
                   name: "Modulo de Ventas",
                   route: 'PrincipalVenta',
                   width: 0.3,
-                  fontSize: 22,
+                  fontSize: 18,
                 ),
               ),
               ],
@@ -129,7 +125,7 @@ class PantallaDesktop extends StatelessWidget {
                     name: "Gestion de Usuarios",
                     route: 'PrincipalGestion',
                     width: 0.3,
-                    fontSize: 22,
+                    fontSize: 18,
                   ),
                 ),
                 ]

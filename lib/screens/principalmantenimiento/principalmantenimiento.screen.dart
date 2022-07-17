@@ -103,8 +103,8 @@ class _Pantalla extends StatelessWidget {
                     child: TextButtons(
                       name: 'Clientes',
                       route: 'crear_cliente',
-                      width: 0.3,
-                      fontSize: 22,
+                      width: 0.2,
+                      fontSize: 18,
                     )),
               ],
               SizedBox(
@@ -116,8 +116,8 @@ class _Pantalla extends StatelessWidget {
                   child: TextButtons(
                     name: 'Productos',
                     route: 'mantenimiento',
-                    width: 0.3,
-                    fontSize: 22,
+                    width: 0.2,
+                    fontSize: 18,
                   ),
                 ),
               ],

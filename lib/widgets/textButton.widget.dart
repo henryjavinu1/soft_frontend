@@ -24,7 +24,7 @@ class TextButtons extends StatelessWidget {
       },
       child: Container(
         width: size.width * width,
-          padding: const EdgeInsets.all(25),
+          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
           child: Text(
             name,
             textAlign: TextAlign.center,

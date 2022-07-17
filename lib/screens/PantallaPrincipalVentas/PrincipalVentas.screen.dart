@@ -104,7 +104,7 @@ class _Pantalla extends StatelessWidget {
                       name: 'Nueva Venta',
                       route: 'mantenimiento',
                       width: 0.3,
-                      fontSize: 22,
+                      fontSize: 18,
                     )),
               ],
               SizedBox(
@@ -117,7 +117,7 @@ class _Pantalla extends StatelessWidget {
                     name: 'Facturacion',
                     route: 'mantenimiento',
                     width: 0.3,
-                    fontSize: 22,
+                    fontSize: 18,
                   ),
                 ),
               ],
