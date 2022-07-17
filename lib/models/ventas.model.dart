@@ -42,9 +42,9 @@ class TodasLasVenta {
     });
 
     int id;
-    String totalIsv;
-    String totalVenta;
-    String totalDescuentoVenta;
+    double totalIsv;
+    double totalVenta;
+    double totalDescuentoVenta;
     bool isDelete;
     String puntoDeEmision;
     String establecimiento;
