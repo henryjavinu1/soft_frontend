@@ -312,7 +312,7 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                                   actions: [
                                     ElevatedButton(
                                         onPressed: () {
-                                          Navigator.pop(context);
+                                          Navigator.push(context, MaterialPageRoute(builder: (context) => MostrarFactura(numeroFactura: facturaBuscada.unafactura.numeroFactura)));
                                         },
                                         child: Text('Ver factura')),
                                     ElevatedButton(

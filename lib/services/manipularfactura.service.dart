@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:soft_frontend/models/errorPeticion.model.dart';
 import 'package:soft_frontend/models/facturaBuscada.model.dart';
@@ -179,21 +180,25 @@ Future filtrarFacturasPorEmpleado(String idEmpleado,) async {
 
 Future mostrarDatosDeUnaFactura(String numeroFactura) async {
   String url = 'http://localhost:8080/api/traerunafactura/';
+  var response;
   if (numeroFactura.isNotEmpty) {
     url = url+'?numeroFactura=$numeroFactura';
   }
   try {
-    var response = await http.get(Uri.parse(url));
+    response = await http.get(Uri.parse(url));
     final datosFactura = mostrarUnaFacturaFromJson(response.body);
-    // print(response.request);
-    // print(response.statusCode);
+    print(response.request);
+    print(response.statusCode);
     if (response.statusCode == 200) {
       // print(jsonDecode(response.body));
-      // print(datosFactura.facturaConDatos);
+      print(datosFactura.facturaConDatos);
+      return datosFactura;
     }
-    return datosFactura;
   } catch (e) {
-    print(e);
+    print(response.request);
+    print(response.statusCode);
+    print(response.body);
+    print('este es el error mi fren: $e');
     return e;
   }
 }
