@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:soft_frontend/services/eliminarArqueo.service.dart';
-import '../../models/arqueo.model.dart';
+import 'package:soft_frontend/services/arqueo.service.dart';
+import 'package:soft_frontend/models/arqueo.model.dart';
 
 class EliminarArque extends StatefulWidget {
-  final MostrarArque arqueo;
+  final TodoslosArqueos arqueo;
   const EliminarArque({Key? key, required this.arqueo}) : super(key: key);
   @override
   State<EliminarArque> createState() => _EliminarArqueState();
@@ -70,8 +70,8 @@ class _EliminarArqueState extends State<EliminarArque> {
                                 onPressed: null,
                                 child: Center(
                                   child: ElevatedButton(
-                                      onPressed: () => EliminarArqueo(
-                                          idArqueoController.text, context),
+                                      onPressed: () => eliminarArqueo(
+                                          idArqueoController.text),
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 10, vertical: 10),

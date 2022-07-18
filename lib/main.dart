@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         'manipular_factura': (_) => ManipularFactura(),
         'listar_tipopago': (_) => BuscarTipoPago(),
         'crear_tipopago': (_) => CrearTipoPagos(),
-        'mostrar_arqueo': (_) => MostrarArqueoss(),
+        'mostrar_arqueo': (_) => MostrarArqueosss(),
       },
     );
   }

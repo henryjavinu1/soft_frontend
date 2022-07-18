@@ -1,12 +1,36 @@
+// To parse this JSON data, do
+//
+//     final cliente = clienteFromJson(jsonString);
+
 import 'dart:convert';
 
-MostrarArque mostrarArqueoFromJson(String str) =>
-    MostrarArque.fromJson(json.decode(str));
+ManipularArqueo manipularArqueoFromJson(String str) =>
+    ManipularArqueo.fromJson(json.decode(str));
 
-String mostrarArqueoToJson(MostrarArque data) => json.encode(data.toJson());
+String manipularArqueoToJson(ManipularArqueo data) =>
+    json.encode(data.toJson());
 
-class MostrarArque {
-  MostrarArque({
+class ManipularArqueo {
+  ManipularArqueo({
+    required this.todoslosArqueos,
+  });
+
+  List<TodoslosArqueos> todoslosArqueos;
+
+  factory ManipularArqueo.fromJson(Map<String, dynamic> json) =>
+      ManipularArqueo(
+        todoslosArqueos: List<TodoslosArqueos>.from(
+            json['todoslosArqueos'].map((x) => TodoslosArqueos.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        'todoslosArqueos':
+            List<dynamic>.from(todoslosArqueos.map((x) => x.toJson())),
+      };
+}
+
+class TodoslosArqueos {
+  TodoslosArqueos({
     required this.idArqueo,
     required this.fechaInicio,
     required this.fechaFinal,
@@ -38,7 +62,8 @@ class MostrarArque {
   int idUsuario;
   int idSesion;
 
-  factory MostrarArque.fromJson(Map<String, dynamic> json) => MostrarArque(
+  factory TodoslosArqueos.fromJson(Map<String, dynamic> json) =>
+      TodoslosArqueos(
         idArqueo: json["idArqueo"],
         fechaInicio: DateTime.parse(json["fechaInicio"]),
         fechaFinal: DateTime.parse(json["fechaFinal"]),

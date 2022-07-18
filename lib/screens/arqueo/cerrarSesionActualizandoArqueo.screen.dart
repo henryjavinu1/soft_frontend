@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../services/cerrarSesionActualizandoArqueo.service.dart';
+import '../../services/arqueo.service.dart';
 
 class ActualizarArqueCerrandoSesion extends StatefulWidget {
   @override
@@ -89,7 +89,7 @@ class _ActualizarArqueCerrandoSesionState
                                 child: Center(
                                   child: ElevatedButton(
                                       onPressed: () =>
-                                          ActualizarArqueoCerrandoSesion(
+                                          actualizarArqueoCerrandoSesion(
                                               idSesionController.text,
                                               idUsuarioController.text,
                                               idArqueoController.text,

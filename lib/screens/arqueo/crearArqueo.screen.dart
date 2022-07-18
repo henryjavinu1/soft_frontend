@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../services/crearArqueo.service.dart';
+import '../../services/arqueo.service.dart';
 
 class CrearArque extends StatefulWidget {
   @override
@@ -86,7 +86,7 @@ class _CrearArqueState extends State<CrearArque> {
                                 onPressed: null,
                                 child: Center(
                                   child: ElevatedButton(
-                                      onPressed: () => CrearArqueo(
+                                      onPressed: () => crearArqueo(
                                           idSesionController.text,
                                           idUsuarioController.text,
                                           efectivoAperturaController.text,
