@@ -35,14 +35,7 @@ class MyApp extends StatelessWidget {
         'manipular_factura': (_) => ManipularFactura(),
         'listar_tipopago': (_) => BuscarTipoPago(),
         'crear_tipopago': (_) => CrearTipoPagos(),
-<<<<<<< HEAD
         'mostrar_arqueo': (_) => MostrarArqueoss(),
-=======
-        'mostrar_arqueo': (_) => MostrarArqueo(),
-        'PrincipalVenta': (_) => PantallaPrincipalVenta(),
-        'PrincipalGestion': (_) => PantallaGestionPrincipal(),
-
->>>>>>> 04bed23b273ac1223ea4b2b34ee716c0ba0e414a
       },
     );
   }
