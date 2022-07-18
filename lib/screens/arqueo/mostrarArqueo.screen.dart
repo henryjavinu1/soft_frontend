@@ -4,30 +4,29 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_frontend/models/mostrarArqueo.model.dart';
 import 'package:soft_frontend/services/Arqueo.service.dart';
-//import 'package:soft_frontend/screens/arqueo/components/cabeceraDeTablaArqueo.component.dart';
+import 'package:soft_frontend/screens/arqueo/components/cabeceraDeTablaArqueo.component.dart';
 import 'package:soft_frontend/screens/arqueo/crearArqueo.screen.dart';
 import 'package:soft_frontend/screens/arqueo/eliminarArqueo.screen.dart';
 import 'package:soft_frontend/screens/arqueo/cerrarSesionActualizandoArqueo.screen.dart';
 
-typedef void InCallBack(int opcion);
-
-class MostrarArqueos extends StatefulWidget {
-  const MostrarArqueos({Key? key}) : super(key: key);
+class MostrarArqueoss extends StatefulWidget {
+  const MostrarArqueoss({Key? key}) : super(key: key);
   @override
-  State<MostrarArqueos> createState() => _MostrarArqueosState();
+  State<MostrarArqueoss> createState() => _MostrarArqueossState();
 }
 
-class _MostrarArqueosState extends State<MostrarArqueos> {
-  List<MostrarArqueo> arqueos = [];
+class _MostrarArqueossState extends State<MostrarArqueoss> {
+  var idUsuarioController = new TextEditingController();
+  List<MostrarArque> arqueos = [];
 
   @override
   void initState() {
     super.initState();
-    this._cargarArqueos();
+    _cargarArqueos();
   }
 
   _cargarArqueos() async {
-    this.arqueos = await traerArqueos();
+    arqueos = await traerArqueos();
     setState(() {});
   }
 
@@ -46,12 +45,54 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                 child: Padding(
                   padding: EdgeInsets.only(right: size.width * 0.01),
                   child: Text(
-                    'Arqueos',
+                    'Modulo de Arqueos',
                     style: GoogleFonts.poppins(
                         color: Colors.black87,
                         fontSize: size.width * 0.015,
                         fontWeight: FontWeight.w600),
                   ),
+                ),
+              ),
+              Expanded(
+                  child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
+                child: TextField(
+                  controller: idUsuarioController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'id de Usuario',
+                  ),
+                ),
+              )),
+              ElevatedButton(
+                onPressed: () async {
+                  if (idUsuarioController.text.trim().isNotEmpty) {
+                    print(idUsuarioController.text.trim());
+                    MostrarArque? mostArqu = await buscarArqueoPorIdUsuario(
+                        idUsuarioController.text.trim());
+                    print(mostArqu);
+                  } else {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                              title: Text('El campo de búsqueda está vacío.'),
+                              actions: [
+                                ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text('Cerrar'))
+                              ],
+                            ));
+                  }
+                },
+                child: Text(
+                  'Buscar',
+                  style: GoogleFonts.lato(),
+                ),
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all(EdgeInsets.symmetric(
+                      horizontal: size.width * 0.015, vertical: 9)),
                 ),
               ),
               TextButton(
@@ -97,140 +138,11 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                         borderRadius: BorderRadius.all(Radius.circular(5))),
                     child: Column(
                       children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Text(
-                                'id',
-                                style: GoogleFonts.lato(
-                                    fontSize: size.width * 0.01,
-                                    fontWeight: FontWeight.w800),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Text(
-                                'fechaInicio',
-                                style: GoogleFonts.lato(
-                                    fontSize: size.width * 0.01,
-                                    fontWeight: FontWeight.w800),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Text(
-                                'fechaFinal',
-                                style: GoogleFonts.lato(
-                                    fontSize: size.width * 0.01,
-                                    fontWeight: FontWeight.w800),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: Text(
-                                'efectivoApertura',
-                                style: GoogleFonts.lato(
-                                    fontSize: size.width * 0.01,
-                                    fontWeight: FontWeight.w800),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: Text(
-                                'efectivoCierre',
-                                style: GoogleFonts.lato(
-                                    fontSize: size.width * 0.01,
-                                    fontWeight: FontWeight.w800),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Text(
-                                'otrosPagos',
-                                style: GoogleFonts.lato(
-                                    fontSize: size.width * 0.01,
-                                    fontWeight: FontWeight.w800),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: Text(
-                                'ventaCredito',
-                                style: GoogleFonts.lato(
-                                    fontSize: size.width * 0.01,
-                                    fontWeight: FontWeight.w800),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: Text(
-                                'ventaTotal',
-                                style: GoogleFonts.lato(
-                                    fontSize: size.width * 0.01,
-                                    fontWeight: FontWeight.w800),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Text(
-                                'efectivoTotal',
-                                style: GoogleFonts.lato(
-                                    fontSize: size.width * 0.01,
-                                    fontWeight: FontWeight.w800),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Text(
-                                'isDelete',
-                                style: GoogleFonts.lato(
-                                    fontSize: size.width * 0.01,
-                                    fontWeight: FontWeight.w800),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Text(
-                                'createdAt',
-                                style: GoogleFonts.lato(
-                                    fontSize: size.width * 0.01,
-                                    fontWeight: FontWeight.w800),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Text(
-                                'updatedAt',
-                                style: GoogleFonts.lato(
-                                    fontSize: size.width * 0.01,
-                                    fontWeight: FontWeight.w800),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Text(
-                                'idUsuario',
-                                style: GoogleFonts.lato(
-                                    fontSize: size.width * 0.01,
-                                    fontWeight: FontWeight.w800),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Text(
-                                'idSesion',
-                                style: GoogleFonts.lato(
-                                    fontSize: size.width * 0.01,
-                                    fontWeight: FontWeight.w800),
-                              ),
-                            ),
-                          ],
-                        ),
+                        CabeceraDeTablaArqueo(size: size),
                         SizedBox(
                           height: size.height * 0.01,
                         ),
-                        Expanded(child: _listViewArqueo()),
+                        Expanded(child: _listViewUsuarios()),
                       ],
                     )))
           ],
@@ -239,16 +151,16 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
     );
   }
 
-  ListView _listViewArqueo() {
+  ListView _listViewUsuarios() {
     return ListView.separated(
       physics: BouncingScrollPhysics(),
       separatorBuilder: (_, i) => Divider(),
       itemCount: arqueos.length,
-      itemBuilder: (_, i) => _arqueoItemList(arqueos[i]),
+      itemBuilder: (_, i) => _pagoItemList(arqueos[i]),
     );
   }
 
-  Container _arqueoItemList(MostrarArqueo arqueosss) {
+  Container _pagoItemList(MostrarArque arqueosss) {
     Size size = MediaQuery.of(context).size;
     return Container(
         decoration: BoxDecoration(color: Colors.white),
@@ -258,7 +170,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
             Expanded(
               flex: 1,
               child: Text(
-                arqueosss.id.toString(),
+                arqueosss.idArqueo.toString(),
                 style: GoogleFonts.lato(
                     fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
               ),

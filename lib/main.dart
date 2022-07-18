@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: 'listar_tipopago',
+      initialRoute: 'mostrar_arqueo',
       routes: {
         'login': (_) => const Login(),
         'pantalla_principal': (_) => const PantallaPrincipal(),
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         'manipular_factura': (_) => ManipularFactura(),
         'listar_tipopago': (_) => BuscarTipoPago(),
         'crear_tipopago': (_) => CrearTipoPagos(),
-        'mostrar_arqueo': (_) => MostrarArqueos(),
+        'mostrar_arqueo': (_) => MostrarArqueoss(),
       },
     );
   }

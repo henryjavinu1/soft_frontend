@@ -16,7 +16,7 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
         Expanded(
           flex: 1,
           child: Text(
-            'Id',
+            'Id Arqueo',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01,
                 fontWeight: FontWeight.w800,

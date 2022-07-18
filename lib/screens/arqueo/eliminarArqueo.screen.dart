@@ -3,7 +3,7 @@ import 'package:soft_frontend/services/eliminarArqueo.service.dart';
 import '../../models/mostrarArqueo.model.dart';
 
 class EliminarArque extends StatefulWidget {
-  final MostrarArqueo arqueo;
+  final MostrarArque arqueo;
   const EliminarArque({Key? key, required this.arqueo}) : super(key: key);
   @override
   State<EliminarArque> createState() => _EliminarArqueState();
@@ -15,7 +15,7 @@ class _EliminarArqueState extends State<EliminarArque> {
   @override
   Widget build(context) =>
       Scaffold(body: LayoutBuilder(builder: (context, constraints) {
-        idArqueoController.text = widget.arqueo.id.toString();
+        idArqueoController.text = widget.arqueo.idArqueo.toString();
         return SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(

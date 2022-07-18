@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-MostrarArqueo mostrarArqueoFromJson(String str) =>
-    MostrarArqueo.fromJson(json.decode(str));
+MostrarArque mostrarArqueoFromJson(String str) =>
+    MostrarArque.fromJson(json.decode(str));
 
-String mostrarArqueoToJson(MostrarArqueo data) => json.encode(data.toJson());
+String mostrarArqueoToJson(MostrarArque data) => json.encode(data.toJson());
 
-class MostrarArqueo {
-  MostrarArqueo({
-    required this.id,
+class MostrarArque {
+  MostrarArque({
+    required this.idArqueo,
     required this.fechaInicio,
     required this.fechaFinal,
     required this.efectivoApertura,
@@ -23,7 +23,7 @@ class MostrarArqueo {
     required this.idSesion,
   });
 
-  int id;
+  int idArqueo;
   DateTime fechaInicio;
   DateTime fechaFinal;
   double efectivoApertura;
@@ -38,8 +38,8 @@ class MostrarArqueo {
   int idUsuario;
   int idSesion;
 
-  factory MostrarArqueo.fromJson(Map<String, dynamic> json) => MostrarArqueo(
-        id: json["id"],
+  factory MostrarArque.fromJson(Map<String, dynamic> json) => MostrarArque(
+        idArqueo: json["idArqueo"],
         fechaInicio: DateTime.parse(json["fechaInicio"]),
         fechaFinal: DateTime.parse(json["fechaFinal"]),
         efectivoApertura: json["efectivoApertura"].toDouble(),
@@ -56,7 +56,7 @@ class MostrarArqueo {
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
+        "idArqueo": idArqueo,
         "fechaInicio": fechaInicio.toIso8601String(),
         "fechaFinal": fechaFinal.toIso8601String(),
         "efectivoApertura": efectivoApertura,

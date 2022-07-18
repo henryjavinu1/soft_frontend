@@ -4,18 +4,19 @@ import 'package:soft_frontend/models/mostrarArqueo.model.dart';
 ManipularArqueo manipularArqueoFromJson(String str) =>
     ManipularArqueo.fromJson(json.decode(str));
 
+// ignore: non_constant_identifier_names
 String ManipularArqueoToJson(ManipularArqueo data) =>
     json.encode(data.toJson());
 
 class ManipularArqueo {
   ManipularArqueo({required this.arqueoss});
 
-  List<MostrarArqueo> arqueoss;
+  List<MostrarArque> arqueoss;
 
   factory ManipularArqueo.fromJson(Map<String, dynamic> json) =>
       ManipularArqueo(
-        arqueoss: List<MostrarArqueo>.from(
-            json["arqueos"].map((x) => MostrarArqueo.fromJson(x))),
+        arqueoss: List<MostrarArque>.from(
+            json["arqueos"].map((x) => MostrarArque.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
