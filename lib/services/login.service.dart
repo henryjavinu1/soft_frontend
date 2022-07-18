@@ -1,30 +1,44 @@
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:developer';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<void> login(String usuario, String password, context) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  if (usuario.isNotEmpty && password.isNotEmpty) {
-    var response = await http.post(
-        Uri.parse("http://localhost:8080/api/user/login"),
-        body: ({'username': usuario, 'password': password}));
+import '../models/user.model.dart';
+import 'package:http/http.dart' as http;
+import 'package:soft_frontend/constans.dart';
 
+Future<User?> login(String usuario, String passwd) async {
+  var client = http.Client();
+  User? user = null;
+  final prefs = await SharedPreferences.getInstance();
+  try {
+    var response = await client.post(Uri.parse(API_URL + "user/login"),
+        body: {'username': usuario, 'password': passwd});
     if (response.statusCode == 200) {
+      User user = User.fromJson(response.body);
       await prefs.setString("response", response.body);
-
-      Navigator.pushNamed(
-        context,
-        'pantalla_principal',
-      );
-    } else if (response.statusCode == 401) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("Contraseña Incorrecta")));
+      return user;
     } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("Datos Incorrectos")));
+      await prefs.setString("response", response.body);
+      return user;
     }
-  } else {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text("Campos en blanco")));
+  } finally {
+    client.close();
+  }
+}
+
+Future<bool> logout() async {
+  var client = http.Client();
+  final prefs = await SharedPreferences.getInstance();
+  User? user = null;
+  try {
+    var response = await client.get(Uri.parse(API_URL + "user/login"));
+    if (response.statusCode == 200) {
+      await prefs.setString('response', response.body);
+      final nologin = await prefs.remove('logeado');
+      return true;
+    }
+    return false;
+  } finally {
+    client.close();
   }
 }

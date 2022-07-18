@@ -18,16 +18,16 @@ class RolesPermisos {
     String toJson() => json.encode(toMap());
 
     factory RolesPermisos.fromMap(Map<String, dynamic> json) => RolesPermisos(
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
-        idRol: json["idRol"],
-        idPermiso: json["idPermiso"],
+        createdAt: DateTime.parse(json['createdAt']),
+        updatedAt: DateTime.parse(json['updatedAt']),
+        idRol: json['idRol'],
+        idPermiso: json['idPermiso'],
     );
 
     Map<String, dynamic> toMap() => {
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
-        "idRol": idRol,
-        "idPermiso": idPermiso,
+        'createdAt': createdAt.toIso8601String(),
+        'updatedAt': updatedAt.toIso8601String(),
+        'idRol': idRol,
+        'idPermiso': idPermiso,
     };
 }
