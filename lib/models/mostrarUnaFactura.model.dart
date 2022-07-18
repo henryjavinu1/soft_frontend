@@ -5,6 +5,7 @@
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
+
 MostrarUnaFactura mostrarUnaFacturaFromJson(String str) => MostrarUnaFactura.fromJson(json.decode(str));
 
 String mostrarUnaFacturaToJson(MostrarUnaFactura data) => json.encode(data.toJson());
@@ -16,16 +17,16 @@ class MostrarUnaFactura {
     });
 
     FacturaConDatos facturaConDatos;
-    List<DetallesDeVenta> detallesDeVentas;
+    List<DetallesDeVenta ?> detallesDeVentas;
 
     factory MostrarUnaFactura.fromJson(Map<String, dynamic> json) => MostrarUnaFactura(
-        facturaConDatos: FacturaConDatos.fromJson(json["facturaConDatos"]),
-        detallesDeVentas: List<DetallesDeVenta>.from(json["detallesDeVentas"].map((x) => DetallesDeVenta.fromJson(x))),
+        facturaConDatos: FacturaConDatos.fromJson(json['facturaConDatos']),
+        detallesDeVentas: List<DetallesDeVenta>.from(json['detallesDeVentas'].map((x) => DetallesDeVenta.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
-        "facturaConDatos": facturaConDatos.toJson(),
-        "detallesDeVentas": List<dynamic>.from(detallesDeVentas.map((x) => x.toJson())),
+        'facturaConDatos': facturaConDatos.toJson(),
+        'detallesDeVentas': List<dynamic>.from(detallesDeVentas.map((x) => x!.toJson())),
     };
 }
 
@@ -56,36 +57,36 @@ class DetallesDeVenta {
     DateTime updatedAt;
     int idVentas;
     int idProducto;
-    Producto producto;
+    Producto? producto = Producto(id: -1, codigoProducto: '', nombreProducto: '', precioProducto: '', cantidadProducto: 0, isvProducto: '', descProducto: '', isExcento: false, isDelete: false, createdAt: DateTime.parse('0000-00-00 00:00:00') , updatedAt: DateTime.parse('0000-00-00 00:00:00') , idTipoProducto: 0) ;
 
     factory DetallesDeVenta.fromJson(Map<String, dynamic> json) => DetallesDeVenta(
-        id: json["id"],
-        cantidad: json["cantidad"],
-        precioUnitario: json["precioUnitario"],
-        isvAplicado: json["isvAplicado"],
-        descuentoAplicado: json["descuentoAplicado"],
-        totalDetalleVenta: json["totalDetalleVenta"],
-        isDelete: json["isDelete"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
-        idVentas: json["idVentas"],
-        idProducto: json["idProducto"],
-        producto: Producto.fromJson(json["producto"]),
+        id: json['id'] ?? -1,
+        cantidad: json['cantidad'] ?? -1,
+        precioUnitario: json['precioUnitario'] ?? '',
+        isvAplicado: json['isvAplicado'] ?? '',
+        descuentoAplicado: json['descuentoAplicado'] ?? '',
+        totalDetalleVenta: json['totalDetalleVenta'] ?? '',
+        isDelete: json['isDelete'] ?? false,
+        createdAt: DateTime.parse(json['createdAt'] ?? '0000-00-00 00:00:00'),
+        updatedAt: DateTime.parse(json['updatedAt'] ?? '0000-00-00 00:00:00'),
+        idVentas: json['idVentas'] ?? -1,
+        idProducto: json['idProducto'] ?? -1,
+        producto: Producto.fromJson(json['producto']),
     );
 
     Map<String, dynamic> toJson() => {
-        "id": id,
-        "cantidad": cantidad,
-        "precioUnitario": precioUnitario,
-        "isvAplicado": isvAplicado,
-        "descuentoAplicado": descuentoAplicado,
-        "totalDetalleVenta": totalDetalleVenta,
-        "isDelete": isDelete,
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
-        "idVentas": idVentas,
-        "idProducto": idProducto,
-        "producto": producto.toJson(),
+        'id': id,
+        'cantidad': cantidad,
+        'precioUnitario': precioUnitario,
+        'isvAplicado': isvAplicado,
+        'descuentoAplicado': descuentoAplicado,
+        'totalDetalleVenta': totalDetalleVenta,
+        'isDelete': isDelete,
+        'createdAt': createdAt.toIso8601String(),
+        'updatedAt': updatedAt.toIso8601String(),
+        'idVentas': idVentas,
+        'idProducto': idProducto,
+        'producto': producto?.toJson(),
     };
 }
 
@@ -119,33 +120,33 @@ class Producto {
     int idTipoProducto;
 
     factory Producto.fromJson(Map<String, dynamic> json) => Producto(
-        id: json["id"],
-        codigoProducto: json["codigoProducto"],
-        nombreProducto: json["nombreProducto"],
-        precioProducto: json["precioProducto"],
-        cantidadProducto: json["cantidadProducto"],
-        isvProducto: json["isvProducto"],
-        descProducto: json["descProducto"],
-        isExcento: json["isExcento"],
-        isDelete: json["isDelete"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
-        idTipoProducto: json["idTipoProducto"],
+        id: json['id'] ?? -1,
+        codigoProducto: json['codigoProducto'] ?? '',
+        nombreProducto: json['nombreProducto'] ?? '',
+        precioProducto: json['precioProducto'] ?? '',
+        cantidadProducto: json['cantidadProducto'] ?? 0,
+        isvProducto: json['isvProducto'] ?? '',
+        descProducto: json['descProducto'] ?? '',
+        isExcento: json['isExcento'] ?? false,
+        isDelete: json['isDelete'] ?? true,
+        createdAt: DateTime.parse(json['createdAt'] ?? '0000-00-00 00:00:00'),
+        updatedAt: DateTime.parse(json['updatedAt'] ?? '0000-00-00 00:00:00'),
+        idTipoProducto: json['idTipoProducto'] ?? -1,
     );
 
     Map<String, dynamic> toJson() => {
-        "id": id,
-        "codigoProducto": codigoProducto,
-        "nombreProducto": nombreProducto,
-        "precioProducto": precioProducto,
-        "cantidadProducto": cantidadProducto,
-        "isvProducto": isvProducto,
-        "descProducto": descProducto,
-        "isExcento": isExcento,
-        "isDelete": isDelete,
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
-        "idTipoProducto": idTipoProducto,
+        'id': id,
+        'codigoProducto': codigoProducto,
+        'nombreProducto': nombreProducto,
+        'precioProducto': precioProducto,
+        'cantidadProducto': cantidadProducto,
+        'isvProducto': isvProducto,
+        'descProducto': descProducto,
+        'isExcento': isExcento,
+        'isDelete': isDelete,
+        'createdAt': createdAt.toIso8601String(),
+        'updatedAt': updatedAt.toIso8601String(),
+        'idTipoProducto': idTipoProducto,
     };
 }
 
@@ -171,11 +172,11 @@ class FacturaConDatos {
         required this.idVenta,
         required this.idTalonario,
         required this.idNumero,
-        required this.venta,
-        required this.empleado,
-        required this.tipopago,
-        required this.talonario,
-        required this.cliente,
+        this.venta,
+        this.empleado,
+        this.tipopago,
+        this.talonario,
+        this.cliente
     });
 
     int idFactura;
@@ -198,66 +199,66 @@ class FacturaConDatos {
     int idVenta;
     int idTalonario;
     int idNumero;
-    Venta venta;
-    Empleado empleado;
-    Tipopago tipopago;
-    Talonario talonario;
-    Cliente cliente;
+    Venta? venta;
+    Empleado? empleado;
+    Tipopago? tipopago;
+    Talonario? talonario;
+    Cliente? cliente;
 
     factory FacturaConDatos.fromJson(Map<String, dynamic> json) => FacturaConDatos(
-        idFactura: json["idFactura"],
-        numeroFactura: json["numeroFactura"],
-        fechaFactura: DateTime.parse(json["fechaFactura"]),
-        descuentoTotalFactura: json["descuentoTotalFactura"],
-        isvTotalFactura: json["isvTotalFactura"],
-        totalFactura: json["totalFactura"],
-        subTotalExonerado: json["subTotalExonerado"],
-        subTotalFactura: json["subTotalFactura"],
-        cantidadLetras: json["cantidadLetras"],
-        isDelete: json["isDelete"],
-        estado: json["estado"],
-        createdAt: json["createdAt"],
-        updatedAt: DateTime.parse(json["updatedAt"]),
-        idTipoPago: json["idTipoPago"],
-        idCliente: json["idCliente"],
-        idUsuario: json["idUsuario"],
-        idEmpleado: json["idEmpleado"],
-        idVenta: json["idVenta"],
-        idTalonario: json["idTalonario"],
-        idNumero: json["idNumero"],
-        venta: Venta.fromJson(json["venta"]),
-        empleado: Empleado.fromJson(json["empleado"]),
-        tipopago: Tipopago.fromJson(json["tipopago"]),
-        talonario: Talonario.fromJson(json["talonario"]),
-        cliente: Cliente.fromJson(json["cliente"]),
+        idFactura: json['idFactura'],
+        numeroFactura: json['numeroFactura'],
+        fechaFactura: DateTime.parse(json['fechaFactura'] ?? '0000-00-00 00:00:00'),
+        descuentoTotalFactura: json['descuentoTotalFactura'] ?? '',
+        isvTotalFactura: json['isvTotalFactura'] ?? '',
+        totalFactura: json['totalFactura'] ?? '',
+        subTotalExonerado: json['subTotalExonerado'] ?? '',
+        subTotalFactura: json['subTotalFactura'] ?? '',
+        cantidadLetras: json['cantidadLetras'] ?? '',
+        isDelete: json['isDelete'],
+        estado: json['estado'],
+        createdAt: json['createdAt'],
+        updatedAt: DateTime.parse(json['updatedAt']),
+        idTipoPago: json['idTipoPago'],
+        idCliente: json['idCliente'],
+        idUsuario: json['idUsuario'],
+        idEmpleado: json['idEmpleado'],
+        idVenta: json['idVenta'],
+        idTalonario: json['idTalonario'],
+        idNumero: json['idNumero'],
+        venta: Venta?.fromJson(json['venta']),
+        empleado: Empleado?.fromJson(json['empleado'])  /*?? Empleado(id: -1, nombre: 'No existe empleado', apellido: '', direccion: '', telefono: '', fechaNacimiento: '', sexo: '', isDelete: true, createdAt: DateTime.parse('0000-00-00 00:00:00'), updatedAt: DateTime.parse('0000-00-00 00:00:00'))*/,
+        tipopago: Tipopago?.fromJson(json['tipopago']),
+        talonario: Talonario?.fromJson(json['talonario']),
+        cliente: Cliente?.fromJson(json['cliente']),
     );
 
     Map<String, dynamic> toJson() => {
-        "idFactura": idFactura,
-        "numeroFactura": numeroFactura,
-        "fechaFactura": "${fechaFactura.year.toString().padLeft(4, '0')}-${fechaFactura.month.toString().padLeft(2, '0')}-${fechaFactura.day.toString().padLeft(2, '0')}",
-        "descuentoTotalFactura": descuentoTotalFactura,
-        "isvTotalFactura": isvTotalFactura,
-        "totalFactura": totalFactura,
-        "subTotalExonerado": subTotalExonerado,
-        "subTotalFactura": subTotalFactura,
-        "cantidadLetras": cantidadLetras,
-        "isDelete": isDelete,
-        "estado": estado,
-        "createdAt": createdAt,
-        "updatedAt": updatedAt.toIso8601String(),
-        "idTipoPago": idTipoPago,
-        "idCliente": idCliente,
-        "idUsuario": idUsuario,
-        "idEmpleado": idEmpleado,
-        "idVenta": idVenta,
-        "idTalonario": idTalonario,
-        "idNumero": idNumero,
-        "venta": venta.toJson(),
-        "empleado": empleado.toJson(),
-        "tipopago": tipopago.toJson(),
-        "talonario": talonario.toJson(),
-        "cliente": cliente.toJson(),
+        'idFactura': idFactura,
+        'numeroFactura': numeroFactura,
+        'fechaFactura': '${fechaFactura.year.toString().padLeft(4, '0')}-${fechaFactura.month.toString().padLeft(2, '0')}-${fechaFactura.day.toString().padLeft(2, '0')}',
+        'descuentoTotalFactura': descuentoTotalFactura,
+        'isvTotalFactura': isvTotalFactura,
+        'totalFactura': totalFactura,
+        'subTotalExonerado': subTotalExonerado,
+        'subTotalFactura': subTotalFactura,
+        'cantidadLetras': cantidadLetras,
+        'isDelete': isDelete,
+        'estado': estado,
+        'createdAt': createdAt,
+        'updatedAt': updatedAt.toIso8601String(),
+        'idTipoPago': idTipoPago,
+        'idCliente': idCliente,
+        'idUsuario': idUsuario,
+        'idEmpleado': idEmpleado,
+        'idVenta': idVenta,
+        'idTalonario': idTalonario,
+        'idNumero': idNumero,
+        'venta': venta?.toJson(),
+        'empleado': empleado?.toJson(),
+        'tipopago': tipopago?.toJson(),
+        'talonario': talonario?.toJson(),
+        'cliente': cliente?.toJson(),
     };
 }
 
@@ -287,29 +288,29 @@ class Cliente {
     DateTime updatedAt;
 
     factory Cliente.fromJson(Map<String, dynamic> json) => Cliente(
-        id: json["id"],
-        dni: json["dni"],
-        email: json["email"],
-        rtn: json["rtn"],
-        nombreCliente: json["nombreCliente"],
-        direccion: json["direccion"],
-        telefonoCliente: json["telefonoCliente"],
-        isDelete: json["isDelete"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
+        id: json['id'],
+        dni: json['dni'],
+        email: json['email'],
+        rtn: json['rtn'],
+        nombreCliente: json['nombreCliente'],
+        direccion: json['direccion'],
+        telefonoCliente: json['telefonoCliente'],
+        isDelete: json['isDelete'],
+        createdAt: DateTime.parse(json['createdAt']),
+        updatedAt: DateTime.parse(json['updatedAt']),
     );
 
     Map<String, dynamic> toJson() => {
-        "id": id,
-        "dni": dni,
-        "email": email,
-        "rtn": rtn,
-        "nombreCliente": nombreCliente,
-        "direccion": direccion,
-        "telefonoCliente": telefonoCliente,
-        "isDelete": isDelete,
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
+        'id': id,
+        'dni': dni,
+        'email': email,
+        'rtn': rtn,
+        'nombreCliente': nombreCliente,
+        'direccion': direccion,
+        'telefonoCliente': telefonoCliente,
+        'isDelete': isDelete,
+        'createdAt': createdAt.toIso8601String(),
+        'updatedAt': updatedAt.toIso8601String(),
     };
 }
 
@@ -338,30 +339,30 @@ class Empleado {
     DateTime createdAt;
     DateTime updatedAt;
 
-    factory Empleado.fromJson(Map<String, dynamic> json) => Empleado(
-        id: json["id"],
-        nombre: json["nombre"],
-        apellido: json["apellido"],
-        direccion: json["direccion"],
-        telefono: json["telefono"],
-        fechaNacimiento: json["fechaNacimiento"],
-        sexo: json["sexo"],
-        isDelete: json["isDelete"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
+    factory Empleado.fromJson(Map<String, dynamic>? json) => Empleado(
+        id: json?['id'] ?? 0,
+        nombre: json?['nombre'] ?? '',
+        apellido: json?['apellido'] ?? '',
+        direccion: json?['direccion'] ?? '',
+        telefono: json?['telefono'] ?? '',
+        fechaNacimiento: json?['fechaNacimiento'] ?? '',
+        sexo: json?['sexo'] ?? '',
+        isDelete: json?['isDelete'] ?? true,
+        createdAt: DateTime.parse(json?['createdAt'] ?? '0000-00-00 00:00:00'),
+        updatedAt: DateTime.parse(json?['updatedAt'] ?? '0000-00-00 00:00:00'),
     );
 
     Map<String, dynamic> toJson() => {
-        "id": id,
-        "nombre": nombre,
-        "apellido": apellido,
-        "direccion": direccion,
-        "telefono": telefono,
-        "fechaNacimiento": fechaNacimiento,
-        "sexo": sexo,
-        "isDelete": isDelete,
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
+        'id': id,
+        'nombre': nombre,
+        'apellido': apellido,
+        'direccion': direccion,
+        'telefono': telefono,
+        'fechaNacimiento': fechaNacimiento,
+        'sexo': sexo,
+        'isDelete': isDelete,
+        'createdAt': createdAt.toIso8601String(),
+        'updatedAt': updatedAt.toIso8601String(),
     };
 }
 
@@ -388,28 +389,28 @@ class Talonario {
     DateTime createdAt;
     DateTime updatedAt;
 
-    factory Talonario.fromJson(Map<String, dynamic> json) => Talonario(
-        idTalonario: json["idTalonario"],
-        rangoInicialFactura: json["rangoInicialFactura"],
-        rangoFinalFactura: json["rangoFinalFactura"],
-        cai: json["cai"],
-        fechaLimiteEmision: DateTime.parse(json["fechaLimiteEmision"]),
-        active: json["active"],
-        isDelete: json["isDelete"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
+    factory Talonario.fromJson(Map<String, dynamic>? json) => Talonario(
+        idTalonario: json?['idTalonario'] ?? 0,
+        rangoInicialFactura: json?['rangoInicialFactura'] ?? 0,
+        rangoFinalFactura: json?['rangoFinalFactura'] ?? 0,
+        cai: json?['cai'] ?? '',
+        fechaLimiteEmision: DateTime.parse(json?['fechaLimiteEmision'] ?? '0000-00-00 00:00:00'),
+        active: json?['active'] ?? false,
+        isDelete: json?['isDelete'] ?? true,
+        createdAt: DateTime.parse(json?['createdAt'] ?? '0000-00-00 00:00:00'),
+        updatedAt: DateTime.parse(json?['updatedAt'] ?? '0000-00-00 00:00:00'),
     );
 
     Map<String, dynamic> toJson() => {
-        "idTalonario": idTalonario,
-        "rangoInicialFactura": rangoInicialFactura,
-        "rangoFinalFactura": rangoFinalFactura,
-        "cai": cai,
-        "fechaLimiteEmision": fechaLimiteEmision.toIso8601String(),
-        "active": active,
-        "isDelete": isDelete,
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
+        'idTalonario': idTalonario,
+        'rangoInicialFactura': rangoInicialFactura,
+        'rangoFinalFactura': rangoFinalFactura,
+        'cai': cai,
+        'fechaLimiteEmision': fechaLimiteEmision.toIso8601String(),
+        'active': active,
+        'isDelete': isDelete,
+        'createdAt': createdAt.toIso8601String(),
+        'updatedAt': updatedAt.toIso8601String(),
     };
 }
 
@@ -430,22 +431,22 @@ class Tipopago {
     DateTime createdAt;
     DateTime updatedAt;
 
-    factory Tipopago.fromJson(Map<String, dynamic> json) => Tipopago(
-        idTipoPago: json["idTipoPago"],
-        tipoDePago: json["tipoDePago"],
-        descripcionTipoPago: json["descripcionTipoPago"],
-        isDelete: json["isDelete"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
+    factory Tipopago.fromJson(Map<String, dynamic>? json) => Tipopago(
+        idTipoPago: json?['idTipoPago'] ?? -1,
+        tipoDePago: json?['tipoDePago'] ?? '',
+        descripcionTipoPago: json?['descripcionTipoPago'] ?? '',
+        isDelete: json?['isDelete'] ?? true,
+        createdAt: DateTime.parse(json?['createdAt'] ?? '0000-00-00 00:00:00'),
+        updatedAt: DateTime.parse(json?['updatedAt'] ?? '0000-00-00 00:00:00'),
     );
 
     Map<String, dynamic> toJson() => {
-        "idTipoPago": idTipoPago,
-        "tipoDePago": tipoDePago,
-        "descripcionTipoPago": descripcionTipoPago,
-        "isDelete": isDelete,
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
+        'idTipoPago': idTipoPago,
+        'tipoDePago': tipoDePago,
+        'descripcionTipoPago': descripcionTipoPago,
+        'isDelete': isDelete,
+        'createdAt': createdAt.toIso8601String(),
+        'updatedAt': updatedAt.toIso8601String(),
     };
 }
 
@@ -480,35 +481,35 @@ class Venta {
     int idUsuario;
     int idCliente;
 
-    factory Venta.fromJson(Map<String, dynamic> json) => Venta(
-        id: json["id"],
-        totalIsv: json["totalISV"],
-        totalVenta: json["totalVenta"],
-        totalDescuentoVenta: json["totalDescuentoVenta"],
-        isDelete: json["isDelete"],
-        puntoDeEmision: json["puntoDeEmision"],
-        establecimiento: json["establecimiento"],
-        tipo: json["tipo"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
-        idSesion: json["idSesion"],
-        idUsuario: json["idUsuario"],
-        idCliente: json["idCliente"],
+    factory Venta.fromJson(Map<String, dynamic>? json) => Venta(
+        id: json?['id'] ?? -1,
+        totalIsv: json?['totalISV'] ?? '',
+        totalVenta: json?['totalVenta'] ?? '',
+        totalDescuentoVenta: json?['totalDescuentoVenta'] ?? '',
+        isDelete: json?['isDelete'] ?? true,
+        puntoDeEmision: json?['puntoDeEmision'] ?? '',
+        establecimiento: json?['establecimiento'] ?? '',
+        tipo: json?['tipo'] ?? '',
+        createdAt: DateTime.parse(json?['createdAt'] ?? '0000-00-00 00:00:00'),
+        updatedAt: DateTime.parse(json?['updatedAt'] ?? '0000-00-00 00:00:00'),
+        idSesion: json?['idSesion'] ?? -1,
+        idUsuario: json?['idUsuario'] ?? -1,
+        idCliente: json?['idCliente'] ?? -1,
     );
 
     Map<String, dynamic> toJson() => {
-        "id": id,
-        "totalISV": totalIsv,
-        "totalVenta": totalVenta,
-        "totalDescuentoVenta": totalDescuentoVenta,
-        "isDelete": isDelete,
-        "puntoDeEmision": puntoDeEmision,
-        "establecimiento": establecimiento,
-        "tipo": tipo,
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
-        "idSesion": idSesion,
-        "idUsuario": idUsuario,
-        "idCliente": idCliente,
+        'id': id,
+        'totalISV': totalIsv,
+        'totalVenta': totalVenta,
+        'totalDescuentoVenta': totalDescuentoVenta,
+        'isDelete': isDelete,
+        'puntoDeEmision': puntoDeEmision,
+        'establecimiento': establecimiento,
+        'tipo': tipo,
+        'createdAt': createdAt.toIso8601String(),
+        'updatedAt': updatedAt.toIso8601String(),
+        'idSesion': idSesion,
+        'idUsuario': idUsuario,
+        'idCliente': idCliente,
     };
 }
