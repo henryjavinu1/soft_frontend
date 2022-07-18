@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:soft_frontend/screens/screens.dart';
+import 'package:soft_frontend/controllers/user.controller.dart';
 import '../../models/models.dart';
 import '../../widgets/widgets.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:soft_frontend/services/sharepreference.service.dart';
 
 class PantallaPrincipalDesktop extends StatefulWidget {
   const PantallaPrincipalDesktop({Key? key}) : super(key: key);
@@ -15,19 +12,43 @@ class PantallaPrincipalDesktop extends StatefulWidget {
 }
 
 class _PantallaPrincipalDesktopState extends State<PantallaPrincipalDesktop> {
-  Object? finalresponse;
 
   @override
+  
   Widget build(BuildContext context) {
-    getDatos();
     Size size = MediaQuery.of(context).size;
-    User user = User.fromJson(finalresponse.toString());
-    List<Permiso> rol = user.rol.permisos;
-    final permisos = <String>[];
-    for (var permiso in rol) {
-      permisos.add(permiso.permiso);
-    }
 
+    return FutureBuilder<User>(
+      future: usercontroller(),
+         builder: (context, snapshot) {
+          if(snapshot.connectionState == ConnectionState.waiting){
+            return Center(child: CircularProgressIndicator(),);
+          }else{
+          return Center(child: PantallaDesktop(size: size, user: snapshot.data));
+
+          }
+  });
+  }
+}
+
+class PantallaDesktop extends StatelessWidget {
+  const PantallaDesktop({
+    required this.size, required this.user
+  });
+  final User? user;
+  final Size size;
+  @override
+  Widget build(BuildContext context) {
+
+
+  final int? cantidadPermisos = user?.rol.permisos.length;
+  final List <int?> permisosId = <int>[];
+
+  for (int i = 0; i < cantidadPermisos!; i++) {
+    permisosId.add(user?.rol.permisos[i].id);
+  }
+
+    
     return Scaffold(
       body: Container(
         color: const Color(0xffF3F3F3),
@@ -37,17 +58,15 @@ class _PantallaPrincipalDesktopState extends State<PantallaPrincipalDesktop> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                 const  Text(
-                  "Panel Principal ",
+                 Text(
+                  "Panel Principal ${user?.usuario}",
                   style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
                   width: 40,
                 ),
                 TextButton(
-                  onPressed: () {
-                    signOut();
-                  },
+                  onPressed: () => logout_controller(context),
                   child: Container(
                       width: size.width * 0.3,
                       padding: const EdgeInsets.all(25),
@@ -55,7 +74,7 @@ class _PantallaPrincipalDesktopState extends State<PantallaPrincipalDesktop> {
                         "Cerrar Sesion",
                         textAlign: TextAlign.center,
                         style:
-                            TextStyle(fontSize: 22, color: Color(0xff525252)),
+                            TextStyle(fontSize: 18, color: Color(0xff525252)),
                       )),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
@@ -67,69 +86,48 @@ class _PantallaPrincipalDesktopState extends State<PantallaPrincipalDesktop> {
             const SizedBox(
               height: 100,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (permisos.contains("mantenimiento")) ...[
-                  Visibility(
-                      visible: true,
-                      child: TextButtons(
-                        argument: finalresponse,
-                        name: "Facturas",
-                        route: 'mantenimiento',
-                        width: 0.3,
-                        fontSize: 22,
-                      )),
-                ],
-                const SizedBox(
-                  width: 30,
-                ),
-                if (permisos.contains("Ventas")) ...[
-                  Visibility(
-                    visible: true,
-                    child: TextButtons(
-                      argument: finalresponse,
-                      name: "Modulo de Ventas",
-                      route: 'mantenimiento',
-                      width: 0.3,
-                      fontSize: 22,
-                    ),
-                  ),
-                ]
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              if (permisosId.contains(8) || permisosId.contains(40) ) ...[
+              Visibility(
+                  visible: true,
+                  child: TextButtons (
+                    name: "Modulo de Mantenimiento",
+                    route: 'mantenimiento',
+                    width: 0.3,
+                    fontSize: 18,
+                  )),
               ],
-            ),
+               SizedBox(
+                width: 30,
+              ),
+              if (permisosId.contains(44) || permisosId.contains(15) ) ...[
+              Visibility(
+                visible: true,
+                child: TextButtons(
+                  name: "Modulo de Ventas",
+                  route: 'PrincipalVenta',
+                  width: 0.3,
+                  fontSize: 18,
+                ),
+              ),
+              ],
+            ]),
             const SizedBox(
               height: 30,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (permisos.contains("Modulo de Inventario")) ...[
-                  Visibility(
-                    visible: true,
-                    child: TextButtons(
-                      argument: finalresponse,
-                      name: "Módulo de Inventario",
-                      route: 'mantenimiento',
-                      width: 0.3,
-                      fontSize: 22,
-                    ),
+                if (permisosId.contains(43) || permisosId.contains(28) || permisosId.contains(12) ) ...[
+                Visibility(
+                  visible: true,
+                  child: TextButtons(
+                    name: "Gestion de Usuarios",
+                    route: 'PrincipalGestion',
+                    width: 0.3,
+                    fontSize: 18,
                   ),
-                ],
-                const SizedBox(
-                  width: 30,
                 ),
-                if (permisos.contains("Modulo de Inventario")) ...[
-                  Visibility(
-                    visible: true,
-                    child: TextButtons(
-                      argument: finalresponse,
-                      name: "Gestión de Usuarios",
-                      route: 'mantenimiento',
-                      width: 0.3,
-                      fontSize: 22,
-                    ),
-                  ),
                 ]
               ],
             )
@@ -137,28 +135,5 @@ class _PantallaPrincipalDesktopState extends State<PantallaPrincipalDesktop> {
         ),
       ),
     );
-  }
-
-  Future<Object?> getDatos() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? response = prefs.getString("response");
-      finalresponse = response;
-      setState(() {
-        
-      });
-    return finalresponse;
-  }
-
-  Future<void> signOut() async {
-    var response =
-        await http.get(Uri.parse("http://localhost:8080/api/user/login"));
-    if (response.statusCode == 200) {
-      Navigator.pushNamed(context, 'login');
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      final borrar = prefs.remove("response");
-      setState(() {
-        finalresponse = '';
-      });
-    }
   }
 }

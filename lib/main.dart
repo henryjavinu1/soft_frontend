@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:soft_frontend/screens/cliente/todosLosClientes.screen.dart';
+import 'package:soft_frontend/screens/empleado/crearEmpleado.screen.dart';
 import 'package:soft_frontend/screens/manipularFactura/manipularfactura.screen.dart';
 import 'package:soft_frontend/screens/screens.dart';
 import 'package:soft_frontend/screens/tipoPago/buscarTipoPago.screen.dart';
@@ -24,12 +26,23 @@ class MyApp extends StatelessWidget {
       routes: {
         'login': (_) => const Login(),
         'pantalla_principal': (_) => const PantallaPrincipal(),
-        'mantenimiento': (_) => const Mantenimiento(),
+        'mantenimiento': (_) => const PantallaMantenimientoPrincipal(),
         'crear_cliente': (_) => CrearClientes(),
+        'crear_empleado': (_) => crearEmpleados(),
+        'traer_clientes': (_) => const TodosLosClientes2(),
+
+        //'buscar_cliente': (_) => BuscarClientes(),
         'manipular_factura': (_) => ManipularFactura(),
         'listar_tipopago': (_) => BuscarTipoPago(),
         'crear_tipopago': (_) => CrearTipoPagos(),
+<<<<<<< HEAD
         'mostrar_arqueo': (_) => MostrarArqueoss(),
+=======
+        'mostrar_arqueo': (_) => MostrarArqueo(),
+        'PrincipalVenta': (_) => PantallaPrincipalVenta(),
+        'PrincipalGestion': (_) => PantallaGestionPrincipal(),
+
+>>>>>>> 04bed23b273ac1223ea4b2b34ee716c0ba0e414a
       },
     );
   }

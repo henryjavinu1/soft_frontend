@@ -4,11 +4,12 @@ import 'dart:convert';
 class Empleado {
     Empleado({
         required this.id,
+        required this.dni,
         required this.nombre,
         required this.apellido,
-         this.direccion,
-         this.telefono,
-         this.fechaNacimiento,
+        required this.direccion,
+        required this.telefono,
+        required this.fechaNacimiento,
         required this.sexo,
         required this.isDelete,
         required this.createdAt,
@@ -16,11 +17,12 @@ class Empleado {
     });
 
     int id;
+    String dni;
     String nombre;
     String apellido;
-    dynamic direccion;
-    dynamic telefono;
-    dynamic fechaNacimiento;
+    String direccion;
+    String telefono;
+    String fechaNacimiento;
     String sexo;
     bool isDelete;
     DateTime createdAt;
@@ -32,6 +34,7 @@ class Empleado {
 
     factory Empleado.fromMap(Map<String, dynamic> json) => Empleado(
         id: json["id"],
+        dni: json ["dni"],
         nombre: json["nombre"],
         apellido: json["apellido"],
         direccion: json["direccion"],
@@ -45,6 +48,7 @@ class Empleado {
 
     Map<String, dynamic> toMap() => {
         "id": id,
+        "dni": dni,
         "nombre": nombre,
         "apellido": apellido,
         "direccion": direccion,
