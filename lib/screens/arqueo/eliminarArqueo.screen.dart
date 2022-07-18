@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soft_frontend/services/eliminarArqueo.service.dart';
-import '../../models/mostrarArqueo.model.dart';
+import '../../models/arqueo.model.dart';
 
 class EliminarArque extends StatefulWidget {
   final MostrarArque arqueo;

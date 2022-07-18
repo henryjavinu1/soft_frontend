@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:soft_frontend/models/mostrarArqueo.model.dart';
+import 'package:soft_frontend/models/arqueo.model.dart';
 
 ManipularArqueo manipularArqueoFromJson(String str) =>
     ManipularArqueo.fromJson(json.decode(str));

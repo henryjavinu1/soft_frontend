@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:soft_frontend/constans.dart';
-import 'package:soft_frontend/models/mostrarArqueo.model.dart';
+import 'package:soft_frontend/models/arqueo.model.dart';
 import 'package:soft_frontend/models/manipularArqueos.dart';
 import 'package:soft_frontend/models/models.dart';
 
