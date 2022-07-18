@@ -50,10 +50,19 @@ Future<User> usercontroller() async {
 Future<bool?> logeado() async {
   final prefs = await SharedPreferences.getInstance();
   final bool? logeado = prefs.getBool('logeado');
-  if(logeado == true){
+  if (logeado == true) {
     return true;
-  }
-  else{
+  } else {
     return null;
+  }
+}
+
+Future<bool> crearUser_Controller(
+    String usuario, String password, String email, context) async {
+  User? user = await crearUser(usuario, password, email, context);
+  if (user != null) {
+    return true;
+  } else {
+    return false;
   }
 }

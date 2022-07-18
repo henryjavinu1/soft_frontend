@@ -21,3 +21,23 @@ Future<User?> logins(String username, String passwd) async {
     client.close();
   }
 }
+
+Future<User?> crearUser(
+    String usuario, String pass, String email, context) async {
+  var client = http.Client();
+  User? usurio = null;
+  try {
+    var response = await client.post(Uri.parse(API_URL + "user/crearuser"),
+        body: {'user': usuario, 'password': pass, 'email': email});
+
+    if (response.statusCode == 200) {
+      User usuario = User.fromJson(json.decode(response.body));
+      log(usuario.toString());
+      return usuario;
+    } else {
+      return usurio;
+    }
+  } finally {
+    client.close();
+  }
+}

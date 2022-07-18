@@ -5,6 +5,7 @@ import 'package:soft_frontend/screens/manipularFactura/manipularfactura.screen.d
 import 'package:soft_frontend/screens/screens.dart';
 import 'package:soft_frontend/screens/tipoPago/buscarTipoPago.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/crearTipoPago.screen.dart';
+import 'package:soft_frontend/screens/user/creauser.scree.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         'crear_cliente': (_) => CrearClientes(),
         'crear_empleado': (_) => crearEmpleados(),
         'traer_clientes': (_) => const TodosLosClientes2(),
+        'crearUsuarios': (_) => CrearUser(),
 
         //'buscar_cliente': (_) => BuscarClientes(),
         'manipular_factura': (_) => ManipularFactura(),
@@ -38,7 +40,6 @@ class MyApp extends StatelessWidget {
         'mostrar_arqueo': (_) => MostrarArqueo(),
         'PrincipalVenta': (_) => PantallaPrincipalVenta(),
         'PrincipalGestion': (_) => PantallaGestionPrincipal(),
-
       },
     );
   }
