@@ -7,6 +7,7 @@ import 'package:soft_frontend/screens/tipoPago/buscarTipoPago.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/crearTipoPago.screen.dart';
 import 'package:soft_frontend/screens/arqueo/mostrarArqueo.screen.dart';
 
+
 void main() {
   runApp(const MyApp());
 }
@@ -34,9 +35,13 @@ class MyApp extends StatelessWidget {
 
         //'buscar_cliente': (_) => BuscarClientes(),
         'manipular_factura': (_) => ManipularFactura(),
+        'talonarios': (_) => TalonariosScreen(),
         'listar_tipopago': (_) => BuscarTipoPago(),
         'crear_tipopago': (_) => CrearTipoPagos(),
         'traer_arqueo': (_) => const MostrarArqueos(),
+        'mostrar_arqueo': (_) => MostrarArqueo(),
+        'PrincipalVenta': (_) => PantallaPrincipalVenta(),
+        'PrincipalGestion': (_) => PantallaGestionPrincipal(),
       },
     );
   }

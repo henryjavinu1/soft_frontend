@@ -40,7 +40,7 @@ class _MostrarFacturaState extends State<MostrarFactura>
     return FutureBuilder(
       future: mostrarDatosDeUnaFactura(widget.numeroFactura.toString()),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
+        if (snapshot.connectionState == ConnectionState.done && snapshot.data is MostrarUnaFactura) {
           MostrarUnaFactura datosFactura = snapshot.data;
           final campos = datosFactura.facturaConDatos;
           final datosCliente = datosFactura.facturaConDatos.cliente;
@@ -68,6 +68,22 @@ class _MostrarFacturaState extends State<MostrarFactura>
                                     fontSize: size.width * 0.015,
                                     fontWeight: FontWeight.w600),
                               ),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                
+                              },
+                              child: Text('Reimprimir factura'),
+                              style: ButtonStyle(
+                                  padding: MaterialStateProperty.all(
+                                      EdgeInsets.symmetric(
+                                          horizontal: size.width * 0.015,
+                                          vertical: 24)),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Colors.green)),
+                            ),
+                            SizedBox(
+                              width: 10,
                             ),
                             ElevatedButton(
                               onPressed: () {
@@ -149,24 +165,24 @@ class _MostrarFacturaState extends State<MostrarFactura>
                                         Divider(),
                                         datosSuperiores(
                                             'Nombre:',
-                                            (datosCliente!.nombreCliente != '')
-                                                ? datosCliente.nombreCliente
+                                            (datosCliente!.nombreCliente.toString() != '')
+                                                ? datosCliente.nombreCliente.toString()
                                                 : 'NO EXISTE', flex1: 2, flex2: 8),
                                         datosSuperiores(
-                                            'RTN:', datosCliente.rtn),
+                                            'RTN:', datosCliente.rtn.toString()),
                                         datosSuperiores(
                                             'DNI:',
                                             (datosCliente.dni != '')
-                                                ? datosCliente.dni
+                                                ? datosCliente.dni.toString()
                                                 : 'NO SE ENCONTRARON DATOS', flex1: 2, flex2: 8),
                                         datosSuperiores('Teléfono:',
-                                            datosCliente.telefonoCliente),
+                                            datosCliente.telefonoCliente.toString()),
                                         datosSuperiores(
                                             'Correo:',
                                             (datosCliente.email != '')
-                                                ? datosCliente.email
+                                                ? datosCliente.email.toString()
                                                 : 'NO SE ENCONTRARON DATOS'),
-                                                datosSuperiores('Dirección:', (datosCliente.direccion != '')? datosCliente.direccion : '----')
+                                                datosSuperiores('Dirección:', (datosCliente.direccion != '')? datosCliente.direccion.toString() : '----')
                                       ],
                                     ),
                                   ),
@@ -367,8 +383,62 @@ class _MostrarFacturaState extends State<MostrarFactura>
                   ),
                 );
               });
+        } else if (snapshot.connectionState == ConnectionState.done && snapshot.data == 2) {
+          return Scaffold(
+                body: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                      'Ocurrió un error al hacer la conexión con el servidor, contáctese con el administrador o presione recargar.'),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {});
+                    },
+                    child: Text('Recargar'),
+                  )
+                ],
+              ),
+            ));
+        } else if (snapshot.connectionState == ConnectionState.done && snapshot.data == 'Ocurrió un error interno del servidor'){
+          return Scaffold(
+                body: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                      'Ocurrió un error interno del servidor'),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {});
+                    },
+                    child: Text('Recargar'),
+                  )
+                ],
+              ),
+            ));
         } else {
-          return CircularProgressIndicator();
+          return Scaffold(
+                body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                      width: size.width * 0.05,
+                      height: size.width * 0.05,
+                      child: CircularProgressIndicator()),
+                  Text('Cargando, espere un momento.')
+                ],
+              ),
+            ));
         }
       },
     );
@@ -422,27 +492,6 @@ class _MostrarFacturaState extends State<MostrarFactura>
                 style: GoogleFonts.lato(fontSize: size.width * 0.009),
               ),
             ),
-            // Expanded(
-            //   flex: 2,
-            //   child: Text(
-            //     factura.nombreCliente,
-            //     style: GoogleFonts.lato(fontSize: size.width * 0.009),
-            //   ),
-            // ),
-            // Expanded(
-            //   flex: 1,
-            //   child: Text(
-            //     factura.rtn,
-            //     style: GoogleFonts.lato(fontSize: size.width * 0.009),
-            //   ),
-            // ),
-            // Expanded(
-            //     flex: 1,
-            //     child: ElevatedButton(
-            //         onPressed: () {
-            //           Navigator.push(context, MaterialPageRoute(builder: (context) => MostrarFactura(numeroFactura: factura.numeroFactura)));
-            //         },
-            //         child: Icon(Icons.visibility)))
           ],
         ));
   }
