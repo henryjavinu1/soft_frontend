@@ -12,6 +12,7 @@ export 'package:soft_frontend/screens/empleado/actualizarEmpleado.screen.dart';
 
 
 
+export 'package:soft_frontend/screens/talonarios/talonarios.screen.dart';
 export 'package:soft_frontend/screens/arqueo/mostrarArqueo.screen.dart';
 export 'package:soft_frontend/screens/PantallaPrincipalVentas/PrincipalVentas.screen.dart';
 export 'package:soft_frontend/screens/pantallaPrincipalGestios/PrincipalGestionUsuarios.screen.dart';
