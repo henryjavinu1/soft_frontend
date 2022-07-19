@@ -8,8 +8,13 @@ import 'package:soft_frontend/models/models.dart';
 import '../models/cliente.model.dart';
 
 // ignore: non_constant_identifier_names
-Future<List<Cliente?>> crearCliente(String dni, String email, String rtn,/////////////////
-    String nombre, String direccion, String telefono) async {
+Future<List<Cliente?>> crearCliente(
+    String dni,
+    String email,
+    String rtn, /////////////////
+    String nombre,
+    String direccion,
+    String telefono) async {
   var client = http.Client();
   Cliente? cliente = null;
   List<Cliente?> clienteCreado = [];
@@ -37,16 +42,16 @@ Future<List<Cliente?>> crearCliente(String dni, String email, String rtn,///////
     http.Client().close();
   }
 }
+
 Future<List<Cliente?>> eliminarCliente(String id) async {
   print(id);
   var client = http.Client();
   Cliente? cliente = null;
   List<Cliente?> clienteCreado = [];
   try {
-    var response = await http.post(Uri.parse(API_URL + "cliente/eliminarCliente"),
-        body: ({
-          'id' : id
-        }));
+    var response = await http.post(
+        Uri.parse(API_URL + "cliente/eliminarCliente"),
+        body: ({'id': id}));
     print(response.body);
     if (response.statusCode == 200) {
       print(Cliente);
@@ -62,22 +67,25 @@ Future<List<Cliente?>> eliminarCliente(String id) async {
     http.Client().close();
   }
 }
-Future<List<Cliente?>> ActualizarCliente(String id, String dni, String email, String rtn,
-    String nombre, String direccion, String telefono) async {////////////////
+
+Future<List<Cliente?>> ActualizarCliente(String id, String dni, String email,
+    String rtn, String nombre, String direccion, String telefono) async {
+  ////////////////
   var client = http.Client();
   Cliente? cliente = null;
   List<Cliente?> clienteCreado = [];
   try {
-    var response = await http.put(Uri.parse(API_URL + "cliente/actualizarCliente"),
-        body: ({
-          'id': id,
-          'dni': dni,
-          'rtn': rtn,
-          'email': email,
-          'nombreCliente': nombre,
-          'direccion': direccion,
-          'telefonoCliente': telefono
-        }));
+    var response =
+        await http.put(Uri.parse(API_URL + "cliente/actualizarCliente"),
+            body: ({
+              'id': id,
+              'dni': dni,
+              'rtn': rtn,
+              'email': email,
+              'nombreCliente': nombre,
+              'direccion': direccion,
+              'telefonoCliente': telefono
+            }));
     print(response.body);
     if (response.statusCode == 200) {
       print(Cliente);
@@ -112,16 +120,15 @@ Future<void> buscarClienteNombre(String nombre, context) async {
 
 Future traerClientes() async {
   try {
-    final response = await http.post(Uri.parse(API_URL+"cliente/traerTodosLosClientes"));///////////////
+    final response = await http.post(
+        Uri.parse(API_URL + "cliente/traerTodosLosClientes")); ///////////////
     if (response.statusCode == 200) {
       // print(response.request);
       // print(jsonDecode(response.body));
       Cliente listaCliente = clienteFromJson(response.body);
       return listaCliente;
     }
-  } catch (e) {
-    
-  }
+  } catch (e) {}
 }
 
 Future<void> buscarClienteDni(String dni, context) async {
