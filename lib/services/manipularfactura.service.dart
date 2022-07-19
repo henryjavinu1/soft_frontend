@@ -189,6 +189,8 @@ Future mostrarDatosDeUnaFactura(String numeroFactura) async {
     } else if (response.statusCode == 400) {
       final error = mensajePeticionFromJson(response.body);
       return error;
+    } else if (response.statusCode == 500) {
+      return 'Ocurrió un error interno del servidor';
     }
   } catch (e) {
     print(e);

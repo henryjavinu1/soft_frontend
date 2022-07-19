@@ -165,24 +165,24 @@ class _MostrarFacturaState extends State<MostrarFactura>
                                         Divider(),
                                         datosSuperiores(
                                             'Nombre:',
-                                            (datosCliente!.nombreCliente != '')
-                                                ? datosCliente.nombreCliente
+                                            (datosCliente!.nombreCliente.toString() != '')
+                                                ? datosCliente.nombreCliente.toString()
                                                 : 'NO EXISTE', flex1: 2, flex2: 8),
                                         datosSuperiores(
-                                            'RTN:', datosCliente.rtn),
+                                            'RTN:', datosCliente.rtn.toString()),
                                         datosSuperiores(
                                             'DNI:',
                                             (datosCliente.dni != '')
-                                                ? datosCliente.dni
+                                                ? datosCliente.dni.toString()
                                                 : 'NO SE ENCONTRARON DATOS', flex1: 2, flex2: 8),
                                         datosSuperiores('Teléfono:',
-                                            datosCliente.telefonoCliente),
+                                            datosCliente.telefonoCliente.toString()),
                                         datosSuperiores(
                                             'Correo:',
                                             (datosCliente.email != '')
-                                                ? datosCliente.email
+                                                ? datosCliente.email.toString()
                                                 : 'NO SE ENCONTRARON DATOS'),
-                                                datosSuperiores('Dirección:', (datosCliente.direccion != '')? datosCliente.direccion : '----')
+                                                datosSuperiores('Dirección:', (datosCliente.direccion != '')? datosCliente.direccion.toString() : '----')
                                       ],
                                     ),
                                   ),
@@ -404,6 +404,27 @@ class _MostrarFacturaState extends State<MostrarFactura>
                 ],
               ),
             ));
+        } else if (snapshot.connectionState == ConnectionState.done && snapshot.data == 'Ocurrió un error interno del servidor'){
+          return Scaffold(
+                body: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                      'Ocurrió un error interno del servidor'),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {});
+                    },
+                    child: Text('Recargar'),
+                  )
+                ],
+              ),
+            ));
         } else {
           return Scaffold(
                 body: Center(
@@ -471,27 +492,6 @@ class _MostrarFacturaState extends State<MostrarFactura>
                 style: GoogleFonts.lato(fontSize: size.width * 0.009),
               ),
             ),
-            // Expanded(
-            //   flex: 2,
-            //   child: Text(
-            //     factura.nombreCliente,
-            //     style: GoogleFonts.lato(fontSize: size.width * 0.009),
-            //   ),
-            // ),
-            // Expanded(
-            //   flex: 1,
-            //   child: Text(
-            //     factura.rtn,
-            //     style: GoogleFonts.lato(fontSize: size.width * 0.009),
-            //   ),
-            // ),
-            // Expanded(
-            //     flex: 1,
-            //     child: ElevatedButton(
-            //         onPressed: () {
-            //           Navigator.push(context, MaterialPageRoute(builder: (context) => MostrarFactura(numeroFactura: factura.numeroFactura)));
-            //         },
-            //         child: Icon(Icons.visibility)))
           ],
         ));
   }

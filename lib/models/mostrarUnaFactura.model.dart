@@ -161,17 +161,17 @@ class FacturaConDatos {
         required this.subTotalExonerado,
         required this.subTotalFactura,
         required this.cantidadLetras,
-        required this.isDelete,
-        required this.estado,
-        required this.createdAt,
-        required this.updatedAt,
-        required this.idTipoPago,
-        required this.idCliente,
-        required this.idUsuario,
-        required this.idEmpleado,
-        required this.idVenta,
-        required this.idTalonario,
-        required this.idNumero,
+        this.isDelete,
+        this.estado,
+        this.createdAt,
+        this.updatedAt,
+        this.idTipoPago,
+        this.idCliente,
+        this.idUsuario,
+        this.idEmpleado,
+        this.idVenta,
+        this.idTalonario,
+        this.idNumero,
         this.venta,
         this.empleado,
         this.tipopago,
@@ -188,17 +188,17 @@ class FacturaConDatos {
     String subTotalExonerado;
     String subTotalFactura;
     String cantidadLetras;
-    bool isDelete;
-    bool estado;
-    dynamic createdAt;
-    DateTime updatedAt;
-    int idTipoPago;
-    int idCliente;
-    int idUsuario;
-    int idEmpleado;
-    int idVenta;
-    int idTalonario;
-    int idNumero;
+    bool? isDelete;
+    bool? estado;
+    dynamic? createdAt;
+    DateTime? updatedAt;
+    int? idTipoPago;
+    int? idCliente;
+    int? idUsuario;
+    int? idEmpleado;
+    int? idVenta;
+    int? idTalonario;
+    int? idNumero;
     Venta? venta;
     Empleado? empleado;
     Tipopago? tipopago;
@@ -219,13 +219,13 @@ class FacturaConDatos {
         estado: json['estado'] ?? false,
         createdAt: json['createdAt'] ?? DateTime.parse('0000-00-00 00:00:00'),
         updatedAt: DateTime.parse(json['updatedAt'] ?? '0000-00-00 00:00:00'),
-        idTipoPago: json['idTipoPago'],
-        idCliente: json['idCliente'],
-        idUsuario: json['idUsuario'],
-        idEmpleado: json['idEmpleado'],
-        idVenta: json['idVenta'],
-        idTalonario: json['idTalonario'],
-        idNumero: json['idNumero'],
+        idTipoPago: json['idTipoPago'] ?? -1,
+        idCliente: json['idCliente'] ?? -1,
+        idUsuario: json['idUsuario'] ?? -1,
+        idEmpleado: json['idEmpleado'] ?? -1,
+        idVenta: json['idVenta'] ?? -1,
+        idTalonario: json['idTalonario'] ?? -1,
+        idNumero: json['idNumero'] ?? -1,
         venta: Venta?.fromJson(json['venta']),
         empleado: Empleado?.fromJson(json['empleado'])  /*?? Empleado(id: -1, nombre: 'No existe empleado', apellido: '', direccion: '', telefono: '', fechaNacimiento: '', sexo: '', isDelete: true, createdAt: DateTime.parse('0000-00-00 00:00:00'), updatedAt: DateTime.parse('0000-00-00 00:00:00'))*/,
         tipopago: Tipopago?.fromJson(json['tipopago']),
@@ -246,7 +246,7 @@ class FacturaConDatos {
         'isDelete': isDelete,
         'estado': estado,
         'createdAt': createdAt,
-        'updatedAt': updatedAt.toIso8601String(),
+        'updatedAt': updatedAt!.toIso8601String(),
         'idTipoPago': idTipoPago,
         'idCliente': idCliente,
         'idUsuario': idUsuario,
@@ -265,39 +265,39 @@ class FacturaConDatos {
 class Cliente {
     Cliente({
         required this.id,
-        required this.dni,
-        required this.email,
-        required this.rtn,
-        required this.nombreCliente,
-        required this.direccion,
-        required this.telefonoCliente,
-        required this.isDelete,
-        required this.createdAt,
-        required this.updatedAt,
+        this.dni,
+        this.email,
+        this.rtn,
+        this.nombreCliente,
+        this.direccion,
+        this.telefonoCliente,
+        this.isDelete,
+        this.createdAt,
+        this.updatedAt,
     });
 
     int id;
-    String dni;
-    String email;
-    String rtn;
-    String nombreCliente;
-    String direccion;
-    String telefonoCliente;
-    bool isDelete;
-    DateTime createdAt;
-    DateTime updatedAt;
+    String? dni;
+    String? email;
+    String? rtn;
+    String? nombreCliente;
+    String? direccion;
+    String? telefonoCliente;
+    bool? isDelete;
+    DateTime? createdAt;
+    DateTime? updatedAt;
 
-    factory Cliente.fromJson(Map<String, dynamic> json) => Cliente(
-        id: json['id'],
-        dni: json['dni'],
-        email: json['email'],
-        rtn: json['rtn'],
-        nombreCliente: json['nombreCliente'],
-        direccion: json['direccion'],
-        telefonoCliente: json['telefonoCliente'],
-        isDelete: json['isDelete'],
-        createdAt: DateTime.parse(json['createdAt']),
-        updatedAt: DateTime.parse(json['updatedAt']),
+    factory Cliente.fromJson(Map<String, dynamic>? json) => Cliente(
+        id: json?['id'],
+        dni: json?['dni'],
+        email: json?['email'],
+        rtn: json?['rtn'],
+        nombreCliente: json?['nombreCliente'],
+        direccion: json?['direccion'],
+        telefonoCliente: json?['telefonoCliente'],
+        isDelete: json?['isDelete'],
+        createdAt: DateTime.parse(json?['createdAt']),
+        updatedAt: DateTime.parse(json?['updatedAt']),
     );
 
     Map<String, dynamic> toJson() => {
@@ -309,8 +309,8 @@ class Cliente {
         'direccion': direccion,
         'telefonoCliente': telefonoCliente,
         'isDelete': isDelete,
-        'createdAt': createdAt.toIso8601String(),
-        'updatedAt': updatedAt.toIso8601String(),
+        'createdAt': createdAt!.toIso8601String(),
+        'updatedAt': updatedAt!.toIso8601String(),
     };
 }
 

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:soft_frontend/models/facturaBuscada.model.dart';
 import 'package:soft_frontend/models/models.dart';
 import 'package:soft_frontend/screens/mostrarUnaFactura/mostrarunafactura.screen.dart';
-import 'package:soft_frontend/services/manipularfactura.service.dart';
 import 'package:soft_frontend/screens/manipularFactura/components/cabeceradetabla.component.dart';
 import '../../controllers/manipularfactura.controller.dart';
 
@@ -21,9 +19,10 @@ class _ManipularFacturaState extends State<ManipularFactura> {
   final _textController2 = new TextEditingController();
   String hintText = 'Número de factura';
   List<FacturaBuscada> facturas = [];
-  List<FacturaBuscada> facturasPorCliente = [];
+  List<FacturaBuscada> facturasTemp = [];
   int campos = 1000;
   int _atributoSeleccionado = 0;
+
 
   @override
   void initState() {
@@ -161,7 +160,7 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                                         await filtrarFacturasPorNombreCliente(
                                             _textController,
                                             (val) =>
-                                                setState(() => facturas = val),
+                                                setState(() => facturasTemp = val),
                                             context);
                                         break;
                                       // Por RTN
@@ -275,11 +274,22 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                   SizedBox(
                     height: 10,
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {});
-                    },
-                    child: Text('Recargar'),
+                  Row(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          setState(() {});
+                        },
+                        child: Text('Recargar'),
+                      ),
+                      SizedBox(width: 5,),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text('Regresar'),
+                      ),
+                    ],
                   )
                 ],
               ),
@@ -350,14 +360,14 @@ class _ManipularFacturaState extends State<ManipularFactura> {
             Expanded(
               flex: 1,
               child: Text(
-                factura.totalFactura,
+                factura.totalFactura.toString(),
                 style: GoogleFonts.lato(fontSize: size.width * 0.009),
               ),
             ),
             Expanded(
               flex: 2,
               child: Text(
-                factura.nombreEmpleado,
+                factura.nombreEmpleado.toString(),
                 style: GoogleFonts.lato(fontSize: size.width * 0.009),
               ),
             ),
@@ -367,21 +377,21 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                 (factura.cai ==
                         'No existe un talonario asociado a este CAI por favor comuniquese con el administrador.')
                     ? 'N/A'
-                    : factura.cai,
+                    : factura.cai.toString(),
                 style: GoogleFonts.lato(fontSize: size.width * 0.009),
               ),
             ),
             Expanded(
               flex: 2,
               child: Text(
-                factura.nombreCliente,
+                factura.nombreCliente.toString(),
                 style: GoogleFonts.lato(fontSize: size.width * 0.009),
               ),
             ),
             Expanded(
               flex: 1,
               child: Text(
-                factura.rtn,
+                factura.rtn.toString(),
                 style: GoogleFonts.lato(fontSize: size.width * 0.009),
               ),
             ),
@@ -393,7 +403,7 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => MostrarFactura(
-                                  numeroFactura: factura.numeroFactura)));
+                                  numeroFactura: int.parse(factura.numeroFactura.toString()))));
                     },
                     child: Icon(Icons.visibility)))
           ],
