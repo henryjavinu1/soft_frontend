@@ -14,6 +14,10 @@ class TalonariosScreen extends StatefulWidget {
 
 class _TalonariosScreenState extends State<TalonariosScreen> {
   List<Talonario> talonarios = [];
+  var rangoInicialController = TextEditingController();
+  var rangoFinalController = TextEditingController();
+  var caiController = TextEditingController();
+  var fechaLimiteEController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -56,7 +60,7 @@ class _TalonariosScreenState extends State<TalonariosScreen> {
             columns: const [
               DataColumn(
                 label: Text(
-                  'Rango Inicial',
+                  'ID',
                   style: TextStyle(
                       color: AppTheme.primaryColor,
                       fontWeight: FontWeight.bold),
@@ -139,12 +143,14 @@ class _TalonariosScreenState extends State<TalonariosScreen> {
                           _EditarTalonario(context, talonario);
                         },
                         child: Text('Editar')),
-                    TextButton(
-                        style: AppTheme.lightTheme.textButtonTheme.style,
-                        onPressed: () {
-                          _EliminarTalonario(context, talonario);
-                        },
-                        child: Text('Eliminar')),
+                    (talonario.isDelete == false)
+                        ? TextButton(
+                            style: AppTheme.lightTheme.textButtonTheme.style,
+                            onPressed: () {
+                              _EliminarTalonario(context, talonario);
+                            },
+                            child: Text('Eliminar'))
+                        : Container(),
                   ],
                 )),
               ]);
@@ -206,6 +212,10 @@ class _TalonariosScreenState extends State<TalonariosScreen> {
   }
 
   Future<dynamic> _EditarTalonario(BuildContext context, Talonario talonario) {
+    rangoInicialController.text = talonario.rangoInicialFactura;
+    rangoFinalController.text = talonario.rangoFinalFactura;
+    caiController.text = talonario.cai;
+    fechaLimiteEController.text = talonario.fechaLimiteEmision.toString();
     return showDialog(
         context: context,
         builder: (buildContext) {
@@ -222,26 +232,25 @@ class _TalonariosScreenState extends State<TalonariosScreen> {
               child: Column(
                 children: [
                   TextFormField(
-                    initialValue: talonario.rangoInicialFactura,
+                    controller: rangoInicialController,
                     decoration: InputDecoration(
                       label: Text('Rango Inicial'),
                     ),
                   ),
                   TextFormField(
-                    initialValue: talonario.rangoFinalFactura,
+                    controller: rangoFinalController,
                     decoration: InputDecoration(
                       label: Text('Rango Final'),
                     ),
                   ),
                   TextFormField(
-                    onChanged: (value) {},
-                    initialValue: talonario.cai,
+                    controller: caiController,
                     decoration: InputDecoration(
                       label: Text('CAI'),
                     ),
                   ),
                   DateTimeField(
-                    initialValue: talonario.fechaLimiteEmision,
+                    controller: fechaLimiteEController,
                     decoration: InputDecoration(label: Text('Fecha Limite E.')),
                     format: DateFormat("yyyy-MM-dd"),
                     onShowPicker: (context, currentValue) {
@@ -252,23 +261,16 @@ class _TalonariosScreenState extends State<TalonariosScreen> {
                           lastDate: DateTime(2100));
                     },
                   ),
-                  Row(
-                    children: [
-                      Text('Activo: '),
-                      Switch(
-                          value: talonario.active,
-                          onChanged: (value) {
-                            setState(() {
-                              talonario.active = value;
-                            });
-                          }),
-                    ],
-                  ),
                   Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: TextButton(
                         style: AppTheme.lightTheme.textButtonTheme.style,
-                        onPressed: () {},
+                        onPressed: () {
+                          print(rangoInicialController);
+                          print(rangoFinalController);
+                          print(caiController);
+                          print(fechaLimiteEController);
+                        },
                         child: Text('Confirmar')),
                   )
                 ],
