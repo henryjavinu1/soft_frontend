@@ -215,10 +215,10 @@ class FacturaConDatos {
         subTotalExonerado: json['subTotalExonerado'] ?? '',
         subTotalFactura: json['subTotalFactura'] ?? '',
         cantidadLetras: json['cantidadLetras'] ?? '',
-        isDelete: json['isDelete'],
-        estado: json['estado'],
-        createdAt: json['createdAt'],
-        updatedAt: DateTime.parse(json['updatedAt']),
+        isDelete: json['isDelete'] ?? false,
+        estado: json['estado'] ?? false,
+        createdAt: json['createdAt'] ?? DateTime.parse('0000-00-00 00:00:00'),
+        updatedAt: DateTime.parse(json['updatedAt'] ?? '0000-00-00 00:00:00'),
         idTipoPago: json['idTipoPago'],
         idCliente: json['idCliente'],
         idUsuario: json['idUsuario'],
@@ -317,6 +317,7 @@ class Cliente {
 class Empleado {
     Empleado({
         required this.id,
+        this.dni,
         required this.nombre,
         required this.apellido,
         required this.direccion,
@@ -329,6 +330,7 @@ class Empleado {
     });
 
     int id;
+    String? dni;
     String nombre;
     String apellido;
     dynamic direccion;
@@ -341,6 +343,7 @@ class Empleado {
 
     factory Empleado.fromJson(Map<String, dynamic>? json) => Empleado(
         id: json?['id'] ?? 0,
+        dni: json?['dni'] ?? '',
         nombre: json?['nombre'] ?? '',
         apellido: json?['apellido'] ?? '',
         direccion: json?['direccion'] ?? '',
@@ -354,6 +357,7 @@ class Empleado {
 
     Map<String, dynamic> toJson() => {
         'id': id,
+        'dni': dni,
         'nombre': nombre,
         'apellido': apellido,
         'direccion': direccion,

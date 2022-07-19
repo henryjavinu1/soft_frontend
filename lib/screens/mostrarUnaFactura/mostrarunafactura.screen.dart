@@ -40,7 +40,7 @@ class _MostrarFacturaState extends State<MostrarFactura>
     return FutureBuilder(
       future: mostrarDatosDeUnaFactura(widget.numeroFactura.toString()),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
+        if (snapshot.connectionState == ConnectionState.done && snapshot.data is MostrarUnaFactura) {
           MostrarUnaFactura datosFactura = snapshot.data;
           final campos = datosFactura.facturaConDatos;
           final datosCliente = datosFactura.facturaConDatos.cliente;
@@ -68,6 +68,22 @@ class _MostrarFacturaState extends State<MostrarFactura>
                                     fontSize: size.width * 0.015,
                                     fontWeight: FontWeight.w600),
                               ),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                
+                              },
+                              child: Text('Reimprimir factura'),
+                              style: ButtonStyle(
+                                  padding: MaterialStateProperty.all(
+                                      EdgeInsets.symmetric(
+                                          horizontal: size.width * 0.015,
+                                          vertical: 24)),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Colors.green)),
+                            ),
+                            SizedBox(
+                              width: 10,
                             ),
                             ElevatedButton(
                               onPressed: () {
@@ -367,8 +383,41 @@ class _MostrarFacturaState extends State<MostrarFactura>
                   ),
                 );
               });
+        } else if (snapshot.connectionState == ConnectionState.done && snapshot.data == 2) {
+          return Scaffold(
+                body: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                      'Ocurrió un error al hacer la conexión con el servidor, contáctese con el administrador o presione recargar.'),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {});
+                    },
+                    child: Text('Recargar'),
+                  )
+                ],
+              ),
+            ));
         } else {
-          return CircularProgressIndicator();
+          return Scaffold(
+                body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                      width: size.width * 0.05,
+                      height: size.width * 0.05,
+                      child: CircularProgressIndicator()),
+                  Text('Cargando, espere un momento.')
+                ],
+              ),
+            ));
         }
       },
     );
