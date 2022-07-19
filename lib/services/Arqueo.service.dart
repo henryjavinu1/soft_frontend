@@ -1,18 +1,18 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:soft_frontend/constans.dart';
 import 'package:soft_frontend/models/models.dart';
 
+// ignore: non_constant_identifier_names
 Future traerArqueos() async {
   try {
     final response = await http
         .post(Uri.parse(API_URL + 'arqueo/mostrarArqueo')); ///////////////
     if (response.statusCode == 200) {
       // print(response.request);
-      // print(jsonDecode(response.body));
-      ManipularArqueo listaArqueo = manipulararqueoFromJson(response.body);
-      return listaArqueo;
+      //print(jsonDecode(response.body));
+      ManipularArqueo listaArq = manipularArqueoFromJson(response.body);
+      return listaArq;
     }
   } catch (e) {}
 }
@@ -24,7 +24,7 @@ Future buscarArqueoPorIdUsuario(String idUsuario, context) async {
         body: ({'idUsuario': idUsuario}));
 
     if (response.statusCode == 200) {
-      ManipularArqueo arqueo = manipulararqueoFromJson(response.body);
+      ManipularArqueo arqueo = manipularArqueoFromJson(response.body);
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("Arqueo Encontrado")));
     } else {

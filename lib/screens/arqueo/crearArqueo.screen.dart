@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import '../../services/arqueo.service.dart';
 
-class CrearArque extends StatefulWidget {
+class CrearArqueo extends StatefulWidget {
+  const CrearArqueo({Key? key}) : super(key: key);
+
   @override
-  State<CrearArque> createState() => _CrearArqueState();
+  State<CrearArqueo> createState() => _CrearArqueoState();
 }
 
-class _CrearArqueState extends State<CrearArque> {
+class _CrearArqueoState extends State<CrearArqueo> {
   var idSesionController = TextEditingController();
   var idUsuarioController = TextEditingController();
   var efectivoAperturaController = TextEditingController();
