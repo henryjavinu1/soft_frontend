@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:soft_frontend/screens/cliente/todosLosClientes.screen.dart';
+import 'package:soft_frontend/screens/empleado/crearEmpleado.screen.dart';
 import 'package:soft_frontend/screens/manipularFactura/manipularfactura.screen.dart';
 import 'package:soft_frontend/screens/screens.dart';
 import 'package:soft_frontend/screens/tipoPago/buscarTipoPago.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/crearTipoPago.screen.dart';
+import 'package:soft_frontend/screens/arqueo/mostrarArqueo.screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,16 +23,24 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: 'login',
+      initialRoute: 'traer_arqueo',
       routes: {
         'login': (_) => const Login(),
         'pantalla_principal': (_) => const PantallaPrincipal(),
-        'mantenimiento': (_) => const Mantenimiento(),
+        'mantenimiento': (_) => const PantallaMantenimientoPrincipal(),
         'crear_cliente': (_) => CrearClientes(),
+        'crear_empleado': (_) => crearEmpleados(),
+        'traer_clientes': (_) => const TodosLosClientes2(),
+
+        //'buscar_cliente': (_) => BuscarClientes(),
         'manipular_factura': (_) => ManipularFactura(),
+        'talonarios': (_) => TalonariosScreen(),
         'listar_tipopago': (_) => BuscarTipoPago(),
         'crear_tipopago': (_) => CrearTipoPagos(),
-        'mostrar_arqueo': (_) => MostrarArqueo(),
+        'traer_arqueo': (_) => const MostrarArqueos(),
+        'mostrar_arqueo': (_) => MostrarArqueos(),
+        'PrincipalVenta': (_) => PantallaPrincipalVenta(),
+        'PrincipalGestion': (_) => PantallaGestionPrincipal(),
       },
     );
   }

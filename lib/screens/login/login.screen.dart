@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:soft_frontend/services/login.service.dart';
+import 'package:soft_frontend/controllers/user.controller.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -88,10 +88,9 @@ class _LoginState extends State<Login> {
                               onPressed: null,
                               child: Center(
                                 child: ElevatedButton(
-                                    onPressed: () => login(
+                                    onPressed: () => login_controller(
                                         usuarioController.text,
-                                        passwordController.text,
-                                        context),
+                                        passwordController.text,context),
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 10, vertical: 10),
