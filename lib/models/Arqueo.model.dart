@@ -1,12 +1,34 @@
+// To parse this JSON data, do
+//
+//     final manipularArqueo = manipularArqueoFromJson(jsonString);
 import 'dart:convert';
 
-Arqueo mostrarArqueoFromJson(String str) => Arqueo.fromJson(json.decode(str));
+ManipularArqueo manipularArqueoFromJson(String str) =>
+    ManipularArqueo.fromJson(json.decode(str));
+String manipularArqueoToJson(ManipularArqueo data) =>
+    json.encode(data.toJson());
 
-String mostrarArqueoToJson(Arqueo data) => json.encode(data.toJson());
+class ManipularArqueo {
+  ManipularArqueo({
+    required this.arqueos,
+  });
+
+  List<Arqueo> arqueos;
+
+  factory ManipularArqueo.fromJson(Map<String, dynamic> json) =>
+      ManipularArqueo(
+        arqueos:
+            List<Arqueo>.from(json['arqueos'].map((x) => Arqueo.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        'arqueos': List<dynamic>.from(arqueos.map((x) => x.toJson())),
+      };
+}
 
 class Arqueo {
   Arqueo({
-    required this.id,
+    required this.idArqueo,
     required this.fechaInicio,
     required this.fechaFinal,
     required this.efectivoApertura,
@@ -15,59 +37,59 @@ class Arqueo {
     required this.ventaCredito,
     required this.ventaTotal,
     required this.efectivoTotal,
-    required this.isDeleted,
+    required this.isDelete,
     required this.createdAt,
     required this.updatedAt,
     required this.idUsuario,
     required this.idSesion,
   });
 
-  int id;
+  int idArqueo;
   DateTime fechaInicio;
   DateTime fechaFinal;
-  double efectivoApertura;
-  double efectivoCierre;
-  double otrosPagos;
-  double ventaCredito;
-  double ventaTotal;
-  double efectivoTotal;
-  bool isDeleted;
+  String efectivoApertura;
+  String efectivoCierre;
+  String otrosPagos;
+  String ventaCredito;
+  String ventaTotal;
+  String efectivoTotal;
+  bool isDelete;
   DateTime createdAt;
   DateTime updatedAt;
   int idUsuario;
   int idSesion;
 
   factory Arqueo.fromJson(Map<String, dynamic> json) => Arqueo(
-        id: json["id"],
-        fechaInicio: DateTime.parse(json["fecha_inicio"]),
-        fechaFinal: DateTime.parse(json["fecha_final"]),
-        efectivoApertura: json["efectivo_apertura"].toDouble(),
-        efectivoCierre: json["efectivo_cierre"].toDouble(),
-        otrosPagos: json["otros_pagos"].toDouble(),
-        ventaCredito: json["venta_credito"].toDouble(),
-        ventaTotal: json["venta_total"].toDouble(),
-        efectivoTotal: json["efectivo_total"].toDouble(),
-        isDeleted: json["is_deleted"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-        idUsuario: json["id_usuario"],
-        idSesion: json["id_sesion"],
+        idArqueo: json['idArqueo'],
+        fechaInicio: DateTime.parse(json['fechaInicio']),
+        fechaFinal: DateTime.parse(json['fechaFinal']),
+        efectivoApertura: json['efectivoApertura'],
+        efectivoCierre: json['efectivoCierre'],
+        otrosPagos: json['otrosPagos'],
+        ventaCredito: json['ventaCredito'],
+        ventaTotal: json['ventaTotal'],
+        efectivoTotal: json['efectivoTotal'],
+        isDelete: json['isDelete'],
+        createdAt: DateTime.parse(json['createdAt']),
+        updatedAt: DateTime.parse(json['updatedAt']),
+        idUsuario: json['idUsuario'],
+        idSesion: json['idSesion'],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "fecha_inicio": fechaInicio.toIso8601String(),
-        "fecha_final": fechaFinal.toIso8601String(),
-        "efectivo_apertura": efectivoApertura,
-        "efectivo_cierre": efectivoCierre,
-        "otros_pagos": otrosPagos,
-        "venta_credito": ventaCredito,
-        "venta_total": ventaTotal,
-        "efectivo_total": efectivoTotal,
-        "is_deleted": isDeleted,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
-        "id_usuario": idUsuario,
-        "id_sesion": idSesion,
+        'idArqueo': idArqueo == null ? null : idArqueo,
+        'fechaInicio': fechaInicio.toIso8601String(),
+        'fechaFinal': fechaFinal.toIso8601String(),
+        'efectivoApertura': efectivoApertura,
+        'efectivoCierre': efectivoCierre,
+        'otrosPagos': otrosPagos,
+        'ventaCredito': ventaCredito,
+        'ventaTotal': ventaTotal,
+        'efectivoTotal': efectivoTotal,
+        'isDelete': isDelete,
+        'createdAt': createdAt.toIso8601String(),
+        'updatedAt': updatedAt.toIso8601String(),
+        'idUsuario': idUsuario,
+        'idSesion': idSesion,
       };
 }
