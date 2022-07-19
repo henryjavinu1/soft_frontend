@@ -26,7 +26,7 @@ Future filtrarFacturasPorNombreCliente(
     callback(response);
   } else if (response == 404) {
     dialogMensajeProblema(context,
-        'No se encontró ningún resultado para la factura con número: ${controller.text.trim()}');
+        'No se encontró ningúna factura para el cliente: ${controller.text.trim()}');
   }
 }
 
@@ -38,7 +38,7 @@ Future filtrarFacturasPorRTNCliente(TextEditingController _textController,
     callback(response);
   } else if (response == 404) {
     dialogMensajeProblema(context,
-        'No se encontró ningún resultado para la factura con número: ${_textController.text.trim()}');
+        'No se encontró ningún resultado para la factura con RTN: ${_textController.text.trim()}');
   } else if (response is MensajePeticion) {
     MensajePeticion mensajeError = response;
     dialogMensajeProblema(context, mensajeError.msg);
@@ -53,7 +53,7 @@ Future filtrarFacturasPorDNICliente(TextEditingController _textController,
     callback(response);
   } else if (response == 404) {
     dialogMensajeProblema(context,
-        'No se encontró ningún resultado para la factura con número: ${_textController.text.trim()}');
+        'No se encontró ningún resultado para facturas con DNI: ${_textController.text.trim()}');
   } else if (response is MensajePeticion) {
     MensajePeticion mensajeError = response;
     dialogMensajeProblema(context, mensajeError.msg);
