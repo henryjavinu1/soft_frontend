@@ -41,10 +41,10 @@ class TodosLosDetalle {
 
     int id;
     int cantidad;
-    double precioUnitario;
-    double isvAplicado;
-    double descuentoAplicado;
-    double totalDetalleVenta;
+    String precioUnitario;
+    String isvAplicado;
+    String descuentoAplicado;
+    String totalDetalleVenta;
     bool isDelete;
     DateTime createdAt;
     DateTime updatedAt;

@@ -16,11 +16,11 @@ class Ventas {
     List<TodasLasVenta> todasLasVentas;
 
     factory Ventas.fromJson(Map<String, dynamic> json) => Ventas(
-        todasLasVentas: List<TodasLasVenta>.from(json["todasLasVentas"].map((x) => TodasLasVenta.fromJson(x))),
+        todasLasVentas: List<TodasLasVenta>.from(json['todasLasVentas'].map((x) => TodasLasVenta.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
-        "todasLasVentas": List<dynamic>.from(todasLasVentas.map((x) => x.toJson())),
+        'todasLasVentas': List<dynamic>.from(todasLasVentas.map((x) => x.toJson())),
     };
 }
 
@@ -42,9 +42,9 @@ class TodasLasVenta {
     });
 
     int id;
-    double totalIsv;
-    double totalVenta;
-    double totalDescuentoVenta;
+    String totalIsv;
+    String totalVenta;
+    String totalDescuentoVenta;
     bool isDelete;
     String puntoDeEmision;
     String establecimiento;
@@ -56,34 +56,34 @@ class TodasLasVenta {
     int idCliente;
 
     factory TodasLasVenta.fromJson(Map<String, dynamic> json) => TodasLasVenta(
-        id: json["id"],
-        totalIsv: json["totalISV"],
-        totalVenta: json["totalVenta"],
-        totalDescuentoVenta: json["totalDescuentoVenta"],
-        isDelete: json["isDelete"],
-        puntoDeEmision: json["puntoDeEmision"],
-        establecimiento: json["establecimiento"],
-        tipo: json["tipo"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
-        idSesion: json["idSesion"],
-        idUsuario: json["idUsuario"],
-        idCliente: json["idCliente"],
+        id: json['id'],
+        totalIsv: json['totalISV'],
+        totalVenta: json['totalVenta'],
+        totalDescuentoVenta: json['totalDescuentoVenta'],
+        isDelete: json['isDelete'],
+        puntoDeEmision: json['puntoDeEmision'],
+        establecimiento: json['establecimiento'],
+        tipo: json['tipo'],
+        createdAt: DateTime.parse(json['createdAt']),
+        updatedAt: DateTime.parse(json['updatedAt']),
+        idSesion: json['idSesion'],
+        idUsuario: json['idUsuario'],
+        idCliente: json['idCliente'],
     );
 
     Map<String, dynamic> toJson() => {
-        "id": id,
-        "totalISV": totalIsv,
-        "totalVenta": totalVenta,
-        "totalDescuentoVenta": totalDescuentoVenta,
-        "isDelete": isDelete,
-        "puntoDeEmision": puntoDeEmision,
-        "establecimiento": establecimiento,
-        "tipo": tipo,
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
-        "idSesion": idSesion,
-        "idUsuario": idUsuario,
-        "idCliente": idCliente,
+        'id': id,
+        'totalISV': totalIsv,
+        'totalVenta': totalVenta,
+        'totalDescuentoVenta': totalDescuentoVenta,
+        'isDelete': isDelete,
+        'puntoDeEmision': puntoDeEmision,
+        'establecimiento': establecimiento,
+        'tipo': tipo,
+        'createdAt': createdAt.toIso8601String(),
+        'updatedAt': updatedAt.toIso8601String(),
+        'idSesion': idSesion,
+        'idUsuario': idUsuario,
+        'idCliente': idCliente,
     };
 }

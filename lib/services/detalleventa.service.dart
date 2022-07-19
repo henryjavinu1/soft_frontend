@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:soft_frontend/models/mostrarUnaFactura.model.dart';
 
 import '../constans.dart';
+import '../models/detalleventa.model.dart';
 
 Future<List<TodosLosDetalle>> mostrardetalleventa() async {
   List<TodosLosDetalle> detalleVentaVacia = [];
@@ -13,7 +14,7 @@ Future<List<TodosLosDetalle>> mostrardetalleventa() async {
    // DetalleVenta detalleVenta = DetalleVenta.fromJson();
     if (response.statusCode == 200) {
       final DetalleVenta = detalleVentaFromJson(response.body);
-      print(DetalleVenta.todosLosDetalles[1].id);
+      
     } else {
 
     }
