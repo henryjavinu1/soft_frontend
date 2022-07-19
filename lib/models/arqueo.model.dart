@@ -4,33 +4,31 @@
 
 import 'dart:convert';
 
-ManipularArqueo manipularArqueoFromJson(String str) =>
+ManipularArqueo manipulararqueoFromJson(String str) =>
     ManipularArqueo.fromJson(json.decode(str));
-
-String manipularArqueoToJson(ManipularArqueo data) =>
+String manipulararqueoToJson(ManipularArqueo data) =>
     json.encode(data.toJson());
 
 class ManipularArqueo {
   ManipularArqueo({
-    required this.todoslosArqueos,
+    required this.arqueos,
   });
 
-  List<TodoslosArqueos> todoslosArqueos;
+  List<Arqueo> arqueos;
 
   factory ManipularArqueo.fromJson(Map<String, dynamic> json) =>
       ManipularArqueo(
-        todoslosArqueos: List<TodoslosArqueos>.from(
-            json['todoslosArqueos'].map((x) => TodoslosArqueos.fromJson(x))),
+        arqueos:
+            List<Arqueo>.from(json['arqueos'].map((x) => Arqueo.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        'todoslosArqueos':
-            List<dynamic>.from(todoslosArqueos.map((x) => x.toJson())),
+        'arqueos': List<dynamic>.from(arqueos.map((x) => x.toJson())),
       };
 }
 
-class TodoslosArqueos {
-  TodoslosArqueos({
+class Arqueo {
+  Arqueo({
     required this.idArqueo,
     required this.fechaInicio,
     required this.fechaFinal,
@@ -47,32 +45,31 @@ class TodoslosArqueos {
     required this.idSesion,
   });
 
-  int idArqueo;
-  DateTime fechaInicio;
-  DateTime fechaFinal;
-  double efectivoApertura;
-  double efectivoCierre;
-  double otrosPagos;
-  double ventaCredito;
-  double ventaTotal;
-  double efectivoTotal;
-  bool isDelete;
-  DateTime createdAt;
-  DateTime updatedAt;
-  int idUsuario;
-  int idSesion;
+  final int idArqueo;
+  final DateTime fechaInicio;
+  final DateTime fechaFinal;
+  final String efectivoApertura;
+  final String efectivoCierre;
+  final String otrosPagos;
+  final String ventaCredito;
+  final String ventaTotal;
+  final String efectivoTotal;
+  final bool isDelete;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final int idUsuario;
+  final int idSesion;
 
-  factory TodoslosArqueos.fromJson(Map<String, dynamic> json) =>
-      TodoslosArqueos(
-        idArqueo: json["idArqueo"],
+  factory Arqueo.fromJson(Map<String, dynamic> json) => Arqueo(
+        idArqueo: json["idArqueo"] == null ? null : json["idArqueo"],
         fechaInicio: DateTime.parse(json["fechaInicio"]),
         fechaFinal: DateTime.parse(json["fechaFinal"]),
-        efectivoApertura: json["efectivoApertura"].toDouble(),
-        efectivoCierre: json["efectivoCierre"].toDouble(),
-        otrosPagos: json["otrosPagos"].toDouble(),
-        ventaCredito: json["ventaCredito"].toDouble(),
-        ventaTotal: json["ventaTotal"].toDouble(),
-        efectivoTotal: json["efectivoTotal"].toDouble(),
+        efectivoApertura: json["efectivoApertura"],
+        efectivoCierre: json["efectivoCierre"],
+        otrosPagos: json["otrosPagos"],
+        ventaCredito: json["ventaCredito"],
+        ventaTotal: json["ventaTotal"],
+        efectivoTotal: json["efectivoTotal"],
         isDelete: json["isDelete"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
@@ -81,7 +78,7 @@ class TodoslosArqueos {
       );
 
   Map<String, dynamic> toJson() => {
-        "idArqueo": idArqueo,
+        "idArqueo": idArqueo == null ? null : idArqueo,
         "fechaInicio": fechaInicio.toIso8601String(),
         "fechaFinal": fechaFinal.toIso8601String(),
         "efectivoApertura": efectivoApertura,

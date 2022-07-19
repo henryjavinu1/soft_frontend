@@ -3,7 +3,7 @@ import 'package:soft_frontend/services/arqueo.service.dart';
 import 'package:soft_frontend/models/arqueo.model.dart';
 
 class EliminarArque extends StatefulWidget {
-  final TodoslosArqueos arqueo;
+  final Arqueo arqueo;
   const EliminarArque({Key? key, required this.arqueo}) : super(key: key);
   @override
   State<EliminarArque> createState() => _EliminarArqueState();
@@ -29,12 +29,12 @@ class _EliminarArqueState extends State<EliminarArque> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    "Eliminar un Arqueo",
+                    'Eliminar un Arqueo',
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 3),
                   const Text(
-                    "Por favor llene los campos",
+                    'Por favor llene los campos',
                     style: TextStyle(fontSize: 15, color: Color(0xff606060)),
                   ),
                   const SizedBox(height: 40),
@@ -49,7 +49,7 @@ class _EliminarArqueState extends State<EliminarArque> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "id De Arqueo",
+                                'id De Arqueo',
                                 style: TextStyle(fontSize: 18),
                               ),
                               TextFormField(

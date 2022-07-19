@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../../services/arqueo.service.dart';
 
 class ActualizarArqueCerrandoSesion extends StatefulWidget {
+  const ActualizarArqueCerrandoSesion({Key? key}) : super(key: key);
+
   @override
   State<ActualizarArqueCerrandoSesion> createState() =>
       _ActualizarArqueCerrandoSesionState();
@@ -29,12 +31,12 @@ class _ActualizarArqueCerrandoSesionState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    "Cerrar Sesión Actualizando Arqueo",
+                    'Cerrar Sesión Actualizando Arqueo',
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 3),
                   const Text(
-                    "Por favor llene los campos",
+                    'Por favor llene los campos',
                     style: TextStyle(fontSize: 15, color: Color(0xff606060)),
                   ),
                   const SizedBox(height: 40),
@@ -49,7 +51,7 @@ class _ActualizarArqueCerrandoSesionState
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Id De Usuario",
+                                'Id De Usuario',
                                 style: TextStyle(fontSize: 18),
                               ),
                               TextFormField(
@@ -61,7 +63,7 @@ class _ActualizarArqueCerrandoSesionState
                                 height: 40,
                               ),
                               Text(
-                                "Id De Sesion",
+                                'Id De Sesion',
                                 style: TextStyle(fontSize: 18),
                               ),
                               TextFormField(
@@ -73,7 +75,7 @@ class _ActualizarArqueCerrandoSesionState
                                 height: 40,
                               ),
                               Text(
-                                "Id De Arqueo",
+                                'Id De Arqueo',
                                 style: TextStyle(fontSize: 18),
                               ),
                               TextFormField(

@@ -2,21 +2,19 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:soft_frontend/constans.dart';
-import 'package:soft_frontend/models/arqueo.model.dart';
 import 'package:soft_frontend/models/models.dart';
 
-// ignore: non_constant_identifier_names
 Future traerArqueos() async {
   try {
-    final response =
-        await http.post(Uri.parse(API_URL + 'arqueo/mostrarArqueo'));
+    final response = await http
+        .post(Uri.parse(API_URL + 'arqueo/mostrarArqueo')); ///////////////
     if (response.statusCode == 200) {
-      ManipularArqueo listaArque = manipularArqueoFromJson(response.body);
-      return listaArque;
+      // print(response.request);
+      // print(jsonDecode(response.body));
+      ManipularArqueo listaArqueo = manipulararqueoFromJson(response.body);
+      return listaArqueo;
     }
-  } catch (e) {
-    return null;
-  }
+  } catch (e) {}
 }
 
 Future buscarArqueoPorIdUsuario(String idUsuario, context) async {
@@ -26,7 +24,7 @@ Future buscarArqueoPorIdUsuario(String idUsuario, context) async {
         body: ({'idUsuario': idUsuario}));
 
     if (response.statusCode == 200) {
-      ManipularArqueo arqueo = manipularArqueoFromJson(response.body);
+      ManipularArqueo arqueo = manipulararqueoFromJson(response.body);
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("Arqueo Encontrado")));
     } else {
@@ -48,7 +46,7 @@ Future<List<ManipularArqueo?>> eliminarArqueo(String idArqueo) async {
         }));
     print(response.body);
     if (response.statusCode == 200) {
-      print(ManipularArqueo);
+      print(Arqueo);
     } else {}
     return arqueoEliminado;
   } catch (e) {
