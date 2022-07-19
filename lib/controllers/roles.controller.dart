@@ -1,5 +1,4 @@
-import 'dart:convert';
-import 'dart:js';
+/*import 'dart:convert';
 import '../models/rol.model.dart';
 import '../services/rol.service.dart';
 
@@ -14,4 +13,4 @@ Future<bool> CreaRol(String rol, String descripcion, context) async {
   } else {
     return false;
   }
-}
+}*/
