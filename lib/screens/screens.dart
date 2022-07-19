@@ -7,6 +7,8 @@ export 'package:soft_frontend/screens/pantallaPrincipal/principal.screen.dart';
 export 'package:soft_frontend/screens/mantenimiento/mantenimiento.screen.dart';
 export 'package:soft_frontend/screens/cliente/crearCliente.screen.dart';
 export 'package:soft_frontend/screens/cliente/actualizarCliente.screen.dart';
+export 'package:soft_frontend/screens/empleado/todosLosEmpleados.screen.dart';
+export 'package:soft_frontend/screens/empleado/actualizarEmpleado.screen.dart';
 
 
 

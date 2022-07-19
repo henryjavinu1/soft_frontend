@@ -53,6 +53,19 @@ class _CrearEmpleadosState extends State<crearEmpleados> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
+                                "DNI",
+                                style: TextStyle(fontSize: 18),
+                              ),
+                              TextFormField(
+                                controller: dniController,
+                                decoration: InputDecoration(
+                                    border: UnderlineInputBorder(),
+                                    hintText: '061019901789'),
+                              ),
+                              SizedBox(
+                                height: 40,
+                              ),
+                              Text(
                                 "Nombre",
                                 style: TextStyle(fontSize: 18),
                               ),
@@ -60,7 +73,7 @@ class _CrearEmpleadosState extends State<crearEmpleados> {
                                 controller: nombreController,
                                 decoration: InputDecoration(
                                     border: UnderlineInputBorder(),
-                                    hintText: 'Pedro'),
+                                    hintText: 'Carlos'),
                               ),
                               SizedBox(
                                 height: 40,
@@ -73,7 +86,7 @@ class _CrearEmpleadosState extends State<crearEmpleados> {
                                 controller: apellidoController,
                                 decoration: InputDecoration(
                                     border: UnderlineInputBorder(),
-                                    hintText: 'Estrada'),
+                                    hintText: 'Carrasco'),
                               ),
                               SizedBox(
                                 height: 40,
@@ -86,7 +99,7 @@ class _CrearEmpleadosState extends State<crearEmpleados> {
                                 controller: direccionController,
                                 decoration: InputDecoration(
                                     border: UnderlineInputBorder(),
-                                    hintText: 'Las colinas'),
+                                    hintText: 'Barrio las brisas'),
                               ),
                               SizedBox(
                                 height: 40,
@@ -99,20 +112,20 @@ class _CrearEmpleadosState extends State<crearEmpleados> {
                                 controller: telefonoController,
                                 decoration: InputDecoration(
                                     border: UnderlineInputBorder(),
-                                    hintText: '33322232'),
+                                    hintText: '33707090'),
                               ),
                               SizedBox(
                                 height: 40,
                               ),
                               Text(
-                                "Fecha Nacimiento",
+                                "Fecha de Nacimiento",
                                 style: TextStyle(fontSize: 18),
                               ),
                               TextFormField(
                                 controller: fechaNacimientoController,
                                 decoration: InputDecoration(
                                     border: UnderlineInputBorder(),
-                                    hintText: 'Masculino '),
+                                    hintText: '2020-07-22'),
                               ),
                               SizedBox(
                                 height: 40,
@@ -125,31 +138,51 @@ class _CrearEmpleadosState extends State<crearEmpleados> {
                                 controller: sexoController,
                                 decoration: InputDecoration(
                                     border: UnderlineInputBorder(),
-                                    hintText: 'Masculino'),
+                                    hintText: 'M ó F'),
                               ),
                               SizedBox(
                                 height: 40,
                               ),
-                              TextButton(
-                                onPressed: null,
-                                child: Center(
-                                  child: ElevatedButton(
-                                      onPressed: () => crearEmpleado_Controller(
-                                          dniController.text,
-                                          nombreController.text,
-                                          apellidoController.text,
-                                          direccionController.text,
-                                          telefonoController.text,
-                                          fechaNacimientoController.text,
-                                          sexoController.text,
-                                          context),
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 10, vertical: 10),
-                                        child: Text('Aceptar'),
-                                      )),
-                                ),
-                              ),
+                              Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    TextButton(
+                                      onPressed: null,
+                                      child: Center(
+                                        child: ElevatedButton(
+                                            onPressed: () =>
+                                                crearEmpleado_Controller(
+                                                    dniController.text,
+                                                    nombreController.text,
+                                                    apellidoController.text,
+                                                    direccionController.text,
+                                                    telefonoController.text,
+                                                    fechaNacimientoController
+                                                        .text,
+                                                    sexoController.text,
+                                                    context),
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10, vertical: 10),
+                                              child: Text('Aceptar'),
+                                            )),
+                                      ),
+                                    ),
+                                    TextButton(
+                                        onPressed: null,
+                                        child: Center(
+                                            child: ElevatedButton(
+                                                onPressed: () =>
+                                                    Navigator.pushNamed(context,
+                                                        'traer_empleados'),
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 10,
+                                                      vertical: 10),
+                                                  child: Text('Cancelar'),
+                                                )))),
+                                  ]),
                             ]),
                       ),
                     ),
