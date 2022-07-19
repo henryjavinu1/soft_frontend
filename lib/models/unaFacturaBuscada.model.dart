@@ -16,11 +16,11 @@ class UnaFacturaBuscada {
     Unafactura unafactura;
 
     factory UnaFacturaBuscada.fromJson(Map<String, dynamic> json) => UnaFacturaBuscada(
-        unafactura: Unafactura.fromJson(json["unafactura"]),
+        unafactura: Unafactura.fromJson(json['unafactura']),
     );
 
     Map<String, dynamic> toJson() => {
-        "unafactura": unafactura.toJson(),
+        'unafactura': unafactura.toJson(),
     };
 }
 
@@ -46,10 +46,10 @@ class Unafactura {
         required this.idVenta,
         required this.idTalonario,
         required this.idNumero,
-        required this.empleado,
-        required this.tipopago,
-        required this.talonario,
-        required this.cliente,
+        this.empleado,
+        this.tipopago,
+        this.talonario,
+        this.cliente,
     });
 
     int idFactura;
@@ -72,10 +72,10 @@ class Unafactura {
     int idVenta;
     int idTalonario;
     int idNumero;
-    Empleado empleado;
-    Tipopago tipopago;
-    Talonario talonario;
-    Cliente cliente;
+    Empleado? empleado;
+    Tipopago? tipopago;
+    Talonario? talonario;
+    Cliente? cliente;
 
     factory Unafactura.fromJson(Map<String, dynamic> json) => Unafactura(
         idFactura: json['idFactura'] ?? 0,
@@ -98,37 +98,37 @@ class Unafactura {
         idVenta: json['idVenta'],
         idTalonario: json['idTalonario'],
         idNumero: json['idNumero'],
-        empleado: Empleado.fromJson(json['empleado']),
-        tipopago: Tipopago.fromJson(json['tipopago']),
-        talonario: Talonario.fromJson(json['talonario']),
-        cliente: Cliente.fromJson(json['cliente']),
+        empleado: Empleado?.fromJson(json['empleado']),
+        tipopago: Tipopago?.fromJson(json['tipopago']),
+        talonario: Talonario?.fromJson(json['talonario']),
+        cliente: Cliente?.fromJson(json['cliente']),
     );
 
     Map<String, dynamic> toJson() => {
-        "idFactura": idFactura,
-        "numeroFactura": numeroFactura,
-        "fechaFactura": "${fechaFactura.year.toString().padLeft(4, '0')}-${fechaFactura.month.toString().padLeft(2, '0')}-${fechaFactura.day.toString().padLeft(2, '0')}",
-        "descuentoTotalFactura": descuentoTotalFactura,
-        "isvTotalFactura": isvTotalFactura,
-        "totalFactura": totalFactura,
-        "subTotalExonerado": subTotalExonerado,
-        "subTotalFactura": subTotalFactura,
-        "cantidadLetras": cantidadLetras,
-        "isDelete": isDelete,
-        "estado": estado,
-        "createdAt": createdAt,
-        "updatedAt": updatedAt.toIso8601String(),
-        "idTipoPago": idTipoPago,
-        "idCliente": idCliente,
-        "idUsuario": idUsuario,
-        "idEmpleado": idEmpleado,
-        "idVenta": idVenta,
-        "idTalonario": idTalonario,
-        "idNumero": idNumero,
-        "empleado": empleado.toJson(),
-        "tipopago": tipopago.toJson(),
-        "talonario": talonario.toJson(),
-        "cliente": cliente.toJson(),
+        'idFactura': idFactura,
+        'numeroFactura': numeroFactura,
+        'fechaFactura': '${fechaFactura.year.toString().padLeft(4, '0')}-${fechaFactura.month.toString().padLeft(2, '0')}-${fechaFactura.day.toString().padLeft(2, '0')}',
+        'descuentoTotalFactura': descuentoTotalFactura,
+        'isvTotalFactura': isvTotalFactura,
+        'totalFactura': totalFactura,
+        'subTotalExonerado': subTotalExonerado,
+        'subTotalFactura': subTotalFactura,
+        'cantidadLetras': cantidadLetras,
+        'isDelete': isDelete,
+        'estado': estado,
+        'createdAt': createdAt,
+        'updatedAt': updatedAt.toIso8601String(),
+        'idTipoPago': idTipoPago,
+        'idCliente': idCliente,
+        'idUsuario': idUsuario,
+        'idEmpleado': idEmpleado,
+        'idVenta': idVenta,
+        'idTalonario': idTalonario,
+        'idNumero': idNumero,
+        'empleado': empleado?.toJson(),
+        'tipopago': tipopago?.toJson(),
+        'talonario': talonario?.toJson(),
+        'cliente': cliente?.toJson(),
     };
 }
 
@@ -149,22 +149,22 @@ class Cliente {
     String rtn;
     String telefonoCliente;
 
-    factory Cliente.fromJson(Map<String, dynamic> json) => Cliente(
-        nombreCliente: json["nombreCliente"],
-        direccion: json["direccion"],
-        dni: json["dni"],
-        email: json['email'] ?? 'NO ESPECIFICADO',
-        rtn: json["rtn"],
-        telefonoCliente: json["telefonoCliente"],
+    factory Cliente.fromJson(Map<String, dynamic>? json) => Cliente(
+        nombreCliente: json?['nombreCliente'] ?? '',
+        direccion: json?['direccion'] ?? '',
+        dni: json?['dni'] ?? '',
+        email: json?['email'] ?? 'NO ESPECIFICADO',
+        rtn: json?['rtn'] ?? '',
+        telefonoCliente: json?['telefonoCliente'],
     );
 
     Map<String, dynamic> toJson() => {
-        "nombreCliente": nombreCliente,
-        "direccion": direccion,
-        "dni": dni,
-        "email": email,
-        "rtn": rtn,
-        "telefonoCliente": telefonoCliente,
+        'nombreCliente': nombreCliente,
+        'direccion': direccion,
+        'dni': dni,
+        'email': email,
+        'rtn': rtn,
+        'telefonoCliente': telefonoCliente,
     };
 }
 
@@ -175,20 +175,20 @@ class Empleado {
         required this.apellido,
     });
 
-    int id;
-    String nombre;
-    String apellido;
+    int? id;
+    String? nombre;
+    String? apellido;
 
-    factory Empleado.fromJson(Map<String, dynamic> json) => Empleado(
-        id: json["id"],
-        nombre: json["nombre"],
-        apellido: json["apellido"],
+    factory Empleado.fromJson(Map<String, dynamic>? json) => Empleado(
+        id: json?['id'] ?? -1,
+        nombre: json?['nombre'] ?? '',
+        apellido: json?['apellido'] ?? '',
     );
 
     Map<String, dynamic> toJson() => {
-        "id": id,
-        "nombre": nombre,
-        "apellido": apellido,
+        'id': id,
+        'nombre': nombre,
+        'apellido': apellido,
     };
 }
 
@@ -197,14 +197,14 @@ class Talonario {
         required this.cai,
     });
 
-    String cai;
+    String? cai;
 
-    factory Talonario.fromJson(Map<String, dynamic> json) => Talonario(
-        cai: json["cai"],
+    factory Talonario.fromJson(Map<String, dynamic>? json) => Talonario(
+        cai: json?['cai'] ?? '',
     );
 
     Map<String, dynamic> toJson() => {
-        "cai": cai,
+        'cai': cai,
     };
 }
 
@@ -213,13 +213,13 @@ class Tipopago {
         required this.tipoDePago,
     });
 
-    String tipoDePago;
+    String? tipoDePago;
 
-    factory Tipopago.fromJson(Map<String, dynamic> json) => Tipopago(
-        tipoDePago: json["tipoDePago"],
+    factory Tipopago.fromJson(Map<String, dynamic>? json) => Tipopago(
+        tipoDePago: json?['tipoDePago'] ?? '',
     );
 
     Map<String, dynamic> toJson() => {
-        "tipoDePago": tipoDePago,
+        'tipoDePago': tipoDePago,
     };
 }
