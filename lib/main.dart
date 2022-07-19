@@ -38,7 +38,6 @@ class MyApp extends StatelessWidget {
         'listar_tipopago': (_) => BuscarTipoPago(),
         'crear_tipopago': (_) => CrearTipoPagos(),
         'traer_arqueo': (_) => const MostrarArqueos(),
-        'mostrar_arqueo': (_) => MostrarArqueos(),
         'PrincipalVenta': (_) => PantallaPrincipalVenta(),
         'PrincipalGestion': (_) => PantallaGestionPrincipal(),
       },
