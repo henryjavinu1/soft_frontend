@@ -11,6 +11,8 @@ class _CrearUserState extends State<CrearUser> {
   var usuarioController = TextEditingController();
   var passwordController = TextEditingController();
   var emailController = TextEditingController();
+  var idEmpleadoController = TextEditingController();
+  var idRolController = TextEditingController();
 
   @override
   Widget build(context) =>
@@ -91,14 +93,42 @@ class _CrearUserState extends State<CrearUser> {
                                 SizedBox(
                                   height: 40,
                                 ),
+                                Text(
+                                  "IdEmpleado",
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                TextFormField(
+                                  controller: idEmpleadoController,
+                                  decoration: InputDecoration(
+                                      border: UnderlineInputBorder(),
+                                      hintText: '1'),
+                                ),
+                                SizedBox(
+                                  height: 40,
+                                ),
+                                Text(
+                                  "IdRol",
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                TextFormField(
+                                  controller: idRolController,
+                                  decoration: InputDecoration(
+                                      border: UnderlineInputBorder(),
+                                      hintText: '1'),
+                                ),
+                                SizedBox(
+                                  height: 40,
+                                ),
                                 TextButton(
                                   onPressed: null,
                                   child: Center(
                                     child: ElevatedButton(
-                                        onPressed: () => crearUser_Controller(
+                                        onPressed: () => crearUsuario(
                                             usuarioController.text,
-                                            emailController.text,
                                             passwordController.text,
+                                            emailController.text,
+                                            idEmpleadoController.text,
+                                            idRolController.text,
                                             context),
                                         child: Padding(
                                           padding: EdgeInsets.symmetric(

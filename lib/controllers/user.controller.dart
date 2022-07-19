@@ -57,12 +57,13 @@ Future<bool?> logeado() async {
   }
 }
 
-Future<bool> crearUser_Controller(
-    String usuario, String password, String email, context) async {
-  User? user = await crearUser(usuario, password, email, context);
+Future<User?> crearUsuario(String usuario, String password, String email,
+    String idEmpleado, String idRol, context) async {
+  List<User?> user =
+      await crearUser(usuario, password, email, idEmpleado, idRol);
   if (user != null) {
-    return true;
-  } else {
-    return false;
+    ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Usuario creado con exito")));
+    Navigator.pushNamed(context, "Traer usuarios");
   }
 }
