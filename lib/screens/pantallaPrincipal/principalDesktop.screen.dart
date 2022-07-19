@@ -12,43 +12,38 @@ class PantallaPrincipalDesktop extends StatefulWidget {
 }
 
 class _PantallaPrincipalDesktopState extends State<PantallaPrincipalDesktop> {
-
   @override
-  
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
     return FutureBuilder<User>(
-      future: usercontroller(),
-         builder: (context, snapshot) {
-          if(snapshot.connectionState == ConnectionState.waiting){
-            return Center(child: CircularProgressIndicator(),);
-          }else{
-          return Center(child: PantallaDesktop(size: size, user: snapshot.data));
-
+        future: usercontroller(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            return Center(
+                child: PantallaDesktop(size: size, user: snapshot.data));
           }
-  });
+        });
   }
 }
 
 class PantallaDesktop extends StatelessWidget {
-  const PantallaDesktop({
-    required this.size, required this.user
-  });
+  const PantallaDesktop({required this.size, required this.user});
   final User? user;
   final Size size;
   @override
   Widget build(BuildContext context) {
+    final int? cantidadPermisos = user?.rol.permisos.length;
+    final List<int?> permisosId = <int>[];
 
+    for (int i = 0; i < cantidadPermisos!; i++) {
+      permisosId.add(user?.rol.permisos[i].id);
+    }
 
-  final int? cantidadPermisos = user?.rol.permisos.length;
-  final List <int?> permisosId = <int>[];
-
-  for (int i = 0; i < cantidadPermisos!; i++) {
-    permisosId.add(user?.rol.permisos[i].id);
-  }
-
-    
     return Scaffold(
       body: Container(
         color: const Color(0xffF3F3F3),
@@ -58,7 +53,7 @@ class PantallaDesktop extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                 Text(
+                Text(
                   "Panel Principal ${user?.usuario}",
                   style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                 ),
@@ -87,29 +82,29 @@ class PantallaDesktop extends StatelessWidget {
               height: 100,
             ),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              if (permisosId.contains(8) || permisosId.contains(40) ) ...[
-              Visibility(
-                  visible: true,
-                  child: TextButtons (
-                    name: "Modulo de Mantenimiento",
-                    route: 'mantenimiento',
-                    width: 0.3,
-                    fontSize: 18,
-                  )),
+              if (permisosId.contains(8) || permisosId.contains(40)) ...[
+                Visibility(
+                    visible: true,
+                    child: TextButtons(
+                      name: "Modulo de Mantenimiento",
+                      route: 'mantenimiento',
+                      width: 0.3,
+                      fontSize: 18,
+                    )),
               ],
-               SizedBox(
+              SizedBox(
                 width: 30,
               ),
-              if (permisosId.contains(44) || permisosId.contains(15) ) ...[
-              Visibility(
-                visible: true,
-                child: TextButtons(
-                  name: "Modulo de Ventas",
-                  route: 'PrincipalVenta',
-                  width: 0.3,
-                  fontSize: 18,
+              if (permisosId.contains(44) || permisosId.contains(15)) ...[
+                Visibility(
+                  visible: true,
+                  child: TextButtons(
+                    name: "Modulo de Ventas",
+                    route: 'PrincipalVenta',
+                    width: 0.3,
+                    fontSize: 18,
+                  ),
                 ),
-              ),
               ],
             ]),
             const SizedBox(
@@ -118,16 +113,18 @@ class PantallaDesktop extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (permisosId.contains(43) || permisosId.contains(28) || permisosId.contains(12) ) ...[
-                Visibility(
-                  visible: true,
-                  child: TextButtons(
-                    name: "Gestion de Usuarios",
-                    route: 'PrincipalGestion',
-                    width: 0.3,
-                    fontSize: 18,
+                if (permisosId.contains(43) ||
+                    permisosId.contains(28) ||
+                    permisosId.contains(12)) ...[
+                  Visibility(
+                    visible: true,
+                    child: TextButtons(
+                      name: "Gestion de Usuarios",
+                      route: 'PrincipalGestion',
+                      width: 0.3,
+                      fontSize: 18,
+                    ),
                   ),
-                ),
                 ]
               ],
             )

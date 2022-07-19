@@ -10,10 +10,12 @@ class PantallaMantenimientoPrincipal extends StatefulWidget {
   const PantallaMantenimientoPrincipal({Key? key}) : super(key: key);
 
   @override
-  State<PantallaMantenimientoPrincipal> createState() => _PantallaMantenimientoPrincipalState();
+  State<PantallaMantenimientoPrincipal> createState() =>
+      _PantallaMantenimientoPrincipalState();
 }
 
-class _PantallaMantenimientoPrincipalState extends State<PantallaMantenimientoPrincipal> {
+class _PantallaMantenimientoPrincipalState
+    extends State<PantallaMantenimientoPrincipal> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -116,6 +118,20 @@ class _Pantalla extends StatelessWidget {
                   child: TextButtons(
                     name: 'Productos',
                     route: 'mantenimiento',
+                    width: 0.2,
+                    fontSize: 18,
+                  ),
+                ),
+              ],
+              SizedBox(
+                width: 30,
+              ),
+              if (permisosId.contains(32)) ...[
+                Visibility(
+                  visible: true,
+                  child: TextButtons(
+                    name: 'Talonarios',
+                    route: 'talonarios',
                     width: 0.2,
                     fontSize: 18,
                   ),

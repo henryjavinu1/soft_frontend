@@ -28,8 +28,7 @@ class CabeceraDeTabla extends StatelessWidget {
           child: Text(
             'Fecha',
             style: GoogleFonts.lato(
-                fontSize: size.width * 0.01,
-                fontWeight: FontWeight.w800),
+                fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
           ),
         ),
         Expanded(
@@ -37,8 +36,7 @@ class CabeceraDeTabla extends StatelessWidget {
           child: Text(
             'Total',
             style: GoogleFonts.lato(
-                fontSize: size.width * 0.01,
-                fontWeight: FontWeight.w800),
+                fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
           ),
         ),
         Expanded(
@@ -46,8 +44,7 @@ class CabeceraDeTabla extends StatelessWidget {
           child: Text(
             'Nombre de empleado',
             style: GoogleFonts.lato(
-                fontSize: size.width * 0.01,
-                fontWeight: FontWeight.w800),
+                fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
           ),
         ),
         Expanded(
@@ -55,8 +52,7 @@ class CabeceraDeTabla extends StatelessWidget {
           child: Text(
             'CAI',
             style: GoogleFonts.lato(
-                fontSize: size.width * 0.01,
-                fontWeight: FontWeight.w800),
+                fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
           ),
         ),
         Expanded(
@@ -64,8 +60,7 @@ class CabeceraDeTabla extends StatelessWidget {
           child: Text(
             'Nombre de cliente',
             style: GoogleFonts.lato(
-                fontSize: size.width * 0.01,
-                fontWeight: FontWeight.w800),
+                fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
           ),
         ),
         Expanded(
@@ -73,13 +68,13 @@ class CabeceraDeTabla extends StatelessWidget {
           child: Text(
             'RTN',
             style: GoogleFonts.lato(
-                fontSize: size.width * 0.01,
-                fontWeight: FontWeight.w800),
+                fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
           ),
         ),
         Expanded(
           flex: 1,
-          child: Container(),)
+          child: Container(),
+        )
       ],
     );
   }
