@@ -1,24 +1,34 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
-import 'package:soft_frontend/controllers/user.controller.dart';
+import 'package:soft_frontend/models/tipoPago.model.dart';
+import 'package:soft_frontend/services/editarTipoPago.service.dart';
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+import '../../models/tipoPagoBuscado.model.dart';
 
+class EditarTipoPagos extends StatefulWidget {
+  final TipoPagoBuscado tipoPago;
+  const EditarTipoPagos({Key? key, required this.tipoPago}) : super(key: key);
   @override
-  State<Login> createState() => _LoginState();
+  State<EditarTipoPagos> createState() => _EditarTipoPagosState();
 }
 
-class _LoginState extends State<Login> {
-  var usuarioController = TextEditingController();
-  var passwordController = TextEditingController();
-  bool _password = true;
+class _EditarTipoPagosState extends State<EditarTipoPagos> {
+  var idTipoPagoController = TextEditingController();
+  var tipoDePagoController = TextEditingController();
+  var descripcionTipoPagoController = TextEditingController();
 
   @override
-  Widget build(context) =>
-      Scaffold(body: LayoutBuilder(builder: (context, constraints) {
-        return Container(
+  Widget build(context) {
+    print(widget.tipoPago.idTipoPago);
+    print(widget.tipoPago.tipoDePago);
+    print(widget.tipoPago.descripcionTipoPago);
+    idTipoPagoController.text = widget.tipoPago.idTipoPago.toString();
+    tipoDePagoController.text = widget.tipoPago.tipoDePago;
+    descripcionTipoPagoController.text = widget.tipoPago.descripcionTipoPago;
+
+    return Scaffold(body: LayoutBuilder(builder: (context, constraints) {
+      return SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Container(
           padding: constraints.maxWidth < 500
               ? const EdgeInsets.all(20)
               : const EdgeInsets.all(30.0),
@@ -29,12 +39,12 @@ class _LoginState extends State<Login> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "Iniciar sesión",
+                  "Crear un nuevo Tipo De Pago",
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 3),
                 const Text(
-                  "Por favor ingrese su usuario y contraseña para conocer su identidad.",
+                  "Por favor llene los campos",
                   style: TextStyle(fontSize: 15, color: Color(0xff606060)),
                 ),
                 const SizedBox(height: 40),
@@ -49,37 +59,37 @@ class _LoginState extends State<Login> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Usuario",
+                              "id De Pago",
                               style: TextStyle(fontSize: 18),
                             ),
                             TextFormField(
-                              controller: usuarioController,
+                              controller: idTipoPagoController,
                               decoration: InputDecoration(
-                                  border: UnderlineInputBorder(),
-                                  hintText: 'usuario01'),
+                                  border: UnderlineInputBorder()),
                             ),
                             SizedBox(
                               height: 40,
                             ),
                             Text(
-                              "Contraseña",
+                              "Tipo De Pago",
                               style: TextStyle(fontSize: 18),
                             ),
                             TextFormField(
-                              controller: passwordController,
-                              keyboardType: TextInputType.text,
-                              obscureText: _password,
+                              controller: tipoDePagoController,
                               decoration: InputDecoration(
-                                  suffixIcon: IconButton(
-                                    icon: Icon(Icons.visibility_off_outlined),
-                                    onPressed: () {
-                                      setState(() {
-                                        _password = !_password;
-                                      });
-                                    },
-                                  ),
-                                  border: UnderlineInputBorder(),
-                                  hintText: 'usuario01'),
+                                  border: UnderlineInputBorder()),
+                            ),
+                            SizedBox(
+                              height: 40,
+                            ),
+                            Text(
+                              "Descripcion del tipo de pago",
+                              style: TextStyle(fontSize: 18),
+                            ),
+                            TextFormField(
+                              controller: descripcionTipoPagoController,
+                              decoration: InputDecoration(
+                                  border: UnderlineInputBorder()),
                             ),
                             SizedBox(
                               height: 40,
@@ -88,9 +98,11 @@ class _LoginState extends State<Login> {
                               onPressed: null,
                               child: Center(
                                 child: ElevatedButton(
-                                    onPressed: () => login_controller(
-                                        usuarioController.text,
-                                        passwordController.text,context),
+                                    onPressed: () => EditarTipoPago(
+                                        idTipoPagoController.text,
+                                        tipoDePagoController.text,
+                                        descripcionTipoPagoController.text,
+                                        context),
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 10, vertical: 10),
@@ -105,6 +117,8 @@ class _LoginState extends State<Login> {
               ],
             ),
           ),
-        );
-      }));
+        ),
+      );
+    }));
+  }
 }
