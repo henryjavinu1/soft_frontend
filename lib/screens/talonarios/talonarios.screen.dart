@@ -46,7 +46,9 @@ class _TalonariosScreenState extends State<TalonariosScreen> {
             child: Row(
               children: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    _CreateTalonario(context);
+                  },
                   child: Text('Crear Talonario'),
                   style: TextButton.styleFrom(
                       primary: Colors.white,
@@ -151,6 +153,43 @@ class _TalonariosScreenState extends State<TalonariosScreen> {
                             },
                             child: Text('Eliminar'))
                         : Container(),
+                    (talonario.active == false)
+                        ? TextButton(
+                            style: AppTheme.lightTheme.textButtonTheme.style,
+                            onPressed: () {
+                              activateTalonario(
+                                  talonario.idTalonario.toString());
+                              Future.delayed(Duration(seconds: 2))
+                                  .then((value) {
+                                setState(() {
+                                  this._getTalonarios();
+                                });
+                                _Alerta(
+                                    context,
+                                    'Talonario: ' +
+                                        talonario.idTalonario.toString() +
+                                        ' Activado.');
+                              });
+                            },
+                            child: Text('Activar'))
+                        : TextButton(
+                            style: AppTheme.lightTheme.textButtonTheme.style,
+                            onPressed: () {
+                              disactivateTalonario(
+                                  talonario.idTalonario.toString());
+                              Future.delayed(Duration(seconds: 2))
+                                  .then((value) {
+                                setState(() {
+                                  this._getTalonarios();
+                                });
+                                _Alerta(
+                                    context,
+                                    'Talonario: ' +
+                                        talonario.idTalonario.toString() +
+                                        ' Desactivado.');
+                              });
+                            },
+                            child: Text('Desactivar'))
                   ],
                 )),
               ]);
@@ -188,18 +227,11 @@ class _TalonariosScreenState extends State<TalonariosScreen> {
                         onPressed: () {
                           final resp =
                               deleteTalonario(talonario.idTalonario.toString());
-                          Future.delayed(Duration(seconds: 3)).then((value) {
+                          Future.delayed(Duration(seconds: 2)).then((value) {
                             setState(() {
                               this._getTalonarios();
                             });
-                            showDialog(
-                                context: context,
-                                builder: (buildContext) {
-                                  return AlertDialog(
-                                    title: Text('Atención'),
-                                    content: Text(resp.toString()),
-                                  );
-                                });
+                            Navigator.pop(context);
                           });
                         },
                         child: Text('Confirmar')),
@@ -215,7 +247,8 @@ class _TalonariosScreenState extends State<TalonariosScreen> {
     rangoInicialController.text = talonario.rangoInicialFactura;
     rangoFinalController.text = talonario.rangoFinalFactura;
     caiController.text = talonario.cai;
-    fechaLimiteEController.text = talonario.fechaLimiteEmision.toString();
+    fechaLimiteEController.text =
+        DateFormat("yyyy-MM-dd").format(talonario.fechaLimiteEmision);
     return showDialog(
         context: context,
         builder: (buildContext) {
@@ -228,7 +261,7 @@ class _TalonariosScreenState extends State<TalonariosScreen> {
               style: TextStyle(color: AppTheme.primaryColor),
             ),
             content: SizedBox(
-              height: 320,
+              height: 300,
               child: Column(
                 children: [
                   TextFormField(
@@ -266,16 +299,146 @@ class _TalonariosScreenState extends State<TalonariosScreen> {
                     child: TextButton(
                         style: AppTheme.lightTheme.textButtonTheme.style,
                         onPressed: () {
-                          print(rangoInicialController);
-                          print(rangoFinalController);
-                          print(caiController);
-                          print(fechaLimiteEController);
+                          if (rangoInicialController.text == "" &&
+                              rangoFinalController.text == "" &&
+                              caiController.text == "" &&
+                              fechaLimiteEController.text == "") {
+                            _Alerta(context, 'Debe llenar todos los campos.');
+                          } else {
+                            print(rangoInicialController.text);
+                            print(rangoFinalController.text);
+                            print(caiController.text);
+                            print(fechaLimiteEController.text);
+                            updateTalonario(
+                                talonario.idTalonario.toString(),
+                                rangoInicialController.text,
+                                rangoFinalController.text,
+                                caiController.text,
+                                fechaLimiteEController.text);
+                            Future.delayed(Duration(seconds: 2)).then((value) {
+                              setState(() {
+                                this._getTalonarios();
+                              });
+                              Navigator.pop(context);
+                            });
+                          }
                         },
                         child: Text('Confirmar')),
                   )
                 ],
               ),
             ),
+          );
+        });
+  }
+
+  Future<dynamic> _CreateTalonario(BuildContext context) {
+    rangoInicialController.text = "";
+    rangoFinalController.text = "";
+    caiController.text = "";
+    fechaLimiteEController.text = "";
+    return showDialog(
+        context: context,
+        builder: (buildContext) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+            ),
+            title: Text(
+              'Creación talonario ',
+              style: TextStyle(color: AppTheme.primaryColor),
+            ),
+            content: SizedBox(
+              height: 300,
+              child: Column(
+                children: [
+                  TextFormField(
+                    controller: rangoInicialController,
+                    decoration: InputDecoration(
+                      hintText: "000-001-01-00112001",
+                      label: Text('Rango Inicial'),
+                    ),
+                  ),
+                  TextFormField(
+                    controller: rangoFinalController,
+                    decoration: InputDecoration(
+                      hintText: "000-001-01-00112500",
+                      label: Text('Rango Final'),
+                    ),
+                  ),
+                  TextFormField(
+                    controller: caiController,
+                    decoration: InputDecoration(
+                      hintText: "EAF199-B70479-5343AB-538F3E-045C35-C6",
+                      label: Text('CAI'),
+                    ),
+                  ),
+                  DateTimeField(
+                    controller: fechaLimiteEController,
+                    decoration: InputDecoration(label: Text('Fecha Limite E.')),
+                    format: DateFormat("yyyy-MM-dd"),
+                    onShowPicker: (context, currentValue) {
+                      return showDatePicker(
+                          context: context,
+                          firstDate: DateTime(1900),
+                          initialDate: currentValue ?? DateTime.now(),
+                          lastDate: DateTime(2100));
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: TextButton(
+                        style: AppTheme.lightTheme.textButtonTheme.style,
+                        onPressed: () {
+                          if (rangoInicialController.text == "" &&
+                              rangoFinalController.text == "" &&
+                              caiController.text == "" &&
+                              fechaLimiteEController.text == "") {
+                            _Alerta(context, 'Debe llenar todos los campos.');
+                          } else {
+                            print(rangoInicialController.text);
+                            print(rangoFinalController.text);
+                            print(caiController.text);
+                            print(fechaLimiteEController.text);
+                            createTalonario(
+                                rangoInicialController.text,
+                                rangoFinalController.text,
+                                caiController.text,
+                                fechaLimiteEController.text);
+                            Future.delayed(Duration(seconds: 2)).then((value) {
+                              setState(() {
+                                this._getTalonarios();
+                              });
+                              Navigator.pop(context);
+                            });
+                          }
+                        },
+                        child: Text('Confirmar')),
+                  )
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  Future<dynamic> _Alerta(BuildContext context, String mensaje) {
+    return showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (buildContext) {
+          Future.delayed(Duration(seconds: 2)).then((value) {
+            Navigator.pop(context);
+          });
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+            ),
+            title: Text(
+              'Alerta',
+              style: TextStyle(color: AppTheme.primaryColor),
+            ),
+            content: Text(mensaje),
           );
         });
   }

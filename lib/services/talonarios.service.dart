@@ -46,3 +46,100 @@ Future<String> deleteTalonario(idTalonario) async {
     return e.toString();
   }
 }
+
+Future<String> updateTalonario(idTalonario, rangoInicialController,
+    rangoFinalController, caiController, fechaLimiteEController) async {
+  String resp = "";
+  try {
+    var response = await http.post(
+        Uri.parse("http://localhost:8080/api/talonarios/update"),
+        body: ({
+          'idTalonario': idTalonario,
+          'rangoInicialFactura': rangoInicialController,
+          'rangoFinalFactura': rangoFinalController,
+          'cai': caiController,
+          'fechaLimiteEmision': fechaLimiteEController,
+        }));
+    print(response.body);
+    if (response.statusCode == 200) {
+      final decode = json.decode(response.body);
+      resp = decode;
+    } else {
+      resp = 'Error';
+    }
+    return resp;
+  } catch (e) {
+    print(e);
+    return e.toString();
+  }
+}
+
+Future<String> activateTalonario(idTalonario) async {
+  String resp = "";
+  try {
+    var response = await http.post(
+        Uri.parse("http://localhost:8080/api/talonarios/activate"),
+        body: ({
+          'idTalonario': idTalonario,
+        }));
+    print(response.body);
+    if (response.statusCode == 200) {
+      final decode = json.decode(response.body);
+      resp = decode;
+    } else {
+      resp = 'Error';
+    }
+    return resp;
+  } catch (e) {
+    print(e);
+    return e.toString();
+  }
+}
+
+Future<String> disactivateTalonario(idTalonario) async {
+  String resp = "";
+  try {
+    var response = await http.post(
+        Uri.parse("http://localhost:8080/api/talonarios/disactivate"),
+        body: ({
+          'idTalonario': idTalonario,
+        }));
+    print(response.body);
+    if (response.statusCode == 200) {
+      final decode = json.decode(response.body);
+      resp = decode;
+    } else {
+      resp = 'Error';
+    }
+    return resp;
+  } catch (e) {
+    print(e);
+    return e.toString();
+  }
+}
+
+Future<String> createTalonario(rangoInicialController, rangoFinalController,
+    caiController, fechaLimiteEController) async {
+  String resp = "";
+  try {
+    var response = await http.post(
+        Uri.parse("http://localhost:8080/api/talonarios/create"),
+        body: ({
+          'rangoInicialFactura': rangoInicialController,
+          'rangoFinalFactura': rangoFinalController,
+          'cai': caiController,
+          'fechaLimiteEmision': fechaLimiteEController,
+        }));
+    print(response.body);
+    if (response.statusCode == 200) {
+      final decode = json.decode(response.body);
+      resp = decode;
+    } else {
+      resp = 'Error';
+    }
+    return resp;
+  } catch (e) {
+    print(e);
+    return e.toString();
+  }
+}
