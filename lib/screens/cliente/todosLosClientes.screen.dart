@@ -34,7 +34,7 @@ class _TodosLosClientes2State extends State<TodosLosClientes2> {
             future: traerClientes(),
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
+                return Center(child: const CircularProgressIndicator());
               } else if (snapshot.connectionState == ConnectionState.done) {
                 Cliente lista = snapshot.data;
                 listaClientes = lista.todoslosClientes;
@@ -64,23 +64,51 @@ class _TodosLosClientes2State extends State<TodosLosClientes2> {
                                   const Color(0xffD9D9D9)),
                             ),
                           ),
-                          Expanded(
-                            child: TextFormField(
-                              controller: buscadorcontroller,
-                              decoration: InputDecoration(
-                                  border: UnderlineInputBorder(),
-                                  hintText: '060190900404'),
-                                  onChanged: buscarCliente,
+                          TextButton(
+                            onPressed: () => Navigator.pushNamed(context, 'mantenimiento'),
+                            child: Container(
+                                width: size.width * 0.2,
+                                padding: const EdgeInsets.all(15),
+                                child: const Text(
+                                  "Regresar",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 18, color: Color(0xff525252)),
+                                )),
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  const Color(0xffD9D9D9)),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 50,
                           ),
                         ],
                       ),
                       const SizedBox(
                         height: 40,
                       ),
+                      Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: size.height * 0.05),
+                          child: Text('DNI', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: size.height * 0.35),
+                          child: Text('Nombre', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: size.height * 0.35),
+                          child: Text('Apellido', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: size.height * 0.35),
+                          child: Text('Dirección', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: size.height * 0.40),
+                          child: Text('Opciones', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
+                        ),
+                      ],
+                    ),
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -118,7 +146,7 @@ class _TodosLosClientes2State extends State<TodosLosClientes2> {
         Expanded(
             flex: 1,
             child: TextButton(
-              child: const Text("Actualizar"),
+              child: const Text('Actualizar'),
               onPressed: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (BuildContext context) {
@@ -180,9 +208,10 @@ void buscarCliente (String query){
   return nombre.contains(input);
   }).toList();
 
-  setState(() {
     listaClientes = sugerencia;
-  });
+setState(() {
+  
+});
 }
 
 }
