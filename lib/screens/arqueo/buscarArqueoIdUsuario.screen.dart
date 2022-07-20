@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import '../../controllers/Arqueo.controller.dart';
 
-class CrearArqueo extends StatefulWidget {
-  const CrearArqueo({Key? key}) : super(key: key);
+import '../../services/Arqueo.service.dart';
+
+class BuscarArqueoIdUsuario extends StatefulWidget {
+  const BuscarArqueoIdUsuario({Key? key}) : super(key: key);
 
   @override
-  State<CrearArqueo> createState() => _CrearArqueoState();
+  State<BuscarArqueoIdUsuario> createState() => _BuscarArqueoIdUsuarioState();
 }
 
-class _CrearArqueoState extends State<CrearArqueo> {
-  var idSesionController = TextEditingController();
+class _BuscarArqueoIdUsuarioState extends State<BuscarArqueoIdUsuario> {
   var idUsuarioController = TextEditingController();
-  var efectivoAperturaController = TextEditingController();
 
   @override
   Widget build(context) =>
@@ -29,7 +28,7 @@ class _CrearArqueoState extends State<CrearArqueo> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Crear un Arqueo',
+                    'Buscar un Arqueo',
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 3),
@@ -49,18 +48,6 @@ class _CrearArqueoState extends State<CrearArqueo> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Id Sesion',
-                                style: TextStyle(fontSize: 18),
-                              ),
-                              TextFormField(
-                                controller: idSesionController,
-                                decoration: InputDecoration(
-                                    border: UnderlineInputBorder()),
-                              ),
-                              SizedBox(
-                                height: 40,
-                              ),
-                              Text(
                                 'Id Usuario',
                                 style: TextStyle(fontSize: 18),
                               ),
@@ -72,31 +59,16 @@ class _CrearArqueoState extends State<CrearArqueo> {
                               SizedBox(
                                 height: 40,
                               ),
-                              Text(
-                                'Efectivo Apertura',
-                                style: TextStyle(fontSize: 18),
-                              ),
-                              TextFormField(
-                                controller: efectivoAperturaController,
-                                decoration: InputDecoration(
-                                    border: UnderlineInputBorder()),
-                              ),
-                              SizedBox(
-                                height: 40,
-                              ),
                               TextButton(
                                 onPressed: null,
                                 child: Center(
                                   child: ElevatedButton(
-                                      onPressed: () => crearArqueo_Controller(
-                                          idSesionController.text,
-                                          idUsuarioController.text,
-                                          efectivoAperturaController.text,
-                                          context),
+                                      onPressed: () => buscarArqueoPorIdUsuario(
+                                          idUsuarioController.text, context),
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 10, vertical: 10),
-                                        child: Text('Acetar'),
+                                        child: Text('Buscar'),
                                       )),
                                 ),
                               ),

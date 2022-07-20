@@ -5,13 +5,7 @@ import 'package:soft_frontend/screens/manipularFactura/manipularfactura.screen.d
 import 'package:soft_frontend/screens/screens.dart';
 import 'package:soft_frontend/screens/tipoPago/buscarTipoPago.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/crearTipoPago.screen.dart';
-<<<<<<< HEAD
-=======
-import 'package:soft_frontend/services/empleado.service.dart';
->>>>>>> ae84e60ef0efbcb8290a87bb8c7cb142d37e2ba3
-import 'package:soft_frontend/screens/tipoproducto/tipoproducto.screen.dart';
 import 'package:soft_frontend/screens/producto/producto.screen.dart';
-import 'package:soft_frontend/screens/arqueo/mostrarArqueo.screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: 'login',
+      initialRoute: 'traer_arqueo',
       routes: {
         'login': (_) => const Login(),
         'pantalla_principal': (_) => const PantallaPrincipal(),
@@ -47,7 +41,7 @@ class MyApp extends StatelessWidget {
         'traer_arqueo': (_) => const MostrarArqueos(),
         'PrincipalVenta': (_) => PantallaPrincipalVenta(),
         'PrincipalGestion': (_) => PantallaGestionPrincipal(),
-        'PantallaTipoProductos': (_) => PantallaTipoProducto(),
+        //'PantallaTipoProductos': (_) => PantallaTipoProducto(),
         'PantallaProductos': (_) => PantallaProducto(),
       },
     );

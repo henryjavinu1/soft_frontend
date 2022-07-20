@@ -17,7 +17,7 @@ Future traerArqueos() async {
   } catch (e) {}
 }
 
-Future buscarArqueoPorIdUsuario(String idUsuario, context) async {
+Future<void> buscarArqueoPorIdUsuario(String idUsuario, context) async {
   if (idUsuario.isNotEmpty) {
     var response = await http.post(
         Uri.parse(API_URL + 'arqueo/buscarPorUsuario'),
@@ -26,10 +26,10 @@ Future buscarArqueoPorIdUsuario(String idUsuario, context) async {
     if (response.statusCode == 200) {
       ManipularArqueo arqueo = manipularArqueoFromJson(response.body);
       ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("Arqueo Encontrado")));
+          .showSnackBar(const SnackBar(content: Text('Arqueo Encontrado')));
     } else {
       ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("Arqueo no encontrado")));
+          .showSnackBar(const SnackBar(content: Text('Arqueo no encontrado')));
     }
   }
 }

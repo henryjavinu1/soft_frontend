@@ -9,6 +9,8 @@ import 'package:soft_frontend/screens/arqueo/crearArqueo.screen.dart';
 import 'package:soft_frontend/screens/arqueo/cerrarSesionActualizandoArqueo.screen.dart';
 import 'package:soft_frontend/screens/arqueo/components/cabeceraDeTablaArqueo.component.dart';
 
+import 'buscarArqueoIdUsuario.screen.dart';
+
 class MostrarArqueos extends StatefulWidget {
   const MostrarArqueos({Key? key}) : super(key: key);
 
@@ -28,7 +30,6 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    var idUsuarioController = TextEditingController();
     return Scaffold(
         appBar: AppBar(title: const Text('Modulo Arqueo')),
         body: FutureBuilder(
@@ -47,51 +48,21 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Expanded(
-                            child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.width * 0.02),
-                          child: TextField(
-                            controller: idUsuarioController,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'id de Usuario',
+                        TextButton(
+                          onPressed: null,
+                          child: Center(
+                            child: ElevatedButton(
+                              onPressed: () => Navigator.of(context)
+                                  .push(new MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    new BuscarArqueoIdUsuario(),
+                              )),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 5, vertical: 5),
+                                child: Text('Buscar un Arqueo'),
+                              ),
                             ),
-                          ),
-                        )),
-                        ElevatedButton(
-                          onPressed: () async {
-                            if (idUsuarioController.text.trim().isNotEmpty) {
-                              print(idUsuarioController.text.trim());
-                              Arqueo? mostArqu = await buscarArqueoPorIdUsuario(
-                                  idUsuarioController.text.trim(), context);
-                              print(mostArqu);
-                            } else {
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                        title: Text(
-                                            'El campo de búsqueda está vacío.'),
-                                        actions: [
-                                          ElevatedButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: Text('Cerrar'))
-                                        ],
-                                      ));
-                            }
-                          },
-                          child: Text(
-                            'Buscar',
-                            style: GoogleFonts.lato(),
-                          ),
-                          style: ButtonStyle(
-                            padding: MaterialStateProperty.all(
-                                EdgeInsets.symmetric(
-                                    horizontal: size.width * 0.015,
-                                    vertical: 9)),
                           ),
                         ),
                         TextButton(
