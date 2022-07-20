@@ -30,7 +30,7 @@ Future<List<User?>> crearUser(String usuario, String pass, String email,
   try {
     var response = await client.post(Uri.parse(API_URL + "user/crearuser"),
         body: ({
-          'user': usuario,
+          'usuario': usuario,
           'password': pass,
           'email': email,
           'idEmpleado': idEmpleado,

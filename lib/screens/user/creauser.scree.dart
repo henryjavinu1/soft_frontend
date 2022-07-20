@@ -123,13 +123,14 @@ class _CrearUserState extends State<CrearUser> {
                                   onPressed: null,
                                   child: Center(
                                     child: ElevatedButton(
-                                        onPressed: () => crearUsuario(
-                                            usuarioController.text,
-                                            passwordController.text,
-                                            emailController.text,
-                                            idEmpleadoController.text,
-                                            idRolController.text,
-                                            context),
+                                        onPressed: () =>
+                                            crearUsuario_Controller(
+                                                usuarioController.text,
+                                                passwordController.text,
+                                                emailController.text,
+                                                idEmpleadoController.text,
+                                                idRolController.text,
+                                                context),
                                         child: Padding(
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 10, vertical: 10),
