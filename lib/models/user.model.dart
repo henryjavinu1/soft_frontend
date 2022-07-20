@@ -13,7 +13,7 @@ class User {
 
     int id;
     String usuario;
-    Empleado empleado;
+    TodoslosEmpleados empleado;
     Rol rol;
     Sesion sesion;
 
@@ -24,7 +24,7 @@ class User {
     factory User.fromMap(Map<String, dynamic> json) => User(
         id: json['id'],
         usuario: json['usuario'],
-        empleado: Empleado.fromMap(json['empleado']),
+        empleado: TodoslosEmpleados.fromJson(json['empleado']),
         rol: Rol.fromMap(json['rol']),
         sesion: Sesion.fromMap(json['sesion']),
     );
@@ -32,7 +32,7 @@ class User {
     Map<String, dynamic> toMap() => {
         'id': id,
         'usuario': usuario,
-        'empleado': empleado.toMap(),
+        'empleado': empleado.toJson(),
         'rol': rol.toMap(),
         'sesion': sesion.toMap(),
     };

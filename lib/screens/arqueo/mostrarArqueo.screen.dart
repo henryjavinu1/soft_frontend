@@ -7,6 +7,7 @@ import 'package:soft_frontend/services/arqueo.service.dart';
 import 'package:soft_frontend/controllers/arqueo.controller.dart';
 import 'package:soft_frontend/screens/arqueo/crearArqueo.screen.dart';
 import 'package:soft_frontend/screens/arqueo/cerrarSesionActualizandoArqueo.screen.dart';
+import 'package:soft_frontend/screens/arqueo/components/cabeceraDeTablaArqueo.component.dart';
 
 class MostrarArqueos extends StatefulWidget {
   const MostrarArqueos({Key? key}) : super(key: key);
@@ -136,17 +137,35 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                       height: 40,
                     ),
                     Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Center(
-                          child: ListView.separated(
-                            itemBuilder: (_, i) => item(listaArqueos[i]),
-                            itemCount: list.arqueos.length,
-                            separatorBuilder: (_, i) => const Divider(),
-                          ),
-                        ),
-                      ),
-                    ),
+                        child: Container(
+                            margin: EdgeInsets.symmetric(
+                                vertical: size.height * 0.02),
+                            padding: EdgeInsets.symmetric(
+                                vertical: size.height * 0.02,
+                                horizontal: size.height * 0.03),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5))),
+                            child: Column(
+                              children: [
+                                CabeceraDeTablaArqueo(size: size),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Center(
+                                      child: ListView.separated(
+                                        itemBuilder: (_, i) =>
+                                            item(listaArqueos[i]),
+                                        itemCount: list.arqueos.length,
+                                        separatorBuilder: (_, i) =>
+                                            const Divider(),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )))
                   ],
                 ),
               );
@@ -159,24 +178,158 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
   }
 
   Widget item(Arqueo lista) {
+    Size size = MediaQuery.of(context).size;
     return Row(
       children: [
-        Expanded(flex: 1, child: Text(lista.idArqueo.toString())),
-        Expanded(flex: 1, child: Text(lista.fechaInicio.toString())),
-        Expanded(flex: 1, child: Text(lista.fechaFinal.toString())),
-        Expanded(flex: 1, child: Text(lista.efectivoApertura)),
-        Expanded(flex: 1, child: Text(lista.efectivoCierre)),
-        Expanded(flex: 1, child: Text(lista.otrosPagos)),
-        Expanded(flex: 1, child: Text(lista.ventaCredito)),
-        Expanded(flex: 1, child: Text(lista.ventaTotal)),
-        Expanded(flex: 1, child: Text(lista.efectivoTotal)),
-        Expanded(flex: 1, child: Text(lista.isDelete.toString())),
-        Expanded(flex: 1, child: Text(lista.createdAt.toString())),
-        Expanded(flex: 1, child: Text(lista.updatedAt.toString())),
-        Expanded(flex: 1, child: Text(lista.idUsuario.toString())),
-        Expanded(flex: 1, child: Text(lista.idSesion.toString())),
         Expanded(
             flex: 1,
+            child: Text(
+              lista.idArqueo.toString(),
+              style: GoogleFonts.lato(
+                  fontSize: size.width * 0.01,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.black),
+              textAlign: TextAlign.center,
+              textScaleFactor: 1,
+            )),
+        Expanded(
+            flex: 1,
+            child: Text(
+              lista.fechaInicio.toString(),
+              style: GoogleFonts.lato(
+                  fontSize: size.width * 0.01,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.black),
+              textScaleFactor: 1,
+            )),
+        Expanded(
+            flex: 1,
+            child: Text(
+              lista.fechaFinal.toString(),
+              style: GoogleFonts.lato(
+                  fontSize: size.width * 0.01,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.black),
+              textScaleFactor: 1,
+            )),
+        Expanded(
+            flex: 1,
+            child: Text(
+              lista.efectivoApertura,
+              style: GoogleFonts.lato(
+                  fontSize: size.width * 0.01,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.black),
+              textAlign: TextAlign.center,
+              textScaleFactor: 1,
+            )),
+        Expanded(
+            flex: 1,
+            child: Text(lista.efectivoCierre,
+                style: GoogleFonts.lato(
+                    fontSize: size.width * 0.01,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.black),
+                textAlign: TextAlign.center,
+                textScaleFactor: 1)),
+        Expanded(
+            flex: 1,
+            child: Text(
+              lista.otrosPagos,
+              style: GoogleFonts.lato(
+                  fontSize: size.width * 0.01,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.black),
+              textAlign: TextAlign.center,
+              textScaleFactor: 1,
+            )),
+        Expanded(
+            flex: 1,
+            child: Text(
+              lista.ventaCredito,
+              style: GoogleFonts.lato(
+                  fontSize: size.width * 0.01,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.black),
+              textAlign: TextAlign.center,
+              textScaleFactor: 1,
+            )),
+        Expanded(
+            flex: 1,
+            child: Text(
+              lista.ventaTotal,
+              style: GoogleFonts.lato(
+                  fontSize: size.width * 0.01,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.black),
+              textAlign: TextAlign.center,
+              textScaleFactor: 1,
+            )),
+        Expanded(
+            flex: 1,
+            child: Text(
+              lista.efectivoTotal,
+              style: GoogleFonts.lato(
+                  fontSize: size.width * 0.01,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.black),
+              textAlign: TextAlign.center,
+              textScaleFactor: 1,
+            )),
+        Expanded(
+            flex: 1,
+            child: Text(
+              lista.isDelete.toString(),
+              style: GoogleFonts.lato(
+                  fontSize: size.width * 0.01,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.black),
+              textScaleFactor: 1,
+            )),
+        Expanded(
+            flex: 1,
+            child: Text(
+              lista.createdAt.toString(),
+              style: GoogleFonts.lato(
+                  fontSize: size.width * 0.01,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.black),
+              textScaleFactor: 1,
+            )),
+        Expanded(
+            flex: 1,
+            child: Text(
+              lista.updatedAt.toString(),
+              style: GoogleFonts.lato(
+                  fontSize: size.width * 0.01,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.black),
+              textScaleFactor: 1,
+            )),
+        Expanded(
+            flex: 1,
+            child: Text(
+              lista.idUsuario.toString(),
+              style: GoogleFonts.lato(
+                  fontSize: size.width * 0.01,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.black),
+              textAlign: TextAlign.center,
+              textScaleFactor: 1,
+            )),
+        Expanded(
+            flex: 1,
+            child: Text(
+              lista.idSesion.toString(),
+              style: GoogleFonts.lato(
+                  fontSize: size.width * 0.01,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.black),
+              textAlign: TextAlign.center,
+              textScaleFactor: 1,
+            )),
+        Expanded(
+            flex: 2,
             child: TextButton(
               child: Text('Eliminar'),
               onPressed: () {
