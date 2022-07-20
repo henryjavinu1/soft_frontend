@@ -3,7 +3,7 @@ import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:soft_frontend/models/arqueo.model.dart';
 import '../models/arqueo.model.dart';
-import '../services/arqueo.service.dart';
+import '../services/Arqueo.service.dart';
 
 Future<ManipularArqueo?> eliminarArqueo_Controller(
     String idArqueo, context) async {
