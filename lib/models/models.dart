@@ -12,3 +12,5 @@ export 'package:soft_frontend/models/cliente.model.dart';
 export 'package:soft_frontend/models/errorPeticion.model.dart';
 export 'package:soft_frontend/models/facturaBuscada.model.dart';
 export 'package:soft_frontend/models/manipularFacturaResponse.dart';
+export 'package:soft_frontend/models/Tipoproducto.model.dart';
+export 'package:soft_frontend/models/Producto.model.dart';

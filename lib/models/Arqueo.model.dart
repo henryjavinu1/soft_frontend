@@ -60,26 +60,28 @@ class Arqueo {
   int idSesion;
 
   factory Arqueo.fromJson(Map<String, dynamic> json) => Arqueo(
-        idArqueo: json['idArqueo'],
-        fechaInicio: DateTime.parse(json['fechaInicio']),
-        fechaFinal: DateTime.parse(json['fechaFinal']),
-        efectivoApertura: json['efectivoApertura'],
-        efectivoCierre: json['efectivoCierre'],
-        otrosPagos: json['otrosPagos'],
-        ventaCredito: json['ventaCredito'],
-        ventaTotal: json['ventaTotal'],
-        efectivoTotal: json['efectivoTotal'],
-        isDelete: json['isDelete'],
-        createdAt: DateTime.parse(json['createdAt']),
-        updatedAt: DateTime.parse(json['updatedAt']),
-        idUsuario: json['idUsuario'],
-        idSesion: json['idSesion'],
+        idArqueo: json['idArqueo'] ?? -1,
+        fechaInicio: DateTime.parse(json['fechaInicio'] ?? -1),
+        fechaFinal: DateTime.parse(json['fechaFinal'] ?? '0000-00-00 00:00:00'),
+        efectivoApertura: json['efectivoApertura'] ?? -1,
+        efectivoCierre: json['efectivoCierre'] ?? '0.00',
+        otrosPagos: json['otrosPagos'] ?? '0.00',
+        ventaCredito: json['ventaCredito'] ?? '0.00',
+        ventaTotal: json['ventaTotal'] ?? '0.00',
+        efectivoTotal: json['efectivoTotal'] ?? '0.00',
+        isDelete: json['isDelete'] ?? false,
+        createdAt: DateTime.parse(json['createdAt'] ?? '0000-00-00 00:00:00'),
+        updatedAt: DateTime.parse(json['updatedAt'] ?? '0000-00-00 00:00:00'),
+        idUsuario: json['idUsuario'] ?? '0.00',
+        idSesion: json['idSesion'] ?? '0.00',
       );
 
   Map<String, dynamic> toJson() => {
-        'idArqueo': idArqueo == null ? null : idArqueo,
-        'fechaInicio': fechaInicio.toIso8601String(),
-        'fechaFinal': fechaFinal.toIso8601String(),
+        'idArqueo': idArqueo,
+        'fechaInicio':
+            '${fechaInicio.year.toString().padLeft(4, '0')}-${fechaInicio.month.toString().padLeft(2, '0')}-${fechaInicio.day.toString().padLeft(2, '0')}',
+        'fechaFinal':
+            '${fechaFinal.year.toString().padLeft(4, '0')}-${fechaFinal.month.toString().padLeft(2, '0')}-${fechaFinal.day.toString().padLeft(2, '0')} ',
         'efectivoApertura': efectivoApertura,
         'efectivoCierre': efectivoCierre,
         'otrosPagos': otrosPagos,
@@ -87,8 +89,10 @@ class Arqueo {
         'ventaTotal': ventaTotal,
         'efectivoTotal': efectivoTotal,
         'isDelete': isDelete,
-        'createdAt': createdAt.toIso8601String(),
-        'updatedAt': updatedAt.toIso8601String(),
+        'createdAt':
+            '${createdAt.year.toString().padLeft(4, '0')}-${createdAt.month.toString().padLeft(2, '0')}-${createdAt.day.toString().padLeft(2, '0')}',
+        'updatedAt':
+            '${updatedAt.year.toString().padLeft(4, '0')}-${updatedAt.month.toString().padLeft(2, '0')}-${updatedAt.day.toString().padLeft(2, '0')}',
         'idUsuario': idUsuario,
         'idSesion': idSesion,
       };
