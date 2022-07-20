@@ -100,7 +100,7 @@ class _ActualizarArqueCerrandoSesionState
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 10, vertical: 10),
-                                        child: Text('Continuar'),
+                                        child: Text('Aceptar'),
                                       )),
                                 ),
                               ),
