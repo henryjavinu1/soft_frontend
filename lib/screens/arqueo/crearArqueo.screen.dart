@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../services/arqueo.service.dart';
-import '../../controllers/arqueo.controller.dart';
+import '../../controllers/Arqueo.controller.dart';
 
 class CrearArqueo extends StatefulWidget {
   const CrearArqueo({Key? key}) : super(key: key);
