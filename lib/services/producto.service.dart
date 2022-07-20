@@ -23,3 +23,77 @@ import 'dart:convert';
     }
     return listadoProductos;
   }
+
+Future<void> crearProducto(String codigoProducto, String nombreProducto,
+    String precioProducto, String cantidadProducto, String isvProducto, String descProducto, String isExcento, String idTipoProducto, context) async {
+  if (codigoProducto.isNotEmpty &&
+      nombreProducto.isNotEmpty &&
+      precioProducto.isNotEmpty &&
+      cantidadProducto.isNotEmpty &&
+      isvProducto.isNotEmpty &&
+      descProducto.isNotEmpty &&
+      isExcento.isNotEmpty &&
+      idTipoProducto.isNotEmpty
+      ) {
+    var response = await http.post(
+        Uri.parse("http://localhost:8080/api/producto/crearproducto/"),
+        body: ({
+          'codigoProducto': codigoProducto,
+          'nombreProducto': nombreProducto,
+          'precioProducto' : precioProducto,
+          'cantidadProducto': cantidadProducto,
+          'isvProducto': isvProducto,
+          'descProducto': descProducto,
+          'isExcento': isExcento,
+          'idTipoProducto': idTipoProducto,
+        }));
+
+    if (response.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Producto creado exitosamente.")));
+    } else {
+
+    }
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Error al crear el producto.")));
+  }
+}
+
+Future<void> ActualizarProducto(String idTipoProducto, String tipoProducto,
+    String descripcionProducto, String isvTipoProducto, context) async {
+  if (idTipoProducto.isNotEmpty && tipoProducto.isNotEmpty &&
+      descripcionProducto.isNotEmpty && isvTipoProducto.isNotEmpty) {
+    var response = await http.post(
+        Uri.parse("http://localhost:8080/api/producto/actualizartipo/"),
+        body: ({
+          'id': idTipoProducto,
+          'tipoProducto': tipoProducto,
+          'descripcionProducto': descripcionProducto,
+          'isvTipoProducto': isvTipoProducto
+        }));
+
+    if (response.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Tipo de Producto Actualizado.")));
+    }
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Error al actualizar tipo de Producto")));
+  }
+}
+
+Future<void> EliminarProducto(String idTipoProducto, context) async {
+  var response = await http.post(
+      Uri.parse("http://localhost:8080/api/producto/eliminartipo"),
+      body: ({
+        'id': idTipoProducto,
+      }));
+
+  if (response.statusCode == 200) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text("Tipo de Producto eliminado.")));
+  }
+}
+
+

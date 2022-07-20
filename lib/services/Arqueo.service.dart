@@ -58,7 +58,7 @@ Future<List<ManipularArqueo?>> eliminarArqueo(String idArqueo) async {
 }
 
 Future<List<ManipularArqueo?>> crearArqueo(
-    String idSesion, String idUsuario, String efectivoApertura, context) async {
+    String idSesion, String idUsuario, String efectivoApertura) async {
   var client = http.Client();
   ManipularArqueo? arqueo = null;
   List<ManipularArqueo> arqueoCreado = [];
@@ -84,7 +84,7 @@ Future<List<ManipularArqueo?>> crearArqueo(
 }
 
 Future<List<ManipularArqueo?>> actualizarArqueoCerrandoSesion(
-    String idUsuario, String idSesion, String idArqueo, context) async {
+    String idUsuario, String idSesion, String idArqueo) async {
   var client = http.Client();
   ManipularArqueo? arqueo = null;
   List<ManipularArqueo> arqueoActualizado = [];

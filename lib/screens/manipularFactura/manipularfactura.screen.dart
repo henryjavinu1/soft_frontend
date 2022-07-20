@@ -22,6 +22,7 @@ class _ManipularFacturaState extends State<ManipularFactura> {
   List<FacturaBuscada> facturasTemp = [];
   int campos = 1000;
   int _atributoSeleccionado = 0;
+  bool mostrarListaFacturasTemporal = false;
 
 
   @override
@@ -40,7 +41,8 @@ class _ManipularFacturaState extends State<ManipularFactura> {
 
   @override
   Widget build(BuildContext context) {
-    // print(facturas.length);
+    // print('campos: $campos');
+    // print('Atributo: $_atributoSeleccionado');
     Size size = MediaQuery.of(context).size;
     return FutureBuilder(
         future: listarFacturas(),
@@ -106,30 +108,39 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                                   campos = 0;
                                   _atributoSeleccionado = 0;
                                   hintText = 'Buscar por número de factura';
+                                  facturasTemp.clear();
+                                  mostrarListaFacturasTemporal = false;
                                   break;
                                 case 1:
                                   campos = 1;
                                   _atributoSeleccionado = 0;
                                   hintText = 'Filtrar por cliente';
+                                  facturasTemp.clear();
+                                  mostrarListaFacturasTemporal = false;
                                   break;
                                 case 2:
                                   campos = 2;
                                   _atributoSeleccionado = 0;
                                   hintText = 'Filtrar por fecha';
+                                  facturasTemp.clear();
+                                  mostrarListaFacturasTemporal = false;
                                   break;
                                 case 3:
                                   campos = 3;
                                   _atributoSeleccionado = 0;
                                   hintText = 'Filtrar por talonario';
+                                  facturasTemp.clear();
+                                  mostrarListaFacturasTemporal = false;
                                   break;
                                 case 4:
                                   campos = 4;
                                   _atributoSeleccionado = 0;
                                   hintText = 'Filtrar por empleado';
+                                  facturasTemp.clear();
+                                  mostrarListaFacturasTemporal = false;
                                   break;
                                 default:
                               }
-
                               _textController.clear();
                               _textController2.clear();
                               setState(() {});
@@ -142,99 +153,134 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                             child: CamposDeBusqueda(
                                 textController: _textController,
                                 textController2: _textController2,
-                                campo: campos,
+                                campo: campos, atributoEscogido: _atributoSeleccionado,
                                 callback: (val) => setState(
                                     () => _atributoSeleccionado = val)),
                           )),
-                          ElevatedButton(
-                            onPressed: () async {
-                              // Valida si el campo de búsqueda está vacío.
-                              if (_textController.text.trim().isNotEmpty) {
-                                switch (campos) {
-                                  //Búsqueda por cliente.
-                                  case 1:
-                                    // Tipo de atributo de cliente par hacer la búsqueda.
-                                    switch (_atributoSeleccionado) {
-                                      // Por nombre de cliente
-                                      case 0:
-                                        await filtrarFacturasPorNombreCliente(
-                                            _textController,
-                                            (val) =>
-                                                setState(() => facturasTemp = val),
-                                            context);
-                                        break;
-                                      // Por RTN
+                          Column(
+                            children: [
+                              ElevatedButton(
+                                onPressed: () async {
+                                  // print('campos y atributo de el btn: $campos & $_atributoSeleccionado');
+                                  // Valida si el campo de búsqueda está vacío.
+                                  if (_textController.text.trim().isNotEmpty) {
+                                    switch (campos) {
+                                      //Búsqueda por cliente.
                                       case 1:
-                                        await filtrarFacturasPorRTNCliente(
-                                            _textController,
-                                            (val) =>
-                                                setState(() => facturas = val),
-                                            context);
+                                        // Tipo de atributo de cliente par hacer la búsqueda.
+                                        switch (_atributoSeleccionado) {
+                                          // Por nombre de cliente
+                                          case 0:
+                                            facturasTemp.clear();
+                                            await filtrarFacturasPorNombreCliente(
+                                                _textController,
+                                                (val) =>
+                                                    setState(() => facturasTemp = val),
+                                                context);
+                                            break;
+                                          // Por RTN
+                                          case 1:
+                                            facturasTemp.clear();
+                                            await filtrarFacturasPorRTNCliente(
+                                                _textController,
+                                                (val) =>
+                                                    setState(() => facturasTemp = val),
+                                                context);
+                                            break;
+                                          // Por DNI
+                                          case 2:
+                                            facturasTemp.clear();
+                                            await filtrarFacturasPorDNICliente(
+                                                _textController,
+                                                (val) =>
+                                                    setState(() => facturasTemp = val),
+                                                context);
+                                            break;
+                                          default:
+                                        }
                                         break;
-                                      // Por DNI
+                                      //Búsqueda por fecha
                                       case 2:
-                                        await filtrarFacturasPorDNICliente(
+                                        facturasTemp.clear();
+                                        await filtrarFacturasPorFechaController(
                                             _textController,
-                                            (val) =>
-                                                setState(() => facturas = val),
+                                            _textController2,
+                                            (val) => setState(() => facturasTemp = val),
                                             context);
                                         break;
+                                      //Búsqueda por talonario
+                                      case 3:
+                                        if (_atributoSeleccionado == 0) {
+                                          facturasTemp.clear();
+                                          await filtrarFacturasPorIdTalonario(
+                                              _textController,
+                                              (val) =>
+                                                  setState(() => facturasTemp = val),
+                                              context);
+                                          // Si la búsqueda es por CAI
+                                        } else if (_atributoSeleccionado == 1) {
+                                          facturasTemp.clear();
+                                          await filtrarFacturasPorCAI(
+                                              _textController,
+                                              (val) =>
+                                                  setState(() => facturasTemp = val),
+                                              context);
+                                        }
+                                        break;
+                                      // Búsqueda por empleado
+                                      case 4:
+                                        facturasTemp.clear();
+                                        await filtrarFacturasPorIdEmpleado(
+                                            _textController,
+                                            (val) => setState(() => facturasTemp = val),
+                                            context);
+                                        break;
+                                      // Búsqueda por número de factura
                                       default:
+                                        await buscarFacturaPorNumeroFact(
+                                            _textController, size, context);
                                     }
-                                    break;
-                                  //Búsqueda por fecha
-                                  case 2:
-                                    await filtrarFacturasPorFechaController(
-                                        _textController,
-                                        _textController2,
-                                        (val) => setState(() => facturas = val),
-                                        context);
-                                    break;
-                                  //Búsqueda por talonario
-                                  case 3:
-                                    if (_atributoSeleccionado == 0) {
-                                      await filtrarFacturasPorIdTalonario(
-                                          _textController,
-                                          (val) =>
-                                              setState(() => facturas = val),
-                                          context);
-                                      // Si la búsqueda es por CAI
-                                    } else if (_atributoSeleccionado == 1) {
-                                      await filtrarFacturasPorCAI(
-                                          _textController,
-                                          (val) =>
-                                              setState(() => facturas = val),
-                                          context);
+                                    if (facturasTemp.isNotEmpty) {
+                                      mostrarListaFacturasTemporal = true;
+                                      setState(() {});
                                     }
-                                    break;
-                                  // Búsqueda por empleado
-                                  case 4:
-                                    await filtrarFacturasPorIdEmpleado(
-                                        _textController,
-                                        (val) => setState(() => facturas = val),
-                                        context);
-                                    break;
-                                  // Búsqueda por número de factura
-                                  default:
-                                    await buscarFacturaPorNumeroFact(
-                                        _textController, size, context);
-                                }
-                                // Si el campo de búsqueda está vacío indica la alerta.
-                              } else {
-                                dialogMensajeProblema(context,
-                                    'El campo de búsqueda está vacío.');
-                              }
-                            },
-                            child: Text(
-                              'Buscar',
-                              style: GoogleFonts.lato(),
-                            ),
-                            style: ButtonStyle(
-                              padding: MaterialStateProperty.all(
-                                  EdgeInsets.symmetric(
-                                      horizontal: size.width * 0.015,
-                                      vertical: 26)),
-                            ),
+                                    // Si el campo de búsqueda está vacío indica la alerta.
+                                  } else {
+                                    dialogMensajeProblema(context,
+                                        'El campo de búsqueda está vacío.');
+                                  }
+                                },
+                                child: Text(
+                                  'Buscar',
+                                  style: GoogleFonts.lato(),
+                                ),
+                                style: ButtonStyle(
+                                  padding: MaterialStateProperty.all(
+                                      EdgeInsets.symmetric(
+                                          horizontal: size.width * 0.015,
+                                          vertical: 26)),
+                                ),
+                              ),
+                              (mostrarListaFacturasTemporal)?SizedBox(height: 10,):SizedBox(),
+                              (mostrarListaFacturasTemporal)?ElevatedButton(
+                                onPressed: () async {
+                                  mostrarListaFacturasTemporal = false;
+                                  facturasTemp.clear();
+                                  setState(() {
+                                  });
+                                },
+                                child: Text(
+                                  'Limpiar',
+                                  style: GoogleFonts.lato(),
+                                ),
+                                style: ButtonStyle(
+                                  padding: MaterialStateProperty.all(
+                                      EdgeInsets.symmetric(
+                                          horizontal: size.width * 0.015,
+                                          vertical: 26)),
+                                ),
+                              ):SizedBox(),
+                            ],
                           )
                         ]),
                     Expanded(
@@ -331,8 +377,8 @@ class _ManipularFacturaState extends State<ManipularFactura> {
     return ListView.separated(
       physics: BouncingScrollPhysics(),
       separatorBuilder: (_, i) => Divider(),
-      itemCount: facturas.length,
-      itemBuilder: (_, i) => _facturaItemList(facturas[i]),
+      itemCount: (mostrarListaFacturasTemporal)?facturasTemp.length:facturas.length,
+      itemBuilder: (_, i) => _facturaItemList((mostrarListaFacturasTemporal)?facturasTemp[i]:facturas[i]),
     );
   }
 
@@ -421,7 +467,7 @@ class CamposDeBusqueda extends StatefulWidget {
     required TextEditingController textController,
     required this.campo,
     required this.textController2,
-    required this.callback,
+    required this.callback, required this.atributoEscogido,
   })  : _textController = textController,
         super(key: key);
 
@@ -429,6 +475,7 @@ class CamposDeBusqueda extends StatefulWidget {
   final TextEditingController textController2;
   final int campo;
   final IntCallback callback;
+  final int atributoEscogido;
 
   @override
   State<CamposDeBusqueda> createState() => _CamposDeBusquedaState();
@@ -436,7 +483,7 @@ class CamposDeBusqueda extends StatefulWidget {
 
 class _CamposDeBusquedaState extends State<CamposDeBusqueda> {
   String label = 'Nombre de cliente';
-  int opciones = 0;
+  late int opciones;
   bool primera = true;
   bool primera2 = true;
 
@@ -447,12 +494,15 @@ class _CamposDeBusquedaState extends State<CamposDeBusqueda> {
 
   @override
   Widget build(BuildContext context) {
+    opciones = widget.atributoEscogido;
+    // print('opciones desde el build: $opciones');
     if (widget.campo == 1) {
-      if (primera) {
-        primera = false;
-        primera2 = true;
-        opciones = 0;
+      if (opciones == 0) {
         label = 'Nombre de cliente';
+      } else if (opciones == 1) {
+        label = 'RTN';
+      } else if (opciones == 2) {
+        label = 'DNI';
       }
       return Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -471,7 +521,6 @@ class _CamposDeBusquedaState extends State<CamposDeBusqueda> {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  label = 'Nombre de cliente';
                   opciones = 0;
                   widget.callback(opciones);
                   setState(() {});
@@ -488,7 +537,6 @@ class _CamposDeBusquedaState extends State<CamposDeBusqueda> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  label = 'RTN';
                   opciones = 1;
                   widget.callback(opciones);
                   setState(() {});
@@ -505,7 +553,6 @@ class _CamposDeBusquedaState extends State<CamposDeBusqueda> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  label = 'DNI';
                   opciones = 2;
                   widget.callback(opciones);
                   setState(() {});
@@ -522,8 +569,6 @@ class _CamposDeBusquedaState extends State<CamposDeBusqueda> {
         ],
       );
     } else if (widget.campo == 2) {
-      primera = true;
-      primera2 = true;
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -578,11 +623,10 @@ class _CamposDeBusquedaState extends State<CamposDeBusqueda> {
         ],
       );
     } else if (widget.campo == 3) {
-      if (primera2) {
-        opciones = 0;
+      if (opciones == 0) {
         label = 'Id de talonario';
-        primera2 = false;
-        primera = true;
+      } else if (opciones == 1) {
+        label = 'CAI';
       }
       return Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -600,7 +644,6 @@ class _CamposDeBusquedaState extends State<CamposDeBusqueda> {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  label = 'Id de talonario';
                   opciones = 0;
                   widget.callback(opciones);
                   setState(() {});
@@ -617,7 +660,6 @@ class _CamposDeBusquedaState extends State<CamposDeBusqueda> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  label = 'CAI';
                   opciones = 1;
                   widget.callback(opciones);
                   setState(() {});
@@ -634,8 +676,6 @@ class _CamposDeBusquedaState extends State<CamposDeBusqueda> {
         ],
       );
     } else if (widget.campo == 4) {
-      primera = true;
-      primera2 = true;
       return TextField(
         controller: widget._textController,
         decoration: InputDecoration(
@@ -644,8 +684,6 @@ class _CamposDeBusquedaState extends State<CamposDeBusqueda> {
         ),
       );
     } else {
-      primera = true;
-      primera2 = true;
       return TextField(
         controller: widget._textController,
         decoration: InputDecoration(

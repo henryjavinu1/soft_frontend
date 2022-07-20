@@ -21,46 +21,58 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
                 fontSize: size.width * 0.01,
                 fontWeight: FontWeight.w800,
                 color: Colors.black),
+            textAlign: TextAlign.center,
+            textScaleFactor: 1,
           ),
         ),
         Expanded(
           flex: 1,
           child: Text(
-            'FechaInicio',
+            'Fecha Inicio',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+            textAlign: TextAlign.center,
+            textScaleFactor: 1,
           ),
         ),
         Expanded(
           flex: 1,
           child: Text(
-            'FechaFinal',
+            'Fecha Final',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+            textAlign: TextAlign.center,
+            textScaleFactor: 1,
           ),
         ),
         Expanded(
           flex: 1,
           child: Text(
-            'efectivoApertura',
+            'efectivo Apertura',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+            textAlign: TextAlign.left,
+            textScaleFactor: 1,
           ),
         ),
         Expanded(
           flex: 1,
           child: Text(
-            'efectivoCierre',
+            'efectivo Cierre',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+            textAlign: TextAlign.left,
+            textScaleFactor: 1,
           ),
         ),
         Expanded(
           flex: 1,
           child: Text(
-            'otrosPagos',
+            'otros Pagos',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+            textAlign: TextAlign.left,
+            textScaleFactor: 1,
           ),
         ),
         Expanded(
@@ -69,6 +81,8 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
             'ventaCredito',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+            textAlign: TextAlign.center,
+            textScaleFactor: 1,
           ),
         ),
         Expanded(
@@ -77,6 +91,8 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
             'ventaTotal',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+            textAlign: TextAlign.center,
+            textScaleFactor: 1,
           ),
         ),
         Expanded(
@@ -85,6 +101,8 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
             'efectivoTotal',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+            textAlign: TextAlign.center,
+            textScaleFactor: 1,
           ),
         ),
         Expanded(
@@ -93,6 +111,8 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
             'isDelete',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+            textAlign: TextAlign.center,
+            textScaleFactor: 1,
           ),
         ),
         Expanded(
@@ -101,6 +121,8 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
             'createdAt',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+            textAlign: TextAlign.center,
+            textScaleFactor: 1,
           ),
         ),
         Expanded(
@@ -109,6 +131,8 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
             'updatedAt',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+            textAlign: TextAlign.center,
+            textScaleFactor: 1,
           ),
         ),
         Expanded(
@@ -117,6 +141,8 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
             'idUsuario',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+            textAlign: TextAlign.center,
+            textScaleFactor: 1,
           ),
         ),
         Expanded(
@@ -125,6 +151,8 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
             'idSesion',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+            textAlign: TextAlign.center,
+            textScaleFactor: 1,
           ),
         ),
         Expanded(
