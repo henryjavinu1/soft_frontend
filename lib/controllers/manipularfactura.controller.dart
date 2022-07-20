@@ -8,6 +8,8 @@ import '../screens/mostrarUnaFactura/mostrarunafactura.screen.dart';
 import '../services/manipularfactura.service.dart';
 
 typedef void ListFactura(List<FacturaBuscada> facturasBuscadas);
+final numerico = RegExp(r'^[0-9]+$');
+final validarFecha = RegExp(r'^[0-9]{4}-[0-9]{2}-[0-9]{2}$');
 
 Future listarFacturas() async{
   final response  = await traerFactura();
@@ -32,31 +34,41 @@ Future filtrarFacturasPorNombreCliente(
 
 Future filtrarFacturasPorRTNCliente(TextEditingController _textController,
     ListFactura callback, context) async {
-  final response =
-      await filtrarFacturasPorCliente('', _textController.text.trim(), '');
-  if (response is List<FacturaBuscada>) {
-    callback(response);
-  } else if (response == 404) {
-    dialogMensajeProblema(context,
-        'No se encontró ningún resultado para la factura con RTN: ${_textController.text.trim()}');
-  } else if (response is MensajePeticion) {
-    MensajePeticion mensajeError = response;
-    dialogMensajeProblema(context, mensajeError.msg);
+  if(numerico.hasMatch(_textController.text.trim())) {
+    final response =
+        await filtrarFacturasPorCliente('', _textController.text.trim(), '');
+    if (response is List<FacturaBuscada>) {
+      callback(response);
+    } else if (response == 404) {
+      dialogMensajeProblema(context,
+          'No se encontró ningún resultado para la factura con RTN: ${_textController.text.trim()}');
+    } else if (response is MensajePeticion) {
+      MensajePeticion mensajeError = response;
+      dialogMensajeProblema(context, mensajeError.msg);
+    }
+  } else {
+    dialogMensajeProblema(context, 'El RTN debe ser numérico, no debe contener números y letras.');
+    _textController.clear();
   }
 }
 
 Future filtrarFacturasPorDNICliente(TextEditingController _textController,
     ListFactura callback, context) async {
-  final response =
-      await filtrarFacturasPorCliente('', '', _textController.text.trim());
-  if (response is List<FacturaBuscada>) {
-    callback(response);
-  } else if (response == 404) {
-    dialogMensajeProblema(context,
-        'No se encontró ningún resultado para facturas con DNI: ${_textController.text.trim()}');
-  } else if (response is MensajePeticion) {
-    MensajePeticion mensajeError = response;
-    dialogMensajeProblema(context, mensajeError.msg);
+  if(numerico.hasMatch(_textController.text.trim())){
+    final response =
+        await filtrarFacturasPorCliente('', '', _textController.text.trim());
+    if (response is List<FacturaBuscada>) {
+      callback(response);
+    } else if (response == 404) {
+      dialogMensajeProblema(context,
+          'No se encontró ningún resultado para facturas con DNI: ${_textController.text.trim()}');
+    } else if (response is MensajePeticion) {
+      MensajePeticion mensajeError = response;
+      dialogMensajeProblema(context, mensajeError.msg);
+    }
+  } else {
+    dialogMensajeProblema(context, 'El DNI debe ser numérico, no debe contener números y letras.');
+    _textController.clear();
   }
 }
 
@@ -66,29 +78,40 @@ Future filtrarFacturasPorFechaController(
     ListFactura callback,
     context) async {
   if (_textController2.text.isEmpty) {
-    final response =
-        await filtrarFacturasPorFecha(_textController.text.trim(), '');
-    if (response is List<FacturaBuscada>) {
-      callback(response);
-    } else if (response == 404) {
-      dialogMensajeProblema(context,
-          'No se encontró ningúna factura el día: ${_textController.text.trim()}');
-    } else if (response is MensajePeticion) {
-      MensajePeticion mensajeError = response;
-      dialogMensajeProblema(context, mensajeError.msg);
+    if (validarFecha.hasMatch(_textController.text.trim())) {
+      final response =
+          await filtrarFacturasPorFecha(_textController.text.trim(), '');
+      if (response is List<FacturaBuscada>) {
+        callback(response);
+      } else if (response == 404) {
+        dialogMensajeProblema(context,
+            'No se encontró ningúna factura el día: ${_textController.text.trim()}');
+      } else if (response is MensajePeticion) {
+        MensajePeticion mensajeError = response;
+        dialogMensajeProblema(context, mensajeError.msg);
+      }
+    } else {
+      dialogMensajeProblema(context, 'La fecha debe ser de formato YYYY-MM-DD donde: YYYY representa el año, MM el mes y DD el día.');
+      _textController.clear();
     }
     // Si ambos campos tienen datos
   } else {
-    final response = await filtrarFacturasPorFecha(
-        _textController.text.trim(), _textController2.text.trim());
-    if (response is List<FacturaBuscada>) {
-      callback(response);
-    } else if (response == 404) {
-      dialogMensajeProblema(context,
-          'No se encontró ningúna factura el ${_textController.text.trim()} y el ${_textController2.text.trim()}');
-    } else if (response is MensajePeticion) {
-      MensajePeticion mensajeError = response;
-      dialogMensajeProblema(context, mensajeError.msg);
+    if (validarFecha.hasMatch(_textController.text.trim())  && validarFecha.hasMatch(_textController2.text.trim())) {
+      final response = await filtrarFacturasPorFecha(
+          _textController.text.trim(), _textController2.text.trim());
+      if (response is List<FacturaBuscada>) {
+        callback(response);
+      } else if (response == 404) {
+        dialogMensajeProblema(context,
+            'No se encontró ningúna factura el ${_textController.text.trim()} y el ${_textController2.text.trim()}');
+      } else if (response is MensajePeticion) {
+        MensajePeticion mensajeError = response;
+        dialogMensajeProblema(context, mensajeError.msg);
+      }  
+    } else {
+      dialogMensajeProblema(context, 'La fecha debe ser de formato YYYY-MM-DD donde: YYYY representa el año, MM el mes y DD el día.');
+      _textController.clear();
+      _textController2.clear();
     }
   }
 }

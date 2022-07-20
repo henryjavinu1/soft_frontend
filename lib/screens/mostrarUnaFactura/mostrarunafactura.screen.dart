@@ -40,7 +40,8 @@ class _MostrarFacturaState extends State<MostrarFactura>
     return FutureBuilder(
       future: mostrarDatosDeUnaFactura(widget.numeroFactura.toString()),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-        if (snapshot.connectionState == ConnectionState.done && snapshot.data is MostrarUnaFactura) {
+        if (snapshot.connectionState == ConnectionState.done &&
+            snapshot.data is MostrarUnaFactura) {
           MostrarUnaFactura datosFactura = snapshot.data;
           final campos = datosFactura.facturaConDatos;
           final datosCliente = datosFactura.facturaConDatos.cliente;
@@ -70,8 +71,8 @@ class _MostrarFacturaState extends State<MostrarFactura>
                               ),
                             ),
                             ElevatedButton(
-                              onPressed: () {
-                                
+                              onPressed: () async{
+                                await descargarFactura();
                               },
                               child: Text('Reimprimir factura'),
                               style: ButtonStyle(
@@ -79,8 +80,8 @@ class _MostrarFacturaState extends State<MostrarFactura>
                                       EdgeInsets.symmetric(
                                           horizontal: size.width * 0.015,
                                           vertical: 24)),
-                                  backgroundColor: MaterialStateProperty.all(
-                                      Colors.green)),
+                                  backgroundColor:
+                                      MaterialStateProperty.all(Colors.green)),
                             ),
                             SizedBox(
                               width: 10,
@@ -130,190 +131,226 @@ class _MostrarFacturaState extends State<MostrarFactura>
                         Transform.scale(
                           alignment: Alignment.topCenter,
                           scaleY: ocultacion.value,
-                          child: (!animationController.isCompleted)?Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  flex: 3,
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 15, horizontal: 15),
-                                    margin:
-                                        EdgeInsets.symmetric(horizontal: 10),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10))),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Datos del cliente',
-                                          style: GoogleFonts.poppins(
-                                              color: Colors.blue,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        Divider(),
-                                        datosSuperiores(
-                                            'Nombre:',
-                                            (datosCliente!.nombreCliente.toString() != '')
-                                                ? datosCliente.nombreCliente.toString()
-                                                : 'NO EXISTE', flex1: 2, flex2: 8),
-                                        datosSuperiores(
-                                            'RTN:', datosCliente.rtn.toString()),
-                                        datosSuperiores(
-                                            'DNI:',
-                                            (datosCliente.dni != '')
-                                                ? datosCliente.dni.toString()
-                                                : 'NO SE ENCONTRARON DATOS', flex1: 2, flex2: 8),
-                                        datosSuperiores('Teléfono:',
-                                            datosCliente.telefonoCliente.toString()),
-                                        datosSuperiores(
-                                            'Correo:',
-                                            (datosCliente.email != '')
-                                                ? datosCliente.email.toString()
-                                                : 'NO SE ENCONTRARON DATOS'),
-                                                datosSuperiores('Dirección:', (datosCliente.direccion != '')? datosCliente.direccion.toString() : '----')
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 4,
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 15, horizontal: 15),
-                                    margin:
-                                        EdgeInsets.symmetric(horizontal: 10),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10))),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Datos de facturación',
-                                          style: GoogleFonts.poppins(
-                                              color: Colors.blue,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        Divider(),
-                                        datosSuperiores(
-                                          'Número:',
-                                          campos.numeroFactura.toString(),
-                                        ),
-                                        datosSuperiores(
-                                          'Fecha de emisión:',
-                                          campos.fechaFactura.toString().substring(0,10),
-                                        ),
-                                        datosSuperiores(
-                                            'CAI:',
-                                            (campos.talonario!.cai != '')
-                                                ? campos.talonario!.cai
-                                                : 'N/A',
-                                            flex1: 1,
-                                            flex2: 9),
-                                        datosSuperiores(
-                                          'Rango autorizado:',
-                                          (campos.talonario != null)
-                                              ? '${campos.talonario!.rangoInicialFactura} - ${campos.talonario!.rangoFinalFactura}'
-                                              : '------',
-                                        ),
-                                        datosSuperiores(
-                                            'Fecha límite de emisión:',
-                                            (campos.talonario != null)
-                                                ? campos.talonario!.fechaLimiteEmision.toString().substring(0,10)
-                                                : '------'),
-                                        datosSuperiores(
-                                          'Establecimiento:',
-                                          (campos.venta!.establecimiento != '')
-                                              ? campos.venta!.establecimiento
-                                              : 'NO DISPONIBLE',
-                                        ),
-                                        datosSuperiores(
-                                          'Empleado:',
-                                          (campos.empleado!.nombre != '')
-                                              ? campos.empleado!.nombre
-                                              : 'NO SE ENCONTRARON DATOS',
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 3,
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 15, horizontal: 15),
-                                    margin: EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 10),
-                                    decoration: BoxDecoration(
-                                        color: Colors.blue,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10))),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        datosSuperiores('Descuento:',
-                                            campos.descuentoTotalFactura,
-                                            color: Colors.white,
-                                            flex1: 6,
-                                            flex2: 4),
-                                        datosSuperiores(
-                                            'ISV:', campos.isvTotalFactura,
-                                            color: Colors.white,
-                                            flex1: 6,
-                                            flex2: 4),
-                                        datosSuperiores('Sub total exonerado:',
-                                            campos.subTotalExonerado,
-                                            color: Colors.white,
-                                            flex1: 6,
-                                            flex2: 4,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end),
-                                        datosSuperiores('Sub total:',
-                                            campos.subTotalFactura,
-                                            color: Colors.white,
-                                            flex1: 6,
-                                            flex2: 4),
-                                        Divider(),
-                                        Text(
-                                          'Total de venta:',
-                                          style: GoogleFonts.poppins(
+                          child: (!animationController.isCompleted)
+                              ? Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10))),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        flex: 3,
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 15, horizontal: 15),
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          decoration: BoxDecoration(
                                               color: Colors.white,
-                                              fontWeight: FontWeight.w500),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10))),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Datos del cliente',
+                                                style: GoogleFonts.poppins(
+                                                    color: Colors.blue,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                              Divider(),
+                                              datosSuperiores(
+                                                  'Nombre:',
+                                                  (datosCliente!.nombreCliente
+                                                              .toString() !=
+                                                          '')
+                                                      ? datosCliente
+                                                          .nombreCliente
+                                                          .toString()
+                                                      : 'NO EXISTE',
+                                                  flex1: 2,
+                                                  flex2: 8),
+                                              datosSuperiores('RTN:',
+                                                  datosCliente.rtn.toString()),
+                                              datosSuperiores(
+                                                  'DNI:',
+                                                  (datosCliente.dni != '')
+                                                      ? datosCliente.dni
+                                                          .toString()
+                                                      : 'NO SE ENCONTRARON DATOS',
+                                                  flex1: 2,
+                                                  flex2: 8),
+                                              datosSuperiores(
+                                                  'Teléfono:',
+                                                  datosCliente.telefonoCliente
+                                                      .toString()),
+                                              datosSuperiores(
+                                                  'Correo:',
+                                                  (datosCliente.email != '')
+                                                      ? datosCliente.email
+                                                          .toString()
+                                                      : 'NO SE ENCONTRARON DATOS'),
+                                              datosSuperiores(
+                                                  'Dirección:',
+                                                  (datosCliente.direccion != '')
+                                                      ? datosCliente.direccion
+                                                          .toString()
+                                                      : '----')
+                                            ],
+                                          ),
                                         ),
-                                        Text(
-                                            (campos.venta!.totalVenta != '')
-                                                ? 'L. ${campos.venta!.totalVenta}'
-                                                : 'L. 0.00',
-                                            style: GoogleFonts.poppins(
-                                                color: Colors.white,
-                                                fontSize: size.width * 0.013,
-                                                fontWeight: FontWeight.w600))
-                                      ],
-                                    ),
+                                      ),
+                                      Expanded(
+                                        flex: 4,
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 15, horizontal: 15),
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10))),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Datos de facturación',
+                                                style: GoogleFonts.poppins(
+                                                    color: Colors.blue,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                              Divider(),
+                                              datosSuperiores(
+                                                'Número:',
+                                                campos.numeroFactura.toString(),
+                                              ),
+                                              datosSuperiores(
+                                                'Fecha de emisión:',
+                                                campos.fechaFactura
+                                                    .toString()
+                                                    .substring(0, 10),
+                                              ),
+                                              datosSuperiores(
+                                                  'CAI:',
+                                                  (campos.talonario!.cai != '')
+                                                      ? campos.talonario!.cai
+                                                      : 'N/A',
+                                                  flex1: 1,
+                                                  flex2: 9),
+                                              datosSuperiores(
+                                                'Rango autorizado:',
+                                                (campos.talonario != null)
+                                                    ? '${campos.talonario!.rangoInicialFactura} - ${campos.talonario!.rangoFinalFactura}'
+                                                    : '------',
+                                              ),
+                                              datosSuperiores(
+                                                  'Fecha límite de emisión:',
+                                                  (campos.talonario != null)
+                                                      ? campos.talonario!
+                                                          .fechaLimiteEmision
+                                                          .toString()
+                                                          .substring(0, 10)
+                                                      : '------'),
+                                              datosSuperiores(
+                                                'Establecimiento:',
+                                                (campos.venta!
+                                                            .establecimiento !=
+                                                        '')
+                                                    ? campos
+                                                        .venta!.establecimiento
+                                                    : 'NO DISPONIBLE',
+                                              ),
+                                              datosSuperiores(
+                                                'Empleado:',
+                                                (campos.empleado!.nombre != '')
+                                                    ? campos.empleado!.nombre
+                                                    : 'NO SE ENCONTRARON DATOS',
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 3,
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 15, horizontal: 15),
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 10),
+                                          decoration: BoxDecoration(
+                                              color: Colors.blue,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10))),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              datosSuperiores('Descuento:',
+                                                  campos.descuentoTotalFactura,
+                                                  color: Colors.white,
+                                                  flex1: 6,
+                                                  flex2: 4),
+                                              datosSuperiores('ISV:',
+                                                  campos.isvTotalFactura,
+                                                  color: Colors.white,
+                                                  flex1: 6,
+                                                  flex2: 4),
+                                              datosSuperiores(
+                                                  'Sub total exonerado:',
+                                                  campos.subTotalExonerado,
+                                                  color: Colors.white,
+                                                  flex1: 6,
+                                                  flex2: 4,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.end),
+                                              datosSuperiores('Sub total:',
+                                                  campos.subTotalFactura,
+                                                  color: Colors.white,
+                                                  flex1: 6,
+                                                  flex2: 4),
+                                              Divider(),
+                                              Text(
+                                                'Total de venta:',
+                                                style: GoogleFonts.poppins(
+                                                    color: Colors.white,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                              Text(
+                                                  (campos.venta!.totalVenta !=
+                                                          '')
+                                                      ? 'L. ${campos.venta!.totalVenta}'
+                                                      : 'L. 0.00',
+                                                  style: GoogleFonts.poppins(
+                                                      color: Colors.white,
+                                                      fontSize:
+                                                          size.width * 0.013,
+                                                      fontWeight:
+                                                          FontWeight.w600))
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 )
-                              ],
-                            ),
-                          ):SizedBox(),
+                              : SizedBox(),
                         ),
                         SizedBox(
                           height: size.height * 0.03,
@@ -321,9 +358,9 @@ class _MostrarFacturaState extends State<MostrarFactura>
                         Expanded(
                             child: Container(
                           decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(10))
-                          ),
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
                           padding: EdgeInsets.symmetric(
                               horizontal: size.width * 0.04,
                               vertical: size.height * 0.02),
@@ -383,62 +420,63 @@ class _MostrarFacturaState extends State<MostrarFactura>
                   ),
                 );
               });
-        } else if (snapshot.connectionState == ConnectionState.done && snapshot.data == 2) {
+        } else if (snapshot.connectionState == ConnectionState.done &&
+            snapshot.data == 2) {
           return Scaffold(
-                body: Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                      'Ocurrió un error al hacer la conexión con el servidor, contáctese con el administrador o presione recargar.'),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {});
-                    },
-                    child: Text('Recargar'),
-                  )
-                ],
-              ),
-            ));
-        } else if (snapshot.connectionState == ConnectionState.done && snapshot.data == 'Ocurrió un error interno del servidor'){
+              body: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                    'Ocurrió un error al hacer la conexión con el servidor, contáctese con el administrador o presione recargar.'),
+                SizedBox(
+                  height: 10,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {});
+                  },
+                  child: Text('Recargar'),
+                )
+              ],
+            ),
+          ));
+        } else if (snapshot.connectionState == ConnectionState.done &&
+            snapshot.data == 'Ocurrió un error interno del servidor') {
           return Scaffold(
-                body: Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                      'Ocurrió un error interno del servidor'),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {});
-                    },
-                    child: Text('Recargar'),
-                  )
-                ],
-              ),
-            ));
+              body: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Ocurrió un error interno del servidor'),
+                SizedBox(
+                  height: 10,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {});
+                  },
+                  child: Text('Recargar'),
+                )
+              ],
+            ),
+          ));
         } else {
           return Scaffold(
-                body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                      width: size.width * 0.05,
-                      height: size.width * 0.05,
-                      child: CircularProgressIndicator()),
-                  Text('Cargando, espere un momento.')
-                ],
-              ),
-            ));
+              body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                    width: size.width * 0.05,
+                    height: size.width * 0.05,
+                    child: CircularProgressIndicator()),
+                Text('Cargando, espere un momento.')
+              ],
+            ),
+          ));
         }
       },
     );
