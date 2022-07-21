@@ -102,7 +102,7 @@ class _Pantalla extends StatelessWidget {
                     visible: true,
                     child: TextButtons(
                       name: 'Empleados',
-                      route: 'mantenimiento',
+                      route: 'traer_empleados',
                       width: 0.2,
                       fontSize: 18,
                     )),

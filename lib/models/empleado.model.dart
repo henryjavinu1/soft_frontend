@@ -1,8 +1,31 @@
+// To parse this JSON data, do
+//
+//     final empleado = empleadoFromJson(jsonString);
+
 import 'dart:convert';
 
+Empleado empleadoFromJson(String str) => Empleado.fromJson(json.decode(str));
+
+String empleadoToJson(Empleado data) => json.encode(data.toJson());
 
 class Empleado {
     Empleado({
+        required this.todoslosEmpleados,
+    });
+
+    List<TodoslosEmpleados> todoslosEmpleados;
+
+    factory Empleado.fromJson(Map<String, dynamic> json) => Empleado(
+        todoslosEmpleados: List<TodoslosEmpleados>.from(json["todoslosEmpleados"].map((x) => TodoslosEmpleados.fromJson(x))),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "todoslosEmpleados": List<dynamic>.from(todoslosEmpleados.map((x) => x.toJson())),
+    };
+}
+
+class TodoslosEmpleados {
+    TodoslosEmpleados({
         required this.id,
         required this.dni,
         required this.nombre,
@@ -28,13 +51,9 @@ class Empleado {
     DateTime createdAt;
     DateTime updatedAt;
 
-    factory Empleado.fromJson(String str) => Empleado.fromMap(json.decode(str));
-
-    String toJson() => json.encode(toMap());
-
-    factory Empleado.fromMap(Map<String, dynamic> json) => Empleado(
+    factory TodoslosEmpleados.fromJson(Map<String, dynamic> json) => TodoslosEmpleados(
         id: json["id"],
-        dni: json ["dni"],
+        dni: json["dni"],
         nombre: json["nombre"],
         apellido: json["apellido"],
         direccion: json["direccion"],
@@ -46,7 +65,7 @@ class Empleado {
         updatedAt: DateTime.parse(json["updatedAt"]),
     );
 
-    Map<String, dynamic> toMap() => {
+    Map<String, dynamic> toJson() => {
         "id": id,
         "dni": dni,
         "nombre": nombre,

@@ -6,6 +6,13 @@ import 'package:soft_frontend/screens/screens.dart';
 import 'package:soft_frontend/screens/sucursal/sucursal.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/buscarTipoPago.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/crearTipoPago.screen.dart';
+<<<<<<< HEAD
+=======
+import 'package:soft_frontend/services/empleado.service.dart';
+>>>>>>> ae84e60ef0efbcb8290a87bb8c7cb142d37e2ba3
+import 'package:soft_frontend/screens/tipoproducto/tipoproducto.screen.dart';
+import 'package:soft_frontend/screens/producto/producto.screen.dart';
+import 'package:soft_frontend/screens/arqueo/mostrarArqueo.screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,6 +38,7 @@ class MyApp extends StatelessWidget {
         'crear_cliente': (_) => CrearClientes(),
         'crear_empleado': (_) => crearEmpleados(),
         'traer_clientes': (_) => const TodosLosClientes2(),
+        'traer_empleados': (_) => const TodosLosEmpleados2(),
 
         //'buscar_cliente': (_) => BuscarClientes(),
         'manipular_factura': (_) => ManipularFactura(),
@@ -38,9 +46,11 @@ class MyApp extends StatelessWidget {
         'sucursal': (_) => SucursalScreen(),
         'listar_tipopago': (_) => BuscarTipoPago(),
         'crear_tipopago': (_) => CrearTipoPagos(),
-        'mostrar_arqueo': (_) => MostrarArqueo(),
+        'traer_arqueo': (_) => const MostrarArqueos(),
         'PrincipalVenta': (_) => PantallaPrincipalVenta(),
         'PrincipalGestion': (_) => PantallaGestionPrincipal(),
+        'PantallaTipoProductos': (_) => PantallaTipoProducto(),
+        'PantallaProductos': (_) => PantallaProducto(),
       },
     );
   }
