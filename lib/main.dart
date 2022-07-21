@@ -6,10 +6,7 @@ import 'package:soft_frontend/screens/screens.dart';
 import 'package:soft_frontend/screens/sucursal/sucursal.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/buscarTipoPago.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/crearTipoPago.screen.dart';
-<<<<<<< HEAD
-=======
 import 'package:soft_frontend/services/empleado.service.dart';
->>>>>>> ae84e60ef0efbcb8290a87bb8c7cb142d37e2ba3
 import 'package:soft_frontend/screens/tipoproducto/tipoproducto.screen.dart';
 import 'package:soft_frontend/screens/producto/producto.screen.dart';
 import 'package:soft_frontend/screens/arqueo/mostrarArqueo.screen.dart';
