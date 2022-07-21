@@ -9,7 +9,6 @@ Future<ManipularArqueo?> eliminarArqueo_Controller(
     String idArqueo, context) async {
   List<ManipularArqueo?> arq = await eliminarArqueo(idArqueo);
   print(idArqueo);
-  // ignore: unnecessary_null_comparison
   if (arq != null) {
     Navigator.pushNamed(context, 'traer_arqueo');
     ScaffoldMessenger.of(context).showSnackBar(
@@ -26,27 +25,27 @@ Future<ManipularArqueo?> crearArqueo_Controller(
         await crearArqueo(idSesion, idUsuario, efectivoApertura);
     if (arqueo != null) {
       ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Arqueo Creado con exito")));
-      Navigator.pushNamed(context, "traer_arqueo");
+          const SnackBar(content: Text('Arqueo Creado con exito')));
+      Navigator.pushNamed(context, 'traer_arqueo');
     } else {}
   } else {
     ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text("Campos en blanco")));
+        .showSnackBar(const SnackBar(content: Text('Campos en blanco')));
   }
 }
 
 Future<ManipularArqueo?> actualizarArqueoCerrandoSesion_Controller(
     String idUsuario, String idSesion, String idArqueo, context) async {
   if (idUsuario.isNotEmpty && idSesion.isNotEmpty && idArqueo.isNotEmpty) {
-    List<ManipularArqueo?> arqueo =
+    List<ManipularArqueo?> arqueo1 =
         await actualizarArqueoCerrandoSesion(idUsuario, idSesion, idArqueo);
-    if (arqueo != null) {
+    if (arqueo1 != null) {
       ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Arqueo Actualizado con exito")));
-      Navigator.pushNamed(context, "traer_arqueo");
+          const SnackBar(content: Text('Arqueo Actualizado con exito')));
+      Navigator.pushNamed(context, 'traer_arqueo');
     } else {}
   } else {
     ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text("Campos en blanco")));
+        .showSnackBar(const SnackBar(content: Text('Campos en blanco')));
   }
 }

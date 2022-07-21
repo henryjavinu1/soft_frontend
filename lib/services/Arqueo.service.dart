@@ -86,11 +86,11 @@ Future<List<ManipularArqueo?>> crearArqueo(
 Future<List<ManipularArqueo?>> actualizarArqueoCerrandoSesion(
     String idUsuario, String idSesion, String idArqueo) async {
   var client = http.Client();
-  ManipularArqueo? arqueo = null;
+  ManipularArqueo? arqueo1 = null;
   List<ManipularArqueo> arqueoActualizado = [];
 
   try {
-    var response = await http.post(
+    var response = await http.put(
         Uri.parse(API_URL + 'arqueo/actualizacionCerrandoSesion'),
         body: ({
           'idUsuario': idUsuario,

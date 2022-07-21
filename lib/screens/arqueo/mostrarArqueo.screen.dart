@@ -82,7 +82,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                             ),
                           ),
                         ),
-                        TextButton(
+                        /*TextButton(
                           onPressed: null,
                           child: Center(
                             child: ElevatedButton(
@@ -98,7 +98,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                               ),
                             ),
                           ),
-                        ),
+                        ),*/
                         const SizedBox(
                           height: 50,
                         ),
@@ -305,6 +305,21 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
               child: Text('Eliminar'),
               onPressed: () {
                 _showDialog(context, lista.idArqueo.toString());
+              },
+            )),
+        Expanded(
+            flex: 1,
+            child: TextButton(
+              child: const Text('Cerrar Sesion'),
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (BuildContext context) {
+                  return new ActualizarArqueCerrandoSesion(
+                    idUsuario: lista.idUsuario,
+                    idSesion: lista.idSesion,
+                    idArqueo: lista.idArqueo,
+                  );
+                }));
               },
             )),
       ],
