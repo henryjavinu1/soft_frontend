@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../controllers/Arqueo.controller.dart';
 import '../../services/arqueo.service.dart';
 
 class ActualizarArqueCerrandoSesion extends StatefulWidget {
@@ -91,7 +92,7 @@ class _ActualizarArqueCerrandoSesionState
                                 child: Center(
                                   child: ElevatedButton(
                                       onPressed: () =>
-                                          actualizarArqueoCerrandoSesion(
+                                          actualizarArqueoCerrandoSesion_Controller(
                                               idSesionController.text,
                                               idUsuarioController.text,
                                               idArqueoController.text,
@@ -99,7 +100,7 @@ class _ActualizarArqueCerrandoSesionState
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 10, vertical: 10),
-                                        child: Text('Continuar'),
+                                        child: Text('Aceptar'),
                                       )),
                                 ),
                               ),

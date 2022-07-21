@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../services/arqueo.service.dart';
+import '../../controllers/Arqueo.controller.dart';
 
 class CrearArqueo extends StatefulWidget {
   const CrearArqueo({Key? key}) : super(key: key);
@@ -88,7 +88,7 @@ class _CrearArqueoState extends State<CrearArqueo> {
                                 onPressed: null,
                                 child: Center(
                                   child: ElevatedButton(
-                                      onPressed: () => crearArqueo(
+                                      onPressed: () => crearArqueo_Controller(
                                           idSesionController.text,
                                           idUsuarioController.text,
                                           efectivoAperturaController.text,
@@ -96,7 +96,7 @@ class _CrearArqueoState extends State<CrearArqueo> {
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 10, vertical: 10),
-                                        child: Text('Continuar'),
+                                        child: Text('Acetar'),
                                       )),
                                 ),
                               ),
