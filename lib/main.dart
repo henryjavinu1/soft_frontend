@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
         'traer_clientes': (_) => const TodosLosClientes2(),
         'crearUsuarios': (_) => CrearUser(),
         'crearRol': (_) => CrearRol(),
+        'gestionUsuarios': (_) => GestionUsuarios(),
 
         //'buscar_cliente': (_) => BuscarClientes(),
         'manipular_factura': (_) => ManipularFactura(),
