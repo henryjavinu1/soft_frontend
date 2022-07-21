@@ -23,6 +23,7 @@ class Talonario {
     required this.rangoInicialFactura,
     required this.rangoFinalFactura,
     required this.cai,
+    required this.idSucursal,
     required this.fechaLimiteEmision,
     required this.active,
     required this.isDelete,
@@ -34,6 +35,7 @@ class Talonario {
   String rangoInicialFactura;
   String rangoFinalFactura;
   String cai;
+  int idSucursal;
   DateTime fechaLimiteEmision;
   bool active;
   bool isDelete;
@@ -47,6 +49,7 @@ class Talonario {
         rangoInicialFactura: json["rangoInicialFactura"],
         rangoFinalFactura: json["rangoFinalFactura"],
         cai: json["cai"],
+        idSucursal: json["idSucursal"],
         fechaLimiteEmision: DateTime.parse(json["fechaLimiteEmision"]),
         active: json["active"],
         isDelete: json["isDelete"],
