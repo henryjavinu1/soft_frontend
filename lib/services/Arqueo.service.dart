@@ -17,7 +17,7 @@ Future traerArqueos() async {
   } catch (e) {}
 }
 
-Future<void> buscarArqueoPorIdUsuario(String idUsuario, context) async {
+Future buscarArqueoPorIdUsuario(String idUsuario, context) async {
   if (idUsuario.isNotEmpty) {
     var response = await http.post(
         Uri.parse(API_URL + 'arqueo/buscarPorUsuario'),

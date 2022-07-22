@@ -2,11 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:soft_frontend/models/arqueo.model.dart';
+import 'package:soft_frontend/models/Arqueo.model.dart';
 import 'package:soft_frontend/services/arqueo.service.dart';
 import 'package:soft_frontend/controllers/arqueo.controller.dart';
 import 'package:soft_frontend/screens/arqueo/crearArqueo.screen.dart';
-import 'package:soft_frontend/screens/arqueo/cerrarSesionActualizandoArqueo.screen.dart';
 import 'package:soft_frontend/screens/arqueo/components/cabeceraDeTablaArqueo.component.dart';
 
 import 'buscarArqueoIdUsuario.screen.dart';
@@ -19,6 +18,7 @@ class MostrarArqueos extends StatefulWidget {
 }
 
 class _MostrarArqueosState extends State<MostrarArqueos> {
+  final idUsuarioController = TextEditingController();
   List<Arqueo> listaArqueos = [];
 
   @override
@@ -48,6 +48,33 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+                        Center(
+                          child: Padding(
+                            padding: EdgeInsets.only(right: size.width * 0.01),
+                            child: Text(
+                              'Buscar Arqueo por IdUsuario',
+                              style: GoogleFonts.poppins(
+                                  color: Colors.black87,
+                                  fontSize: size.width * 0.015,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                            child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.width * 0.02),
+                          child: TextField(
+                            onChanged: (idUsuarioController) {
+                              buscarArqueoIdUsuario(idUsuarioController);
+                            },
+                            controller: idUsuarioController,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Id de Usuario',
+                            ),
+                          ),
+                        )),
                         TextButton(
                           onPressed: null,
                           child: Center(
@@ -308,18 +335,12 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
               },
             )),
         Expanded(
-            flex: 1,
+            flex: 2,
             child: TextButton(
-              child: const Text('Cerrar Sesion'),
+              child: Text('Cerrar Sesion'),
               onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (BuildContext context) {
-                  return new ActualizarArqueCerrandoSesion(
-                    idUsuario: lista.idUsuario,
-                    idSesion: lista.idSesion,
-                    idArqueo: lista.idArqueo,
-                  );
-                }));
+                _showDialogActualizar(context, lista.idUsuario.toString(),
+                    lista.idSesion.toString(), lista.idArqueo.toString());
               },
             )),
       ],
@@ -339,6 +360,35 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
               child: Text('Si'),
               onPressed: () {
                 eliminarArqueo_Controller(idArqueo, context);
+              },
+            ),
+            ElevatedButton(
+              child: Text('No'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showDialogActualizar(BuildContext context, String idUsuario,
+      String idSesion, String idArqueo) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        print(idArqueo);
+        return AlertDialog(
+          title: Text('Actualizar Arqueo'),
+          content: Text('¿Quieres actualizar el arqueo?'),
+          actions: <Widget>[
+            ElevatedButton(
+              child: Text('Si'),
+              onPressed: () {
+                actualizarArqueoCerrandoSesion_Controller(
+                    idUsuario, idSesion, idArqueo, context);
               },
             ),
             ElevatedButton(

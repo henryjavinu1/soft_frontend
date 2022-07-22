@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../models/Arqueo.model.dart';
 import '../../services/Arqueo.service.dart';
 
 class BuscarArqueoIdUsuario extends StatefulWidget {
@@ -11,6 +12,13 @@ class BuscarArqueoIdUsuario extends StatefulWidget {
 
 class _BuscarArqueoIdUsuarioState extends State<BuscarArqueoIdUsuario> {
   var idUsuarioController = TextEditingController();
+  List<Arqueo> listaArqueos = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(context) =>
