@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_frontend/models/Producto.model.dart';
+import 'package:soft_frontend/models/buscarProducto.dart';
 import 'package:soft_frontend/services/producto.service.dart';
+
 void TipoProducto() {
   runApp(const PantallaProducto());
 }
@@ -10,10 +13,10 @@ void TipoProducto() {
 class PantallaProducto extends StatelessWidget {
   const PantallaProducto({Key? key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Productos',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -33,11 +36,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  List<Producto> tipos = <Producto> [];
-  List<Producto> tiposN = <Producto> [];
+  List<Producto> tipos = <Producto>[];
+  List<Producto> tiposN = <Producto>[];
 
   @override
-  void initState(){
+  void initState() {
     obtenerProductos().then((value) {
       setState(() {
         tipos.addAll(value);
@@ -59,7 +62,6 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: const EdgeInsets.only(top: 27.0),
               child: Column(
                 children: [
-                  const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.only(left: 30.0, right: 30.0),
                     child: ClipRRect(
@@ -109,19 +111,18 @@ class _MyHomePageState extends State<MyHomePage> {
                                 )),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                                width: 120,
-                                height: 80,
-                                margin: EdgeInsets.all(5),
-                                child: RaisedButton(
-                                  onPressed: () {
-                                    _ventanaActualizar(context);
-                                  },
-                                  child: Text('Agregar Tipo de producto'),
-                                  padding: EdgeInsets.all(25),
-                                ))
-                          ),
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                  width: 120,
+                                  height: 80,
+                                  margin: EdgeInsets.all(5),
+                                  child: RaisedButton(
+                                    onPressed: () {
+                                      _ventanaActualizar(context);
+                                    },
+                                    child: Text('Agregar Tipo de producto'),
+                                    padding: EdgeInsets.all(25),
+                                  ))),
                           Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
@@ -134,8 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     },
                                     child: Text('Modificar existencia'),
                                     padding: EdgeInsets.all(25),
-                                  ))
-                          ),
+                                  ))),
                         ]),
                       ),
                     ),
@@ -143,32 +143,34 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
-            Column(
-              children: [
-                Container(
-                  width: 900,
-                  height: 500,
-                  child: ListView.builder(
-                    itemBuilder: (context, index){
-                      return index == 0 ? _searchBar(): _listItem(index - 1);
-                    },
-                    itemCount: tiposN.length + 1,
+            Expanded(
+              child: Column(
+                children: [
+                  Container(
+                    width: 900,
+                    height: 500,
+                    child: ListView.builder(
+                      itemBuilder: (context, index) {
+                      
+                        return index == 0
+                            ? _searchBar()
+                            : _listItem(index - 1);
+                      },
+                      itemCount: tiposN.length + 1,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
-        )
-    );
+        ));
   }
 
   _searchBar() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextField(
-        decoration: InputDecoration(
-            hintText: 'Buscar tipo producto'
-        ),
+        decoration: InputDecoration(hintText: 'Buscar producto'),
         onChanged: (text) {
           text = text.toLowerCase();
           setState(() {
@@ -183,6 +185,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _ventanaCrearTipoProducto(BuildContext context) {
+    var idProductoController = TextEditingController();
     var codigoProductoController = TextEditingController();
     var nombreProductoController = TextEditingController();
     var precioProductoController = TextEditingController();
@@ -199,9 +202,8 @@ class _MyHomePageState extends State<MyHomePage> {
           actions: <Widget>[
             Container(
               color: Colors.white,
-              child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                children:[
+              child:
+                  Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Container(
                   width: 350,
                   height: 450,
@@ -220,7 +222,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           TextFormField(
                             controller: codigoProductoController,
                             decoration:
-                            InputDecoration(border: UnderlineInputBorder()),
+                                InputDecoration(border: UnderlineInputBorder()),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(5.0),
@@ -232,7 +234,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           TextFormField(
                             controller: precioProductoController,
                             decoration:
-                            InputDecoration(border: UnderlineInputBorder()),
+                                InputDecoration(border: UnderlineInputBorder()),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(5.0),
@@ -242,12 +244,11 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           ),
                           TextFormField(
-                            controller: isvProductoController,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
+                              controller: isvProductoController,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
                                 border: UnderlineInputBorder(),
-                            )
-                          ),
+                              )),
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: Text(
@@ -259,110 +260,109 @@ class _MyHomePageState extends State<MyHomePage> {
                             controller: isExcentoController,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
-                                border: UnderlineInputBorder(),
-                               ),
+                              border: UnderlineInputBorder(),
+                            ),
                           ),
                           Container(
-                              width: 30,
-                              height: 30,
-                              margin: EdgeInsets.all(5),
+                            width: 30,
+                            height: 30,
+                            margin: EdgeInsets.all(5),
                           ),
                         ]),
                   ),
                 ),
-                  Container(
-                    width: 350,
-                    height: 450,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: Text(
-                                "Nombre del producto",
-                                style: TextStyle(fontSize: 18),
-                              ),
+                Container(
+                  width: 350,
+                  height: 450,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text(
+                              "Nombre del producto",
+                              style: TextStyle(fontSize: 18),
                             ),
-                            TextFormField(
-                              controller: nombreProductoController,
-                              decoration:
-                              InputDecoration(border: UnderlineInputBorder()),
+                          ),
+                          TextFormField(
+                            controller: nombreProductoController,
+                            decoration:
+                                InputDecoration(border: UnderlineInputBorder()),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text(
+                              "Cantidad en existencia",
+                              style: TextStyle(fontSize: 18),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: Text(
-                                "Cantidad en existencia",
-                                style: TextStyle(fontSize: 18),
-                              ),
+                          ),
+                          TextFormField(
+                            controller: cantidadProductoController,
+                            decoration:
+                                InputDecoration(border: UnderlineInputBorder()),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text(
+                              "Descuento",
+                              style: TextStyle(fontSize: 18),
                             ),
-                            TextFormField(
-                              controller: cantidadProductoController,
-                              decoration:
-                              InputDecoration(border: UnderlineInputBorder()),
+                          ),
+                          TextFormField(
+                            controller: descProductoController,
+                            keyboardType: TextInputType.text,
+                            decoration: InputDecoration(
+                              border: UnderlineInputBorder(),
                             ),
-
-                            Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: Text(
-                                "Descuento",
-                                style: TextStyle(fontSize: 18),
-                              ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text(
+                              "Id tipo producto",
+                              style: TextStyle(fontSize: 18),
                             ),
-                            TextFormField(
-                              controller: descProductoController,
-                              keyboardType: TextInputType.text,
-                              decoration: InputDecoration(
-                                  border: UnderlineInputBorder(),
-                                 ),
+                          ),
+                          TextFormField(
+                            controller: idTipoProductoController,
+                            keyboardType: TextInputType.text,
+                            decoration: InputDecoration(
+                              border: UnderlineInputBorder(),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: Text(
-                                "Id tipo producto",
-                                style: TextStyle(fontSize: 18),
-                              ),
-                            ),
-                            TextFormField(
-                              controller: idTipoProductoController,
-                              keyboardType: TextInputType.text,
-                              decoration: InputDecoration(
-                                  border: UnderlineInputBorder(),
-                                  ),
-                            ),
-                            Container(
-                              width: 50,
-                              height: 50,
+                          ),
+                          Container(
+                              width: 100,
+                              height: 100,
                               margin: EdgeInsets.all(5),
                               child: RaisedButton(
-                                onPressed: () => crearProducto(
-                                    codigoProductoController.text,
-                                    nombreProductoController.text,
-                                    precioProductoController.text,
-                                    cantidadProductoController.text,
-                                    isvProductoController.text,
-                                    descProductoController.text,
-                                    isExcentoController.text,
-                                    idTipoProductoController.text,
-                                    context),
+                                onPressed: () {
+                                  crearProducto(
+                                      codigoProductoController.text,
+                                      nombreProductoController.text,
+                                      precioProductoController.text,
+                                      cantidadProductoController.text,
+                                      isvProductoController.text,
+                                      descProductoController.text,
+                                      isExcentoController.text,
+                                      idTipoProductoController.text,
+                                      context);
+                                  Navigator.pop(context);
+                                  _ventanaExito(context);
+                                },
                                 child: Text('Guardar'),
                                 padding: EdgeInsets.all(10),
-                              )
-                            ),
-                          ]),
-                    ),
+                              )),
+                        ]),
                   ),
-                ]
-              ),
+                ),
+              ]),
             ),
           ],
         );
       },
     );
   }
-
-
 
   void _ventanaEliminar(BuildContext context) {
     var idTipoProductoController = TextEditingController();
@@ -387,16 +387,16 @@ class _MyHomePageState extends State<MyHomePage> {
                       TextFormField(
                         controller: idTipoProductoController,
                         decoration:
-                        InputDecoration(border: UnderlineInputBorder()),
+                            InputDecoration(border: UnderlineInputBorder()),
                       ),
                       SizedBox(
                         height: 40,
                       ),
                       Container(
-                          width: 80,
-                          height: 40,
-                          margin: EdgeInsets.all(5),
-                          /*
+                        width: 80,
+                        height: 40,
+                        margin: EdgeInsets.all(5),
+                        /*
                           child: RaisedButton(
                             onPressed: () => EliminarTipoProducto(
                                 idTipoProductoController.text,
@@ -406,8 +406,53 @@ class _MyHomePageState extends State<MyHomePage> {
                           )
 
                            */
-                          ),
+                      ),
+                      SizedBox(
+                        height: 40,
+                      ),
+                    ]),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
+  void _ventanaExito(BuildContext context) {
+    var idTipoProductoController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          actions: <Widget>[
+            Container(
+              width: 500,
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(40),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Accion realizada con éxito.",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      Container(
+                          width: 80,
+                          height: 40,
+                          margin: EdgeInsets.all(5),
+                          child: RaisedButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text('OK'),
+                            padding: EdgeInsets.all(10),
+                          )),
                       SizedBox(
                         height: 40,
                       ),
@@ -434,59 +479,59 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
               width: 500,
               color: Colors.white,
-              child: Column (
+              child: Column(
                 children: [
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "id Producto",
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      TextFormField(
-                        controller: idTipoProductoController,
-                        decoration:
-                        InputDecoration(border: UnderlineInputBorder()),
-                      ),
-                      SizedBox(
-                        height: 40,
-                      ),
-                      Text(
-                        "Tipo de Producto",
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      TextFormField(
-                        controller: tipoProducto2Controller,
-                        decoration:
-                        InputDecoration(border: UnderlineInputBorder()),
-                      ),
-                      SizedBox(
-                        height: 40,
-                      ),
-                      Text(
-                        "Descripción",
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      TextFormField(
-                        controller: descripcion2ProductoController,
-                        decoration:
-                        InputDecoration(border: UnderlineInputBorder()),
-                      ),
-                      SizedBox(
-                        height: 40,
-                      ),
-                      Text(
-                        "ISV",
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      TextFormField(
-                        controller: isvTipoProducto2Controller,
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                            border: UnderlineInputBorder(),
-                            hintText: 'Escribir en valor decimal.'),
-                      ),
-                      Container(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "id Producto",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        TextFormField(
+                          controller: idTipoProductoController,
+                          decoration:
+                              InputDecoration(border: UnderlineInputBorder()),
+                        ),
+                        SizedBox(
+                          height: 40,
+                        ),
+                        Text(
+                          "Tipo de Producto",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        TextFormField(
+                          controller: tipoProducto2Controller,
+                          decoration:
+                              InputDecoration(border: UnderlineInputBorder()),
+                        ),
+                        SizedBox(
+                          height: 40,
+                        ),
+                        Text(
+                          "Descripción",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        TextFormField(
+                          controller: descripcion2ProductoController,
+                          decoration:
+                              InputDecoration(border: UnderlineInputBorder()),
+                        ),
+                        SizedBox(
+                          height: 40,
+                        ),
+                        Text(
+                          "ISV",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        TextFormField(
+                          controller: isvTipoProducto2Controller,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                              border: UnderlineInputBorder(),
+                              hintText: 'Escribir en valor decimal.'),
+                        ),
+                        Container(
                           width: 80,
                           height: 40,
                           margin: EdgeInsets.all(5),
@@ -503,12 +548,11 @@ class _MyHomePageState extends State<MyHomePage> {
                           )
 
                            */
-                          ),
-
-                      SizedBox(
-                        height: 40,
-                      ),
-                    ]),
+                        ),
+                        SizedBox(
+                          height: 40,
+                        ),
+                      ]),
                 ],
               ),
             ),
@@ -537,13 +581,25 @@ class _MyHomePageState extends State<MyHomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
+                        "id de Producto",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      TextFormField(
+                        controller: tipoProductoController,
+                        decoration:
+                            InputDecoration(border: UnderlineInputBorder()),
+                      ),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      Text(
                         "Tipo de Producto",
                         style: TextStyle(fontSize: 18),
                       ),
                       TextFormField(
                         controller: tipoProductoController,
                         decoration:
-                        InputDecoration(border: UnderlineInputBorder()),
+                            InputDecoration(border: UnderlineInputBorder()),
                       ),
                       SizedBox(
                         height: 40,
@@ -555,7 +611,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       TextFormField(
                         controller: descripcionProductoController,
                         decoration:
-                        InputDecoration(border: UnderlineInputBorder()),
+                            InputDecoration(border: UnderlineInputBorder()),
                       ),
                       SizedBox(
                         height: 40,
@@ -573,7 +629,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       SizedBox(
                         height: 40,
-                      ),]),
+                      ),
+                    ]),
               ),
             ),
           ],
@@ -581,34 +638,29 @@ class _MyHomePageState extends State<MyHomePage> {
       },
     );
   }
-
   _listItem(index) {
     return Card(
-
       child: Padding(
-        padding: const EdgeInsets.only(top: 32.0, bottom: 32.0, left: 16.0, right: 16),
-        child: Column(
+        padding: const EdgeInsets.only(top: 10.0, bottom: 10.0, left: 16.0, right: 16),
+        child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget> [
             Text(
               tiposN[index].nombreProducto.toString(),
-              style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold
-              ),
+              style: GoogleFonts.lato(fontSize: 15),
             ),
             Text(
               tiposN[index].precioProducto.toString(),
               style: TextStyle(
-                  fontSize: 22,
+                  fontSize: 15,
                   fontWeight: FontWeight.bold
               ),
             ),
             Text(
               tiposN[index].cantidadProducto.toString(),
               style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold
+              fontSize: 15,
+              fontWeight: FontWeight.bold
               ),
             ),
           ],

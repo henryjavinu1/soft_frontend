@@ -5,6 +5,8 @@ import 'package:soft_frontend/screens/manipularFactura/manipularfactura.screen.d
 import 'package:soft_frontend/screens/screens.dart';
 import 'package:soft_frontend/screens/tipoPago/buscarTipoPago.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/crearTipoPago.screen.dart';
+import 'package:soft_frontend/services/empleado.service.dart';
+
 import 'package:soft_frontend/screens/tipoproducto/tipoproducto.screen.dart';
 import 'package:soft_frontend/screens/producto/producto.screen.dart';
 import 'package:soft_frontend/screens/arqueo/mostrarArqueo.screen.dart';
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: 'traer_arqueo',
+      initialRoute: 'PantallaProductos',
       routes: {
         'login': (_) => const Login(),
         'pantalla_principal': (_) => const PantallaPrincipal(),

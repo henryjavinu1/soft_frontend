@@ -33,9 +33,7 @@ class _TodosLosEmpleados2State extends State<TodosLosEmpleados2> {
         } else if (snapshot.connectionState == ConnectionState.done) {
           Cliente lista = snapshot.data;
           listaClientes = lista.todoslosClientes;
-          
-          return Padding(
-            
+          return Padding(          
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
