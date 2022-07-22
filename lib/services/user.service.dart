@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:html';
 import '../models/user.model.dart';
+import '../models/gestionUsuario.model.dart';
 import 'package:http/http.dart' as http;
 import 'package:soft_frontend/constans.dart';
 
@@ -46,4 +48,15 @@ Future<List<User?>> crearUser(String usuario, String pass, String email,
   } finally {
     client.close();
   }
+}
+
+Future mostrarUsuarios() async {
+  var client = http.Client();
+  try {
+    final response = await http.post(Uri.parse(API_URL + 'user/mostraruser'));
+    if (response.statusCode == 200) {
+      Usuario listaUser = usuarioFromJson(response.body);
+      return listaUser;
+    }
+  } catch (e) {}
 }

@@ -9,6 +9,7 @@ import 'package:soft_frontend/screens/user/creauser.scree.dart';
 import 'package:soft_frontend/screens/rol/crearol.screen.dart';
 import 'package:soft_frontend/screens/tipoproducto/tipoproducto.screen.dart';
 import 'package:soft_frontend/screens/producto/producto.screen.dart';
+import 'package:soft_frontend/screens/gestionusuarios/gestionusuarios.screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
         'traer_clientes': (_) => const TodosLosClientes2(),
         'crearUsuarios': (_) => CrearUser(),
         'crearRol': (_) => CrearRol(),
-        'gestionUsuarios': (_) => GestionUsuarios(),
+        'gestionUsuarios': (_) => const MostrarUsuarios(),
 
         'traer_empleados': (_) => const TodosLosEmpleados2(),
 
