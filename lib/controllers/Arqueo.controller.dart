@@ -1,9 +1,12 @@
 import 'dart:js';
 
 import 'package:flutter/material.dart';
-import 'package:soft_frontend/models/arqueo.model.dart';
-import '../models/arqueo.model.dart';
+import 'package:soft_frontend/models/errorPeticion.model.dart';
+import 'package:soft_frontend/screens/manipularFactura/components/dialogMensajeProblema.component.dart';
+import '../models/Arqueo.model.dart';
 import '../services/Arqueo.service.dart';
+
+typedef void ListArqueo(List<Arqueo> arqueos);
 
 Future<ManipularArqueo?> eliminarArqueo_Controller(
     String idArqueo, context) async {
@@ -47,5 +50,19 @@ Future<ManipularArqueo?> actualizarArqueoCerrandoSesion_Controller(
   } else {
     ScaffoldMessenger.of(context)
         .showSnackBar(const SnackBar(content: Text('Campos en blanco')));
+  }
+}
+
+Future filtrarArqueoIdUsuario_Controller(
+    TextEditingController _textController, ListArqueo callback, context) async {
+  final response = await buscarArqueoPorIdUsuario(_textController.text.trim());
+  if (response is List<Arqueo>) {
+    callback(response);
+  } else if (response == 404) {
+    dialogMensajeProblema(context,
+        'No se encontró ningún resultado para Usuario con Id: ${_textController.text.trim()}');
+  } else if (response is MensajePeticion) {
+    MensajePeticion mensajeError = response;
+    dialogMensajeProblema(context, mensajeError.msg);
   }
 }

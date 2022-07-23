@@ -72,7 +72,7 @@ class _BuscarArqueoIdUsuarioState extends State<BuscarArqueoIdUsuario> {
                                 child: Center(
                                   child: ElevatedButton(
                                       onPressed: () => buscarArqueoPorIdUsuario(
-                                          idUsuarioController.text, context),
+                                          idUsuarioController.text),
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 10, vertical: 10),
