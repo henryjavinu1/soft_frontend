@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:soft_frontend/models/tipoPago.model.dart';
+import 'package:http/http.dart';
+import 'package:soft_frontend/models/UnPagoBuscado.model.dart';
 import 'package:soft_frontend/models/tipoPagoBuscado.model.dart';
-import 'package:soft_frontend/models/unPagoBuscado.model.dart';
+import 'package:soft_frontend/screens/generarFactura/generarFactura.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/crearTipoPago.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/editarTipoPago.screen.dart';
-import 'package:soft_frontend/screens/tipoPago/eliminarTipoPago.screen.dart';
 import 'package:soft_frontend/services/buscarTipoPago.service.dart';
+import 'package:soft_frontend/services/eliminarTipoPago.service.dart';
+import '../../models/tipoPago.model.dart';
 
 class BuscarTipoPago extends StatefulWidget {
-  const BuscarTipoPago({Key? key}) : super(key: key);
   @override
   State<BuscarTipoPago> createState() => _BuscarTipoPagoState();
 }
 
 class _BuscarTipoPagoState extends State<BuscarTipoPago> {
-  final _textController = new TextEditingController();
+  final _textController = TextEditingController();
   List<TipoPagoBuscado> tipoPagos = [];
 
   @override
@@ -44,7 +45,7 @@ class _BuscarTipoPagoState extends State<BuscarTipoPago> {
                 child: Padding(
                   padding: EdgeInsets.only(right: size.width * 0.01),
                   child: Text(
-                    'Buscar Tipo de Pago',
+                    'Manipular Tipo de Pagos',
                     style: GoogleFonts.poppins(
                         color: Colors.black87,
                         fontSize: size.width * 0.015,
@@ -52,55 +53,13 @@ class _BuscarTipoPagoState extends State<BuscarTipoPago> {
                   ),
                 ),
               ),
-              Expanded(
-                  child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: size.width * 0.02),
-                child: TextField(
-                  controller: _textController,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'id de pago',
-                  ),
-                ),
-              )),
-              ElevatedButton(
-                onPressed: () async {
-                  if (_textController.text.trim().isNotEmpty) {
-                    print(_textController.text.trim());
-                    TipoPagoBuscado? tipoPago =
-                        await buscarPagoPorID(_textController.text.trim());
-                    print(tipoPago);
-                  } else {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                              title: Text('El campo de búsqueda está vacío.'),
-                              actions: [
-                                ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: Text('Cerrar'))
-                              ],
-                            ));
-                  }
-                },
-                child: Text(
-                  'Buscar',
-                  style: GoogleFonts.lato(),
-                ),
-                style: ButtonStyle(
-                  padding: MaterialStateProperty.all(EdgeInsets.symmetric(
-                      horizontal: size.width * 0.015, vertical: 26)),
-                ),
-              ),
               TextButton(
                 onPressed: null,
                 child: Center(
                   child: ElevatedButton(
                     onPressed: () =>
-                        Navigator.of(context).push(new MaterialPageRoute(
-                      builder: (BuildContext context) => new CrearTipoPagos(),
+                        Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) => CrearTipoPagos(),
                     )),
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
@@ -192,41 +151,32 @@ class _BuscarTipoPagoState extends State<BuscarTipoPago> {
             Expanded(
               flex: 1,
               child: Text(
-                tipoPago.tipoDePago,
+                tipoPago.tipoDePago.toString(),
                 style: GoogleFonts.lato(fontSize: size.width * 0.009),
               ),
             ),
             Expanded(
               flex: 2,
               child: Text(
-                tipoPago.descripcionTipoPago,
+                tipoPago.descripcionTipoPago.toString(),
                 style: GoogleFonts.lato(fontSize: size.width * 0.009),
               ),
             ),
             TextButton(
-              onPressed: null,
-              child: ElevatedButton(
-                onPressed: () => Navigator.of(context).push(
-                  new MaterialPageRoute(
-                    builder: (BuildContext context) => new EditarTipoPagos(
-                      tipoPago: tipoPago,
-                    ),
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) => EditarTipoPagos(
+                    tipoPago: tipoPago,
                   ),
                 ),
-                child: Text('Editar'),
               ),
+              child: Text('Editar'),
             ),
             TextButton(
-              onPressed: null,
-              child: ElevatedButton(
-                onPressed: () => Navigator.of(context).push(
-                  new MaterialPageRoute(
-                    builder: (BuildContext context) =>
-                        new EliminarTipoPagos(tipoPago: tipoPago),
-                  ),
-                ),
-                child: Text('Eliminar'),
-              ),
+              onPressed: () =>
+                  EliminarTipoPago(tipoPago.idTipoPago.toString(), context)
+                      .then((value) => this._cargarFact()),
+              child: Text('Eliminar'),
             ),
           ],
         ));

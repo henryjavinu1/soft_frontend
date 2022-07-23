@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soft_frontend/models/tipoPago.model.dart';
+import 'package:soft_frontend/screens/tipoPago/buscarTipoPago.screen.dart';
 import 'package:soft_frontend/services/editarTipoPago.service.dart';
 
 import '../../models/tipoPagoBuscado.model.dart';
@@ -39,12 +40,12 @@ class _EditarTipoPagosState extends State<EditarTipoPagos> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "Crear un nuevo Tipo De Pago",
+                  "Editar Tipo De Pago",
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 3),
                 const Text(
-                  "Por favor llene los campos",
+                  "Por favor modifique los campos",
                   style: TextStyle(fontSize: 15, color: Color(0xff606060)),
                 ),
                 const SizedBox(height: 40),
@@ -99,14 +100,15 @@ class _EditarTipoPagosState extends State<EditarTipoPagos> {
                               child: Center(
                                 child: ElevatedButton(
                                     onPressed: () => EditarTipoPago(
-                                        idTipoPagoController.text,
-                                        tipoDePagoController.text,
-                                        descripcionTipoPagoController.text,
-                                        context),
+                                            idTipoPagoController.text,
+                                            tipoDePagoController.text,
+                                            descripcionTipoPagoController.text,
+                                            context)
+                                        .then((value) => BuscarTipoPago()),
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 10, vertical: 10),
-                                      child: Text('Continuar'),
+                                      child: Text('Editar'),
                                     )),
                               ),
                             ),
