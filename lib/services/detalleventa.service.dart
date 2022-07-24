@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:soft_frontend/models/models.dart';
 import 'package:http/http.dart' as http;
 import 'package:soft_frontend/models/mostrarUnaFactura.model.dart';
 
 import '../constans.dart';
+import '../models/IdDetalleVenta.model.dart';
+import '../models/ProductoBuscado.model.dart';
 import '../models/detalleventa.model.dart';
 
 Future<List<TodosLosDetalle>> mostrardetalleventa() async {
@@ -24,13 +28,10 @@ Future<List<TodosLosDetalle>> mostrardetalleventa() async {
   }
 }
 
-Future<List<DetalleVenta?>> crearDetalle(int cantidad, double precioUnitario, double isvAplicado,
-    double descuentoAplicado, double totalDetalleVenta, int idVentas, int idProducto) async {
-  var client = http.Client();
-  DetalleVenta? detalleVenta = null;
-  List<DetalleVenta?> detalleCreado = [];
+Future crearDetalle(String cantidad, String precioUnitario, String isvAplicado,
+    String descuentoAplicado, String totalDetalleVenta, String idVentas, String idProducto) async {
   try {
-    var response = await http.post(Uri.parse(API_URL + "detalleventa"),
+    var response = await http.post(Uri.parse(API_URL + 'detalleventa'),
         body: ({
           'cantidad': cantidad,
           'precioUnitario': precioUnitario,
@@ -40,15 +41,38 @@ Future<List<DetalleVenta?>> crearDetalle(int cantidad, double precioUnitario, do
           'idVentas': idVentas,
           'idProducto':idProducto
         }));
-    print(response.body);
+    print(response.statusCode);
     if (response.statusCode == 200) {
-      print(DetallesDeVenta);
-    } else {
+      print(jsonDecode(response.body));
+      IdDetalleVenta detalleventa = idDetalleVentaFromJson(response.body);
+      return detalleventa;
+    } else if (response.statusCode == 500) {
+      return response.statusCode;
     }
-    return detalleCreado;
+    print(response.statusCode);
   } catch (e) {
-    return detalleCreado;
+    print(e);
+    return 1928;
   } finally {
     http.Client().close();
+  }
+}
+
+
+Future buscarProductoService(String codigoProducto, context) async {
+  try {
+    var response = await http.post(Uri.parse(API_URL+'producto/buscarproductoxcodigo'),
+        body: ({'codigoProducto': codigoProducto}));
+
+    if (response.statusCode == 200) {
+      final producto = productoBuscadoFromJson(response.body);
+      return producto;
+    } else if (response.statusCode == 404) {
+      return 404;
+    } else if (response.statusCode == 500) {
+      return 500;
+    }
+  } catch (e) {
+    return 1928;
   }
 }

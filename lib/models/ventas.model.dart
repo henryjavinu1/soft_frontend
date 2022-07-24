@@ -51,9 +51,9 @@ class TodasLasVenta {
     String tipo;
     DateTime createdAt;
     DateTime updatedAt;
-    int idSesion;
-    int idUsuario;
-    int idCliente;
+    String? idSesion;
+    String idUsuario;
+    String idCliente;
 
     factory TodasLasVenta.fromJson(Map<String, dynamic> json) => TodasLasVenta(
         id: json['id'],

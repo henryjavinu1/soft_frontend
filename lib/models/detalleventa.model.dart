@@ -16,11 +16,11 @@ class DetalleVenta {
     List<TodosLosDetalle> todosLosDetalles;
 
     factory DetalleVenta.fromJson(Map<String, dynamic> json) => DetalleVenta(
-        todosLosDetalles: List<TodosLosDetalle>.from(json["todosLosDetalles"].map((x) => TodosLosDetalle.fromJson(x))),
+        todosLosDetalles: List<TodosLosDetalle>.from(json['todosLosDetalles'].map((x) => TodosLosDetalle.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
-        "todosLosDetalles": List<dynamic>.from(todosLosDetalles.map((x) => x.toJson())),
+        'todosLosDetalles': List<dynamic>.from(todosLosDetalles.map((x) => x.toJson())),
     };
 }
 
@@ -52,30 +52,30 @@ class TodosLosDetalle {
     int idProducto;
 
     factory TodosLosDetalle.fromJson(Map<String, dynamic> json) => TodosLosDetalle(
-        id: json["id"],
-        cantidad: json["cantidad"],
-        precioUnitario: json["precioUnitario"],
-        isvAplicado: json["isvAplicado"],
-        descuentoAplicado: json["descuentoAplicado"],
-        totalDetalleVenta: json["totalDetalleVenta"],
-        isDelete: json["isDelete"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
-        idVentas: json["idVentas"],
-        idProducto: json["idProducto"],
+        id: json['id'],
+        cantidad: json['cantidad'],
+        precioUnitario: json['precioUnitario'],
+        isvAplicado: json['isvAplicado'],
+        descuentoAplicado: json['descuentoAplicado'],
+        totalDetalleVenta: json['totalDetalleVenta'],
+        isDelete: json['isDelete'],
+        createdAt: DateTime.parse(json['createdAt']),
+        updatedAt: DateTime.parse(json['updatedAt']),
+        idVentas: json['idVentas'],
+        idProducto: json['idProducto'],
     );
 
     Map<String, dynamic> toJson() => {
-        "id": id,
-        "cantidad": cantidad,
-        "precioUnitario": precioUnitario,
-        "isvAplicado": isvAplicado,
-        "descuentoAplicado": descuentoAplicado,
-        "totalDetalleVenta": totalDetalleVenta,
-        "isDelete": isDelete,
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
-        "idVentas": idVentas,
-        "idProducto": idProducto,
+        'id': id,
+        'cantidad': cantidad,
+        'precioUnitario': precioUnitario,
+        'isvAplicado': isvAplicado,
+        'descuentoAplicado': descuentoAplicado,
+        'totalDetalleVenta': totalDetalleVenta,
+        'isDelete': isDelete,
+        'createdAt': createdAt.toIso8601String(),
+        'updatedAt': updatedAt.toIso8601String(),
+        'idVentas': idVentas,
+        'idProducto': idProducto,
     };
 }
