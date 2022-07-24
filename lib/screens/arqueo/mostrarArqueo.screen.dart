@@ -2,12 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:soft_frontend/models/arqueo.model.dart';
+import 'package:soft_frontend/controllers/Arqueo.controller.dart';
+import 'package:soft_frontend/models/Arqueo.model.dart';
 import 'package:soft_frontend/services/arqueo.service.dart';
-import 'package:soft_frontend/controllers/arqueo.controller.dart';
 import 'package:soft_frontend/screens/arqueo/crearArqueo.screen.dart';
-import 'package:soft_frontend/screens/arqueo/cerrarSesionActualizandoArqueo.screen.dart';
 import 'package:soft_frontend/screens/arqueo/components/cabeceraDeTablaArqueo.component.dart';
+
+import 'buscarArqueoIdUsuario.screen.dart';
 
 class MostrarArqueos extends StatefulWidget {
   const MostrarArqueos({Key? key}) : super(key: key);
@@ -17,7 +18,9 @@ class MostrarArqueos extends StatefulWidget {
 }
 
 class _MostrarArqueosState extends State<MostrarArqueos> {
+  final TextEditingController? _textEditingController = TextEditingController();
   List<Arqueo> listaArqueos = [];
+  List<Arqueo> filtroArqueos = [];
 
   @override
   void initState() {
@@ -28,7 +31,6 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    var idUsuarioController = TextEditingController();
     return Scaffold(
         appBar: AppBar(title: const Text('Modulo Arqueo')),
         body: FutureBuilder(
@@ -47,53 +49,62 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+                        Center(
+                          child: Padding(
+                            padding: EdgeInsets.only(right: size.width * 0.01),
+                            child: Text(
+                              'Buscar Arqueo por IdUsuario',
+                              style: GoogleFonts.poppins(
+                                  color: Colors.black87,
+                                  fontSize: size.width * 0.015,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ),
+                        ),
                         Expanded(
                             child: Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: size.width * 0.02),
                           child: TextField(
-                            controller: idUsuarioController,
+                            onChanged: (value) {
+                              setState(() {
+                                filtroArqueos = listaArqueos
+                                    .where((element) => element.idUsuario
+                                        .toString()
+                                        .contains(value))
+                                    .toList();
+                              });
+                            },
+                            controller: _textEditingController,
                             decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'id de Usuario',
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.circular(size.width * 0.02),
+                                borderSide: BorderSide(
+                                  color: Colors.black,
+                                ),
+                              ),
+                              labelText: 'Id de Usuario',
                             ),
                           ),
                         )),
-                        ElevatedButton(
-                          onPressed: () async {
-                            if (idUsuarioController.text.trim().isNotEmpty) {
-                              print(idUsuarioController.text.trim());
-                              Arqueo? mostArqu = await buscarArqueoPorIdUsuario(
-                                  idUsuarioController.text.trim(), context);
-                              print(mostArqu);
-                            } else {
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                        title: Text(
-                                            'El campo de búsqueda está vacío.'),
-                                        actions: [
-                                          ElevatedButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: Text('Cerrar'))
-                                        ],
-                                      ));
-                            }
-                          },
-                          child: Text(
-                            'Buscar',
-                            style: GoogleFonts.lato(),
+                        /*TextButton(
+                          onPressed: null,
+                          child: Center(
+                            child: ElevatedButton(
+                              onPressed: () => Navigator.of(context)
+                                  .push(new MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    new BuscarArqueoIdUsuario(),
+                              )),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 5, vertical: 5),
+                                child: Text('Buscar un Arqueo'),
+                              ),
+                            ),
                           ),
-                          style: ButtonStyle(
-                            padding: MaterialStateProperty.all(
-                                EdgeInsets.symmetric(
-                                    horizontal: size.width * 0.015,
-                                    vertical: 9)),
-                          ),
-                        ),
+                        ),*/
                         TextButton(
                           onPressed: null,
                           child: Center(
@@ -111,7 +122,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                             ),
                           ),
                         ),
-                        TextButton(
+                        /*TextButton(
                           onPressed: null,
                           child: Center(
                             child: ElevatedButton(
@@ -127,7 +138,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                               ),
                             ),
                           ),
-                        ),
+                        ),*/
                         const SizedBox(
                           height: 50,
                         ),
@@ -154,18 +165,420 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Center(
-                                      child: ListView.separated(
+                                      child: ListView.builder(
+                                          scrollDirection: Axis.vertical,
+                                          itemCount: _textEditingController!
+                                                  .text.isNotEmpty
+                                              ? filtroArqueos.length
+                                              : listaArqueos.length,
+                                          itemBuilder: (context, index) {
+                                            item(listaArqueos[index]);
+                                            return Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Row(
+                                                children: [
+                                                  Expanded(
+                                                      flex: 1,
+                                                      child: Text(
+                                                        _textEditingController!
+                                                                .text.isNotEmpty
+                                                            ? filtroArqueos[
+                                                                    index]
+                                                                .idArqueo
+                                                                .toString()
+                                                            : listaArqueos[
+                                                                    index]
+                                                                .idArqueo
+                                                                .toString(),
+                                                        style: GoogleFonts.lato(
+                                                            fontSize:
+                                                                size.width *
+                                                                    0.01,
+                                                            fontWeight:
+                                                                FontWeight.w800,
+                                                            color:
+                                                                Colors.black),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        textScaleFactor: 1,
+                                                      )),
+                                                  Expanded(
+                                                      flex: 1,
+                                                      child: Text(
+                                                        _textEditingController!
+                                                                .text.isNotEmpty
+                                                            ? filtroArqueos[
+                                                                    index]
+                                                                .fechaInicio
+                                                                .toString()
+                                                            : listaArqueos[
+                                                                    index]
+                                                                .fechaInicio
+                                                                .toString(),
+                                                        style: GoogleFonts.lato(
+                                                            fontSize:
+                                                                size.width *
+                                                                    0.01,
+                                                            fontWeight:
+                                                                FontWeight.w800,
+                                                            color:
+                                                                Colors.black),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        textScaleFactor: 1,
+                                                      )),
+                                                  Expanded(
+                                                      flex: 1,
+                                                      child: Text(
+                                                        _textEditingController!
+                                                                .text.isNotEmpty
+                                                            ? filtroArqueos[
+                                                                    index]
+                                                                .fechaFinal
+                                                                .toString()
+                                                            : listaArqueos[
+                                                                    index]
+                                                                .fechaFinal
+                                                                .toString(),
+                                                        style: GoogleFonts.lato(
+                                                            fontSize:
+                                                                size.width *
+                                                                    0.01,
+                                                            fontWeight:
+                                                                FontWeight.w800,
+                                                            color:
+                                                                Colors.black),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        textScaleFactor: 1,
+                                                      )),
+                                                  Expanded(
+                                                      flex: 1,
+                                                      child: Text(
+                                                        _textEditingController!
+                                                                .text.isNotEmpty
+                                                            ? filtroArqueos[
+                                                                    index]
+                                                                .efectivoApertura
+                                                                .toString()
+                                                            : listaArqueos[
+                                                                    index]
+                                                                .efectivoApertura
+                                                                .toString(),
+                                                        style: GoogleFonts.lato(
+                                                            fontSize:
+                                                                size.width *
+                                                                    0.01,
+                                                            fontWeight:
+                                                                FontWeight.w800,
+                                                            color:
+                                                                Colors.black),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        textScaleFactor: 1,
+                                                      )),
+                                                  Expanded(
+                                                      flex: 1,
+                                                      child: Text(
+                                                        _textEditingController!
+                                                                .text.isNotEmpty
+                                                            ? filtroArqueos[
+                                                                    index]
+                                                                .efectivoCierre
+                                                                .toString()
+                                                            : listaArqueos[
+                                                                    index]
+                                                                .efectivoCierre
+                                                                .toString(),
+                                                        style: GoogleFonts.lato(
+                                                            fontSize:
+                                                                size.width *
+                                                                    0.01,
+                                                            fontWeight:
+                                                                FontWeight.w800,
+                                                            color:
+                                                                Colors.black),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        textScaleFactor: 1,
+                                                      )),
+                                                  Expanded(
+                                                      flex: 1,
+                                                      child: Text(
+                                                        _textEditingController!
+                                                                .text.isNotEmpty
+                                                            ? filtroArqueos[
+                                                                    index]
+                                                                .otrosPagos
+                                                                .toString()
+                                                            : listaArqueos[
+                                                                    index]
+                                                                .otrosPagos
+                                                                .toString(),
+                                                        style: GoogleFonts.lato(
+                                                            fontSize:
+                                                                size.width *
+                                                                    0.01,
+                                                            fontWeight:
+                                                                FontWeight.w800,
+                                                            color:
+                                                                Colors.black),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        textScaleFactor: 1,
+                                                      )),
+                                                  Expanded(
+                                                      flex: 1,
+                                                      child: Text(
+                                                        _textEditingController!
+                                                                .text.isNotEmpty
+                                                            ? filtroArqueos[
+                                                                    index]
+                                                                .ventaCredito
+                                                                .toString()
+                                                            : listaArqueos[
+                                                                    index]
+                                                                .ventaCredito
+                                                                .toString(),
+                                                        style: GoogleFonts.lato(
+                                                            fontSize:
+                                                                size.width *
+                                                                    0.01,
+                                                            fontWeight:
+                                                                FontWeight.w800,
+                                                            color:
+                                                                Colors.black),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        textScaleFactor: 1,
+                                                      )),
+                                                  Expanded(
+                                                      flex: 1,
+                                                      child: Text(
+                                                        _textEditingController!
+                                                                .text.isNotEmpty
+                                                            ? filtroArqueos[
+                                                                    index]
+                                                                .ventaTotal
+                                                                .toString()
+                                                            : listaArqueos[
+                                                                    index]
+                                                                .ventaTotal
+                                                                .toString(),
+                                                        style: GoogleFonts.lato(
+                                                            fontSize:
+                                                                size.width *
+                                                                    0.01,
+                                                            fontWeight:
+                                                                FontWeight.w800,
+                                                            color:
+                                                                Colors.black),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        textScaleFactor: 1,
+                                                      )),
+                                                  Expanded(
+                                                      flex: 1,
+                                                      child: Text(
+                                                        _textEditingController!
+                                                                .text.isNotEmpty
+                                                            ? filtroArqueos[
+                                                                    index]
+                                                                .efectivoTotal
+                                                                .toString()
+                                                            : listaArqueos[
+                                                                    index]
+                                                                .efectivoTotal
+                                                                .toString(),
+                                                        style: GoogleFonts.lato(
+                                                            fontSize:
+                                                                size.width *
+                                                                    0.01,
+                                                            fontWeight:
+                                                                FontWeight.w800,
+                                                            color:
+                                                                Colors.black),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        textScaleFactor: 1,
+                                                      )),
+                                                  Expanded(
+                                                      flex: 1,
+                                                      child: Text(
+                                                        _textEditingController!
+                                                                .text.isNotEmpty
+                                                            ? filtroArqueos[
+                                                                    index]
+                                                                .isDelete
+                                                                .toString()
+                                                            : listaArqueos[
+                                                                    index]
+                                                                .isDelete
+                                                                .toString(),
+                                                        style: GoogleFonts.lato(
+                                                            fontSize:
+                                                                size.width *
+                                                                    0.01,
+                                                            fontWeight:
+                                                                FontWeight.w800,
+                                                            color:
+                                                                Colors.black),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        textScaleFactor: 1,
+                                                      )),
+                                                  Expanded(
+                                                      flex: 1,
+                                                      child: Text(
+                                                        _textEditingController!
+                                                                .text.isNotEmpty
+                                                            ? filtroArqueos[
+                                                                    index]
+                                                                .createdAt
+                                                                .toString()
+                                                            : listaArqueos[
+                                                                    index]
+                                                                .createdAt
+                                                                .toString(),
+                                                        style: GoogleFonts.lato(
+                                                            fontSize:
+                                                                size.width *
+                                                                    0.01,
+                                                            fontWeight:
+                                                                FontWeight.w800,
+                                                            color:
+                                                                Colors.black),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        textScaleFactor: 1,
+                                                      )),
+                                                  Expanded(
+                                                      flex: 1,
+                                                      child: Text(
+                                                        _textEditingController!
+                                                                .text.isNotEmpty
+                                                            ? filtroArqueos[
+                                                                    index]
+                                                                .updatedAt
+                                                                .toString()
+                                                            : listaArqueos[
+                                                                    index]
+                                                                .updatedAt
+                                                                .toString(),
+                                                        style: GoogleFonts.lato(
+                                                            fontSize:
+                                                                size.width *
+                                                                    0.01,
+                                                            fontWeight:
+                                                                FontWeight.w800,
+                                                            color:
+                                                                Colors.black),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        textScaleFactor: 1,
+                                                      )),
+                                                  Expanded(
+                                                      flex: 1,
+                                                      child: Text(
+                                                        _textEditingController!
+                                                                .text.isNotEmpty
+                                                            ? filtroArqueos[
+                                                                    index]
+                                                                .idUsuario
+                                                                .toString()
+                                                            : listaArqueos[
+                                                                    index]
+                                                                .idUsuario
+                                                                .toString(),
+                                                        style: GoogleFonts.lato(
+                                                            fontSize:
+                                                                size.width *
+                                                                    0.01,
+                                                            fontWeight:
+                                                                FontWeight.w800,
+                                                            color:
+                                                                Colors.black),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        textScaleFactor: 1,
+                                                      )),
+                                                  Expanded(
+                                                      flex: 1,
+                                                      child: Text(
+                                                        _textEditingController!
+                                                                .text.isNotEmpty
+                                                            ? filtroArqueos[
+                                                                    index]
+                                                                .idSesion
+                                                                .toString()
+                                                            : listaArqueos[
+                                                                    index]
+                                                                .idSesion
+                                                                .toString(),
+                                                        style: GoogleFonts.lato(
+                                                            fontSize:
+                                                                size.width *
+                                                                    0.01,
+                                                            fontWeight:
+                                                                FontWeight.w800,
+                                                            color:
+                                                                Colors.black),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        textScaleFactor: 1,
+                                                      )),
+                                                  Expanded(
+                                                      flex: 1,
+                                                      child: TextButton(
+                                                        child: Text('Eliminar'),
+                                                        onPressed: () {
+                                                          _showDialog(
+                                                              context,
+                                                              listaArqueos[
+                                                                      index]
+                                                                  .idArqueo
+                                                                  .toString());
+                                                        },
+                                                      )),
+                                                  Expanded(
+                                                      flex: 1,
+                                                      child: TextButton(
+                                                        child: Text(
+                                                            'Cerrar Sesion'),
+                                                        onPressed: () {
+                                                          _showDialogActualizar(
+                                                              context,
+                                                              listaArqueos[
+                                                                      index]
+                                                                  .idUsuario
+                                                                  .toString(),
+                                                              listaArqueos[
+                                                                      index]
+                                                                  .idSesion
+                                                                  .toString(),
+                                                              listaArqueos[
+                                                                      index]
+                                                                  .idArqueo
+                                                                  .toString());
+                                                        },
+                                                      )),
+                                                ],
+                                              ),
+                                            );
+                                          }),
+                                      /*ListView.separated(
                                         itemBuilder: (_, i) =>
                                             item(listaArqueos[i]),
                                         itemCount: list.arqueos.length,
                                         separatorBuilder: (_, i) =>
                                             const Divider(),
-                                      ),
+                                      ),*/
                                     ),
                                   ),
                                 ),
                               ],
-                            )))
+                            ))),
                   ],
                 ),
               );
@@ -336,6 +749,15 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                 _showDialog(context, lista.idArqueo.toString());
               },
             )),
+        Expanded(
+            flex: 2,
+            child: TextButton(
+              child: Text('Cerrar Sesion'),
+              onPressed: () {
+                _showDialogActualizar(context, lista.idUsuario.toString(),
+                    lista.idSesion.toString(), lista.idArqueo.toString());
+              },
+            )),
       ],
     );
   }
@@ -367,15 +789,41 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
     );
   }
 
+  void _showDialogActualizar(BuildContext context, String idUsuario,
+      String idSesion, String idArqueo) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        print(idArqueo);
+        return AlertDialog(
+          title: Text('Actualizar Arqueo'),
+          content: Text('¿Quieres actualizar el arqueo?'),
+          actions: <Widget>[
+            ElevatedButton(
+              child: Text('Si'),
+              onPressed: () {
+                actualizarArqueoCerrandoSesion_Controller(
+                    idUsuario, idSesion, idArqueo, context);
+              },
+            ),
+            ElevatedButton(
+              child: Text('No'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void buscarArqueoIdUsuario(String query) {
     final sugerencia = listaArqueos.where((listaArqueos) {
-      final idSesion1 = listaArqueos.idSesion;
+      final idSesion1 = listaArqueos.idUsuario;
       final input = query;
       return idSesion1.toString().contains(input);
     }).toList();
-
-    setState(() {
-      listaArqueos = sugerencia;
-    });
+    setState(() => listaArqueos = sugerencia);
   }
 }

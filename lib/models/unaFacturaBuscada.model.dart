@@ -53,7 +53,7 @@ class Unafactura {
     });
 
     int idFactura;
-    int numeroFactura;
+    String numeroFactura;
     DateTime fechaFactura;
     String descuentoTotalFactura;
     String isvTotalFactura;
@@ -79,7 +79,7 @@ class Unafactura {
 
     factory Unafactura.fromJson(Map<String, dynamic> json) => Unafactura(
         idFactura: json['idFactura'] ?? 0,
-        numeroFactura: json['numeroFactura'] ?? 0,
+        numeroFactura: json['numeroFactura'] ?? '0',
         fechaFactura: DateTime.parse(json['fechaFactura'] ?? '0000-00-00 00:00:00'),
         descuentoTotalFactura: json['descuentoTotalFactura'] ?? '0.00',
         isvTotalFactura: json['isvTotalFactura'] ?? '0.00',

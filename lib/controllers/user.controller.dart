@@ -13,18 +13,18 @@ Future<bool> login_controller(String usuario, String passwd, context) async {
     User? user = await login(usuario, passwd);
     final prefs = await SharedPreferences.getInstance();
     if (user != null) {
-      Navigator.pushNamed(context, "pantalla_principal");
+      Navigator.popAndPushNamed(context, 'pantalla_principal');
       await prefs.setBool('logeado', true);
       return true;
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Error al iniciar Sesion")));
+          const SnackBar(content: Text('Error al iniciar Sesion')));
       await prefs.setBool('logeado', false);
       return false;
     }
   } else {
     ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text("LLenar todos lo campos")));
+        .showSnackBar(const SnackBar(content: Text('LLenar todos lo campos')));
     return false;
   }
 }
@@ -34,7 +34,8 @@ Future<bool> logout_controller(context) async {
   if (user != null) {
     final prefs = await SharedPreferences.getInstance();
     final nologin = await prefs.remove('logeado');
-    Navigator.pushNamed(context, "login");
+    Navigator.pop(context);
+    Navigator.pushReplacementNamed(context, 'login');
     return true;
   } else {
     return false;

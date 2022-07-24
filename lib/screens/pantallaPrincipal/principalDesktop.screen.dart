@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soft_frontend/controllers/user.controller.dart';
+import 'package:soft_frontend/services/sharepreference.service.dart';
 import '../../models/models.dart';
 import '../../widgets/widgets.dart';
 
@@ -39,12 +40,23 @@ class PantallaDesktop extends StatelessWidget {
   Widget build(BuildContext context) {
     final int? cantidadPermisos = user?.rol.permisos.length;
     final List<int?> permisosId = <int>[];
-
     for (int i = 0; i < cantidadPermisos!; i++) {
       permisosId.add(user?.rol.permisos[i].id);
     }
 
     return Scaffold(
+      appBar: AppBar(
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              _showDialog(context);
+            },
+            child: Text("Cerrar Sesion",
+                style: TextStyle(color: Colors.white, fontSize: 20)),
+          ),
+        ],
+        title: Text('Pantalla Principal'),
+      ),
       body: Container(
         color: const Color(0xffF3F3F3),
         child: Padding(
@@ -60,22 +72,6 @@ class PantallaDesktop extends StatelessWidget {
                 const SizedBox(
                   width: 40,
                 ),
-                TextButton(
-                  onPressed: () => logout_controller(context),
-                  child: Container(
-                      width: size.width * 0.3,
-                      padding: const EdgeInsets.all(25),
-                      child: const Text(
-                        "Cerrar Sesion",
-                        textAlign: TextAlign.center,
-                        style:
-                            TextStyle(fontSize: 18, color: Color(0xff525252)),
-                      )),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        const Color(0xffD9D9D9)),
-                  ),
-                )
               ],
             ),
             const SizedBox(
@@ -133,4 +129,31 @@ class PantallaDesktop extends StatelessWidget {
       ),
     );
   }
+
+  void _showDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Cerrar Sesion"),
+          content: Text("¿Esta seguro que quiere cerrar Sesion?"),
+          actions: <Widget>[
+            ElevatedButton(
+              child: Text("Si"),
+              onPressed: () {
+                logout_controller(context);
+              },
+            ),
+            ElevatedButton(
+              child: Text("No"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
+
