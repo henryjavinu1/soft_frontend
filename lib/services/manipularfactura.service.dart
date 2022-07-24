@@ -203,8 +203,8 @@ Future descargarFactura() async {
   try {
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      print(response.body);
     }
+    return response.body;
   } catch (e) {
     print(e);
   }

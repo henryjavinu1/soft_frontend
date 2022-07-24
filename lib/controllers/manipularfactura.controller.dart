@@ -17,6 +17,8 @@ Future listarFacturas() async{
     return response;
   } else if(response == 2) {
     return 2;
+  } else if(response == 500) {
+    return 500;
   }
 }
 

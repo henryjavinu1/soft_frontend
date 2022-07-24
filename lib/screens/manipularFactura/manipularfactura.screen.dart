@@ -321,6 +321,40 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                     height: 10,
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          setState(() {});
+                        },
+                        child: Text('Recargar'),
+                      ),
+                      SizedBox(width: 5,),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text('Regresar'),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ));
+          } else if (snapshot.data == 500 && snapshot.connectionState == ConnectionState.done) {
+            return Scaffold(
+                body: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                      'Ocurrió un error al hacer la conexión con el servidor, contáctese con el administrador o presione recargar.'),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton(
                         onPressed: () {

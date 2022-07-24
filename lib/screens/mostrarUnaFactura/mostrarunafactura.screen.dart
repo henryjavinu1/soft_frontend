@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:soft_frontend/constans.dart';
 import 'package:soft_frontend/models/mostrarUnaFactura.model.dart';
 import 'package:soft_frontend/screens/mostrarUnaFactura/components/cabeceradetabla.component.dart';
 import 'package:soft_frontend/services/manipularfactura.service.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MostrarFactura extends StatefulWidget {
   MostrarFactura({Key? key, required this.numeroFactura}) : super(key: key);
@@ -71,8 +73,9 @@ class _MostrarFacturaState extends State<MostrarFactura>
                               ),
                             ),
                             ElevatedButton(
-                              onPressed: () async{
-                                await descargarFactura();
+                              onPressed: () async {
+                                await launchUrl(Uri.parse(API_URL +
+                                    'descargardactura?numerofactura=${widget.numeroFactura}'));
                               },
                               child: Text('Reimprimir factura'),
                               style: ButtonStyle(
@@ -433,11 +436,24 @@ class _MostrarFacturaState extends State<MostrarFactura>
                 SizedBox(
                   height: 10,
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {});
-                  },
-                  child: Text('Recargar'),
+                Row(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {});
+                      },
+                      child: Text('Recargar'),
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text('Regresar'),
+                    ),
+                  ],
                 )
               ],
             ),
