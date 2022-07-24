@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
         'traer_arqueo': (_) => const MostrarArqueos(),
         'PrincipalVenta': (_) => PantallaPrincipalVenta(),
         'PrincipalGestion': (_) => PantallaGestionPrincipal(),
-        'PantallaTipoProductos': (_) => PantallaTipoProducto(),
+        //'PantallaTipoProductos': (_) => PantallaTipoProducto(),
         'PantallaProductos': (_) => PantallaProducto(),
       },
     );
