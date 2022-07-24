@@ -180,7 +180,7 @@ class FacturaConDatos {
     });
 
     int idFactura;
-    int numeroFactura;
+    String numeroFactura;
     DateTime fechaFactura;
     String descuentoTotalFactura;
     String isvTotalFactura;
@@ -384,8 +384,8 @@ class Talonario {
     });
 
     int idTalonario;
-    int rangoInicialFactura;
-    int rangoFinalFactura;
+    String rangoInicialFactura;
+    String rangoFinalFactura;
     String cai;
     DateTime fechaLimiteEmision;
     bool active;
