@@ -26,7 +26,12 @@ class _TodosLosEmpleados2State extends State<TodosLosEmpleados2> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: AppBar(title: const Text("Modulo Empleados")),
+        appBar: AppBar(
+          leading: IconButton(icon: const Icon( Icons.arrow_back),
+          onPressed: () {Navigator.pushReplacementNamed(context, 'PrincipalGestion');},),
+          title: const Text("Modulo Empleados")
+        ),
+        
         body: FutureBuilder(
           future: traerEmpleados(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
@@ -86,34 +91,41 @@ class _TodosLosEmpleados2State extends State<TodosLosEmpleados2> {
                     ),
                     Row(
                       children: [
+                        Expanded(child:
+                        Padding(
+                          padding: EdgeInsets.only(left: size.height * 0.01),
+                          child: Text('DNI', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
+                        )),
+                        Expanded(child:
+                        Padding(
+                          padding: EdgeInsets.only(left: size.height * 0.01),
+                          child: Text('Nombre', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
+                        )),
+                        Expanded(child:
+                        Padding(
+                          padding: EdgeInsets.only(left: size.height * 0.01),
+                          child: Text('Apellido', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
+                        )),
+                        Expanded(child:
                         Padding(
                           padding: EdgeInsets.only(left: size.height * 0.05),
-                          child: Text('DNI', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: size.height * 0.25),
-                          child: Text('Nombre', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: size.height * 0.25),
-                          child: Text('Apellido', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: size.height * 0.15),
                           child: Text('Dirección', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
-                        ),
+                        )),
+                        Expanded(child:
                         Padding(
-                          padding: EdgeInsets.only(left: size.height * 0.14),
+                          padding: EdgeInsets.only(left: size.height * 0.08),
                           child: Text('Teléfono', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
-                        ),
+                        )),
+                        Expanded(child:
                         Padding(
-                          padding: EdgeInsets.only(left: size.height * 0.13),
+                          padding: EdgeInsets.only(left: size.height * 0.03),
                           child: Text('Sexo', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
-                        ),
+                        )),
+                        Expanded(child:
                         Padding(
-                          padding: EdgeInsets.only(left: size.height * 0.40),
+                          padding: EdgeInsets.only(left: size.height * 0.02),
                           child: Text('Opciones', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
-                        ),
+                        )),
                       ],
                     ),
                     Expanded(
@@ -147,10 +159,10 @@ class _TodosLosEmpleados2State extends State<TodosLosEmpleados2> {
         const SizedBox(
           width: 10,
         ),
-        Expanded(flex: 3, child: Text(lista.apellido)),
-        Expanded(flex: 3, child: Text(lista.direccion)),
+        Expanded(flex: 5, child: Text(lista.apellido)),
+        Expanded(flex: 5, child: Text(lista.direccion)),
         Expanded(flex: 3, child: Text(lista.telefono)),
-        Expanded(flex: 3, child: Text(lista.sexo)),
+        Expanded(flex: 1, child: Text(lista.sexo)),
         Expanded(
             flex: 3,
             child: TextButton(

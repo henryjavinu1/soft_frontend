@@ -48,20 +48,20 @@ class _ActualizarCliente2State extends State<ActualizarCliente2> {
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              "ID",
-                              style: const TextStyle(fontSize: 18),
-                            ),
-                            TextFormField(
-                              enabled: false,
-                              controller: idController,
-                              decoration: const InputDecoration(
-                                border: const UnderlineInputBorder(),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 40,
-                            ),
+                            // const Text(
+                            //   "ID",
+                            //   style: const TextStyle(fontSize: 18),
+                            // ),
+                            // TextFormField(
+                            //   enabled: false,
+                            //   controller: idController,
+                            //   decoration: const InputDecoration(
+                            //     border: const UnderlineInputBorder(),
+                            //   ),
+                            // ),
+                            // const SizedBox(
+                            //   height: 40,
+                            // ),
                             const Text(
                               "Identificacion/DNI",
                               style: TextStyle(fontSize: 18),
