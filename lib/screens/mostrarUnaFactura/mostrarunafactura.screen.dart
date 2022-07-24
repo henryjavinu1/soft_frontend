@@ -8,7 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class MostrarFactura extends StatefulWidget {
   MostrarFactura({Key? key, required this.numeroFactura}) : super(key: key);
-  final int numeroFactura;
+  final String numeroFactura;
 
   @override
   State<MostrarFactura> createState() => _MostrarFacturaState();
@@ -40,7 +40,7 @@ class _MostrarFacturaState extends State<MostrarFactura>
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return FutureBuilder(
-      future: mostrarDatosDeUnaFactura(widget.numeroFactura.toString()),
+      future: mostrarDatosDeUnaFactura(widget.numeroFactura),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.connectionState == ConnectionState.done &&
             snapshot.data is MostrarUnaFactura) {
@@ -432,11 +432,12 @@ class _MostrarFacturaState extends State<MostrarFactura>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                    'Ocurrió un error al hacer la conexión con el servidor, contáctese con el administrador o presione recargar.'),
+                    'Ocurrió un error, contáctese con el administrador o presione recargar.'),
                 SizedBox(
                   height: 10,
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
                       onPressed: () {
