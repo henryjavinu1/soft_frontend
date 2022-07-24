@@ -69,7 +69,7 @@ class _MostrarUsuariosState extends State<MostrarUsuarios> {
                       Row(
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(left: size.height * 0.05),
+                            padding: EdgeInsets.only(left: size.height * 0.15),
                             child: Text(
                               'User',
                               style: TextStyle(
@@ -87,7 +87,7 @@ class _MostrarUsuariosState extends State<MostrarUsuarios> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: size.height * 0.35),
+                            padding: EdgeInsets.only(left: size.height * 0.40),
                             child: Text(
                               'Rol',
                               style: TextStyle(
@@ -96,7 +96,7 @@ class _MostrarUsuariosState extends State<MostrarUsuarios> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: size.height * 0.40),
+                            padding: EdgeInsets.only(left: size.height * 0.50),
                             child: Text(
                               'Opciones',
                               style: TextStyle(
@@ -137,8 +137,16 @@ class _MostrarUsuariosState extends State<MostrarUsuarios> {
         Expanded(flex: 2, child: Text(lista.email)),
         Expanded(flex: 2, child: Text(lista.idRol.toString())),
         const SizedBox(
-          width: 10,
-        )
+          width: 15,
+        ),
+        Expanded(
+          flex: 1,
+          child: const Text('Actualizar'),
+        ),
+        Expanded(
+          flex: 1,
+          child: const Text('Eliminar'),
+        ),
       ],
     );
   }
