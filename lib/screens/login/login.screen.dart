@@ -17,7 +17,13 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(context) =>
-      Scaffold(body: LayoutBuilder(builder: (context, constraints) {
+      Scaffold(
+        appBar: AppBar(
+          
+          title: Text("Iniciar Sesión"),
+          centerTitle: true,
+        ),
+        body: LayoutBuilder(builder: (context, constraints) {
         return Container(
           padding: constraints.maxWidth < 500
               ? const EdgeInsets.all(20)
@@ -55,6 +61,7 @@ class _LoginState extends State<Login> {
                             TextFormField(
                               controller: usuarioController,
                               decoration: InputDecoration(
+                                  prefixIcon: Icon(Icons.account_circle_rounded, color: Colors.blue,),
                                   border: UnderlineInputBorder(),
                                   hintText: 'usuario01'),
                             ),
@@ -70,6 +77,7 @@ class _LoginState extends State<Login> {
                               keyboardType: TextInputType.text,
                               obscureText: _password,
                               decoration: InputDecoration(
+                                  prefixIcon: Icon(Icons.lock, color: Colors.blue,),
                                   suffixIcon: IconButton(
                                     icon: Icon(Icons.visibility_off_outlined),
                                     onPressed: () {
