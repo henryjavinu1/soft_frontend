@@ -9,6 +9,7 @@ import 'package:soft_frontend/services/empleado.service.dart';
 import 'package:soft_frontend/screens/tipoproducto/tipoproducto.screen.dart';
 import 'package:soft_frontend/screens/producto/producto.screen.dart';
 import 'package:soft_frontend/screens/arqueo/mostrarArqueo.screen.dart';
+import 'package:soft_frontend/screens/producto/producto.screen.dart';
 
 void main() {
   runApp(const MyApp());
