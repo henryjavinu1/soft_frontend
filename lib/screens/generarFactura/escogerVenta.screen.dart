@@ -50,7 +50,7 @@ class _EscogerVentaState extends State<EscogerVenta> {
                             Expanded(
                               flex: 1,
                               child: Text(
-                                'idVenta',
+                                'ID Venta',
                                 style: GoogleFonts.lato(
                                     fontSize: size.width * 0.01,
                                     fontWeight: FontWeight.w800),
@@ -59,7 +59,7 @@ class _EscogerVentaState extends State<EscogerVenta> {
                             Expanded(
                               flex: 2,
                               child: Text(
-                                'idCliente',
+                                'ISV Venta',
                                 style: GoogleFonts.lato(
                                     fontSize: size.width * 0.01,
                                     fontWeight: FontWeight.w800),
@@ -68,7 +68,7 @@ class _EscogerVentaState extends State<EscogerVenta> {
                             Expanded(
                               flex: 3,
                               child: Text(
-                                '',
+                                'Descuento Venta',
                                 style: GoogleFonts.lato(
                                     fontSize: size.width * 0.01,
                                     fontWeight: FontWeight.w800),
@@ -77,7 +77,43 @@ class _EscogerVentaState extends State<EscogerVenta> {
                             Expanded(
                               flex: 4,
                               child: Text(
-                                '',
+                                'Total Venta',
+                                style: GoogleFonts.lato(
+                                    fontSize: size.width * 0.01,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 4,
+                              child: Text(
+                                'Establecimiento',
+                                style: GoogleFonts.lato(
+                                    fontSize: size.width * 0.01,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 4,
+                              child: Text(
+                                'Empleado',
+                                style: GoogleFonts.lato(
+                                    fontSize: size.width * 0.01,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 4,
+                              child: Text(
+                                'Cliente',
+                                style: GoogleFonts.lato(
+                                    fontSize: size.width * 0.01,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 4,
+                              child: Text(
+                                ' ',
                                 style: GoogleFonts.lato(
                                     fontSize: size.width * 0.01,
                                     fontWeight: FontWeight.w800),
@@ -130,21 +166,35 @@ class _EscogerVentaState extends State<EscogerVenta> {
             Expanded(
               flex: 3,
               child: Text(
-                venta.totalVenta.toString(),
+                venta.totalDescuentoVenta.toString(),
                 style: GoogleFonts.lato(fontSize: size.width * 0.009),
               ),
             ),
             Expanded(
               flex: 4,
               child: Text(
-                venta.totalDescuentoVenta.toString(),
+                venta.totalVenta.toString(),
                 style: GoogleFonts.lato(fontSize: size.width * 0.009),
               ),
             ),
             Expanded(
               flex: 5,
               child: Text(
-                venta.puntoDeEmision.toString(),
+                venta.establecimiento.toString(),
+                style: GoogleFonts.lato(fontSize: size.width * 0.009),
+              ),
+            ),
+            Expanded(
+              flex: 5,
+              child: Text(
+                venta.nombreEmpleado.toString(),
+                style: GoogleFonts.lato(fontSize: size.width * 0.009),
+              ),
+            ),
+            Expanded(
+              flex: 5,
+              child: Text(
+                venta.nombreCliente.toString(),
                 style: GoogleFonts.lato(fontSize: size.width * 0.009),
               ),
             ),
@@ -157,7 +207,7 @@ class _EscogerVentaState extends State<EscogerVenta> {
                         new CrearFactura(venta: venta),
                   ),
                 ),
-                child: Text('Seleccionar'),
+                child: Text('Facturar'),
               ),
             ),
           ],
