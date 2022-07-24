@@ -197,3 +197,15 @@ Future mostrarDatosDeUnaFactura(String numeroFactura) async {
     return 2;
   }
 }
+
+Future descargarFactura() async {
+  String url = API_URL+'descargardactura';
+  try {
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+    }
+    return response.body;
+  } catch (e) {
+    print(e);
+  }
+}
