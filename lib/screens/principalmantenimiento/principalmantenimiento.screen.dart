@@ -137,6 +137,20 @@ class _Pantalla extends StatelessWidget {
                   ),
                 ),
               ],
+              SizedBox(
+                width: 30,
+              ),
+              if (permisosId.contains(32)) ...[
+                Visibility(
+                  visible: true,
+                  child: TextButtons(
+                    name: 'Sucursal',
+                    route: 'sucursal',
+                    width: 0.2,
+                    fontSize: 18,
+                  ),
+                ),
+              ],
             ]),
           ]),
         ),

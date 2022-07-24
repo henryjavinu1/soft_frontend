@@ -5,7 +5,7 @@ import 'package:soft_frontend/models/ProductoBuscado.model.dart';
 import 'package:soft_frontend/models/models.dart';
 import 'package:http/http.dart' as http;
 import 'package:soft_frontend/services/cliente.service.dart';
-
+import 'package:soft_frontend/controllers/cliente.controller.dart';
 import '../constans.dart';
 
 Future<List<TodasLasVenta>> mostrarVentas() async {
