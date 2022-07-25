@@ -5,11 +5,11 @@ import 'package:soft_frontend/screens/manipularFactura/manipularfactura.screen.d
 import 'package:soft_frontend/screens/screens.dart';
 import 'package:soft_frontend/screens/tipoPago/buscarTipoPago.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/crearTipoPago.screen.dart';
-import 'package:soft_frontend/services/empleado.service.dart';
+import 'package:soft_frontend/screens/user/creauser.scree.dart';
+import 'package:soft_frontend/screens/rol/crearol.screen.dart';
 import 'package:soft_frontend/screens/tipoproducto/tipoproducto.screen.dart';
 import 'package:soft_frontend/screens/producto/producto.screen.dart';
-import 'package:soft_frontend/screens/arqueo/mostrarArqueo.screen.dart';
-import 'package:soft_frontend/screens/producto/producto.screen.dart';
+import 'package:soft_frontend/screens/gestionusuarios/gestionusuarios.screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,7 +27,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+<<<<<<< HEAD
       initialRoute: 'ventas',
+=======
+      initialRoute: 'traer_arqueo',
+>>>>>>> main
       routes: {
         'login': (_) => const Login(),
         'pantalla_principal': (_) => const PantallaPrincipal(),
@@ -35,6 +39,10 @@ class MyApp extends StatelessWidget {
         'crear_cliente': (_) => CrearClientes(),
         'crear_empleado': (_) => crearEmpleados(),
         'traer_clientes': (_) => const TodosLosClientes2(),
+        'crearUsuarios': (_) => CrearUser(),
+        'crearRol': (_) => CrearRol(),
+        'gestionUsuarios': (_) => const MostrarUsuarios(),
+
         'traer_empleados': (_) => const TodosLosEmpleados2(),
         'ventas': (_) => const Venta(),
         //'buscar_cliente': (_) => BuscarClientes(),

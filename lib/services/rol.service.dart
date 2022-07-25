@@ -5,20 +5,21 @@ import 'dart:developer';
 import '../models/rol.model.dart';
 import 'package:soft_frontend/constans.dart';
 
-Future<Rol?> crearRol(String rol, String descripcion, context) async {
+Future<List<Rol?>> crearRol(
+    String id, String rol, String descripcion, context) async {
   var client = http.Client();
-  Rol? role = null;
+  Rol? role;
+  List<Rol?> RolCreado = [];
   try {
     var response = await client.post(Uri.parse(API_URL + "roles/create"),
-        body: {'rol': rol, 'descripcion': descripcion});
-
+        body: ({'id': id, 'rol': rol, 'descripcion': descripcion}));
+    print(response.body);
     if (response.statusCode == 200) {
-      Rol role = Rol.fromJson(json.decode(response.body));
-      log(role.toString());
-      return role;
-    } else {
-      return role;
-    }
+      print(Rol);
+    } else {}
+    return RolCreado;
+  } catch (e) {
+    return RolCreado;
   } finally {
     client.close();
   }
