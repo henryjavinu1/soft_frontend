@@ -69,7 +69,7 @@ class _TodosLosClientes2State extends State<TodosLosClientes2> {
                             ),
                           ),
                           TextButton(
-                            onPressed: () => Navigator.pushNamed(context, 'mantenimiento'),
+                            onPressed: () => Navigator.popAndPushNamed(context, 'mantenimiento'),
                             child: Container(
                                 width: size.width * 0.2,
                                 padding: const EdgeInsets.all(15),

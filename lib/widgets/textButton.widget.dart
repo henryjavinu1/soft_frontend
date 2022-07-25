@@ -10,11 +10,12 @@ class TextButtons extends StatelessWidget {
   final String route;
   final double width;
   final double fontSize;
+  final String img;
 
   const TextButtons(
       {Key? key,
       required this.name,
-      required this.route, required this.width, required this.fontSize,})
+      required this.route, required this.width, required this.fontSize, required this.img,})
       : super(key: key);
 
   @override
@@ -28,7 +29,7 @@ class TextButtons extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
           child: Column(
             children: [
-              Image(image: AssetImage('../assets/images/satisfied.png'),width: 80,),
+              Image(image: AssetImage('../assets/images/$img'),width: 80,),
               Text(
                 name,
                 textAlign: TextAlign.center,

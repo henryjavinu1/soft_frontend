@@ -59,7 +59,18 @@ class _Pantalla extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading :false,
         title: Text("Modulo de Mantenimiento"),
+        actions: <Widget>[
+          TextButton(
+            
+            onPressed: () {
+              Navigator.popAndPushNamed(context, 'pantalla_principal');
+            },
+            child: Text("Regresar",
+                style: TextStyle(color: Colors.white, fontSize: 20)),
+          ),
+        ],
       ),
       body: Container(
         color: const Color(0xffF3F3F3),
@@ -70,7 +81,7 @@ class _Pantalla extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  'Modulo de Mantenimiento donde se puede acceder a los modulos de cliente, productos, talonarios y sucursal.',
+                  'Modulo de Mantenimiento',
                   style: TextStyle(fontSize: 18),
                 ),
                 const SizedBox(
@@ -86,11 +97,11 @@ class _Pantalla extends StatelessWidget {
                 Visibility(
                     visible: true,
                     child: TextButtons(
-                      
+                      img: 'satisfied.png',
                       name: 'Clientes',
                       route: 'traer_clientes',
-                      width: 0.1,
-                      fontSize: 18,
+                      width: 0.2,
+                      fontSize: 15,
                     )),
               ],
               SizedBox(
@@ -100,10 +111,11 @@ class _Pantalla extends StatelessWidget {
                 Visibility(
                   visible: true,
                   child: TextButtons(
+                    img: 'inventario.png',
                     name: 'Productos',
                     route: 'mantenimiento',
-                    width: 0.1,
-                    fontSize: 18,
+                    width: 0.2,
+                    fontSize: 15,
                   ),
                 ),
               ],
@@ -114,10 +126,11 @@ class _Pantalla extends StatelessWidget {
                 Visibility(
                   visible: true,
                   child: TextButtons(
+                    img: 'talonario-de-cheques.png',
                     name: 'Talonarios',
                     route: 'talonarios',
                     width: 0.2,
-                    fontSize: 18,
+                    fontSize: 15,
                   ),
                 ),
               ],
@@ -128,10 +141,11 @@ class _Pantalla extends StatelessWidget {
                 Visibility(
                   visible: true,
                   child: TextButtons(
+                    img: 'edificio-de-oficinas.png',
                     name: 'Sucursal',
                     route: 'sucursal',
                     width: 0.2,
-                    fontSize: 18,
+                    fontSize: 15,
                   ),
                 ),
               ],
