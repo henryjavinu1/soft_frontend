@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:developer';
 import '../models/rol.model.dart';
+import '../models/gestionrol.model.dart';
 import 'package:soft_frontend/constans.dart';
 
 Future<List<Rol?>> crearRol(
@@ -23,4 +24,15 @@ Future<List<Rol?>> crearRol(
   } finally {
     client.close();
   }
+}
+
+Future mostrarRol() async {
+  var client = http.Client();
+  try {
+    final response = await http.post(Uri.parse(API_URL + 'roles/mostrarroles'));
+    if (response.statusCode == 200) {
+      Rol listaRol = rolFromJson(response.body);
+      return listaRol;
+    }
+  } catch (e) {}
 }
