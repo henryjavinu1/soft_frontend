@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:soft_frontend/models/tipoPago.model.dart';
 import 'package:soft_frontend/screens/tipoPago/buscarTipoPago.screen.dart';
-import 'package:soft_frontend/services/editarTipoPago.service.dart';
 
 import '../../models/tipoPagoBuscado.model.dart';
+import '../../services/tipoPago.service.dart';
 
 class EditarTipoPagos extends StatefulWidget {
   final TipoPagoBuscado tipoPago;
@@ -104,7 +104,13 @@ class _EditarTipoPagosState extends State<EditarTipoPagos> {
                                             tipoDePagoController.text,
                                             descripcionTipoPagoController.text,
                                             context)
-                                        .then((value) => BuscarTipoPago()),
+                                        .then((value) => Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    BuscarTipoPago(),
+                                              ),
+                                            )),
                                     child: Padding(
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 10, vertical: 10),

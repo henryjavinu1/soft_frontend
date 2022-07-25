@@ -80,7 +80,13 @@ class _CrearTipoPagosState extends State<CrearTipoPagos> {
                                               descripcionTipoPagoController
                                                   .text,
                                               context)
-                                          .then((value) => BuscarTipoPago()),
+                                          .then((value) => Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      BuscarTipoPago(),
+                                                ),
+                                              )),
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 10, vertical: 10),

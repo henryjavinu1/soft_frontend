@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_frontend/models/ventaBuscada.model.dart';
 import 'package:soft_frontend/services/generarFactura.service.dart';
 import '../../models/tipoPagoBuscado.model.dart';
-import '../../services/buscarTipoPago.service.dart';
+import '../../services/tipoPago.service.dart';
 import 'escogerVenta.screen.dart';
 
 class CrearFactura extends StatefulWidget {
