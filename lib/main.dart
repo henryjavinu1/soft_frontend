@@ -9,6 +9,8 @@ import 'package:soft_frontend/screens/user/creauser.scree.dart';
 import 'package:soft_frontend/screens/rol/crearol.screen.dart';
 import 'package:soft_frontend/screens/tipoproducto/tipoproducto.screen.dart';
 import 'package:soft_frontend/screens/producto/producto.screen.dart';
+import 'package:soft_frontend/screens/arqueo/mostrarArqueo.screen.dart';
+import 'package:soft_frontend/screens/producto/producto.screen.dart';
 import 'package:soft_frontend/screens/gestionusuarios/gestionusuarios.screen.dart';
 
 void main() {

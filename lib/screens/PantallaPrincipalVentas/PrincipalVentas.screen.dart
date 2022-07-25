@@ -55,11 +55,21 @@ class _Pantalla extends StatelessWidget {
       permisosId.add(user?.rol.permisos[i].id);
     }
 
-    for (int i = 0; i < permisosId.length; i++) {
-      print(permisosId[i]);
-    }
-
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading :false,
+        title: Text("Modulo Ventas"),
+         actions: <Widget>[
+          TextButton(
+            
+            onPressed: () {
+              Navigator.popAndPushNamed(context, 'pantalla_principal');
+            },
+            child: Text("Regresar",
+                style: TextStyle(color: Colors.white, fontSize: 20)),
+          ),
+        ],
+      ),
       body: Container(
         color: const Color(0xffF3F3F3),
         child: Padding(
@@ -70,27 +80,10 @@ class _Pantalla extends StatelessWidget {
               children: [
                 Text(
                   'Modulo de Ventas',
-                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 20),
                 ),
-                const SizedBox(
-                  width: 40,
-                ),
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: Container(
-                      width: size.width * 0.3,
-                      padding: const EdgeInsets.all(25),
-                      child: const Text(
-                        'Regresar',
-                        textAlign: TextAlign.center,
-                        style:
-                            TextStyle(fontSize: 22, color: Color(0xff525252)),
-                      )),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        const Color(0xffD9D9D9)),
-                  ),
-                )
+                
+            
               ],
             ),
             const SizedBox(
@@ -101,6 +94,7 @@ class _Pantalla extends StatelessWidget {
                 Visibility(
                     visible: true,
                     child: TextButtons(
+                      img: 'salario.png',
                       name: 'Nueva Venta',
                       route: 'ventas',
                       width: 0.3,
@@ -114,8 +108,9 @@ class _Pantalla extends StatelessWidget {
                 Visibility(
                   visible: true,
                   child: TextButtons(
+                    img: 'notas.png',
                     name: 'Facturacion',
-                    route: 'mantenimiento',
+                    route: 'manipular_factura',
                     width: 0.3,
                     fontSize: 18,
                   ),
