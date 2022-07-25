@@ -15,6 +15,11 @@ class _SucursalScreenState extends State<SucursalScreen> {
   late Future<Sucursal> sucursal;
   var nombreSucursal = TextEditingController();
   var lemaSucursal = TextEditingController();
+  var direccion = TextEditingController();
+  var telefono = TextEditingController();
+  var email = TextEditingController();
+  var rtn = TextEditingController();
+  var logo = TextEditingController();
 
   @override
   void initState() {
@@ -25,6 +30,11 @@ class _SucursalScreenState extends State<SucursalScreen> {
       setState(() {
         nombreSucursal.text = value.sucursal.nombreSucursal;
         lemaSucursal.text = value.sucursal.lemaSucursal;
+        direccion.text = value.sucursal.direccion;
+        telefono.text = value.sucursal.telefono;
+        email.text = value.sucursal.email;
+        rtn.text = value.sucursal.rtn;
+        logo.text = value.sucursal.logo;
       });
     });
   }
@@ -61,6 +71,41 @@ class _SucursalScreenState extends State<SucursalScreen> {
               controller: lemaSucursal,
             ),
           ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30.0),
+            child: TextFormField(
+              decoration: InputDecoration(label: Text('Dirección')),
+              controller: direccion,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30.0),
+            child: TextFormField(
+              decoration: InputDecoration(label: Text('Teléfono')),
+              controller: telefono,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30.0),
+            child: TextFormField(
+              decoration: InputDecoration(label: Text('Email')),
+              controller: email,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30.0),
+            child: TextFormField(
+              decoration: InputDecoration(label: Text('RTN')),
+              controller: rtn,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30.0),
+            child: TextFormField(
+              decoration: InputDecoration(label: Text('URL logo')),
+              controller: logo,
+            ),
+          ),
           Center(
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 30.0),
@@ -68,7 +113,14 @@ class _SucursalScreenState extends State<SucursalScreen> {
                   style: AppTheme.lightTheme.textButtonTheme.style,
                   onPressed: () {
                     Future<String> actualizar = updateSucursal(
-                        1, nombreSucursal.text, lemaSucursal.text);
+                        1,
+                        nombreSucursal.text,
+                        lemaSucursal.text,
+                        direccion.text,
+                        telefono.text,
+                        email.text,
+                        rtn.text,
+                        logo.text);
                     actualizar.then((value) {
                       setState(() {
                         getSucursal(1);
