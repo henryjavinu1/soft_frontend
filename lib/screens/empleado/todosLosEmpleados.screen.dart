@@ -32,11 +32,12 @@ class _TodosLosEmpleados2State extends State<TodosLosEmpleados2> {
           title: const Text("Modulo Empleados")
         ),
         
-        body: FutureBuilder(
+        body: Container(
+          child: FutureBuilder(
           future: traerEmpleados(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator();
+              return Center(child: const CircularProgressIndicator());
             } else if (snapshot.connectionState == ConnectionState.done) {
               Empleado lista = snapshot.data;
               listaEmpleados = lista.todoslosEmpleados;
@@ -148,11 +149,12 @@ class _TodosLosEmpleados2State extends State<TodosLosEmpleados2> {
               child: CircularProgressIndicator(),
             );
           },
-        ));
+        )));
   }
 
   Widget item(TodoslosEmpleados lista) {
     return Row(
+      
       children: [
         Expanded(flex: 4, child: Text(lista.dni)),
         Expanded(flex: 4, child: Text(lista.nombre)),
