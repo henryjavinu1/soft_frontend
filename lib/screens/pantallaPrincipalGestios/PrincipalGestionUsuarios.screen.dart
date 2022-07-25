@@ -10,7 +10,8 @@ class PantallaGestionPrincipal extends StatefulWidget {
   const PantallaGestionPrincipal({Key? key}) : super(key: key);
 
   @override
-  State<PantallaGestionPrincipal> createState() => _PantallaGestionPrincipalState();
+  State<PantallaGestionPrincipal> createState() =>
+      _PantallaGestionPrincipalState();
 }
 
 class _PantallaGestionPrincipalState extends State<PantallaGestionPrincipal> {
@@ -115,7 +116,7 @@ class _Pantalla extends StatelessWidget {
                   visible: true,
                   child: TextButtons(
                     name: 'Usuarios',
-                    route: 'mantenimiento',
+                    route: 'gestionUsuarios',
                     width: 0.2,
                     fontSize: 18,
                   ),

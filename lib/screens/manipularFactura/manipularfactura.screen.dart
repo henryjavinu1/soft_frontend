@@ -426,7 +426,7 @@ class _ManipularFacturaState extends State<ManipularFactura> {
             Expanded(
               flex: 1,
               child: Text(
-                '${factura.numeroFactura}',
+                factura.numeroFactura,
                 style: GoogleFonts.lato(fontSize: size.width * 0.009),
               ),
             ),
@@ -483,7 +483,7 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => MostrarFactura(
-                                  numeroFactura: int.parse(factura.numeroFactura.toString()))));
+                                  numeroFactura: factura.numeroFactura)));
                     },
                     child: Icon(Icons.visibility)))
           ],
