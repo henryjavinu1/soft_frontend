@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_single_quotes
 
 import 'package:flutter/material.dart';
 import 'package:soft_frontend/controllers/user.controller.dart';
@@ -57,42 +57,25 @@ class _Pantalla extends StatelessWidget {
       permisosId.add(user?.rol.permisos[i].id);
     }
 
-    for (int i = 0; i < permisosId.length; i++) {
-      print(permisosId[i]);
-    }
-
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Modulo de Mantenimiento"),
+      ),
       body: Container(
         color: const Color(0xffF3F3F3),
         child: Padding(
           padding: const EdgeInsets.all(50),
           child: Column(children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  'Modulo de Mantenimiento',
-                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                  'Modulo de Mantenimiento donde se puede acceder a los modulos de cliente, productos, talonarios y sucursal.',
+                  style: TextStyle(fontSize: 18),
                 ),
                 const SizedBox(
                   width: 40,
                 ),
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: Container(
-                      width: size.width * 0.2,
-                      padding: const EdgeInsets.all(25),
-                      child: const Text(
-                        'Regresar',
-                        textAlign: TextAlign.center,
-                        style:
-                            TextStyle(fontSize: 22, color: Color(0xff525252)),
-                      )),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        const Color(0xffD9D9D9)),
-                  ),
-                )
               ],
             ),
             const SizedBox(
@@ -103,9 +86,10 @@ class _Pantalla extends StatelessWidget {
                 Visibility(
                     visible: true,
                     child: TextButtons(
+                      
                       name: 'Clientes',
                       route: 'traer_clientes',
-                      width: 0.2,
+                      width: 0.1,
                       fontSize: 18,
                     )),
               ],
@@ -118,7 +102,7 @@ class _Pantalla extends StatelessWidget {
                   child: TextButtons(
                     name: 'Productos',
                     route: 'mantenimiento',
-                    width: 0.2,
+                    width: 0.1,
                     fontSize: 18,
                   ),
                 ),

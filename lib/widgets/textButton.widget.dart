@@ -1,5 +1,7 @@
 
 
+// ignore_for_file: unnecessary_string_escapes
+
 import 'package:flutter/material.dart';
 
 
@@ -23,12 +25,16 @@ class TextButtons extends StatelessWidget {
         Navigator.pushNamed(context, route);
       },
       child: Container(
-        width: size.width * width,
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-          child: Text(
-            name,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: fontSize, color: const Color(0xff525252)),
+          child: Column(
+            children: [
+              Image(image: AssetImage('../assets/images/satisfied.png'),width: 80,),
+              Text(
+                name,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: fontSize, color: const Color(0xff525252)),
+              ),
+            ],
           )),
       style: ButtonStyle(
         backgroundColor:
