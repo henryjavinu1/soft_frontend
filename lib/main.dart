@@ -47,7 +47,6 @@ class MyApp extends StatelessWidget {
         'manipular_factura': (_) => ManipularFactura(),
         'talonarios': (_) => TalonariosScreen(),
         'listar_tipopago': (_) => BuscarTipoPago(),
-        'crear_tipopago': (_) => CrearTipoPagos(),
         'traer_arqueo': (_) => const MostrarArqueos(),
         'PrincipalVenta': (_) => PantallaPrincipalVenta(),
         'PrincipalGestion': (_) => PantallaGestionPrincipal(),
