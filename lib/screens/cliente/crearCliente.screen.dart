@@ -22,6 +22,8 @@ class _CrearClientesState extends State<CrearClientes> {
       Scaffold(body: LayoutBuilder(builder: (context, constraints) {
         return Scaffold(
           appBar: AppBar(
+            leading: IconButton(icon: const Icon( Icons.arrow_back),
+            onPressed: () {Navigator.pushReplacementNamed(context, 'traer_clientes');},),
             title: Text('Crear Cliente'),
           ),
           body: SingleChildScrollView(
