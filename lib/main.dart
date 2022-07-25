@@ -5,13 +5,13 @@ import 'package:soft_frontend/screens/empleado/crearEmpleado.screen.dart';
 import 'package:soft_frontend/screens/generarFactura/escogerVenta.screen.dart';
 import 'package:soft_frontend/screens/manipularFactura/manipularfactura.screen.dart';
 import 'package:soft_frontend/screens/screens.dart';
-import 'package:soft_frontend/screens/sucursal/sucursal.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/buscarTipoPago.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/crearTipoPago.screen.dart';
-import 'package:soft_frontend/services/empleado.service.dart';
+import 'package:soft_frontend/screens/user/creauser.scree.dart';
+import 'package:soft_frontend/screens/rol/crearol.screen.dart';
 import 'package:soft_frontend/screens/tipoproducto/tipoproducto.screen.dart';
 import 'package:soft_frontend/screens/producto/producto.screen.dart';
-import 'package:soft_frontend/screens/arqueo/mostrarArqueo.screen.dart';
+import 'package:soft_frontend/screens/gestionusuarios/gestionusuarios.screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,12 +37,15 @@ class MyApp extends StatelessWidget {
         'crear_cliente': (_) => CrearClientes(),
         'crear_empleado': (_) => crearEmpleados(),
         'traer_clientes': (_) => const TodosLosClientes2(),
+        'crearUsuarios': (_) => CrearUser(),
+        'crearRol': (_) => CrearRol(),
+        'gestionUsuarios': (_) => const MostrarUsuarios(),
+
         'traer_empleados': (_) => const TodosLosEmpleados2(),
 
         //'buscar_cliente': (_) => BuscarClientes(),
         'manipular_factura': (_) => ManipularFactura(),
         'talonarios': (_) => TalonariosScreen(),
-        'sucursal': (_) => SucursalScreen(),
         'listar_tipopago': (_) => BuscarTipoPago(),
         'crear_tipopago': (_) => CrearTipoPagos(),
         'traer_arqueo': (_) => const MostrarArqueos(),

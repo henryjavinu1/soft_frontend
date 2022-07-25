@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:soft_frontend/controllers/Arqueo.controller.dart';
-import 'package:soft_frontend/models/Arqueo.model.dart';
 
-class EliminarArque extends StatefulWidget {
-  final Arqueo arqueo;
-  const EliminarArque({Key? key, required this.arqueo}) : super(key: key);
+import '../../models/Arqueo.model.dart';
+import '../../services/Arqueo.service.dart';
+
+class BuscarArqueoIdUsuario extends StatefulWidget {
+  const BuscarArqueoIdUsuario({Key? key}) : super(key: key);
+
   @override
-  State<EliminarArque> createState() => _EliminarArqueState();
+  State<BuscarArqueoIdUsuario> createState() => _BuscarArqueoIdUsuarioState();
 }
 
-class _EliminarArqueState extends State<EliminarArque> {
-  var idArqueoController = TextEditingController();
+class _BuscarArqueoIdUsuarioState extends State<BuscarArqueoIdUsuario> {
+  var idUsuarioController = TextEditingController();
+  List<Arqueo> listaArqueos = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(context) =>
       Scaffold(body: LayoutBuilder(builder: (context, constraints) {
-        idArqueoController.text = widget.arqueo.idArqueo.toString();
         return SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
@@ -29,7 +36,7 @@ class _EliminarArqueState extends State<EliminarArque> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Eliminar un Arqueo',
+                    'Buscar un Arqueo',
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 3),
@@ -49,19 +56,13 @@ class _EliminarArqueState extends State<EliminarArque> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'id De Arqueo',
+                                'Id Usuario',
                                 style: TextStyle(fontSize: 18),
                               ),
                               TextFormField(
-                                controller: idArqueoController,
+                                controller: idUsuarioController,
                                 decoration: InputDecoration(
                                     border: UnderlineInputBorder()),
-                              ),
-                              SizedBox(
-                                height: 40,
-                              ),
-                              SizedBox(
-                                height: 40,
                               ),
                               SizedBox(
                                 height: 40,
@@ -70,13 +71,12 @@ class _EliminarArqueState extends State<EliminarArque> {
                                 onPressed: null,
                                 child: Center(
                                   child: ElevatedButton(
-                                      onPressed: () =>
-                                          eliminarArqueo_Controller(
-                                              idArqueoController.text, context),
+                                      onPressed: () => buscarArqueoPorIdUsuario(
+                                          idUsuarioController.text),
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 10, vertical: 10),
-                                        child: Text('Continuar'),
+                                        child: Text('Buscar'),
                                       )),
                                 ),
                               ),

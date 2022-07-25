@@ -17,7 +17,7 @@ Future traerArqueos() async {
   } catch (e) {}
 }
 
-Future buscarArqueoPorIdUsuario(String idUsuario, context) async {
+Future buscarArqueoPorIdUsuario(String idUsuario) async {
   if (idUsuario.isNotEmpty) {
     var response = await http.post(
         Uri.parse(API_URL + 'arqueo/buscarPorUsuario'),
@@ -25,11 +25,6 @@ Future buscarArqueoPorIdUsuario(String idUsuario, context) async {
 
     if (response.statusCode == 200) {
       ManipularArqueo arqueo = manipularArqueoFromJson(response.body);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("Arqueo Encontrado")));
-    } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("Arqueo no encontrado")));
     }
   }
 }
@@ -86,11 +81,11 @@ Future<List<ManipularArqueo?>> crearArqueo(
 Future<List<ManipularArqueo?>> actualizarArqueoCerrandoSesion(
     String idUsuario, String idSesion, String idArqueo) async {
   var client = http.Client();
-  ManipularArqueo? arqueo = null;
+  ManipularArqueo? arqueo1 = null;
   List<ManipularArqueo> arqueoActualizado = [];
 
   try {
-    var response = await http.post(
+    var response = await http.put(
         Uri.parse(API_URL + 'arqueo/actualizacionCerrandoSesion'),
         body: ({
           'idUsuario': idUsuario,
