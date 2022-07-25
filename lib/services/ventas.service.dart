@@ -65,8 +65,9 @@ Future buscarClienteVenta(String dni, context) async {
   try {
     final response  = await http.post(Uri.parse(API_URL + 'cliente/buscarcliente'),
           body: ({'dni': dni}));
+          print(response.statusCode);
     if (response.statusCode == 200) {
-      final cliente = unClienteFromJson(response.body);
+      final cliente = TodoslosCliente.fromJson(jsonDecode(response.body)) ;
       return cliente;
     } else if (response.statusCode == 404){
       return response.statusCode;

@@ -9,22 +9,25 @@ import '../models/IdDetalleVenta.model.dart';
 import '../models/ProductoBuscado.model.dart';
 import '../models/detalleventa.model.dart';
 
-Future<List<TodosLosDetalle>> mostrardetalleventa() async {
-  List<TodosLosDetalle> detalleVentaVacia = [];
+Future mostrardetalleventa(int idVenta) async {
+
+  //List<TodosLosDetalle> detalleVentaVacia = [];
   try {
     var response =
-        await http.post(Uri.parse(API_URL + "mostrarDetalle"));
+        await http.post(Uri.parse(API_URL + 'mostrardetalle'),
+        body: ({'idVenta' : idVenta.toString()}));
    // print(response.body);
    // DetalleVenta detalleVenta = DetalleVenta.fromJson();
+   print(response.request);
+   print(response.statusCode);
     if (response.statusCode == 200) {
-      final DetalleVenta = detalleVentaFromJson(response.body);
-      
-    } else {
-
-    }
-    return detalleVentaVacia;
+      print('hola mundo');
+      final detalleVentas = detalleDeVentasXidFromJson(response.body);
+      return detalleVentas;
+    } 
+    
   } catch (e) {
-    return detalleVentaVacia;
+    print(e);
   }
 }
 
@@ -44,8 +47,8 @@ Future crearDetalle(String cantidad, String precioUnitario, String isvAplicado,
     print(response.statusCode);
     if (response.statusCode == 200) {
       print(jsonDecode(response.body));
-      IdDetalleVenta detalleventa = idDetalleVentaFromJson(response.body);
-      return detalleventa;
+      // IdDetalleVenta detalleventa = idDetalleVentaFromJson(response.body);
+      return 200;
     } else if (response.statusCode == 500) {
       return response.statusCode;
     }
@@ -63,7 +66,8 @@ Future buscarProductoService(String codigoProducto, context) async {
   try {
     var response = await http.post(Uri.parse(API_URL+'producto/buscarproductoxcodigo'),
         body: ({'codigoProducto': codigoProducto}));
-
+    print(jsonDecode(response.body));
+    print(response.statusCode);
     if (response.statusCode == 200) {
       final producto = productoBuscadoFromJson(response.body);
       return producto;
@@ -73,6 +77,7 @@ Future buscarProductoService(String codigoProducto, context) async {
       return 500;
     }
   } catch (e) {
+    print(e);
     return 1928;
   }
 }

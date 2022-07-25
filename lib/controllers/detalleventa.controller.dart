@@ -1,4 +1,5 @@
 import 'dart:convert';
+//import 'dart:ffi';
 import 'dart:js_util';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -34,10 +35,10 @@ Future crearDetalle_Controller(
         idVentas,
         idProducto);
     print(detalleventa);
-    if (detalleventa is IdDetalleVenta) {
+    if (detalleventa == 200) {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Detalle añadido con exito')));
-      return detalleventa;
+      return 200;
     } else if (detalleventa == 500) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text(
@@ -67,21 +68,30 @@ Future crearDetalle_Controller(
 }*/
 
 Future buscarProductoController(
-    TextEditingController codigoProducto, context) async {
+    TextEditingController codigoProducto, TextEditingController cantidadProducController, int idVentaActual, context) async {
+      print(cantidadProducController);
   if (codigoProducto.text.isNotEmpty) {
     final response = await buscarProductoService(codigoProducto.text.trim(), context);
-    if (response is Producto) {
+    if (response is ProductoBuscado) {
+      // multiplicacion (cantidad* precioUnitario) +ISV -DESC
+      double cantidad = double.parse(cantidadProducController.text);
+      double precio = double.parse(response.producto.precioProducto);
+      double isv = double.parse(response.producto.isvProducto);
+      double descuento = double.parse(response.producto.descProducto);
+      double total = ((cantidad * precio)*(isv/100))+(precio * cantidad) - descuento;
       final detalle = await crearDetalle_Controller(
-          '1', '22', '123456', '25', '10', '1', '1', context);
-      if (detalle is IdDetalleVenta) {
-        return detalle;
+          cantidadProducController.text, response.producto.precioProducto, total.toString(), response.producto.isvProducto, response.producto.descProducto, idVentaActual.toString(), response.producto.id.toString(), context);
+      if (detalle == 200) {
+        DetalleDeVentasXid detalles = await mostrardetalleventa(idVentaActual);
+        print(detalles);
+        return detalles;
       } else {
         return false;
       }
           } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(
-              'No se encontró el cliente con el DNI: por favor verifique la identidad del cliente o creelo en la base de datos.')));
+              'No se encontró el producto')));
       return false;
     }
   } else {
@@ -91,21 +101,6 @@ Future buscarProductoController(
     return false;
   }
 }
-      //return response;
 
-      /*
-    } else if (response == 404) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('No se encontró el producto buscado.')));
-    } else if (response == 500) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(
-              'Hubo un error interno en el servidor al buscar el producto.')));
-    }
-  } else {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(
-            'Por favor ingrese un código de producto para realizar la búsqueda.')));
-  }
-}
-*/
+
+
