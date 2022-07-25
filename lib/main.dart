@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soft_frontend/models/mostrarUnaFactura.model.dart';
 import 'package:soft_frontend/screens/cliente/todosLosClientes.screen.dart';
 import 'package:soft_frontend/screens/empleado/crearEmpleado.screen.dart';
 import 'package:soft_frontend/screens/generarFactura/escogerVenta.screen.dart';
