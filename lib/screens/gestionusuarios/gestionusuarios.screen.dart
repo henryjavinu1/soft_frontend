@@ -61,24 +61,6 @@ class _MostrarUsuariosState extends State<MostrarUsuarios> {
                                   const Color(0xFF5FA9E6)),
                             ),
                           ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, 'crearRol');
-                            },
-                            child: Container(
-                                width: size.width * 0.2,
-                                padding: const EdgeInsets.all(15),
-                                child: const Text(
-                                  "Nuevo Rol",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 18, color: Color(0xFFF1F1F1)),
-                                )),
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Color(0xFF5FA9E6)),
-                            ),
-                          ),
                         ],
                       ),
                       const SizedBox(
