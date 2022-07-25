@@ -32,6 +32,7 @@ class TodosLosUsuarios {
     required this.idEmpleado,
     required this.idRol,
   });
+
   int id;
   String usuario;
   String password;

@@ -12,7 +12,7 @@ class MostrarRol extends StatefulWidget {
 }
 
 class _MostrarRolState extends State<MostrarRol> {
-  List<TodosLosRoles> listaRol = [];
+  List<TodosLosRol> listaRol = [];
 
   @override
   void initState() {
@@ -33,8 +33,8 @@ class _MostrarRolState extends State<MostrarRol> {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: const CircularProgressIndicator());
               } else if (snapshot.connectionState == ConnectionState.done) {
-                Rol lista = snapshot.data;
-                listaRol = lista.todoslosRol;
+                Role lista = snapshot.data;
+                listaRol = lista.todoslosRoles;
 
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -85,7 +85,7 @@ class _MostrarRolState extends State<MostrarRol> {
                                   color: Colors.blue,
                                   fontWeight: FontWeight.bold),
                             ),
-                          ),                  
+                          ),
                           Padding(
                             padding: EdgeInsets.only(left: size.height * 0.50),
                             child: Text(
@@ -103,7 +103,7 @@ class _MostrarRolState extends State<MostrarRol> {
                           child: Center(
                             child: ListView.separated(
                               itemBuilder: (_, i) => item(listaRol[i]),
-                              itemCount: lista.todoslosRol.length,
+                              itemCount: lista.todoslosRoles.length,
                               separatorBuilder: (_, i) => const Divider(),
                             ),
                           ),

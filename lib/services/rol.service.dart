@@ -31,7 +31,7 @@ Future mostrarRol() async {
   try {
     final response = await http.post(Uri.parse(API_URL + 'roles/mostrarroles'));
     if (response.statusCode == 200) {
-      Rol listaRol = rolFromJson(response.body);
+      Role listaRol = rolFromJson(response.body);
       return listaRol;
     }
   } catch (e) {}

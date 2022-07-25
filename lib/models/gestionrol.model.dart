@@ -1,20 +1,21 @@
 import 'dart:convert';
 
-Rol rolFromJson(String str) => Rol.fromJson(json.decode(str));
-String rolToJson(Rol data) => json.encode(data.toJson());
+Role rolFromJson(String str) => Role.fromJson(json.decode(str));
+String rolToJson(Role data) => json.encode(data.toJson());
 
-class Rol {
-  Rol({
-    required this.todoslosRol,
+class Role {
+  Role({
+    required this.todoslosRoles,
   });
 
-  List<TodosLosRol> todoslosRol;
-  factory Rol.fromJson(Map<String, dynamic> json) => Rol(
-        todoslosRol: List<TodosLosRol>.from(
-            json['todoslosRol'].map((x) => TodosLosRol.fromJson(x))),
+  List<TodosLosRol> todoslosRoles;
+  factory Role.fromJson(Map<String, dynamic> json) => Role(
+        todoslosRoles: List<TodosLosRol>.from(
+            json['todoslosRoles'].map((x) => TodosLosRol.fromJson(x))),
       );
   Map<String, dynamic> toJson() => {
-        'todoslosRol': List<dynamic>.from(todoslosRol.map((x) => x.toJson())),
+        'todoslosRoles':
+            List<dynamic>.from(todoslosRoles.map((x) => x.toJson())),
       };
 }
 
