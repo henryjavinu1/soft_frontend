@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:soft_frontend/models/mostrarUnaFactura.model.dart';
+import 'package:soft_frontend/services/sharepreference.service.dart';
 
 import '../models/models.dart';
 import '../models/unaFacturaBuscada.model.dart';
@@ -11,21 +13,25 @@ typedef void ListFactura(List<FacturaBuscada> facturasBuscadas);
 final numerico = RegExp(r'^[0-9]+$');
 final validarFecha = RegExp(r'^[0-9]{4}-[0-9]{2}-[0-9]{2}$');
 
-Future listarFacturas() async{
-  final response  = await traerFactura();
+Future listarFacturas(context) async {
+  final token = await getToken();
+  final response = await traerFactura(token);
   if (response is ManipularFacturaResponse) {
     return response;
-  } else if(response == 2) {
+  } else if (response == 2) {
     return 2;
-  } else if(response == 500) {
+  } else if (response == 500) {
     return 500;
+  } else if (response == 403) {
+    Navigator.pushReplacementNamed(context, 'login');
   }
 }
 
 Future filtrarFacturasPorNombreCliente(
     TextEditingController controller, ListFactura callback, context) async {
+  final token = await getToken();
   final response =
-      await filtrarFacturasPorCliente(controller.text.trim(), '', '');
+      await filtrarFacturasPorCliente(controller.text.trim(), '', '', token);
   if (response is List<FacturaBuscada>) {
     callback(response);
   } else if (response == 404) {
@@ -36,9 +42,10 @@ Future filtrarFacturasPorNombreCliente(
 
 Future filtrarFacturasPorRTNCliente(TextEditingController _textController,
     ListFactura callback, context) async {
-  if(numerico.hasMatch(_textController.text.trim())) {
+      final token = await getToken(); 
+  if (numerico.hasMatch(_textController.text.trim())) {
     final response =
-        await filtrarFacturasPorCliente('', _textController.text.trim(), '');
+        await filtrarFacturasPorCliente('', _textController.text.trim(), '', token);
     if (response is List<FacturaBuscada>) {
       callback(response);
     } else if (response == 404) {
@@ -49,16 +56,18 @@ Future filtrarFacturasPorRTNCliente(TextEditingController _textController,
       dialogMensajeProblema(context, mensajeError.msg);
     }
   } else {
-    dialogMensajeProblema(context, 'El RTN debe ser numérico, no debe contener números y letras.');
+    dialogMensajeProblema(context,
+        'El RTN debe ser numérico, no debe contener números y letras.');
     _textController.clear();
   }
 }
 
 Future filtrarFacturasPorDNICliente(TextEditingController _textController,
     ListFactura callback, context) async {
-  if(numerico.hasMatch(_textController.text.trim())){
+      final token = await getToken(); 
+  if (numerico.hasMatch(_textController.text.trim())) {
     final response =
-        await filtrarFacturasPorCliente('', '', _textController.text.trim());
+        await filtrarFacturasPorCliente('', '', _textController.text.trim(), token);
     if (response is List<FacturaBuscada>) {
       callback(response);
     } else if (response == 404) {
@@ -69,7 +78,8 @@ Future filtrarFacturasPorDNICliente(TextEditingController _textController,
       dialogMensajeProblema(context, mensajeError.msg);
     }
   } else {
-    dialogMensajeProblema(context, 'El DNI debe ser numérico, no debe contener números y letras.');
+    dialogMensajeProblema(context,
+        'El DNI debe ser numérico, no debe contener números y letras.');
     _textController.clear();
   }
 }
@@ -79,10 +89,11 @@ Future filtrarFacturasPorFechaController(
     TextEditingController _textController2,
     ListFactura callback,
     context) async {
+      final token = await getToken(); 
   if (_textController2.text.isEmpty) {
     if (validarFecha.hasMatch(_textController.text.trim())) {
       final response =
-          await filtrarFacturasPorFecha(_textController.text.trim(), '');
+          await filtrarFacturasPorFecha(_textController.text.trim(), '', token);
       if (response is List<FacturaBuscada>) {
         callback(response);
       } else if (response == 404) {
@@ -93,14 +104,16 @@ Future filtrarFacturasPorFechaController(
         dialogMensajeProblema(context, mensajeError.msg);
       }
     } else {
-      dialogMensajeProblema(context, 'La fecha debe ser de formato YYYY-MM-DD donde: YYYY representa el año, MM el mes y DD el día.');
+      dialogMensajeProblema(context,
+          'La fecha debe ser de formato YYYY-MM-DD donde: YYYY representa el año, MM el mes y DD el día.');
       _textController.clear();
     }
     // Si ambos campos tienen datos
   } else {
-    if (validarFecha.hasMatch(_textController.text.trim())  && validarFecha.hasMatch(_textController2.text.trim())) {
+    if (validarFecha.hasMatch(_textController.text.trim()) &&
+        validarFecha.hasMatch(_textController2.text.trim())) {
       final response = await filtrarFacturasPorFecha(
-          _textController.text.trim(), _textController2.text.trim());
+          _textController.text.trim(), _textController2.text.trim(), token);
       if (response is List<FacturaBuscada>) {
         callback(response);
       } else if (response == 404) {
@@ -109,9 +122,10 @@ Future filtrarFacturasPorFechaController(
       } else if (response is MensajePeticion) {
         MensajePeticion mensajeError = response;
         dialogMensajeProblema(context, mensajeError.msg);
-      }  
+      }
     } else {
-      dialogMensajeProblema(context, 'La fecha debe ser de formato YYYY-MM-DD donde: YYYY representa el año, MM el mes y DD el día.');
+      dialogMensajeProblema(context,
+          'La fecha debe ser de formato YYYY-MM-DD donde: YYYY representa el año, MM el mes y DD el día.');
       _textController.clear();
       _textController2.clear();
     }
@@ -120,8 +134,9 @@ Future filtrarFacturasPorFechaController(
 
 Future filtrarFacturasPorIdTalonario(TextEditingController _textController,
     ListFactura callback, context) async {
+      final token = await getToken();
   final response =
-      await filtrarFacturasPorTalonario(_textController.text.trim(), '');
+      await filtrarFacturasPorTalonario(_textController.text.trim(), '', token);
   if (response is List<FacturaBuscada>) {
     callback(response);
     // Si no encontró ningúna coincidencia.
@@ -136,8 +151,9 @@ Future filtrarFacturasPorIdTalonario(TextEditingController _textController,
 
 Future filtrarFacturasPorCAI(TextEditingController _textController,
     ListFactura callback, context) async {
+      final token = await getToken();
   final response =
-      await filtrarFacturasPorTalonario('', _textController.text.trim());
+      await filtrarFacturasPorTalonario('', _textController.text.trim(), token);
   if (response is List<FacturaBuscada>) {
     callback(response);
     // Si no encontró ningúna coincidencia.
@@ -152,8 +168,9 @@ Future filtrarFacturasPorCAI(TextEditingController _textController,
 
 Future filtrarFacturasPorIdEmpleado(TextEditingController _textController,
     ListFactura callback, context) async {
+      final token = await getToken();
   final response =
-      await filtrarFacturasPorEmpleado(_textController.text.trim());
+      await filtrarFacturasPorEmpleado(_textController.text.trim(), token);
   if (response is List<FacturaBuscada>) {
     callback(response);
   } else if (response == 404) {
@@ -161,14 +178,15 @@ Future filtrarFacturasPorIdEmpleado(TextEditingController _textController,
         'No se encontró ningúna factura con el id de empleado: ${_textController.text.trim()}');
   } else if (response is MensajePeticion) {
     MensajePeticion mensajeError =
-        await filtrarFacturasPorEmpleado(_textController.text.trim());
+        await filtrarFacturasPorEmpleado(_textController.text.trim(), token);
     dialogMensajeProblema(context, mensajeError.msg);
   }
 }
 
 Future buscarFacturaPorNumeroFact(
     TextEditingController _textController, Size size, context) async {
-  final response = await buscarFacturaPorNumero(_textController.text.trim());
+      final token = await getToken(); 
+  final response = await buscarFacturaPorNumero(_textController.text.trim(), token);
   if (response is UnaFacturaBuscada) {
     UnaFacturaBuscada facturaBuscada = response;
     showDialog(
@@ -186,7 +204,8 @@ Future buscarFacturaPorNumeroFact(
                       facturaBuscada.unafactura.fechaFactura.toString(),
                       facturaBuscada.unafactura.empleado!.nombre.toString() +
                           ' ' +
-                          facturaBuscada.unafactura.empleado!.apellido.toString()),
+                          facturaBuscada.unafactura.empleado!.apellido
+                              .toString()),
                   SizedBox(
                     height: size.height * 0.02,
                   ),
@@ -229,3 +248,12 @@ Future buscarFacturaPorNumeroFact(
   }
 }
 
+Future mostrarDatosDeUnaFacturaController(String numeroFactura, context) async {
+  final token = await getToken(); 
+  final response = await mostrarDatosDeUnaFactura(numeroFactura, token);
+  if (response is MostrarUnaFactura) {
+    return response;
+  } else if (response == 403) {
+    Navigator.pushReplacementNamed(context, 'login');
+  }
+}
