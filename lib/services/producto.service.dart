@@ -268,6 +268,7 @@ Future<Producto> buscarProducto(String codigoProductoR, context) async {
       isvProducto: "asda",
       descProducto: "21",
       isExcento: false,
+      urlImage: "sda",
       idTipoProducto: 1);
   if (codigoProductoR.isNotEmpty) {
     var response = await http.post(Uri.parse( API_URL + "producto/buscarproductoxcodigo"),
