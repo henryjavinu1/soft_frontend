@@ -339,16 +339,20 @@ var   totalDescuentoVentaController = TextEditingController();
                         Center(
                           child: ElevatedButton(
                             onPressed: () {
-                              Future<String> editar = actualizarVenta(idVentaActual.toString(),
+                             
+
+                              if (botonesHabilitados) {
+                                 Future<String> editar = actualizarVenta(idVentaActual.toString(),
                                impuestos,
                                 total,
                                  descuentos);
                                  editar.then((value){
                                   print('asjasd');
 
-                                 });
+                                  
 
-                              if (botonesHabilitados) {
+
+                                 });
                               } else {
                                 null;
                               }
