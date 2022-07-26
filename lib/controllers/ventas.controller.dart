@@ -55,7 +55,7 @@ Future habilitarVenta(TextEditingController dniController, TextEditingController
   if (dniController.text.isNotEmpty) {
     final response = await buscarClienteVenta(dniController.text.trim(), context);
     if (response is TodoslosCliente) {
-      final venta = await crearVenta_Controller('0.0', '0.0', '0.0', '0', '0', '0', '1', response.id.toString(), '1', context);
+      final venta = await crearVenta_Controller('0.0', '0.0', '0.0', '000', '001', '01', '1', '1', response.id.toString(), context);
       if (venta is IdVenta) {
         nombreController.text = response.nombreCliente;
         telefonoController.text = response.telefonoCliente;
