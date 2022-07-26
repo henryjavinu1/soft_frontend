@@ -5,7 +5,7 @@ import 'package:soft_frontend/screens/arqueo/buscarArqueoIdUsuario.screen.dart';
 import 'package:soft_frontend/screens/cliente/todosLosClientes.screen.dart';
 import 'package:soft_frontend/screens/empleado/crearEmpleado.screen.dart';
 import 'package:soft_frontend/screens/generarFactura/escogerVenta.screen.dart';
-import 'package:soft_frontend/screens/generarFactura/escogerVenta.screen.dart';
+import 'package:soft_frontend/screens/generarFactura/prueba.screen.dart';
 import 'package:soft_frontend/screens/manipularFactura/manipularfactura.screen.dart';
 import 'package:soft_frontend/screens/screens.dart';
 import 'package:soft_frontend/screens/sucursal/sucursal.screen.dart';
@@ -17,7 +17,6 @@ import 'package:soft_frontend/screens/producto/producto.screen.dart';
 import 'package:soft_frontend/screens/arqueo/mostrarArqueo.screen.dart';
 import 'package:soft_frontend/screens/producto/producto.screen.dart';
 import 'package:soft_frontend/screens/gestionusuarios/gestionusuarios.screen.dart';
-import 'package:soft_frontend/screens/ventas/ventas.screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,9 +34,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: 'login',
+      initialRoute: 'prueba',
       routes: {
         'login': (_) => const Login(),
+
         'pantalla_principal': (_) => const PantallaPrincipal(),
         'mantenimiento': (_) => const PantallaMantenimientoPrincipal(),
         'crear_cliente': (_) => CrearClientes(),
@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
         'crearUsuarios': (_) => CrearUser(),
         'crearRol': (_) => CrearRol(),
         'gestionUsuarios': (_) => const MostrarUsuarios(),
-        // 'ventas': (_) => const Venta(),
+        //'ventas': (_) => const Venta(),
         'manipular_factura': (_) => ManipularFactura(),
         'talonarios': (_) => TalonariosScreen(),
         'sucursal': (_) => SucursalScreen(),
@@ -58,6 +58,7 @@ class MyApp extends StatelessWidget {
         'PantallaTipoProductos': (_) => PantallaTipoProducto(),
         'PantallaProductos': (_) => PantallaProducto(),
         'mostrar_ventas': (_) => EscogerVenta(),
+        'prueba': (_) => BuscarVenta(),
       },
     );
   }
