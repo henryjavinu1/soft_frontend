@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:soft_frontend/services/eliminarTipoPago.service.dart';
-import '../../models/tipoPagoBuscado.model.dart';
 
-class EliminarTipoPagos extends StatefulWidget {
-  final TipoPagoBuscado tipoPago;
-  const EliminarTipoPagos({Key? key, required this.tipoPago}) : super(key: key);
+import '../../models/Arqueo.model.dart';
+import '../../services/Arqueo.service.dart';
+
+class BuscarArqueoIdUsuario extends StatefulWidget {
+  const BuscarArqueoIdUsuario({Key? key}) : super(key: key);
+
   @override
-  State<EliminarTipoPagos> createState() => _EliminarTipoPagosState();
+  State<BuscarArqueoIdUsuario> createState() => _BuscarArqueoIdUsuarioState();
 }
 
-class _EliminarTipoPagosState extends State<EliminarTipoPagos> {
-  var idTipoPagoController = TextEditingController();
+class _BuscarArqueoIdUsuarioState extends State<BuscarArqueoIdUsuario> {
+  var idUsuarioController = TextEditingController();
+  List<Arqueo> listaArqueos = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(context) =>
       Scaffold(body: LayoutBuilder(builder: (context, constraints) {
-        idTipoPagoController.text = widget.tipoPago.idTipoPago.toString();
         return SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
@@ -28,12 +36,12 @@ class _EliminarTipoPagosState extends State<EliminarTipoPagos> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    "Eliminar un nuevo Tipo De Pago",
+                    'Buscar un Arqueo',
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 3),
                   const Text(
-                    "Por favor llene los campos",
+                    'Por favor llene los campos',
                     style: TextStyle(fontSize: 15, color: Color(0xff606060)),
                   ),
                   const SizedBox(height: 40),
@@ -48,19 +56,13 @@ class _EliminarTipoPagosState extends State<EliminarTipoPagos> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "id De Pago",
+                                'Id Usuario',
                                 style: TextStyle(fontSize: 18),
                               ),
                               TextFormField(
-                                controller: idTipoPagoController,
+                                controller: idUsuarioController,
                                 decoration: InputDecoration(
                                     border: UnderlineInputBorder()),
-                              ),
-                              SizedBox(
-                                height: 40,
-                              ),
-                              SizedBox(
-                                height: 40,
                               ),
                               SizedBox(
                                 height: 40,
@@ -69,12 +71,12 @@ class _EliminarTipoPagosState extends State<EliminarTipoPagos> {
                                 onPressed: null,
                                 child: Center(
                                   child: ElevatedButton(
-                                      onPressed: () => EliminarTipoPago(
-                                          idTipoPagoController.text, context),
+                                      onPressed: () => buscarArqueoPorIdUsuario(
+                                          idUsuarioController.text),
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 10, vertical: 10),
-                                        child: Text('Continuar'),
+                                        child: Text('Buscar'),
                                       )),
                                 ),
                               ),

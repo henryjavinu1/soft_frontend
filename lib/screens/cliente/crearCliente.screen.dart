@@ -22,7 +22,9 @@ class _CrearClientesState extends State<CrearClientes> {
       Scaffold(body: LayoutBuilder(builder: (context, constraints) {
         return Scaffold(
           appBar: AppBar(
-            title: Text("Crear Cliente"),
+            leading: IconButton(icon: const Icon( Icons.arrow_back),
+            onPressed: () {Navigator.pushReplacementNamed(context, 'traer_clientes');},),
+            title: Text('Crear Cliente'),
           ),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
@@ -36,16 +38,12 @@ class _CrearClientesState extends State<CrearClientes> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Crear Cliente",
-                      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                    ),
                     const SizedBox(height: 3),
                     const Text(
-                      "Por favor llene los campos",
+                      'Por favor llene los campos',
                       style: TextStyle(fontSize: 15, color: Color(0xff606060)),
                     ),
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 10),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: Container(
@@ -57,72 +55,73 @@ class _CrearClientesState extends State<CrearClientes> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Identificacion/DNI",
+                                  'Identificacion/DNI',
                                   style: TextStyle(fontSize: 18),
                                 ),
                                 TextFormField(
+                                  keyboardType: TextInputType.text,
                                   controller: dniController,
                                   decoration: InputDecoration(
                                       border: UnderlineInputBorder(),
-                                      hintText: '060190900404'),
+                                      hintText: '0601-19090-04049'),
                                 ),
                                 SizedBox(
                                   height: 40,
                                 ),
                                 Text(
-                                  "RTN (Opcional)",
+                                  'RTN (Opcional)',
                                   style: TextStyle(fontSize: 18),
                                 ),
                                 TextFormField(
                                   controller: rtnController,
                                   decoration: InputDecoration(
                                       border: UnderlineInputBorder(),
-                                      hintText: '0601909004043'),
+                                      hintText: '0601-1909-04043'),
                                 ),
                                 SizedBox(
                                   height: 40,
                                 ),
                                 Text(
-                                  "Nombre",
+                                  'Nombre',
                                   style: TextStyle(fontSize: 18),
                                 ),
                                 TextFormField(
                                   controller: nombreController,
                                   decoration: InputDecoration(
                                       border: UnderlineInputBorder(),
-                                      hintText: 'Juan'),
+                                      hintText: 'Ruben Doblas'),
                                 ),
                                 SizedBox(
                                   height: 40,
                                 ),
                                 Text(
-                                  "Direccion",
+                                  'Direccion',
                                   style: TextStyle(fontSize: 18),
                                 ),
                                 TextFormField(
                                   controller: direccionController,
                                   decoration: InputDecoration(
                                       border: UnderlineInputBorder(),
-                                      hintText: 'Barrio las vegas'),
+                                      hintText: 'Barrio las vegas, Choluteca, Honduras'),
                                 ),
                                 SizedBox(
                                   height: 40,
                                 ),
                                 Text(
-                                  "Telefono",
+                                  'Telefono',
                                   style: TextStyle(fontSize: 18),
                                 ),
                                 TextFormField(
                                   controller: telefonoController,
                                   decoration: InputDecoration(
                                       border: UnderlineInputBorder(),
-                                      hintText: '27820000'),
+                                      hintText: '3377-2797'),
                                 ),
                                 SizedBox(
                                   height: 40,
                                 ),
                                 Text(
-                                  "Email",
+                                  'Email',
                                   style: TextStyle(fontSize: 18),
                                 ),
                                 TextFormField(
@@ -134,6 +133,7 @@ class _CrearClientesState extends State<CrearClientes> {
                                 SizedBox(
                                   height: 40,
                                 ),
+                                Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                                 TextButton(
                                   onPressed: null,
                                   child: Center(
@@ -155,7 +155,22 @@ class _CrearClientesState extends State<CrearClientes> {
                                         )),
                                   ),
                                 ),
+                                TextButton(
+                                  onPressed: null,
+                                  child: Center(
+                                      child: ElevatedButton(
+                                        onPressed: () => Navigator.popAndPushNamed(context, 'traer_clientes'),
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 10),
+                                          child: Text('Cancelar'),
+                                        )        
+                                    )
+                                  ) 
+                                ),
                               ]),
+                            ],
+                          )
                         ),
                       ),
                     )

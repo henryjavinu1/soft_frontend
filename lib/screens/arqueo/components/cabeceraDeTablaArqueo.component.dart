@@ -12,123 +12,152 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Text(
-            'Id Arqueo',
+            '#Arqueo',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01,
                 fontWeight: FontWeight.w800,
                 color: Colors.black),
+            textAlign: TextAlign.center,
+            textScaleFactor: 1,
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 3,
           child: Text(
-            'FechaInicio',
+            'Fecha Inicio',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+            textAlign: TextAlign.center,
+            textScaleFactor: 1,
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 3,
           child: Text(
-            'FechaFinal',
+            'Fecha Final',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+            textAlign: TextAlign.center,
+            textScaleFactor: 1,
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Text(
-            'efectivoApertura',
+            'efectivo Apertura',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+            textAlign: TextAlign.left,
+            textScaleFactor: 1,
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Text(
-            'efectivoCierre',
+            'efectivo Cierre',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+            textAlign: TextAlign.left,
+            textScaleFactor: 1,
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Text(
-            'otrosPagos',
+            'otros Pagos',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+            textAlign: TextAlign.left,
+            textScaleFactor: 1,
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Text(
             'ventaCredito',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+            textAlign: TextAlign.center,
+            textScaleFactor: 1,
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Text(
             'ventaTotal',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+            textAlign: TextAlign.center,
+            textScaleFactor: 1,
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Text(
             'efectivoTotal',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+            textAlign: TextAlign.center,
+            textScaleFactor: 1,
           ),
         ),
-        Expanded(
-          flex: 1,
+        /*Expanded(
+          flex: 2,
           child: Text(
             'isDelete',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+            textAlign: TextAlign.center,
+            textScaleFactor: 1,
           ),
-        ),
+        ),*/
         Expanded(
-          flex: 1,
+          flex: 3,
           child: Text(
             'createdAt',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+            textAlign: TextAlign.center,
+            textScaleFactor: 1,
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 3,
           child: Text(
             'updatedAt',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+            textAlign: TextAlign.center,
+            textScaleFactor: 1,
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Text(
-            'idUsuario',
+            '#Usuario',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+            textAlign: TextAlign.center,
+            textScaleFactor: 1,
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Text(
-            'idSesion',
+            '#Sesion',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
+            textAlign: TextAlign.center,
+            textScaleFactor: 1,
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Container(),
         ),
       ],

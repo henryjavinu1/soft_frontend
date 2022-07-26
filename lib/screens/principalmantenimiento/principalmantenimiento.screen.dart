@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_single_quotes
 
 import 'package:flutter/material.dart';
 import 'package:soft_frontend/controllers/user.controller.dart';
@@ -57,42 +57,36 @@ class _Pantalla extends StatelessWidget {
       permisosId.add(user?.rol.permisos[i].id);
     }
 
-    for (int i = 0; i < permisosId.length; i++) {
-      print(permisosId[i]);
-    }
-
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading :false,
+        title: Text("Modulo de Mantenimiento"),
+        actions: <Widget>[
+          TextButton(
+            
+            onPressed: () {
+              Navigator.popAndPushNamed(context, 'pantalla_principal');
+            },
+            child: Text("Regresar",
+                style: TextStyle(color: Colors.white, fontSize: 20)),
+          ),
+        ],
+      ),
       body: Container(
         color: const Color(0xffF3F3F3),
         child: Padding(
           padding: const EdgeInsets.all(50),
           child: Column(children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
                   'Modulo de Mantenimiento',
-                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 18),
                 ),
                 const SizedBox(
                   width: 40,
                 ),
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: Container(
-                      width: size.width * 0.2,
-                      padding: const EdgeInsets.all(25),
-                      child: const Text(
-                        'Regresar',
-                        textAlign: TextAlign.center,
-                        style:
-                            TextStyle(fontSize: 22, color: Color(0xff525252)),
-                      )),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        const Color(0xffD9D9D9)),
-                  ),
-                )
               ],
             ),
             const SizedBox(
@@ -103,10 +97,11 @@ class _Pantalla extends StatelessWidget {
                 Visibility(
                     visible: true,
                     child: TextButtons(
+                      img: 'satisfied.png',
                       name: 'Clientes',
                       route: 'traer_clientes',
                       width: 0.2,
-                      fontSize: 18,
+                      fontSize: 15,
                     )),
               ],
               SizedBox(
@@ -116,10 +111,11 @@ class _Pantalla extends StatelessWidget {
                 Visibility(
                   visible: true,
                   child: TextButtons(
+                    img: 'inventario.png',
                     name: 'Productos',
-                    route: 'mantenimiento',
+                    route: 'PantallaProductos',
                     width: 0.2,
-                    fontSize: 18,
+                    fontSize: 15,
                   ),
                 ),
               ],
@@ -130,10 +126,26 @@ class _Pantalla extends StatelessWidget {
                 Visibility(
                   visible: true,
                   child: TextButtons(
+                    img: 'talonario-de-cheques.png',
                     name: 'Talonarios',
                     route: 'talonarios',
                     width: 0.2,
-                    fontSize: 18,
+                    fontSize: 15,
+                  ),
+                ),
+              ],
+              SizedBox(
+                width: 30,
+              ),
+              if (permisosId.contains(32)) ...[
+                Visibility(
+                  visible: true,
+                  child: TextButtons(
+                    img: 'edificio-de-oficinas.png',
+                    name: 'Sucursal',
+                    route: 'sucursal',
+                    width: 0.2,
+                    fontSize: 15,
                   ),
                 ),
               ],

@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -24,17 +26,10 @@ class _ManipularFacturaState extends State<ManipularFactura> {
   int _atributoSeleccionado = 0;
   bool mostrarListaFacturasTemporal = false;
 
-
   @override
   void initState() {
     super.initState();
     // _cargarFact();
-  }
-
-  _cargarFact() async {
-    // facturas = await traerFactura();
-    setState(() {});
-    // print(facturas.length);
   }
 
   set intSele(int value) => setState(() => _atributoSeleccionado = value);
@@ -45,8 +40,9 @@ class _ManipularFacturaState extends State<ManipularFactura> {
     // print('Atributo: $_atributoSeleccionado');
     Size size = MediaQuery.of(context).size;
     return FutureBuilder(
-        future: listarFacturas(),
+        future: listarFacturas(context),
         builder: (context, AsyncSnapshot<dynamic> snapshot) {
+          print(snapshot.data);
           if ((snapshot.connectionState == ConnectionState.done) &&
               (snapshot.data is ManipularFacturaResponse)) {
             ManipularFacturaResponse response = snapshot.data;
@@ -73,7 +69,26 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                             ),
                           ),
                         ),
+                        Expanded(child: SizedBox(),),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            'Regresar',
+                            style: GoogleFonts.lato(),
+                          ),
+                          style: ButtonStyle(
+                            padding: MaterialStateProperty.all(
+                                EdgeInsets.symmetric(
+                                    horizontal: size.width * 0.015,
+                                    vertical: 26)),
+                          ),
+                        )
                       ],
+                    ),
+                    SizedBox(
+                      height: 15,
                     ),
                     Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -153,7 +168,8 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                             child: CamposDeBusqueda(
                                 textController: _textController,
                                 textController2: _textController2,
-                                campo: campos, atributoEscogido: _atributoSeleccionado,
+                                campo: campos,
+                                atributoEscogido: _atributoSeleccionado,
                                 callback: (val) => setState(
                                     () => _atributoSeleccionado = val)),
                           )),
@@ -174,8 +190,8 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                                             facturasTemp.clear();
                                             await filtrarFacturasPorNombreCliente(
                                                 _textController,
-                                                (val) =>
-                                                    setState(() => facturasTemp = val),
+                                                (val) => setState(
+                                                    () => facturasTemp = val),
                                                 context);
                                             break;
                                           // Por RTN
@@ -183,8 +199,8 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                                             facturasTemp.clear();
                                             await filtrarFacturasPorRTNCliente(
                                                 _textController,
-                                                (val) =>
-                                                    setState(() => facturasTemp = val),
+                                                (val) => setState(
+                                                    () => facturasTemp = val),
                                                 context);
                                             break;
                                           // Por DNI
@@ -192,8 +208,8 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                                             facturasTemp.clear();
                                             await filtrarFacturasPorDNICliente(
                                                 _textController,
-                                                (val) =>
-                                                    setState(() => facturasTemp = val),
+                                                (val) => setState(
+                                                    () => facturasTemp = val),
                                                 context);
                                             break;
                                           default:
@@ -205,7 +221,8 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                                         await filtrarFacturasPorFechaController(
                                             _textController,
                                             _textController2,
-                                            (val) => setState(() => facturasTemp = val),
+                                            (val) => setState(
+                                                () => facturasTemp = val),
                                             context);
                                         break;
                                       //Búsqueda por talonario
@@ -214,16 +231,16 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                                           facturasTemp.clear();
                                           await filtrarFacturasPorIdTalonario(
                                               _textController,
-                                              (val) =>
-                                                  setState(() => facturasTemp = val),
+                                              (val) => setState(
+                                                  () => facturasTemp = val),
                                               context);
                                           // Si la búsqueda es por CAI
                                         } else if (_atributoSeleccionado == 1) {
                                           facturasTemp.clear();
                                           await filtrarFacturasPorCAI(
                                               _textController,
-                                              (val) =>
-                                                  setState(() => facturasTemp = val),
+                                              (val) => setState(
+                                                  () => facturasTemp = val),
                                               context);
                                         }
                                         break;
@@ -232,7 +249,8 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                                         facturasTemp.clear();
                                         await filtrarFacturasPorIdEmpleado(
                                             _textController,
-                                            (val) => setState(() => facturasTemp = val),
+                                            (val) => setState(
+                                                () => facturasTemp = val),
                                             context);
                                         break;
                                       // Búsqueda por número de factura
@@ -261,25 +279,30 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                                           vertical: 26)),
                                 ),
                               ),
-                              (mostrarListaFacturasTemporal)?SizedBox(height: 10,):SizedBox(),
-                              (mostrarListaFacturasTemporal)?ElevatedButton(
-                                onPressed: () async {
-                                  mostrarListaFacturasTemporal = false;
-                                  facturasTemp.clear();
-                                  setState(() {
-                                  });
-                                },
-                                child: Text(
-                                  'Limpiar',
-                                  style: GoogleFonts.lato(),
-                                ),
-                                style: ButtonStyle(
-                                  padding: MaterialStateProperty.all(
-                                      EdgeInsets.symmetric(
-                                          horizontal: size.width * 0.015,
-                                          vertical: 26)),
-                                ),
-                              ):SizedBox(),
+                              (mostrarListaFacturasTemporal)
+                                  ? SizedBox(
+                                      height: 10,
+                                    )
+                                  : SizedBox(),
+                              (mostrarListaFacturasTemporal)
+                                  ? ElevatedButton(
+                                      onPressed: () async {
+                                        mostrarListaFacturasTemporal = false;
+                                        facturasTemp.clear();
+                                        setState(() {});
+                                      },
+                                      child: Text(
+                                        'Limpiar',
+                                        style: GoogleFonts.lato(),
+                                      ),
+                                      style: ButtonStyle(
+                                        padding: MaterialStateProperty.all(
+                                            EdgeInsets.symmetric(
+                                                horizontal: size.width * 0.015,
+                                                vertical: 26)),
+                                      ),
+                                    )
+                                  : SizedBox(),
                             ],
                           )
                         ]),
@@ -300,7 +323,7 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                                 SizedBox(
                                   height: size.height * 0.01,
                                 ),
-                                Expanded(child: _listViewUsuarios()),
+                                Expanded(child: _listViewUsuarios(context)),
                               ],
                             )))
                   ],
@@ -321,6 +344,7 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                     height: 10,
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton(
                         onPressed: () {
@@ -328,7 +352,45 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                         },
                         child: Text('Recargar'),
                       ),
-                      SizedBox(width: 5,),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text('Regresar'),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ));
+          } else if (snapshot.data == 500 &&
+              snapshot.connectionState == ConnectionState.done) {
+            return Scaffold(
+                body: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                      'Ocurrió un error al hacer la conexión con el servidor, contáctese con el administrador o presione recargar.'),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          setState(() {});
+                        },
+                        child: Text('Recargar'),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
                       ElevatedButton(
                         onPressed: () {
                           Navigator.pop(context);
@@ -373,16 +435,19 @@ class _ManipularFacturaState extends State<ManipularFactura> {
             ));
   }
 
-  ListView _listViewUsuarios() {
+  ListView _listViewUsuarios(context) {
     return ListView.separated(
       physics: BouncingScrollPhysics(),
       separatorBuilder: (_, i) => Divider(),
-      itemCount: (mostrarListaFacturasTemporal)?facturasTemp.length:facturas.length,
-      itemBuilder: (_, i) => _facturaItemList((mostrarListaFacturasTemporal)?facturasTemp[i]:facturas[i]),
+      itemCount: (mostrarListaFacturasTemporal)
+          ? facturasTemp.length
+          : facturas.length,
+      itemBuilder: (_, i) => _facturaItemList(
+          (mostrarListaFacturasTemporal) ? facturasTemp[i] : facturas[i], context),
     );
   }
 
-  Container _facturaItemList(FacturaBuscada factura) {
+  Container _facturaItemList(FacturaBuscada factura, context) {
     Size size = MediaQuery.of(context).size;
     return Container(
         decoration: BoxDecoration(color: Colors.white),
@@ -392,7 +457,7 @@ class _ManipularFacturaState extends State<ManipularFactura> {
             Expanded(
               flex: 1,
               child: Text(
-                '${factura.numeroFactura}',
+                factura.numeroFactura,
                 style: GoogleFonts.lato(fontSize: size.width * 0.009),
               ),
             ),
@@ -449,7 +514,7 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => MostrarFactura(
-                                  numeroFactura: int.parse(factura.numeroFactura.toString()))));
+                                  numeroFactura: factura.numeroFactura)));
                     },
                     child: Icon(Icons.visibility)))
           ],
@@ -467,7 +532,8 @@ class CamposDeBusqueda extends StatefulWidget {
     required TextEditingController textController,
     required this.campo,
     required this.textController2,
-    required this.callback, required this.atributoEscogido,
+    required this.callback,
+    required this.atributoEscogido,
   })  : _textController = textController,
         super(key: key);
 

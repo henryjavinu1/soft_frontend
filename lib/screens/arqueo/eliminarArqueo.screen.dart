@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:soft_frontend/services/arqueo.service.dart';
-import 'package:soft_frontend/models/arqueo.model.dart';
+import 'package:soft_frontend/controllers/Arqueo.controller.dart';
+import 'package:soft_frontend/models/Arqueo.model.dart';
 
 class EliminarArque extends StatefulWidget {
   final Arqueo arqueo;
@@ -70,8 +70,9 @@ class _EliminarArqueState extends State<EliminarArque> {
                                 onPressed: null,
                                 child: Center(
                                   child: ElevatedButton(
-                                      onPressed: () => eliminarArqueo(
-                                          idArqueoController.text),
+                                      onPressed: () =>
+                                          eliminarArqueo_Controller(
+                                              idArqueoController.text, context),
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 10, vertical: 10),

@@ -21,7 +21,7 @@ class _ActualizarCliente2State extends State<ActualizarCliente2> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Crear Cliente"),
+        title: const Text("Actualizar Cliente"),
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -32,16 +32,12 @@ class _ActualizarCliente2State extends State<ActualizarCliente2> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "Actualizar Cliente",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                ),
                 const SizedBox(height: 3),
                 const Text(
                   "Por favor llene los campos",
                   style: TextStyle(fontSize: 15, color: Color(0xff606060)),
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 10),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Container(
@@ -52,20 +48,20 @@ class _ActualizarCliente2State extends State<ActualizarCliente2> {
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              "ID",
-                              style: const TextStyle(fontSize: 18),
-                            ),
-                            TextFormField(
-                              enabled: false,
-                              controller: idController,
-                              decoration: const InputDecoration(
-                                border: const UnderlineInputBorder(),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 40,
-                            ),
+                            // const Text(
+                            //   "ID",
+                            //   style: const TextStyle(fontSize: 18),
+                            // ),
+                            // TextFormField(
+                            //   enabled: false,
+                            //   controller: idController,
+                            //   decoration: const InputDecoration(
+                            //     border: const UnderlineInputBorder(),
+                            //   ),
+                            // ),
+                            // const SizedBox(
+                            //   height: 40,
+                            // ),
                             const Text(
                               "Identificacion/DNI",
                               style: TextStyle(fontSize: 18),
