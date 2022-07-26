@@ -68,11 +68,11 @@ Future<List<Role?>> ActualizarRole(
   Role? roles = null;
   List<Role> RoleActualizado = [];
   try {
-    var response = await http.post(Uri.parse(API_URL + 'roles/updaterol'),
+    var response = await http.put(Uri.parse(API_URL + 'roles/updaterol'),
         body: ({
           'id': id,
-          'usuario': rol,
-          'password': descripcion,
+          'rol': rol,
+          'descripcion': descripcion,
         }));
     print(response.body);
     if (response.statusCode == 200) {
