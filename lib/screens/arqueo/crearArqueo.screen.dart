@@ -100,6 +100,32 @@ class _CrearArqueoState extends State<CrearArqueo> {
                                       )),
                                 ),
                               ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              TextButton(
+                                onPressed: null,
+                                child: Center(
+                                  child: ElevatedButton(
+                                      onPressed: () =>
+                                          Navigator.popAndPushNamed(
+                                              context, 'traer_arqueo'),
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10, vertical: 10),
+                                        child: Text('Regresar'),
+                                      )),
+                                ),
+                              ),
+                              /*TextButton(
+                                onPressed: () {
+                                  Navigator.popAndPushNamed(
+                                      context, 'pantalla_principal');
+                                },
+                                child: Text('Regresar',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 20)),
+                              )*/
                             ]),
                       ),
                     ),

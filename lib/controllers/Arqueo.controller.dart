@@ -3,7 +3,7 @@ import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:soft_frontend/models/errorPeticion.model.dart';
 import 'package:soft_frontend/screens/manipularFactura/components/dialogMensajeProblema.component.dart';
-import '../models/arqueo.model.dart';
+import '../models/Arqueo.model.dart';
 import '../services/Arqueo.service.dart';
 
 typedef void ListArqueo(List<Arqueo> arqueos);
@@ -29,7 +29,7 @@ Future<ManipularArqueo?> crearArqueo_Controller(
     if (arqueo != null) {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Arqueo Creado con exito')));
-      Navigator.pushNamed(context, 'traer_arqueo');
+      Navigator.pushNamed(context, 'PrincipalVenta');
     } else {}
   } else {
     ScaffoldMessenger.of(context)

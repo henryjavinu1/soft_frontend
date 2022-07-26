@@ -46,7 +46,7 @@ class PantallaDesktop extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading :false,
+        automaticallyImplyLeading: false,
         actions: <Widget>[
           TextButton(
             onPressed: () {
@@ -96,7 +96,7 @@ class PantallaDesktop extends StatelessWidget {
                   child: TextButtons(
                     img: 'salario.png',
                     name: "Modulo de Ventas",
-                    route: 'PrincipalVenta',
+                    route: 'traer_arqueo',
                     width: 0.2,
                     fontSize: 15,
                   ),
