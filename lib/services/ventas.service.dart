@@ -80,6 +80,32 @@ Future buscarClienteVenta(String dni, context) async {
   }
 }
 
+
+Future eliminarVenta(String id) async {
+  print(id);
+  var client = http.Client();
+  Ventas? venta = null;
+  List<Ventas?> ventaCreada = [];
+  try {
+    var response = await http.post(
+        Uri.parse(API_URL + "eliminarVenta"),
+        body: ({'id': id}));
+    print(response.body);
+    if (response.statusCode == 200) {
+      print(Ventas);
+      //return clienteCreado;
+    } else {
+      // return clienteCreado;
+    }
+    return ventaCreada;
+  } catch (e) {
+    print(e);
+    return ventaCreada;
+  } finally {
+    http.Client().close();
+  }
+}
+
 /*
 Future buscarProductoService(String codigoProductoR, context) async {
   try {

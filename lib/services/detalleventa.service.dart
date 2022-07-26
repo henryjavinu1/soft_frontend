@@ -81,3 +81,29 @@ Future buscarProductoService(String codigoProducto, context) async {
     return 1928;
   }
 }
+
+
+Future eliminarDetalle(String id) async {
+  print(id);
+  var client = http.Client();
+  DetalleDeVentasXid? detalle = null;
+  List<DetalleDeVentasXid?> detalleCreada = [];
+  try {
+    var response = await http.post(
+        Uri.parse(API_URL + "eliminardetalle"),
+        body: ({'id': id}));
+    print(response.body);
+    if (response.statusCode == 200) {
+      print(DetalleDeVentasXid);
+      //return clienteCreado;
+    } else {
+      // return clienteCreado;
+    }
+    return detalleCreada;
+  } catch (e) {
+    print(e);
+    return detalleCreada;
+  } finally {
+    http.Client().close();
+  }
+}

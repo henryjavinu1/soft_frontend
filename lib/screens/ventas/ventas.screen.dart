@@ -41,6 +41,20 @@ class _VentaState extends State<Venta> {
 
     mostrarVentas();
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading :false,
+        title: Text('Nueva Venta'),
+         actions: <Widget>[
+          TextButton(
+            
+            onPressed: () {
+              Navigator.popAndPushNamed(context, 'PrincipalVentas');
+            },
+            child: Text('Regresar',
+                style: TextStyle(color: Colors.white, fontSize: 20)),
+          ),
+        ],
+      ),
       body: Container(
         child: Padding(
           padding: const EdgeInsets.all(10),
@@ -213,7 +227,9 @@ class _VentaState extends State<Venta> {
                             Center(
                               child: ElevatedButton(
                                 onPressed: () {
+                                  
                                   if (botonesHabilitados) {
+                                  eliminarVenta_Controller(idVentaActual.toString(), context);  
                                   } else {
                                     null;
                                   }
@@ -497,23 +513,25 @@ class _VentaState extends State<Venta> {
                 style: TextStyle(fontSize: size.width * 0.009),
               ),),
   
-                      Expanded(
-            flex: 1,
-            child: TextButton(
-              child: const Text('Actualizar'),
-              onPressed: () {
-                Navigator.of(context);
+                      // Expanded(
+            // flex: 1,
+            // child: TextButton(
+              // child: const Text('Actualizar'),
+              // onPressed: () {
+                // Navigator.of(context);
                     // .push(MaterialPageRoute(builder: (BuildContext context) {
                   // return new ActualizarCliente2(
                     
                 // }));
-              },
-            )),
+              // },
+            // )),
         Expanded(
             flex: 1,
             child: TextButton(
-              child: Text("Eliminar"),
+              child: Text('Eliminar'),
               onPressed: () {
+                 eliminarDetalle_Controller(detalleVenta.id.toString(), context);  
+                 setState(() {});
                 // _showDialog(context, lista.id.toString());
               },
             )),

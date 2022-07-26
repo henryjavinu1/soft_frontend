@@ -104,3 +104,14 @@ Future buscarProductoController(
 
 
 
+Future<DetalleDeVentasXid?> eliminarDetalle_Controller(String id,context) async {
+  List<DetalleDeVentasXid?> detalle = await eliminarDetalle(id);
+  print(id);
+  if (detalle != null) {
+   
+    // Navigator.pushNamed(context, 'ventas');
+          ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Detalle eliminado con exito"))
+          );
+  } else {}
+}

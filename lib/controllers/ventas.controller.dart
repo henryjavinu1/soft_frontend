@@ -73,6 +73,17 @@ Future habilitarVenta(TextEditingController dniController, TextEditingController
   }
 }
 
+
+Future<Ventas?> eliminarVenta_Controller(String id,context) async {
+  List<Ventas?> venta = await eliminarVenta(id);
+  print(id);
+  if (venta != null) {
+    Navigator.pushNamed(context, 'ventas');
+          ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Venta eliminada con exito")));
+  } else {}
+}
+
 /*  Future buscarProductoController(TextEditingController codigoProducto, context) async {
   if (codigoProducto.text.isNotEmpty) {
     final response = await buscarProductoService(codigoProducto.text, context);
