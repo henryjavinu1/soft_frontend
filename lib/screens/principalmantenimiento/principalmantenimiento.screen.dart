@@ -59,11 +59,10 @@ class _Pantalla extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading :false,
+        automaticallyImplyLeading: false,
         title: Text("Modulo de Mantenimiento"),
         actions: <Widget>[
           TextButton(
-            
             onPressed: () {
               Navigator.popAndPushNamed(context, 'pantalla_principal');
             },
@@ -149,6 +148,21 @@ class _Pantalla extends StatelessWidget {
                   ),
                 ),
               ],
+              SizedBox(
+                width: 30,
+              ),
+              if (permisosId.contains(14)) ...[
+                  Visibility(
+                    visible: true,
+                    child: TextButtons(
+                      img: 'metodo-de-pago.png',
+                      name: 'Metodo de pago',
+                      route: 'listar_tipopago',
+                      width: 0.2,
+                      fontSize: 15,
+                    ),
+                  ),
+                ],
             ]),
           ]),
         ),
