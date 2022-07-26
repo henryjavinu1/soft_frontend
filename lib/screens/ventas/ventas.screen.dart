@@ -34,14 +34,14 @@ class _VentanaVentaState extends State<VentanaVenta> {
   var subTotal = "0";
   var descuentos = "0";
   var impuestos = "0";
-var totalISVController =  TextEditingController();
-var totalVentaController =TextEditingController();
-var   totalDescuentoVentaController = TextEditingController();
+  var totalISVController = TextEditingController();
+  var totalVentaController = TextEditingController();
+  var totalDescuentoVentaController = TextEditingController();
   bool botonesHabilitados = false;
   int idVentaActual = -1;
   int idDetalleActual = 0;
   late DetalleDeVentasXid datosDetalle;
-  double subtotal = 0 ;
+  double subtotal = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -50,11 +50,10 @@ var   totalDescuentoVentaController = TextEditingController();
     mostrarVentas();
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading :false,
+        automaticallyImplyLeading: false,
         title: Text('Nueva Venta'),
-         actions: <Widget>[
+        actions: <Widget>[
           TextButton(
-            
             onPressed: () {
               Navigator.popAndPushNamed(context, 'PrincipalVentas');
             },
@@ -235,9 +234,9 @@ var   totalDescuentoVentaController = TextEditingController();
                             Center(
                               child: ElevatedButton(
                                 onPressed: () {
-                                  
                                   if (botonesHabilitados) {
-                                  eliminarVenta_Controller(idVentaActual.toString(), context);  
+                                    eliminarVenta_Controller(
+                                        idVentaActual.toString(), context);
                                   } else {
                                     null;
                                   }
@@ -277,18 +276,17 @@ var   totalDescuentoVentaController = TextEditingController();
                                             cantidadProducController,
                                             idVentaActual,
                                             context);
-                                            
+
                                     if (response == DetalleDeVentasXid) {
                                       // idDetalleActual = response.id;
                                       datosDetalle = response;
                                       print('object');
-                                     
-                                    
+
                                       setState(() {});
                                     } else {
-                                     
                                       print('object2');
-                                      Future<List<String>> _total = mostrarTotales(idVentaActual);
+                                      Future<List<String>> _total =
+                                          mostrarTotales(idVentaActual);
                                       _total.then((value) {
                                         print(value);
                                         total = value[0];
@@ -339,20 +337,23 @@ var   totalDescuentoVentaController = TextEditingController();
                         Center(
                           child: ElevatedButton(
                             onPressed: () {
-                             
-
                               if (botonesHabilitados) {
-                                 Future<String> editar = actualizarVenta(idVentaActual.toString(),
-                               impuestos,
-                                total,
-                                 descuentos);
-                                 editar.then((value){
+                                Future<String> editar = actualizarVenta(
+                                    idVentaActual.toString(),
+                                    impuestos,
+                                    total,
+                                    descuentos);
+                                editar.then((value) {
                                   print('asjasd');
 
-                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Venta añadida con exito')));
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content:
+                                              Text('Venta añadida con exito')));
 
-
-                                 });
+                                  Navigator.pushReplacementNamed(
+                                      context, 'mostrar_ventas');
+                                });
                               } else {
                                 null;
                               }
@@ -454,24 +455,33 @@ var   totalDescuentoVentaController = TextEditingController();
                               }
                               }
                             ),*/
-                              child: (idVentaActual != -1)?Expanded(
-                                child: FutureBuilder(
-                                  future: mostrardetalleventa(idVentaActual),
-                                  builder: (context, AsyncSnapshot<dynamic> snapshot) {
-                                    if (snapshot.connectionState == ConnectionState.done && snapshot.data is DetalleDeVentasXid) {
-                                      DetalleDeVentasXid datosDetalle2 = snapshot.data;
-                                      return ListView.builder(
-                                        scrollDirection: Axis.vertical,
-                                        itemCount: datosDetalle2.detalleDeVentaNueva.length,
-                                                    itemBuilder: (_, i) => _facturaItemList(
-                                                        datosDetalle2.detalleDeVentaNueva[i]),
-                                                  );
-                                    } else {
-                                      return CircularProgressIndicator();
-                                    }
-                                  }
-                                ),
-                              ):SizedBox()),
+                              child: (idVentaActual != -1)
+                                  ? Expanded(
+                                      child: FutureBuilder(
+                                          future: mostrardetalleventa(
+                                              idVentaActual),
+                                          builder: (context,
+                                              AsyncSnapshot<dynamic> snapshot) {
+                                            if (snapshot.connectionState ==
+                                                    ConnectionState.done &&
+                                                snapshot.data
+                                                    is DetalleDeVentasXid) {
+                                              DetalleDeVentasXid datosDetalle2 =
+                                                  snapshot.data;
+                                              return ListView.builder(
+                                                scrollDirection: Axis.vertical,
+                                                itemCount: datosDetalle2
+                                                    .detalleDeVentaNueva.length,
+                                                itemBuilder: (_, i) =>
+                                                    _facturaItemList(datosDetalle2
+                                                        .detalleDeVentaNueva[i]),
+                                              );
+                                            } else {
+                                              return CircularProgressIndicator();
+                                            }
+                                          }),
+                                    )
+                                  : SizedBox()),
                         ],
                       ),
                     ),
@@ -532,56 +542,59 @@ var   totalDescuentoVentaController = TextEditingController();
                 detalleVenta.isvAplicado,
                 style: TextStyle(fontSize: size.width * 0.009),
               ),
-
             ),
-            
+
             Expanded(
               flex: 1,
               child: Text(
                 detalleVenta.descuentoAplicado,
                 style: TextStyle(fontSize: size.width * 0.009),
-              ),),
-               Expanded(
+              ),
+            ),
+            Expanded(
               flex: 1,
               child: Text(
                 detalleVenta.totalDetalleVenta,
                 style: TextStyle(fontSize: size.width * 0.009),
-              ),),
-  
-                      // Expanded(
+              ),
+            ),
+
+            // Expanded(
             // flex: 1,
             // child: TextButton(
-              // child: const Text('Actualizar'),
-              // onPressed: () {
-                // Navigator.of(context);
-                    // .push(MaterialPageRoute(builder: (BuildContext context) {
-                  // return new ActualizarCliente2(
-                    
-                // }));
-              // },
-            // )),
-        Expanded(
-            flex: 1,
-            child: TextButton(
-              child: Text('Eliminar'),
-              onPressed: () {
-                 Future<DetalleDeVentasXid?> eliminarDetalle = eliminarDetalle_Controller(detalleVenta.id.toString(), context);  
-                 eliminarDetalle.then((value) {
-                  Future<List<String>> _total = mostrarTotales(idVentaActual);
-                                      _total.then((value) {
-                                        print(value);
-                                        total = value[0];
-                                        impuestos = value[1];
-                                        descuentos = value[2];
-                                        subTotal = value[3];
-                                        setState(() {});
-                                      });
-                 });
-                 
-                // _showDialog(context, lista.id.toString());
-              },
-            )),
+            // child: const Text('Actualizar'),
+            // onPressed: () {
+            // Navigator.of(context);
+            // .push(MaterialPageRoute(builder: (BuildContext context) {
+            // return new ActualizarCliente2(
 
+            // }));
+            // },
+            // )),
+            Expanded(
+                flex: 1,
+                child: TextButton(
+                  child: Text('Eliminar'),
+                  onPressed: () {
+                    Future<DetalleDeVentasXid?> eliminarDetalle =
+                        eliminarDetalle_Controller(
+                            detalleVenta.id.toString(), context);
+                    eliminarDetalle.then((value) {
+                      Future<List<String>> _total =
+                          mostrarTotales(idVentaActual);
+                      _total.then((value) {
+                        print(value);
+                        total = value[0];
+                        impuestos = value[1];
+                        descuentos = value[2];
+                        subTotal = value[3];
+                        setState(() {});
+                      });
+                    });
+
+                    // _showDialog(context, lista.id.toString());
+                  },
+                )),
           ],
         ));
   }
