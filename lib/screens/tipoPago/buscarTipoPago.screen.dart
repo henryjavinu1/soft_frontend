@@ -33,6 +33,7 @@ class _BuscarTipoPagoState extends State<BuscarTipoPago> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(title: const Text('Manipular Tipo de Pagos')),
       backgroundColor: Color.fromARGB(255, 243, 243, 243),
       body: Padding(
         padding: EdgeInsets.symmetric(
@@ -44,7 +45,7 @@ class _BuscarTipoPagoState extends State<BuscarTipoPago> {
                 child: Padding(
                   padding: EdgeInsets.only(right: size.width * 0.01),
                   child: Text(
-                    'Manipular Tipo de Pagos',
+                    '                                                                                                                                                                                                                ',
                     style: GoogleFonts.poppins(
                         color: Colors.black87,
                         fontSize: size.width * 0.015,

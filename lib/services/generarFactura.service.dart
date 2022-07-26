@@ -4,20 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:soft_frontend/models/models.dart';
 
+import '../constans.dart';
 import '../models/crearFactura.model.dart';
 
-Future<void> crearFactura(String idVenta, String idTipoPago, context) async {
+Future<void> crearFactunhra(String idVenta, String idTipoPago, context) async {
   if (idVenta.isNotEmpty && idTipoPago.isNotEmpty) {
-    var response =
-        await http.post(Uri.parse("http://localhost:8080/api/gene/insertfact"),
-            body: ({
-              'idVenta': idVenta,
-              'idTipoPago': idTipoPago,
-            }));
-
-    // Factura factura =
-    //Factura.fromJson(json.decode(response.body)["insertfactura"]);
-    // print(factura.toJson().toString());
+    var response = await http.post(Uri.parse(API_URL + "gene/insertfact"),
+        body: ({
+          'idVenta': idVenta,
+          'idTipoPago': idTipoPago,
+        }));
     if (response.statusCode == 200) {
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("Factura Creado")));
@@ -28,12 +24,25 @@ Future<void> crearFactura(String idVenta, String idTipoPago, context) async {
   }
 }
 
-Future generarNumero(String idVenta) async {
-  if (idVenta.isNotEmpty) {
-    var http;
-    var response = await http.post(
-        Uri.parse("http://localhost:8080/api/gene/convertirString"),
-        body: {"idVenta": idVenta});
-    return;
+Future<List<Factura?>> crearFactura(
+    String idVenta, String idTipoPago, context) async {
+  var fact = http.Client();
+  Factura? factura = null;
+  List<Factura?> facturaCreada = [];
+  try {
+    var response = await http.post(Uri.parse(API_URL + "gene/insertfact"),
+        body: ({
+          'idVenta': idVenta,
+          'idTipoPago': idTipoPago,
+        }));
+    if (response.statusCode == 200) {
+      final Facturaa = json.decode(response.body);
+      print(Facturaa);
+    } else {}
+    return facturaCreada;
+  } catch (e) {
+    return facturaCreada;
+  } finally {
+    http.Client().close();
   }
 }

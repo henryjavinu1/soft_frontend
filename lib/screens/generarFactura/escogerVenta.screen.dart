@@ -12,6 +12,7 @@ class EscogerVenta extends StatefulWidget {
 class _EscogerVentaState extends State<EscogerVenta> {
   final _textController = new TextEditingController();
   List<MostrarVenta> venta = [];
+  List<MostrarVenta> filtroVenta = [];
 
   @override
   void initState() {
@@ -28,12 +29,44 @@ class _EscogerVentaState extends State<EscogerVenta> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(title: const Text('Modulo Ventas')),
       backgroundColor: Color.fromARGB(255, 243, 243, 243),
       body: Padding(
         padding: EdgeInsets.symmetric(
             vertical: size.height * 0.02, horizontal: size.width * 0.03),
         child: Column(
           children: [
+            Row(
+              children: [
+                Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: size.width * 0.02),
+                      child: TextField(
+                        onChanged: (value) {
+                          setState(() {
+                            filtroVenta = venta
+                                .where((element) =>
+                                    element.id.toString().contains(value))
+                                .toList();
+                          });
+                        },
+                        controller: _textController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.circular(size.width * 0.02),
+                            borderSide: BorderSide(
+                              color: Colors.black,
+                            ),
+                          ),
+                          labelText: 'Buscar Por ID venta',
+                        ),
+                      ),
+                    )),
+              ],
+            ),
             Expanded(
                 child: Container(
                     margin: EdgeInsets.symmetric(vertical: size.height * 0.02),
@@ -111,7 +144,16 @@ class _EscogerVentaState extends State<EscogerVenta> {
                               ),
                             ),
                             Expanded(
-                              flex: 4,
+                              flex: 3,
+                              child: Text(
+                                ' ',
+                                style: GoogleFonts.lato(
+                                    fontSize: size.width * 0.01,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 3,
                               child: Text(
                                 ' ',
                                 style: GoogleFonts.lato(
@@ -207,7 +249,19 @@ class _EscogerVentaState extends State<EscogerVenta> {
                         new CrearFactura(venta: venta),
                   ),
                 ),
-                child: Text('Facturar'),
+                child: Text('Procesar'),
+              ),
+            ),
+            TextButton(
+              onPressed: null,
+              child: ElevatedButton(
+                onPressed: () => Navigator.of(context).push(
+                  new MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        new CrearFactura(venta: venta),
+                  ),
+                ),
+                child: Text('Eliminar'),
               ),
             ),
           ],

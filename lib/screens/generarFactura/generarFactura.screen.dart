@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_frontend/models/ventaBuscada.model.dart';
+import 'package:soft_frontend/screens/manipularFactura/manipularfactura.screen.dart';
 import 'package:soft_frontend/services/generarFactura.service.dart';
 import '../../models/tipoPagoBuscado.model.dart';
 import '../../services/tipoPago.service.dart';
@@ -72,6 +73,10 @@ class _CrearFacturaState extends State<CrearFactura> {
     // ignore: dead_code, dead_code
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Procesar Tipo de pago para la factura'),
+        centerTitle: true,
+      ),
       body: Container(
         decoration: BoxDecoration(color: Colors.white),
         child: Column(
@@ -102,27 +107,31 @@ class _CrearFacturaState extends State<CrearFactura> {
               ),
             ),
             Expanded(child: _listViewTipoPag()),
-            TextButton(
-              onPressed: null,
-              child: Center(
-                child: ElevatedButton(
-                    onPressed: () => crearFactura(idVentaController.text,
-                            idTipoPagoController.text, context)
-                        .then((value) => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => EscogerVenta(),
-                              ),
-                            )),
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                      child: Text('Generar factura'),
-                    )),
-              ),
-            ),
             SizedBox(
               height: 20,
+            ),
+            Column(
+              children: [
+                TextButton(
+                  onPressed: null,
+                  child: Center(
+                    child: ElevatedButton(
+                        onPressed: () => crearFactura(idVentaController.text,
+                                idTipoPagoController.text, context)
+                            .then((value) => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ManipularFactura(),
+                                  ),
+                                )),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 10),
+                          child: Text('Procesar Factura'),
+                        )),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -140,7 +149,6 @@ class _CrearFacturaState extends State<CrearFactura> {
   }
 
   Container _pagoItemList(TipoPagoBuscado tipoPago) {
-    Size size = MediaQuery.of(this.context).size;
     return Container(
         decoration: BoxDecoration(color: Colors.white),
         child: Row(

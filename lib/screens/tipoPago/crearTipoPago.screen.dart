@@ -13,8 +13,9 @@ class _CrearTipoPagosState extends State<CrearTipoPagos> {
   var descripcionTipoPagoController = TextEditingController();
 
   @override
-  Widget build(context) =>
-      Scaffold(body: LayoutBuilder(builder: (context, constraints) {
+  Widget build(context) => Scaffold(
+      appBar: AppBar(title: const Text('Tipo de Pagos')),
+      body: LayoutBuilder(builder: (context, constraints) {
         return SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(

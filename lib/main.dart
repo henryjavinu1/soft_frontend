@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soft_frontend/models/mostrarUnaFactura.model.dart';
+import 'package:soft_frontend/screens/arqueo/buscarArqueoIdUsuario.screen.dart';
 import 'package:soft_frontend/screens/cliente/todosLosClientes.screen.dart';
 import 'package:soft_frontend/screens/empleado/crearEmpleado.screen.dart';
 import 'package:soft_frontend/screens/generarFactura/escogerVenta.screen.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: 'listar_tipopago',
+      initialRoute: 'mostrar_ventas',
       routes: {
         'login': (_) => const Login(),
         'pantalla_principal': (_) => const PantallaPrincipal(),
