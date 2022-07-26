@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:soft_frontend/services/tipoPago.service.dart';
 
+import 'buscarTipoPago.screen.dart';
+
 class CrearTipoPagos extends StatefulWidget {
   @override
   State<CrearTipoPagos> createState() => _CrearTipoPagosState();
@@ -11,8 +13,9 @@ class _CrearTipoPagosState extends State<CrearTipoPagos> {
   var descripcionTipoPagoController = TextEditingController();
 
   @override
-  Widget build(context) =>
-      Scaffold(body: LayoutBuilder(builder: (context, constraints) {
+  Widget build(context) => Scaffold(
+      appBar: AppBar(title: const Text('Tipo de Pagos')),
+      body: LayoutBuilder(builder: (context, constraints) {
         return SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
@@ -74,9 +77,17 @@ class _CrearTipoPagosState extends State<CrearTipoPagos> {
                                 child: Center(
                                   child: ElevatedButton(
                                       onPressed: () => CrearTipoPago(
-                                          tipoDePagoController.text,
-                                          descripcionTipoPagoController.text,
-                                          context),
+                                              tipoDePagoController.text,
+                                              descripcionTipoPagoController
+                                                  .text,
+                                              context)
+                                          .then((value) => Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      BuscarTipoPago(),
+                                                ),
+                                              )),
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 10, vertical: 10),
