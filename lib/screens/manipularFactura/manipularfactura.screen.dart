@@ -423,7 +423,7 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                   // Validar tamaño de la pantalla, si es menor a 800 y la variable
                   // mostrarOpcionesDeBusquedaMovil es verdadero, mostrará 
                   // Un fondo oscuro al mostrar los FAB.
-                  ((size.width < 800 && mostrarOpcionesDeBusquedaMovil))
+                  ((size.width < 800 && mostrarOpcionesDeBusquedaMovil) || mostrarCamposDeBusquedaMovil)
                       // Menor a 800 y mostrarOpcionesDeBusquedaMovil verdadero:
                       // Mostrará fondo opaco al estar activo los FAB
                       ? Container(
