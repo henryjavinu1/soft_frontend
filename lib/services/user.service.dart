@@ -87,7 +87,6 @@ Future<List<Usuario?>> eliminarUsuario(String id) async {
 
 Future<List<Usuario?>> ActualizarUsuario(String id, String usuario,
     String password, String email, String idEmpleado, String idRol) async {
-  ////////////////
   var client = http.Client();
   Usuario? usuario = null;
   List<Usuario> usuarioActualizado = [];
@@ -104,10 +103,7 @@ Future<List<Usuario?>> ActualizarUsuario(String id, String usuario,
     print(response.body);
     if (response.statusCode == 200) {
       print(Usuario);
-      //return clienteCreado;
-    } else {
-      // return clienteCreado;
-    }
+    } else {}
     return usuarioActualizado;
   } catch (e) {
     return usuarioActualizado;
