@@ -47,8 +47,6 @@ Future buscarFacturaPorNumero(String numeroFactura, String token) async {
       return facturaBuscada;
     } else if (response.statusCode == 404) {
       return response.statusCode;
-    } else if (response.statusCode == 403) {
-      return 403;
     }
   } catch (e) {
     print(e);
@@ -81,8 +79,6 @@ Future filtrarFacturasPorCliente(String nombre, String rtn, String dni, String t
       final error = mensajePeticionFromJson(response.body);
       print(error);
       return error;
-    } else if (response.statusCode == 403) {
-      return 403;
     }
     return facturaVacia;
   } catch (e) {
@@ -114,8 +110,6 @@ Future filtrarFacturasPorFecha(String fecha1, String fecha2, String token) async
       final error = mensajePeticionFromJson(response.body);
       print(error);
       return error;
-    } else if (response.statusCode == 403) {
-      return 403;
     }
     return facturaVacia;
   } catch (e) {
@@ -147,8 +141,6 @@ Future filtrarFacturasPorTalonario(String idTalonario, String cai, String token)
       final error = mensajePeticionFromJson(response.body);
       print(error);
       return error;
-    } else if (response.statusCode == 403) {
-      return 403;
     }
     return facturaVacia;
   } catch (e) {
@@ -180,8 +172,6 @@ Future filtrarFacturasPorEmpleado(
       final error = mensajePeticionFromJson(response.body);
       print(error);
       return error;
-    } else if (response.statusCode == 403) {
-      return 403;
     }
     return facturaVacia;
   } catch (e) {
