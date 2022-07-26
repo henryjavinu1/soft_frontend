@@ -61,37 +61,35 @@ class _Pantalla extends StatelessWidget {
     }
 
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading :false,
+        title: Text("Modulo Gestion de Usuarios"),
+         actions: <Widget>[
+          TextButton(
+            
+            onPressed: () {
+              Navigator.popAndPushNamed(context, 'pantalla_principal');
+            },
+            child: Text("Regresar",
+                style: TextStyle(color: Colors.white, fontSize: 20)),
+          ),
+        ],
+      ),
       body: Container(
         color: const Color(0xffF3F3F3),
         child: Padding(
           padding: const EdgeInsets.all(50),
           child: Column(children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
                   'Modulo de Gestion de usuarios',
-                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 20),
                 ),
                 const SizedBox(
                   width: 40,
                 ),
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: Container(
-                      width: size.width * 0.2,
-                      padding: const EdgeInsets.all(25),
-                      child: const Text(
-                        'Regresar',
-                        textAlign: TextAlign.center,
-                        style:
-                            TextStyle(fontSize: 18, color: Color(0xff525252)),
-                      )),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        const Color(0xffD9D9D9)),
-                  ),
-                )
               ],
             ),
             const SizedBox(
@@ -102,10 +100,11 @@ class _Pantalla extends StatelessWidget {
                 Visibility(
                     visible: true,
                     child: TextButtons(
+                      img: 'empleado.png',
                       name: 'Empleados',
                       route: 'traer_empleados',
                       width: 0.2,
-                      fontSize: 18,
+                      fontSize: 15,
                     )),
               ],
               SizedBox(
@@ -115,10 +114,11 @@ class _Pantalla extends StatelessWidget {
                 Visibility(
                   visible: true,
                   child: TextButtons(
+                    img: 'agregar.png',
                     name: 'Usuarios',
                     route: 'gestionUsuarios',
                     width: 0.2,
-                    fontSize: 18,
+                    fontSize: 15,
                   ),
                 ),
               ],
@@ -129,10 +129,11 @@ class _Pantalla extends StatelessWidget {
                 Visibility(
                   visible: true,
                   child: TextButtons(
+                    img: 'tareas.png',
                     name: 'Rol',
                     route: 'gestionRol',
                     width: 0.2,
-                    fontSize: 18,
+                    fontSize: 15,
                   ),
                 ),
               ],

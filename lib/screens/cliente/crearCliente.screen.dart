@@ -22,6 +22,8 @@ class _CrearClientesState extends State<CrearClientes> {
       Scaffold(body: LayoutBuilder(builder: (context, constraints) {
         return Scaffold(
           appBar: AppBar(
+            leading: IconButton(icon: const Icon( Icons.arrow_back),
+            onPressed: () {Navigator.pushReplacementNamed(context, 'traer_clientes');},),
             title: Text('Crear Cliente'),
           ),
           body: SingleChildScrollView(
@@ -157,7 +159,7 @@ class _CrearClientesState extends State<CrearClientes> {
                                   onPressed: null,
                                   child: Center(
                                       child: ElevatedButton(
-                                        onPressed: () => Navigator.pushNamed(context, 'traer_clientes'),
+                                        onPressed: () => Navigator.popAndPushNamed(context, 'traer_clientes'),
                                         child: Padding(
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 10, vertical: 10),

@@ -19,7 +19,7 @@ class _LoginState extends State<Login> {
   Widget build(context) =>
       Scaffold(
         appBar: AppBar(
-          
+          automaticallyImplyLeading :false,
           title: Text("Iniciar Sesión"),
           centerTitle: true,
         ),

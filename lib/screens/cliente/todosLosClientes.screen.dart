@@ -28,7 +28,11 @@ class _TodosLosClientes2State extends State<TodosLosClientes2> {
     Size size = MediaQuery.of(context).size;
     var buscadorcontroller = TextEditingController();
     return Scaffold(
-        appBar: AppBar(title: const Text("Modulo Clientes")),
+        appBar: AppBar(
+          leading: IconButton(icon: const Icon( Icons.arrow_back),
+          onPressed: () {Navigator.pushReplacementNamed(context, 'mantenimiento');},),
+          title: const Text('Modulo Clientes')
+        ),
         body: Container(
           child: FutureBuilder(
             future: traerClientes(),
@@ -44,17 +48,17 @@ class _TodosLosClientes2State extends State<TodosLosClientes2> {
                   child: Column(
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           TextButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, "crear_cliente");
+                              Navigator.pushReplacementNamed(context, 'crear_cliente');
                             },
                             child: Container(
                                 width: size.width * 0.2,
                                 padding: const EdgeInsets.all(15),
                                 child: const Text(
-                                  "Crear Cliente",
+                                  'Crear Cliente',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 18, color: Color(0xff525252)),
@@ -63,9 +67,9 @@ class _TodosLosClientes2State extends State<TodosLosClientes2> {
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   const Color(0xffD9D9D9)),
                             ),
-                          ),
+                          ),const SizedBox(width: 20),
                           TextButton(
-                            onPressed: () => Navigator.pushNamed(context, 'mantenimiento'),
+                            onPressed: () => Navigator.popAndPushNamed(context, 'mantenimiento'),
                             child: Container(
                                 width: size.width * 0.2,
                                 padding: const EdgeInsets.all(15),
@@ -87,29 +91,36 @@ class _TodosLosClientes2State extends State<TodosLosClientes2> {
                       ),
                       Row(
                       children: [
+                        Expanded(child:
                         Padding(
                           padding: EdgeInsets.only(left: size.height * 0.05),
                           child: Text('DNI', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
-                        ),
+                        )),
+                        Expanded(child:
                         Padding(
-                          padding: EdgeInsets.only(left: size.height * 0.35),
+                          padding: EdgeInsets.only(left: size.height * 0.05),
                           child: Text('Nombre', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
-                        ),
+                        )),
+                        Expanded(child:
                         Padding(
-                          padding: EdgeInsets.only(left: size.height * 0.35),
+                          padding: EdgeInsets.only(left: size.height * 0.05),
                           child: Text('Apellido', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
-                        ),
+                        )),
+                        Expanded(child:
                         Padding(
-                          padding: EdgeInsets.only(left: size.height * 0.35),
+                          padding: EdgeInsets.only(left: size.height * 0.05),
                           child: Text('Dirección', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
-                        ),
+                        )),
+                        Expanded(child:
                         Padding(
-                          padding: EdgeInsets.only(left: size.height * 0.40),
+                          padding: EdgeInsets.only(left: size.height * 0.05),
                           child: Text('Opciones', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
-                        ),
+                        )),
                       ],
-                    ),
-                      Expanded(
+                    ),const SizedBox(
+                        height: 20,
+                      ),
+                        Expanded(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Center(
@@ -120,7 +131,7 @@ class _TodosLosClientes2State extends State<TodosLosClientes2> {
                             ),
                           ),
                         ),
-                      ),
+                        ),
                     ],
                   ),
                 );

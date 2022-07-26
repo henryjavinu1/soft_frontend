@@ -12,11 +12,12 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Text(
-            'Id Arqueo',
+            '#Arqueo',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01,
                 fontWeight: FontWeight.w800,
@@ -26,7 +27,7 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 3,
           child: Text(
             'Fecha Inicio',
             style: GoogleFonts.lato(
@@ -36,7 +37,7 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 3,
           child: Text(
             'Fecha Final',
             style: GoogleFonts.lato(
@@ -46,7 +47,7 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Text(
             'efectivo Apertura',
             style: GoogleFonts.lato(
@@ -56,7 +57,7 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Text(
             'efectivo Cierre',
             style: GoogleFonts.lato(
@@ -66,7 +67,7 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Text(
             'otros Pagos',
             style: GoogleFonts.lato(
@@ -76,7 +77,7 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Text(
             'ventaCredito',
             style: GoogleFonts.lato(
@@ -86,7 +87,7 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Text(
             'ventaTotal',
             style: GoogleFonts.lato(
@@ -96,7 +97,7 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Text(
             'efectivoTotal',
             style: GoogleFonts.lato(
@@ -105,8 +106,8 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
             textScaleFactor: 1,
           ),
         ),
-        Expanded(
-          flex: 1,
+        /*Expanded(
+          flex: 2,
           child: Text(
             'isDelete',
             style: GoogleFonts.lato(
@@ -114,9 +115,9 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
             textAlign: TextAlign.center,
             textScaleFactor: 1,
           ),
-        ),
+        ),*/
         Expanded(
-          flex: 1,
+          flex: 3,
           child: Text(
             'createdAt',
             style: GoogleFonts.lato(
@@ -126,7 +127,7 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 3,
           child: Text(
             'updatedAt',
             style: GoogleFonts.lato(
@@ -136,9 +137,9 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Text(
-            'idUsuario',
+            '#Usuario',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
             textAlign: TextAlign.center,
@@ -146,9 +147,9 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Text(
-            'idSesion',
+            '#Sesion',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
             textAlign: TextAlign.center,
@@ -156,7 +157,7 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Container(),
         ),
       ],

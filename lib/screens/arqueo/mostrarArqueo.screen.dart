@@ -32,7 +32,19 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: AppBar(title: const Text('Modulo Arqueo')),
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: const Text('Modulo Arqueo'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.popAndPushNamed(context, 'pantalla_principal');
+              },
+              child: Text('Regresar',
+                  style: TextStyle(color: Colors.white, fontSize: 20)),
+            ),
+          ],
+        ),
         body: FutureBuilder(
           future: traerArqueos(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
@@ -161,6 +173,9 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                             child: Column(
                               children: [
                                 CabeceraDeTablaArqueo(size: size),
+                                SizedBox(
+                                  height: size.height * 0.01,
+                                ),
                                 Expanded(
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
@@ -172,7 +187,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                                               ? filtroArqueos.length
                                               : listaArqueos.length,
                                           itemBuilder: (context, index) {
-                                            item(listaArqueos[index]);
+                                            //item(listaArqueos[index]);
                                             return Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
@@ -204,7 +219,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                                                         textScaleFactor: 1,
                                                       )),
                                                   Expanded(
-                                                      flex: 1,
+                                                      flex: 3,
                                                       child: Text(
                                                         _textEditingController!
                                                                 .text.isNotEmpty
@@ -229,7 +244,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                                                         textScaleFactor: 1,
                                                       )),
                                                   Expanded(
-                                                      flex: 1,
+                                                      flex: 3,
                                                       child: Text(
                                                         _textEditingController!
                                                                 .text.isNotEmpty
@@ -254,7 +269,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                                                         textScaleFactor: 1,
                                                       )),
                                                   Expanded(
-                                                      flex: 1,
+                                                      flex: 2,
                                                       child: Text(
                                                         _textEditingController!
                                                                 .text.isNotEmpty
@@ -279,7 +294,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                                                         textScaleFactor: 1,
                                                       )),
                                                   Expanded(
-                                                      flex: 1,
+                                                      flex: 2,
                                                       child: Text(
                                                         _textEditingController!
                                                                 .text.isNotEmpty
@@ -304,7 +319,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                                                         textScaleFactor: 1,
                                                       )),
                                                   Expanded(
-                                                      flex: 1,
+                                                      flex: 2,
                                                       child: Text(
                                                         _textEditingController!
                                                                 .text.isNotEmpty
@@ -329,7 +344,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                                                         textScaleFactor: 1,
                                                       )),
                                                   Expanded(
-                                                      flex: 1,
+                                                      flex: 2,
                                                       child: Text(
                                                         _textEditingController!
                                                                 .text.isNotEmpty
@@ -354,7 +369,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                                                         textScaleFactor: 1,
                                                       )),
                                                   Expanded(
-                                                      flex: 1,
+                                                      flex: 2,
                                                       child: Text(
                                                         _textEditingController!
                                                                 .text.isNotEmpty
@@ -379,7 +394,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                                                         textScaleFactor: 1,
                                                       )),
                                                   Expanded(
-                                                      flex: 1,
+                                                      flex: 2,
                                                       child: Text(
                                                         _textEditingController!
                                                                 .text.isNotEmpty
@@ -403,7 +418,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                                                             TextAlign.center,
                                                         textScaleFactor: 1,
                                                       )),
-                                                  Expanded(
+                                                  /*Expanded(
                                                       flex: 1,
                                                       child: Text(
                                                         _textEditingController!
@@ -427,9 +442,9 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                                                         textAlign:
                                                             TextAlign.center,
                                                         textScaleFactor: 1,
-                                                      )),
+                                                      )),*/
                                                   Expanded(
-                                                      flex: 1,
+                                                      flex: 3,
                                                       child: Text(
                                                         _textEditingController!
                                                                 .text.isNotEmpty
@@ -454,7 +469,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                                                         textScaleFactor: 1,
                                                       )),
                                                   Expanded(
-                                                      flex: 1,
+                                                      flex: 3,
                                                       child: Text(
                                                         _textEditingController!
                                                                 .text.isNotEmpty
@@ -529,7 +544,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                                                         textScaleFactor: 1,
                                                       )),
                                                   Expanded(
-                                                      flex: 1,
+                                                      flex: 3,
                                                       child: TextButton(
                                                         child: Text('Eliminar'),
                                                         onPressed: () {
@@ -542,7 +557,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                                                         },
                                                       )),
                                                   Expanded(
-                                                      flex: 1,
+                                                      flex: 3,
                                                       child: TextButton(
                                                         child: Text(
                                                             'Cerrar Sesion'),

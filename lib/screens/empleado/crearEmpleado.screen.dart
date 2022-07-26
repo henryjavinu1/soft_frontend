@@ -19,7 +19,13 @@ class _CrearEmpleadosState extends State<crearEmpleados> {
 
   @override
   Widget build(context) =>
-      Scaffold(body: LayoutBuilder(builder: (context, constraints) {
+      Scaffold(
+        appBar: AppBar(
+            leading: IconButton(icon: const Icon( Icons.arrow_back),
+            onPressed: () {Navigator.pushReplacementNamed(context, 'traer_empleados');},),
+            title: Text('Crear Empleado'),
+          ),
+        body: LayoutBuilder(builder: (context, constraints) {
         return SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
@@ -32,16 +38,12 @@ class _CrearEmpleadosState extends State<crearEmpleados> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "Crear Empleado",
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                  ),
                   const SizedBox(height: 3),
                   const Text(
                     "llenar todos los campos",
                     style: TextStyle(fontSize: 15, color: Color(0xff606060)),
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 20),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Container(
@@ -60,7 +62,7 @@ class _CrearEmpleadosState extends State<crearEmpleados> {
                                 controller: dniController,
                                 decoration: InputDecoration(
                                     border: UnderlineInputBorder(),
-                                    hintText: '061019901789'),
+                                    hintText: '0610-1990-1789'),
                               ),
                               SizedBox(
                                 height: 40,
@@ -174,7 +176,7 @@ class _CrearEmpleadosState extends State<crearEmpleados> {
                                         child: Center(
                                             child: ElevatedButton(
                                                 onPressed: () =>
-                                                    Navigator.pushNamed(context,
+                                                     Navigator.popAndPushNamed(context, 
                                                         'traer_empleados'),
                                                 child: Padding(
                                                   padding: EdgeInsets.symmetric(
