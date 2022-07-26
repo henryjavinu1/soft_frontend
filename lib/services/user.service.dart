@@ -104,10 +104,7 @@ Future<List<Usuario?>> ActualizarUsuario(String id, String usuario,
     print(response.body);
     if (response.statusCode == 200) {
       print(Usuario);
-      //return clienteCreado;
-    } else {
-      // return clienteCreado;
-    }
+    } else {}
     return usuarioActualizado;
   } catch (e) {
     return usuarioActualizado;
