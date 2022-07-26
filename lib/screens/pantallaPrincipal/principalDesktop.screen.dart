@@ -46,6 +46,7 @@ class PantallaDesktop extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         actions: <Widget>[
           TextButton(
             onPressed: () {
@@ -63,14 +64,11 @@ class PantallaDesktop extends StatelessWidget {
           padding: const EdgeInsets.all(50),
           child: Column(children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: const [
                 Text(
-                  "Panel Principal ${user?.usuario}",
-                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  width: 40,
+                  "Panel Principal de Modulos",
+                  style: TextStyle(fontSize: 20),
                 ),
               ],
             ),
@@ -82,10 +80,11 @@ class PantallaDesktop extends StatelessWidget {
                 Visibility(
                     visible: true,
                     child: TextButtons(
+                      img: 'mantenimiento.png',
                       name: "Modulo de Mantenimiento",
                       route: 'mantenimiento',
-                      width: 0.3,
-                      fontSize: 18,
+                      width: 0.2,
+                      fontSize: 15,
                     )),
               ],
               SizedBox(
@@ -95,34 +94,35 @@ class PantallaDesktop extends StatelessWidget {
                 Visibility(
                   visible: true,
                   child: TextButtons(
+                    img: 'salario.png',
                     name: "Modulo de Ventas",
-                    route: 'PrincipalVenta',
-                    width: 0.3,
-                    fontSize: 18,
+                    route: 'traer_arqueo',
+                    width: 0.2,
+                    fontSize: 15,
                   ),
                 ),
               ],
+              const SizedBox(
+                width: 30,
+              ),
+              if (permisosId.contains(43) ||
+                  permisosId.contains(28) ||
+                  permisosId.contains(12)) ...[
+                Visibility(
+                  visible: true,
+                  child: TextButtons(
+                    img: 'empleado.png',
+                    name: "Gestion de Usuarios",
+                    route: 'PrincipalGestion',
+                    width: 0.2,
+                    fontSize: 15,
+                  ),
+                ),
+              ]
             ]),
-            const SizedBox(
-              height: 30,
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (permisosId.contains(43) ||
-                    permisosId.contains(28) ||
-                    permisosId.contains(12)) ...[
-                  Visibility(
-                    visible: true,
-                    child: TextButtons(
-                      name: "Gestion de Usuarios",
-                      route: 'PrincipalGestion',
-                      width: 0.3,
-                      fontSize: 18,
-                    ),
-                  ),
-                ]
-              ],
+              children: [],
             )
           ]),
         ),

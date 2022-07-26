@@ -48,7 +48,7 @@ class _TodosLosClientes2State extends State<TodosLosClientes2> {
                   child: Column(
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           TextButton(
                             onPressed: () {
@@ -67,9 +67,9 @@ class _TodosLosClientes2State extends State<TodosLosClientes2> {
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   const Color(0xffD9D9D9)),
                             ),
-                          ),
+                          ),const SizedBox(width: 20),
                           TextButton(
-                            onPressed: () => Navigator.pushNamed(context, 'mantenimiento'),
+                            onPressed: () => Navigator.popAndPushNamed(context, 'mantenimiento'),
                             child: Container(
                                 width: size.width * 0.2,
                                 padding: const EdgeInsets.all(15),
@@ -117,8 +117,10 @@ class _TodosLosClientes2State extends State<TodosLosClientes2> {
                           child: Text('Opciones', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
                         )),
                       ],
-                    ),
-                      Expanded(
+                    ),const SizedBox(
+                        height: 20,
+                      ),
+                        Expanded(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Center(
@@ -129,7 +131,7 @@ class _TodosLosClientes2State extends State<TodosLosClientes2> {
                             ),
                           ),
                         ),
-                      ),
+                        ),
                     ],
                   ),
                 );

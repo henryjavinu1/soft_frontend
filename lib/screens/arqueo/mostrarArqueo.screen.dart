@@ -32,7 +32,19 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: AppBar(title: const Text('Modulo Arqueo')),
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: const Text('Modulo Arqueo'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.popAndPushNamed(context, 'pantalla_principal');
+              },
+              child: Text('Regresar',
+                  style: TextStyle(color: Colors.white, fontSize: 20)),
+            ),
+          ],
+        ),
         body: FutureBuilder(
           future: traerArqueos(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {

@@ -176,7 +176,7 @@ class _CrearEmpleadosState extends State<crearEmpleados> {
                                         child: Center(
                                             child: ElevatedButton(
                                                 onPressed: () =>
-                                                    Navigator.pushNamed(context,
+                                                     Navigator.popAndPushNamed(context, 
                                                         'traer_empleados'),
                                                 child: Padding(
                                                   padding: EdgeInsets.symmetric(
