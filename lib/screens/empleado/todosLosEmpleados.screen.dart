@@ -46,7 +46,7 @@ class _TodosLosEmpleados2State extends State<TodosLosEmpleados2> {
                 child: Column(
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         TextButton(
                           onPressed: () {
@@ -66,6 +66,7 @@ class _TodosLosEmpleados2State extends State<TodosLosEmpleados2> {
                                 const Color(0xffD9D9D9)),
                           ),
                         ),
+                        const SizedBox(width: 20),
                         TextButton(
                             onPressed: () => Navigator.pushNamed(context, 'PrincipalGestion'),
                             child: Container(
@@ -129,6 +130,9 @@ class _TodosLosEmpleados2State extends State<TodosLosEmpleados2> {
                         )),
                       ],
                     ),
+                    const SizedBox(
+                        height: 20,
+                      ),
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),

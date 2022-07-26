@@ -159,7 +159,7 @@ class _CrearClientesState extends State<CrearClientes> {
                                   onPressed: null,
                                   child: Center(
                                       child: ElevatedButton(
-                                        onPressed: () => Navigator.pushNamed(context, 'traer_clientes'),
+                                        onPressed: () => Navigator.popAndPushNamed(context, 'traer_clientes'),
                                         child: Padding(
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 10, vertical: 10),

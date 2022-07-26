@@ -33,7 +33,7 @@ Future crearVenta_Controller(
         totalIsv, totalVenta, totalDescuentoVenta, puntoDeEmision, establecimiento, tipo, idSesion, idUsuario,idCliente);
         print(ventas);
     if (ventas is IdVenta) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Venta añadida con exito')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Venta creada con exito')));
       return ventas;
     } else if (ventas == 500) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Ocurrió un error en el servidor al crear la venta, comuniquese con el administrador.')));
@@ -55,7 +55,7 @@ Future habilitarVenta(TextEditingController dniController, TextEditingController
   if (dniController.text.isNotEmpty) {
     final response = await buscarClienteVenta(dniController.text.trim(), context);
     if (response is TodoslosCliente) {
-      final venta = await crearVenta_Controller('0.0', '0.0', '0.0', '0', '0', '0', '1', response.id.toString(), '1', context);
+      final venta = await crearVenta_Controller('0.0', '0.0', '0.0', '000', '001', '01', '1', '1', response.id.toString(), context);
       if (venta is IdVenta) {
         nombreController.text = response.nombreCliente;
         telefonoController.text = response.telefonoCliente;
