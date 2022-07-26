@@ -131,7 +131,7 @@ class _Pantalla extends StatelessWidget {
                   child: TextButtons(
                     img: 'tareas.png',
                     name: 'Rol',
-                    route: 'mantenimiento',
+                    route: 'gestionRol',
                     width: 0.2,
                     fontSize: 15,
                   ),

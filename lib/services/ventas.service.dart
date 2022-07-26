@@ -106,22 +106,36 @@ Future eliminarVenta(String id) async {
   }
 }
 
-/*
-Future buscarProductoService(String codigoProductoR, context) async {
-  try {
-    var response = await http.post(Uri.parse(API_URL+'producto/buscarproductoxcodigo'),
-        body: ({'codigoProducto': codigoProductoR}));
 
+
+
+Future<String> actualizarVenta(id, totalISVController,
+    totalVentaController, totalDescuentoVentaController) async {
+  String resp = "";
+  try {
+    var response = await http.post(Uri.parse(API_URL + 'actualizarVenta'),
+        body: ({
+          'id': id,
+          'totalISV': totalISVController,
+          'totalVenta': totalVentaController,
+          'totalDescuentoVenta': totalDescuentoVentaController,
+          
+        }));
+        print('resp');
+    // print(response.body);
+    print(resp);
     if (response.statusCode == 200) {
-      final producto = productoBuscadoFromJson(response.body);
-      return producto;
-    } else if (response.statusCode == 404) {
-      return 404;
-    } else if (response.statusCode == 500) {
-      return 500;
+      final decode = json.decode(response.body);
+      resp = decode.toString();
+      print('resp2');
+    } else {
+      resp = 'Error';
     }
+    print('resp3');
+    print(resp);
+    return resp.toString();
   } catch (e) {
-    return 1928;
+    print(e);
+    return e.toString();
   }
 }
-*/

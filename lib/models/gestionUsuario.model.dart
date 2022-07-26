@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 Usuario usuarioFromJson(String str) => Usuario.fromJson(json.decode(str));
-
 String usuarioToJson(Usuario data) => json.encode(data.toJson());
 
 class Usuario {
@@ -33,6 +32,7 @@ class TodosLosUsuarios {
     required this.idEmpleado,
     required this.idRol,
   });
+
   int id;
   String usuario;
   String password;

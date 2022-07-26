@@ -1,20 +1,19 @@
 // ignore_for_file: unnecessary_new
 
 import 'package:flutter/material.dart';
-import 'package:soft_frontend/controllers/user.controller.dart';
-import 'package:soft_frontend/screens/user/updateuser.screen.dart';
-import 'package:soft_frontend/services/user.service.dart';
-import '../../models/gestionUsuario.model.dart';
+import 'package:soft_frontend/services/rol.service.dart';
+import '../../models/gestionrol.model.dart';
+import 'package:soft_frontend/controllers/roles.controller.dart';
 
-class MostrarUsuarios extends StatefulWidget {
-  const MostrarUsuarios({Key? key}) : super(key: key);
+class MostrarRol extends StatefulWidget {
+  const MostrarRol({Key? key}) : super(key: key);
 
   @override
-  State<MostrarUsuarios> createState() => _MostrarUsuariosState();
+  State<MostrarRol> createState() => _MostrarRolState();
 }
 
-class _MostrarUsuariosState extends State<MostrarUsuarios> {
-  List<TodosLosUsuarios> listaUsuarios = [];
+class _MostrarRolState extends State<MostrarRol> {
+  List<TodosLosRol> listaRol = [];
 
   @override
   void initState() {
@@ -27,16 +26,16 @@ class _MostrarUsuariosState extends State<MostrarUsuarios> {
     var buscadorcontroller = TextEditingController();
 
     return Scaffold(
-        appBar: AppBar(title: const Text("Modulo Usuarios")),
+        appBar: AppBar(title: const Text("Modulo Roles")),
         body: Container(
           child: FutureBuilder(
-            future: mostrarUsuarios(),
+            future: mostrarRol(),
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: const CircularProgressIndicator());
               } else if (snapshot.connectionState == ConnectionState.done) {
-                Usuario lista = snapshot.data;
-                listaUsuarios = lista.todoslosUsuarios;
+                Role lista = snapshot.data;
+                listaRol = lista.todoslosRoles;
 
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -47,13 +46,13 @@ class _MostrarUsuariosState extends State<MostrarUsuarios> {
                         children: [
                           TextButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, 'crearUsuarios');
+                              Navigator.pushNamed(context, 'crearRol');
                             },
                             child: Container(
                                 width: size.width * 0.2,
                                 padding: const EdgeInsets.all(15),
                                 child: const Text(
-                                  "Nuevo Usuario",
+                                  "Nuevo Rol",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 18, color: Color(0xFFF1F1F1)),
@@ -71,25 +70,7 @@ class _MostrarUsuariosState extends State<MostrarUsuarios> {
                       Row(
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(left: size.height * 0.15),
-                            child: Text(
-                              'User',
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: size.height * 0.35),
-                            child: Text(
-                              'Email',
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: size.height * 0.40),
+                            padding: EdgeInsets.only(left: size.height * 0.20),
                             child: Text(
                               'Rol',
                               style: TextStyle(
@@ -98,7 +79,16 @@ class _MostrarUsuariosState extends State<MostrarUsuarios> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: size.height * 0.50),
+                            padding: EdgeInsets.only(left: size.height * 0.45),
+                            child: Text(
+                              'Descripcion',
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: size.height * 0.75),
                             child: Text(
                               'Opciones',
                               style: TextStyle(
@@ -113,8 +103,8 @@ class _MostrarUsuariosState extends State<MostrarUsuarios> {
                           padding: const EdgeInsets.all(8.0),
                           child: Center(
                             child: ListView.separated(
-                              itemBuilder: (_, i) => item(listaUsuarios[i]),
-                              itemCount: lista.todoslosUsuarios.length,
+                              itemBuilder: (_, i) => item(listaRol[i]),
+                              itemCount: lista.todoslosRoles.length,
                               separatorBuilder: (_, i) => const Divider(),
                             ),
                           ),
@@ -132,31 +122,18 @@ class _MostrarUsuariosState extends State<MostrarUsuarios> {
         ));
   }
 
-  Widget item(TodosLosUsuarios lista) {
+  Widget item(TodosLosRol lista) {
     return Row(
       children: [
-        Expanded(flex: 2, child: Text(lista.usuario)),
-        Expanded(flex: 2, child: Text(lista.email)),
-        Expanded(flex: 2, child: Text(lista.idRol.toString())),
+        Expanded(flex: 2, child: Text(lista.rol)),
+        Expanded(flex: 2, child: Text(lista.descripcion)),
         const SizedBox(
           width: 15,
         ),
         Expanded(
-            flex: 1,
-            child: TextButton(
-                child: const Text('Actualizar'),
-                onPressed: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (BuildContext context) {
-                    return new ActualizarUsuario2(
-                        id: lista.id,
-                        usuario: lista.usuario,
-                        password: lista.password,
-                        email: lista.email,
-                        idEmpleado: lista.idEmpleado,
-                        idRol: lista.idRol);
-                  }));
-                })),
+          flex: 1,
+          child: const Text('Actualizar'),
+        ),
         Expanded(
             flex: 1,
             child: TextButton(
@@ -175,13 +152,13 @@ class _MostrarUsuariosState extends State<MostrarUsuarios> {
       builder: (BuildContext context) {
         print(id);
         return AlertDialog(
-          title: Text("Baja Usuario"),
-          content: Text("¿Quieres eliminar el usuario?"),
+          title: Text("Baja Rol"),
+          content: Text("¿Quieres eliminar el rol?"),
           actions: <Widget>[
             ElevatedButton(
               child: Text("Si"),
               onPressed: () {
-                eliminarUsuario_Controller(id, context);
+                eliminarrol_Controller(id, context);
               },
             ),
             ElevatedButton(

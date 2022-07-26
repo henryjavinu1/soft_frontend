@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_frontend/constans.dart';
+import 'package:soft_frontend/controllers/manipularfactura.controller.dart';
 import 'package:soft_frontend/models/mostrarUnaFactura.model.dart';
 import 'package:soft_frontend/screens/mostrarUnaFactura/components/cabeceradetabla.component.dart';
 import 'package:soft_frontend/services/manipularfactura.service.dart';
@@ -40,7 +41,7 @@ class _MostrarFacturaState extends State<MostrarFactura>
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return FutureBuilder(
-      future: mostrarDatosDeUnaFactura(widget.numeroFactura),
+      future: mostrarDatosDeUnaFacturaController(widget.numeroFactura, context),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.connectionState == ConnectionState.done &&
             snapshot.data is MostrarUnaFactura) {

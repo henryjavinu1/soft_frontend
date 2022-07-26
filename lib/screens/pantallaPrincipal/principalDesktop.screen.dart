@@ -96,7 +96,7 @@ class PantallaDesktop extends StatelessWidget {
                   child: TextButtons(
                     img: 'salario.png',
                     name: "Modulo de Ventas",
-                    route: 'traer_arqueo',
+                    route: 'PrincipalVenta',
                     width: 0.2,
                     fontSize: 15,
                   ),

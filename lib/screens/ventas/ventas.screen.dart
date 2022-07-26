@@ -16,24 +16,32 @@ import 'package:soft_frontend/services/detalleventa.service.dart';
 import '../../controllers/detalleventa.controller.dart';
 import '../../services/ventas.service.dart';
 
-class Venta extends StatefulWidget {
-  const Venta({Key? key}) : super(key: key);
+class VentanaVenta extends StatefulWidget {
+  const VentanaVenta({Key? key}) : super(key: key);
 
   @override
-  State<Venta> createState() => _VentaState();
+  State<VentanaVenta> createState() => _VentanaVentaState();
 }
 
-class _VentaState extends State<Venta> {
+class _VentanaVentaState extends State<VentanaVenta> {
   var rtnController = TextEditingController();
   var dniController = TextEditingController();
   var nombreCliente = TextEditingController();
   var telCliente = TextEditingController();
   var codProductoController = TextEditingController();
   var cantidadProducController = TextEditingController();
+  var total = "0";
+  var subTotal = "0";
+  var descuentos = "0";
+  var impuestos = "0";
+var totalISVController =  TextEditingController();
+var totalVentaController =TextEditingController();
+var   totalDescuentoVentaController = TextEditingController();
   bool botonesHabilitados = false;
   int idVentaActual = -1;
   int idDetalleActual = 0;
   late DetalleDeVentasXid datosDetalle;
+  double subtotal = 0 ;
 
   @override
   Widget build(BuildContext context) {
@@ -269,12 +277,26 @@ class _VentaState extends State<Venta> {
                                             cantidadProducController,
                                             idVentaActual,
                                             context);
+                                            
                                     if (response == DetalleDeVentasXid) {
                                       // idDetalleActual = response.id;
                                       datosDetalle = response;
+                                      print('object');
+                                     
+                                    
                                       setState(() {});
                                     } else {
-                                      setState(() {});
+                                     
+                                      print('object2');
+                                      Future<List<String>> _total = mostrarTotales(idVentaActual);
+                                      _total.then((value) {
+                                        print(value);
+                                        total = value[0];
+                                        impuestos = value[1];
+                                        descuentos = value[2];
+                                        subTotal = value[3];
+                                        setState(() {});
+                                      });
                                     }
                                   } else {
                                     //null;
@@ -317,7 +339,20 @@ class _VentaState extends State<Venta> {
                         Center(
                           child: ElevatedButton(
                             onPressed: () {
+                             
+
                               if (botonesHabilitados) {
+                                 Future<String> editar = actualizarVenta(idVentaActual.toString(),
+                               impuestos,
+                                total,
+                                 descuentos);
+                                 editar.then((value){
+                                  print('asjasd');
+
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Venta añadida con exito')));
+
+
+                                 });
                               } else {
                                 null;
                               }
@@ -350,13 +385,13 @@ class _VentaState extends State<Venta> {
                         Container(
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
+                              children: [
                                 Text(
                                   'Descuento',
                                   style: TextStyle(fontSize: 10),
                                 ),
                                 Text(
-                                  '00000000.00',
+                                  descuentos,
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(
@@ -367,7 +402,7 @@ class _VentaState extends State<Venta> {
                                   style: TextStyle(fontSize: 10),
                                 ),
                                 Text(
-                                  '00000000.00',
+                                  subTotal,
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(
@@ -378,7 +413,7 @@ class _VentaState extends State<Venta> {
                                   style: TextStyle(fontSize: 10),
                                 ),
                                 Text(
-                                  '00000000.00',
+                                  impuestos,
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(
@@ -389,7 +424,7 @@ class _VentaState extends State<Venta> {
                                   style: TextStyle(fontSize: 10),
                                 ),
                                 Text(
-                                  '00000000.00',
+                                  total,
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                               ]),
@@ -530,8 +565,19 @@ class _VentaState extends State<Venta> {
             child: TextButton(
               child: Text('Eliminar'),
               onPressed: () {
-                 eliminarDetalle_Controller(detalleVenta.id.toString(), context);  
-                 setState(() {});
+                 Future<DetalleDeVentasXid?> eliminarDetalle = eliminarDetalle_Controller(detalleVenta.id.toString(), context);  
+                 eliminarDetalle.then((value) {
+                  Future<List<String>> _total = mostrarTotales(idVentaActual);
+                                      _total.then((value) {
+                                        print(value);
+                                        total = value[0];
+                                        impuestos = value[1];
+                                        descuentos = value[2];
+                                        subTotal = value[3];
+                                        setState(() {});
+                                      });
+                 });
+                 
                 // _showDialog(context, lista.id.toString());
               },
             )),
