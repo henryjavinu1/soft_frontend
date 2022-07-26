@@ -100,6 +100,9 @@ class _CrearArqueoState extends State<CrearArqueo> {
                                       )),
                                 ),
                               ),
+                              SizedBox(
+                                height: 10,
+                              ),
                               TextButton(
                                 onPressed: null,
                                 child: Center(
