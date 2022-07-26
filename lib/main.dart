@@ -5,11 +5,14 @@ import 'package:soft_frontend/screens/arqueo/buscarArqueoIdUsuario.screen.dart';
 import 'package:soft_frontend/screens/cliente/todosLosClientes.screen.dart';
 import 'package:soft_frontend/screens/empleado/crearEmpleado.screen.dart';
 import 'package:soft_frontend/screens/generarFactura/escogerVenta.screen.dart';
-import 'package:soft_frontend/screens/generarFactura/escogerVenta.screen.dart';
+import 'package:soft_frontend/screens/generarFactura/prueba.screen.dart';
 import 'package:soft_frontend/screens/manipularFactura/manipularfactura.screen.dart';
 import 'package:soft_frontend/screens/screens.dart';
 import 'package:soft_frontend/screens/sucursal/sucursal.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/buscarTipoPago.screen.dart';
+import 'package:soft_frontend/screens/tipoPago/crearTipoPago.screen.dart';
+import 'package:soft_frontend/services/empleado.service.dart';
+
 import 'package:soft_frontend/screens/user/creauser.scree.dart';
 import 'package:soft_frontend/screens/rol/crearol.screen.dart';
 import 'package:soft_frontend/screens/tipoproducto/tipoproducto.screen.dart';
@@ -39,6 +42,7 @@ class MyApp extends StatelessWidget {
       initialRoute: 'login',
       routes: {
         'login': (_) => const Login(),
+
         'pantalla_principal': (_) => const PantallaPrincipal(),
         'mantenimiento': (_) => const PantallaMantenimientoPrincipal(),
         'crear_cliente': (_) => CrearClientes(),
@@ -48,10 +52,9 @@ class MyApp extends StatelessWidget {
         'crearUsuarios': (_) => CrearUser(),
         'crearRol': (_) => CrearRol(),
         'gestionUsuarios': (_) => const MostrarUsuarios(),
+        'ventas': (_) => const VentanaVenta(),
         'gestionRol': (_) => const MostrarRol(),
-
         'traer_empleados': (_) => const TodosLosEmpleados2(),
-
         //'buscar_cliente': (_) => BuscarClientes(),
         'manipular_factura': (_) => ManipularFactura(),
         'talonarios': (_) => TalonariosScreen(),
@@ -63,6 +66,7 @@ class MyApp extends StatelessWidget {
         'PantallaTipoProductos': (_) => PantallaTipoProducto(),
         'PantallaProductos': (_) => PantallaProducto(),
         'mostrar_ventas': (_) => EscogerVenta(),
+        'prueba': (_) => BuscarVenta(),
       },
     );
   }

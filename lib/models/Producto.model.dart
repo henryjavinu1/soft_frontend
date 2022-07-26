@@ -23,6 +23,7 @@ class Producto {
     this.idTipoProducto
   });
 
+
   Producto.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     codigoProducto = json['codigoProducto'];

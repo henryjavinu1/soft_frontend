@@ -37,15 +37,17 @@ Future filtrarFacturasPorNombreCliente(
   } else if (response == 404) {
     dialogMensajeProblema(context,
         'No se encontró ningúna factura para el cliente: ${controller.text.trim()}');
+  } else if (response == 403) {
+    Navigator.pushReplacementNamed(context, 'login');
   }
 }
 
 Future filtrarFacturasPorRTNCliente(TextEditingController _textController,
     ListFactura callback, context) async {
-      final token = await getToken(); 
+  final token = await getToken();
   if (numerico.hasMatch(_textController.text.trim())) {
-    final response =
-        await filtrarFacturasPorCliente('', _textController.text.trim(), '', token);
+    final response = await filtrarFacturasPorCliente(
+        '', _textController.text.trim(), '', token);
     if (response is List<FacturaBuscada>) {
       callback(response);
     } else if (response == 404) {
@@ -54,6 +56,8 @@ Future filtrarFacturasPorRTNCliente(TextEditingController _textController,
     } else if (response is MensajePeticion) {
       MensajePeticion mensajeError = response;
       dialogMensajeProblema(context, mensajeError.msg);
+    } else if (response == 403) {
+      Navigator.pushReplacementNamed(context, 'login');
     }
   } else {
     dialogMensajeProblema(context,
@@ -64,10 +68,10 @@ Future filtrarFacturasPorRTNCliente(TextEditingController _textController,
 
 Future filtrarFacturasPorDNICliente(TextEditingController _textController,
     ListFactura callback, context) async {
-      final token = await getToken(); 
+  final token = await getToken();
   if (numerico.hasMatch(_textController.text.trim())) {
-    final response =
-        await filtrarFacturasPorCliente('', '', _textController.text.trim(), token);
+    final response = await filtrarFacturasPorCliente(
+        '', '', _textController.text.trim(), token);
     if (response is List<FacturaBuscada>) {
       callback(response);
     } else if (response == 404) {
@@ -76,6 +80,8 @@ Future filtrarFacturasPorDNICliente(TextEditingController _textController,
     } else if (response is MensajePeticion) {
       MensajePeticion mensajeError = response;
       dialogMensajeProblema(context, mensajeError.msg);
+    } else if (response == 403) {
+      Navigator.pushReplacementNamed(context, 'login');
     }
   } else {
     dialogMensajeProblema(context,
@@ -89,7 +95,7 @@ Future filtrarFacturasPorFechaController(
     TextEditingController _textController2,
     ListFactura callback,
     context) async {
-      final token = await getToken(); 
+  final token = await getToken();
   if (_textController2.text.isEmpty) {
     if (validarFecha.hasMatch(_textController.text.trim())) {
       final response =
@@ -102,6 +108,8 @@ Future filtrarFacturasPorFechaController(
       } else if (response is MensajePeticion) {
         MensajePeticion mensajeError = response;
         dialogMensajeProblema(context, mensajeError.msg);
+      } else if (response == 403) {
+        Navigator.pushReplacementNamed(context, 'login');
       }
     } else {
       dialogMensajeProblema(context,
@@ -122,6 +130,8 @@ Future filtrarFacturasPorFechaController(
       } else if (response is MensajePeticion) {
         MensajePeticion mensajeError = response;
         dialogMensajeProblema(context, mensajeError.msg);
+      } else if (response == 403) {
+        Navigator.pushReplacementNamed(context, 'login');
       }
     } else {
       dialogMensajeProblema(context,
@@ -134,7 +144,7 @@ Future filtrarFacturasPorFechaController(
 
 Future filtrarFacturasPorIdTalonario(TextEditingController _textController,
     ListFactura callback, context) async {
-      final token = await getToken();
+  final token = await getToken();
   final response =
       await filtrarFacturasPorTalonario(_textController.text.trim(), '', token);
   if (response is List<FacturaBuscada>) {
@@ -146,12 +156,14 @@ Future filtrarFacturasPorIdTalonario(TextEditingController _textController,
   } else if (response is MensajePeticion) {
     MensajePeticion mensajeError = response;
     dialogMensajeProblema(context, mensajeError.msg);
+  } else if (response == 403) {
+    Navigator.pushReplacementNamed(context, 'login');
   }
 }
 
 Future filtrarFacturasPorCAI(TextEditingController _textController,
     ListFactura callback, context) async {
-      final token = await getToken();
+  final token = await getToken();
   final response =
       await filtrarFacturasPorTalonario('', _textController.text.trim(), token);
   if (response is List<FacturaBuscada>) {
@@ -163,12 +175,14 @@ Future filtrarFacturasPorCAI(TextEditingController _textController,
   } else if (response is MensajePeticion) {
     MensajePeticion mensajeError = response;
     dialogMensajeProblema(context, mensajeError.msg);
+  } else if (response == 403) {
+    Navigator.pushReplacementNamed(context, 'login');
   }
 }
 
 Future filtrarFacturasPorIdEmpleado(TextEditingController _textController,
     ListFactura callback, context) async {
-      final token = await getToken();
+  final token = await getToken();
   final response =
       await filtrarFacturasPorEmpleado(_textController.text.trim(), token);
   if (response is List<FacturaBuscada>) {
@@ -180,13 +194,16 @@ Future filtrarFacturasPorIdEmpleado(TextEditingController _textController,
     MensajePeticion mensajeError =
         await filtrarFacturasPorEmpleado(_textController.text.trim(), token);
     dialogMensajeProblema(context, mensajeError.msg);
+  } else if (response == 403) {
+    Navigator.pushReplacementNamed(context, 'login');
   }
 }
 
 Future buscarFacturaPorNumeroFact(
     TextEditingController _textController, Size size, context) async {
-      final token = await getToken(); 
-  final response = await buscarFacturaPorNumero(_textController.text.trim(), token);
+  final token = await getToken();
+  final response =
+      await buscarFacturaPorNumero(_textController.text.trim(), token);
   if (response is UnaFacturaBuscada) {
     UnaFacturaBuscada facturaBuscada = response;
     showDialog(
@@ -245,11 +262,13 @@ Future buscarFacturaPorNumeroFact(
   } else if (response == 404) {
     dialogMensajeProblema(context,
         'No se encontró ningún resultado para la factura con número: ${_textController.text.trim()}');
+  } else if (response == 403) {
+    Navigator.pushReplacementNamed(context, 'login');
   }
 }
 
 Future mostrarDatosDeUnaFacturaController(String numeroFactura, context) async {
-  final token = await getToken(); 
+  final token = await getToken();
   final response = await mostrarDatosDeUnaFactura(numeroFactura, token);
   if (response is MostrarUnaFactura) {
     return response;
