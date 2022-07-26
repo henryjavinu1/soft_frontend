@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
         'gestionUsuarios': (_) => const MostrarUsuarios(),
 
         'traer_empleados': (_) => const TodosLosEmpleados2(),
-
+        'ventas': (_) => const Venta(),
         //'buscar_cliente': (_) => BuscarClientes(),
         'manipular_factura': (_) => ManipularFactura(),
         'talonarios': (_) => TalonariosScreen(),
