@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:soft_frontend/services/rol.service.dart';
 import '../../models/gestionrol.model.dart';
+import 'package:soft_frontend/controllers/roles.controller.dart';
 
 class MostrarRol extends StatefulWidget {
   const MostrarRol({Key? key}) : super(key: key);
@@ -69,7 +70,7 @@ class _MostrarRolState extends State<MostrarRol> {
                       Row(
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(left: size.height * 0.15),
+                            padding: EdgeInsets.only(left: size.height * 0.20),
                             child: Text(
                               'Rol',
                               style: TextStyle(
@@ -78,7 +79,7 @@ class _MostrarRolState extends State<MostrarRol> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: size.height * 0.35),
+                            padding: EdgeInsets.only(left: size.height * 0.45),
                             child: Text(
                               'Descripcion',
                               style: TextStyle(
@@ -87,7 +88,7 @@ class _MostrarRolState extends State<MostrarRol> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: size.height * 0.50),
+                            padding: EdgeInsets.only(left: size.height * 0.75),
                             child: Text(
                               'Opciones',
                               style: TextStyle(
@@ -134,10 +135,41 @@ class _MostrarRolState extends State<MostrarRol> {
           child: const Text('Actualizar'),
         ),
         Expanded(
-          flex: 1,
-          child: const Text('Eliminar'),
-        ),
+            flex: 1,
+            child: TextButton(
+              child: Text('Eliminar'),
+              onPressed: () {
+                _showDialog(context, lista.id.toString());
+              },
+            )),
       ],
+    );
+  }
+
+  void _showDialog(BuildContext context, String id) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        print(id);
+        return AlertDialog(
+          title: Text("Baja Rol"),
+          content: Text("¿Quieres eliminar el rol?"),
+          actions: <Widget>[
+            ElevatedButton(
+              child: Text("Si"),
+              onPressed: () {
+                eliminarrol_Controller(id, context);
+              },
+            ),
+            ElevatedButton(
+              child: Text("No"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

@@ -1,6 +1,8 @@
 // ignore_for_file: unnecessary_new
 
 import 'package:flutter/material.dart';
+import 'package:soft_frontend/controllers/user.controller.dart';
+import 'package:soft_frontend/screens/user/updateuser.screen.dart';
 import 'package:soft_frontend/services/user.service.dart';
 import '../../models/gestionUsuario.model.dart';
 
@@ -140,14 +142,57 @@ class _MostrarUsuariosState extends State<MostrarUsuarios> {
           width: 15,
         ),
         Expanded(
-          flex: 1,
-          child: const Text('Actualizar'),
-        ),
+            flex: 1,
+            child: TextButton(
+                child: const Text('Actualizar'),
+                onPressed: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (BuildContext context) {
+                    return new ActualizarUsuario2(
+                        id: lista.id,
+                        usuario: lista.usuario,
+                        password: lista.password,
+                        email: lista.email,
+                        idEmpleado: lista.idEmpleado,
+                        idRol: lista.idRol);
+                  }));
+                })),
         Expanded(
-          flex: 1,
-          child: const Text('Eliminar'),
-        ),
+            flex: 1,
+            child: TextButton(
+              child: Text('Eliminar'),
+              onPressed: () {
+                _showDialog(context, lista.id.toString());
+              },
+            )),
       ],
+    );
+  }
+
+  void _showDialog(BuildContext context, String id) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        print(id);
+        return AlertDialog(
+          title: Text("Baja Usuario"),
+          content: Text("¿Quieres eliminar el usuario?"),
+          actions: <Widget>[
+            ElevatedButton(
+              child: Text("Si"),
+              onPressed: () {
+                eliminarUsuario_Controller(id, context);
+              },
+            ),
+            ElevatedButton(
+              child: Text("No"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

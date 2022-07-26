@@ -36,3 +36,27 @@ Future mostrarRol() async {
     }
   } catch (e) {}
 }
+
+Future<List<Role?>> eliminarRol(String id) async {
+  print(id);
+  var client = http.Client();
+  Role? roles = null;
+  List<Role?> rolCreado = [];
+  try {
+    var response = await http.post(Uri.parse(API_URL + 'roles/bajarol'),
+        body: ({'id': id}));
+    print(response.body);
+    if (response.statusCode == 200) {
+      print(Role);
+      //return clienteCreado;
+    } else {
+      // return clienteCreado;
+    }
+    return rolCreado;
+  } catch (e) {
+    print(e);
+    return rolCreado;
+  } finally {
+    http.Client().close();
+  }
+}

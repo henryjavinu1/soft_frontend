@@ -60,3 +60,58 @@ Future mostrarUsuarios() async {
     }
   } catch (e) {}
 }
+
+Future<List<Usuario?>> eliminarUsuario(String id) async {
+  print(id);
+  var client = http.Client();
+  Usuario? usuario = null;
+  List<Usuario?> usuarioCreado = [];
+  try {
+    var response = await http.post(Uri.parse(API_URL + "user/bajauser"),
+        body: ({'id': id}));
+    print(response.body);
+    if (response.statusCode == 200) {
+      print(Usuario);
+      //return clienteCreado;
+    } else {
+      // return clienteCreado;
+    }
+    return usuarioCreado;
+  } catch (e) {
+    print(e);
+    return usuarioCreado;
+  } finally {
+    http.Client().close();
+  }
+}
+
+Future<List<Usuario?>> ActualizarUsuario(String id, String usuario,
+    String password, String email, String idEmpleado, String idRol) async {
+  ////////////////
+  var client = http.Client();
+  Usuario? usuario = null;
+  List<Usuario> usuarioActualizado = [];
+  try {
+    var response = await http.put(Uri.parse(API_URL + 'user/updateuser'),
+        body: ({
+          'id': id,
+          'usuario': usuario,
+          'password': password,
+          'email': email,
+          'idEmpleado': idEmpleado,
+          'idRol': idRol,
+        }));
+    print(response.body);
+    if (response.statusCode == 200) {
+      print(Usuario);
+      //return clienteCreado;
+    } else {
+      // return clienteCreado;
+    }
+    return usuarioActualizado;
+  } catch (e) {
+    return usuarioActualizado;
+  } finally {
+    http.Client().close();
+  }
+}
