@@ -16,14 +16,14 @@ import 'package:soft_frontend/services/detalleventa.service.dart';
 import '../../controllers/detalleventa.controller.dart';
 import '../../services/ventas.service.dart';
 
-class Venta extends StatefulWidget {
-  const Venta({Key? key}) : super(key: key);
+class VentanaVenta extends StatefulWidget {
+  const VentanaVenta({Key? key}) : super(key: key);
 
   @override
-  State<Venta> createState() => _VentaState();
+  State<VentanaVenta> createState() => _VentanaVentaState();
 }
 
-class _VentaState extends State<Venta> {
+class _VentanaVentaState extends State<VentanaVenta> {
   var rtnController = TextEditingController();
   var dniController = TextEditingController();
   var nombreCliente = TextEditingController();

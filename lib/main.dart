@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
         'crearUsuarios': (_) => CrearUser(),
         'crearRol': (_) => CrearRol(),
         'gestionUsuarios': (_) => const MostrarUsuarios(),
-        // 'ventas': (_) => const Venta(),
+        'ventas': (_) => const VentanaVenta(),
         'manipular_factura': (_) => ManipularFactura(),
         'talonarios': (_) => TalonariosScreen(),
         'sucursal': (_) => SucursalScreen(),
