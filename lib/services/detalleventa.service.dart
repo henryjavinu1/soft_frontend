@@ -107,3 +107,47 @@ Future eliminarDetalle(String id) async {
     http.Client().close();
   }
 }
+
+
+
+Future<List<String>> mostrarTotales(int idVenta) async {
+
+  //List<TodosLosDetalle> detalleVentaVacia = [];
+  List<String> numeros = [];
+  try {
+    var response =
+        await http.post(Uri.parse(API_URL + 'mostrardetalle'),
+        body: ({'idVenta' : idVenta.toString()}));
+   // print(response.body);
+   // DetalleVenta detalleVenta = DetalleVenta.fromJson();
+   print(response.request);
+   print(response.statusCode);
+    if (response.statusCode == 200) {
+      print('hola mundo');
+      final detalleVentas = detalleDeVentasXidFromJson(response.body);
+      
+      num total = 0;
+      num subtotal = 0;
+      num impuestos = 0;
+      num descuentos = 0;
+      for (var element in detalleVentas.detalleDeVentaNueva) {
+        total = total + ((element.cantidad * double.parse(element.precioUnitario))*(double.parse(element.isvAplicado)/100)) + (double.parse(element.precioUnitario) * element.cantidad) - double.parse(element.descuentoAplicado);
+        subtotal = subtotal + (double.parse(element.precioUnitario) * element.cantidad);
+        impuestos = impuestos + ((element.cantidad * double.parse(element.precioUnitario))*(double.parse(element.isvAplicado)/100));
+        descuentos = descuentos +  double.parse(element.descuentoAplicado);
+        print(total);
+        print(impuestos);
+        print(descuentos);
+      }
+      numeros.add(total.toString());
+      numeros.add(impuestos.toString());
+      numeros.add(descuentos.toString());
+      numeros.add(subtotal.toString());
+      return numeros;
+    } 
+    return numeros;
+  } catch (e) {
+    print(e);
+    return numeros;
+  }
+}
