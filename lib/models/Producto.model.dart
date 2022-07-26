@@ -1,23 +1,14 @@
-import 'dart:convert';
-
-Producto productoFromJson(String str) => Producto.fromJson(json.decode(str));
-String productoToJson(Producto data) => json.encode(data.toJson());
-
-
 class Producto {
-  String? id;
+  int? id;
   String? codigoProducto;
   String? nombreProducto;
   String? precioProducto;
-  String? cantidadProducto;
+  int? cantidadProducto;
   String? isvProducto;
   String? descProducto;
-  String? isExcento;
-  String? idTipoProducto;
-  String? isDelete;
-  String? createdAt;
-  String? updatedAt;
-
+  bool? isExcento;
+  String? urlImage;
+  int? idTipoProducto;
 
   Producto({
     this.id,
@@ -28,8 +19,10 @@ class Producto {
     this.isvProducto,
     this.descProducto,
     this.isExcento,
+    this.urlImage,
     this.idTipoProducto
   });
+
 
   Producto.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -40,6 +33,7 @@ class Producto {
     isvProducto = json['isvProducto'];
     descProducto = json['descProducto'];
     isExcento = json['isExcento'];
+    urlImage = json['urlImage'];
     idTipoProducto = json['idTipoProducto'];
   }
 
@@ -53,6 +47,7 @@ class Producto {
     data['isvProducto'] = this.isvProducto;
     data['descProducto'] = this.descProducto;
     data['isExcento'] = this.isExcento;
+    data['urlImage'] = this.urlImage;
     data['idTipoProducto'] = this.idTipoProducto;
     return data;
   }

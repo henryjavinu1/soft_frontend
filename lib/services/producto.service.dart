@@ -3,23 +3,24 @@ import 'package:http/http.dart' as http;
 import 'package:soft_frontend/models/Producto.model.dart';
 import 'package:soft_frontend/models/buscarProducto.dart';
 import 'dart:convert';
+import '../constans.dart';
 
 Future<List<Producto>> obtenerProductos() async {
   var data = [];
-  var url = Uri.parse("http://localhost:8080/api/producto/mostrarproductos");
+  var url = Uri.parse(API_URL + "producto/mostrarproductos");
   var response = await http.get(url);
   List<Producto> listadoProductos = [];
   try {
     if (response.statusCode == 200) {
       var units = (json.decode(response.body) as Map<String, dynamic>)["producto"];
       for (var u in units) {
-        String idString = (u["id"]).toString();
-        String cantidadProductoString = (u["cantidadProducto"]).toString();
+        int idString = (u["id"]);
+        int cantidadProductoString = (u["cantidadProducto"]);
         String precioString = (u["precioProducto"]).toString();
         String isvString = (u["isvProducto"].toString());
         String descString = (u["descProducto"].toString());
-        String isExcentoString = (u["isExcento"].toString());
-        String idTipoProductoString = (u["idTipoProducto"].toString());
+        bool isExcentoString = (u["isExcento"]);
+        int  idTipoProductoString = (u["idTipoProducto"]);
 
         Producto producto = Producto(
             id: idString,
@@ -30,6 +31,7 @@ Future<List<Producto>> obtenerProductos() async {
             isvProducto: isvString,
             descProducto: descString,
             isExcento: isExcentoString,
+            urlImage: precioString,
             idTipoProducto: idTipoProductoString);
         listadoProductos.add(producto);
       }
@@ -60,8 +62,9 @@ Future<void> crearProducto(
       descProducto.isNotEmpty &&
       isExcento.isNotEmpty &&
       idTipoProducto.isNotEmpty) {
+        
     var response = await http.post(
-        Uri.parse("http://localhost:8080/api/producto/crearproducto/"),
+        Uri.parse(API_URL + "producto/crearproducto/"),
         body: ({
           'codigoProducto': codigoProducto,
           'nombreProducto': nombreProducto,
@@ -83,70 +86,203 @@ Future<void> crearProducto(
   }
 }
 
-Future<void> ActualizarProducto(String idTipoProducto, String tipoProducto,
-    String descripcionProducto, String isvTipoProducto, context) async {
-  if (idTipoProducto.isNotEmpty &&
-      tipoProducto.isNotEmpty &&
-      descripcionProducto.isNotEmpty &&
-      isvTipoProducto.isNotEmpty) {
-    var response = await http.post(
-        Uri.parse("http://localhost:8080/api/producto/actualizartipo/"),
+Future<List<Producto?>> crearProducto2(
+    String codigoProducto,
+    String nombreProducto,
+    String precioProducto,
+    String cantidadProducto,
+    String isvProducto,
+    String descProducto,
+    String isExcento,
+    String idTipoProducto,
+    context) async {
+  Producto? producto = null;
+  List<Producto?> productoCreado = [];
+  try {
+    var response =
+        await http.post(Uri.parse(API_URL + "producto/crearproducto/"),
+            body: ({
+          'codigoProducto': codigoProducto,
+          'nombreProducto': nombreProducto,
+          'precioProducto': precioProducto,
+          'cantidadProducto': cantidadProducto,
+          'isvProducto': isvProducto,
+          'descProducto': descProducto,
+          'isExcento': isExcento,
+          'idTipoProducto': idTipoProducto,
+        }));
+    print(response.body);
+    if (response.statusCode == 200) {
+      print(Producto);
+      //return empleadoCreado;
+    } else {
+      // return empleadoCreado;
+    }
+    return productoCreado;
+  } catch (e) {
+    return productoCreado;
+  } finally {
+  }
+}
+
+Future<List<Producto?>> ActualizarProducto2(
+  String idProducto, String codigoProducto, String nombreProducto, String precioProducto, String cantidadProducto,
+    String isvProducto, String descProducto, String isExcento, String idTipoProducto, context
+) async {////////////////
+  Producto? producto = null;
+  List<Producto?> productoCreado = [];
+  try {
+    var response = await http.put(Uri.parse(API_URL + "producto/actualizarproducto/"),
         body: ({
-          'id': idTipoProducto,
-          'tipoProducto': tipoProducto,
-          'descripcionProducto': descripcionProducto,
-          'isvTipoProducto': isvTipoProducto
+          'id': idProducto,
+          'codigoProducto': codigoProducto,
+          'nombreProducto': nombreProducto,
+          'precioProducto': precioProducto,
+          'cantidadProducto': cantidadProducto,
+          'isvProducto': isvProducto,
+          'descProducto': descProducto,
+          'isExcento': isExcento,
+          'idTipoproducto': idTipoProducto,
+        }));
+    print(response.body);
+    if (response.statusCode == 200) {
+      print(Producto);
+      //return clienteCreado;
+    } else {
+      // return clienteCreado;
+    }
+    return productoCreado;
+  } catch (e) {
+    return productoCreado;
+  } finally {
+    http.Client().close();
+  }
+}
+
+
+Future<void> editarProducto(
+    String codigoProducto,
+    String nombreProducto,
+    String precioProducto,
+    String cantidadProducto,
+    String isvProducto,
+    String descProducto,
+    String isExcento,
+    String idTipoProducto,
+    String idProducto,
+    context) async {
+  if (codigoProducto.isNotEmpty &&
+      nombreProducto.isNotEmpty &&
+      precioProducto.isNotEmpty &&
+      cantidadProducto.isNotEmpty &&
+      isvProducto.isNotEmpty &&
+      descProducto.isNotEmpty &&
+      isExcento.isNotEmpty &&
+      idTipoProducto.isNotEmpty) {
+    var response = await http.post(
+        Uri.parse(API_URL + "producto/crearproducto/"),
+        body: ({
+          'codigoProducto': codigoProducto,
+          'nombreProducto': nombreProducto,
+          'precioProducto': precioProducto,
+          'cantidadProducto': cantidadProducto,
+          'isvProducto': isvProducto,
+          'descProducto': descProducto,
+          'isExcento': isExcento,
+          'idTipoProducto': idTipoProducto,
+          'id': idProducto
         }));
 
     if (response.statusCode == 200) {
       ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Tipo de Producto Actualizado.")));
-    }
+          const SnackBar(content: Text("Producto creado exitosamente.")));
+    } else {}
   } else {
     ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Error al actualizar tipo de Producto")));
+        const SnackBar(content: Text("Error al crear el producto.")));
   }
 }
 
-Future<void> EliminarProducto(String idTipoProducto, context) async {
-  var response = await http.post(
-      Uri.parse("http://localhost:8080/api/producto/eliminartipo"),
+Future<void> ActualizarProducto(String idProducto, String codigoProducto, String nombreProducto, String precioProducto, String cantidadProducto,
+    String isvProducto, String descProducto, String isExcento, String idTipoProducto, context) async {
+  if (idTipoProducto.isNotEmpty && idProducto.isNotEmpty && codigoProducto.isNotEmpty && cantidadProducto.isNotEmpty &&
+      isvProducto.isNotEmpty && descProducto.isNotEmpty && precioProducto.isNotEmpty && isExcento.isNotEmpty ) {
+    var response = await http.post(
+        Uri.parse(API_URL + "producto/actualizarproducto/"),
+        body: ({
+          'id': idProducto,
+          'codigoProducto': codigoProducto,
+          'nombreProducto': nombreProducto,
+          'precioProducto': precioProducto,
+          'cantidadProducto': cantidadProducto,
+          'isvProducto': isvProducto,
+          'descProducto': descProducto,
+          'isExcento': isExcento,
+          'idTipoproducto': idTipoProducto,
+        }));
+
+    if (response.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Producto Actualizado.")));
+    }
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Error al actualizar producto")));
+  }
+}
+
+Future<void> ActualizarSaldo(String codigoProducto, String cantidadProducto, context) async {
+  var response = await http.post(Uri.parse( API_URL + "producto/actualizarsaldo"),
       body: ({
-        'id': idTipoProducto,
+        'codigoProducto': codigoProducto,
+        'cantidadProducto': cantidadProducto
+      }));
+
+  if (response.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Producto Actualizado.")));
+    }
+}
+
+
+Future<void> EliminarProducto(String idProducto, context) async {
+  var response = await http.post(
+      Uri.parse(API_URL + "producto/eliminarproducto"),
+      body: ({
+        'id': idProducto,
       }));
 
   if (response.statusCode == 200) {
     ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Tipo de Producto eliminado.")));
+        const SnackBar(content: Text("Producto eliminado.")));
   }
 }
 
 Future<Producto> buscarProducto(String codigoProductoR, context) async {
   Producto productoBuscado = Producto(
-      id: "1",
+      id: 1,
       codigoProducto: "2",
       nombreProducto: "m",
       precioProducto: "12",
-      cantidadProducto: "asda",
+      cantidadProducto: 1,
       isvProducto: "asda",
       descProducto: "21",
-      isExcento: "sads",
-      idTipoProducto: "121");
+      isExcento: false,
+      idTipoProducto: 1);
   if (codigoProductoR.isNotEmpty) {
-    var response = await http.post(Uri.parse("http://localhost:8080/api/producto/buscarproductoxcodigo"),
+    var response = await http.post(Uri.parse( API_URL + "producto/buscarproductoxcodigo"),
         body: ({'codigoProducto': codigoProductoR}));
 
     if (response.statusCode == 200) {
       Map<String, dynamic> data = jsonDecode(response.body);
       var units = (json.decode(response.body) as Map<String, dynamic>)["producto"];
-      String idString = (units["id"]).toString();
-      String cantidadProductoString = (units["cantidadProducto"]).toString();
+      int idString = (units["id"]);
       String precioString = (units["precioProducto"]).toString();
+      int cantidadProductoString = (units["cantidadProducto"]);
       String isvString = (units["isvProducto"].toString());
       String descString = (units["descProducto"].toString());
-      String isExcentoString = (units["isExcento"].toString());
-      String idTipoProductoString = (units["idTipoProducto"].toString());
-
+      bool isExcentoString = (units["isExcento"]);
+      int idTipoProductoString = (units["idTipoProducto"]);
       String codigoProducto = units["codigoProducto"];
       String nombreProducto = units["nombreProducto"];
 
@@ -169,3 +305,63 @@ Future<Producto> buscarProducto(String codigoProductoR, context) async {
   }
 }
 
+Future<List<Producto?>> eliminarProducto2(String id) async {
+  Producto? producto = null;
+  List<Producto?> productoCreado = [];
+  try {
+    var response = await http.post(Uri.parse(API_URL + "producto/eliminarproducto"),
+        body: ({
+          'id' : id
+        }));
+    print(response.body);
+    if (response.statusCode == 200) {
+  
+    } else {
+      
+    }
+    return productoCreado;
+  } catch (e) {
+    print(e);
+    return productoCreado;
+  } finally {
+  }
+}
+
+class UserApi {
+  static Future<List<Tipoproducto2>> obtenerTipos(String query) async {
+    final url = Uri.parse(API_URL + 'producto/mostrartipos');
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final List tipos = (json.decode(response.body) as Map<String, dynamic>) ["tipoProducto"];
+      return tipos.map((json) => Tipoproducto2.fromJson(json)).where((tipos){
+        final nameLower = tipos.tipoProducto.toLowerCase();
+        final queryLower = query.toLowerCase();
+        return nameLower.contains(queryLower);
+      }).toList();
+    } else {
+      throw Exception();
+    }
+  }
+}
+
+class Tipoproducto2 {
+  final String tipoProducto;
+  final String isvTipoProducto;
+  final int id;
+  final String descripcionProducto;
+
+  const Tipoproducto2({
+    required this.id,
+    required this.tipoProducto,
+    required this.descripcionProducto,
+    required this.isvTipoProducto,
+  });
+
+  static Tipoproducto2 fromJson(Map<String, dynamic> json) => Tipoproducto2(
+    id: json['id'],
+    tipoProducto: json['tipoProducto'],
+    descripcionProducto: json['descripcionProducto'],
+    isvTipoProducto: json['isvTipoProducto'],
+  );
+}
