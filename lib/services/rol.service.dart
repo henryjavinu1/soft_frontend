@@ -63,7 +63,6 @@ Future<List<Role?>> eliminarRol(String id) async {
 
 Future<List<Role?>> ActualizarRole(
     String id, String rol, String descripcion) async {
-  ////////////////
   var client = http.Client();
   Role? roles = null;
   List<Role> RoleActualizado = [];
