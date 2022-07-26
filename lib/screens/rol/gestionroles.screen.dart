@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:soft_frontend/services/rol.service.dart';
 import '../../models/gestionrol.model.dart';
 import 'package:soft_frontend/controllers/roles.controller.dart';
-import 'package:soft_frontend/screens/rol/updaterol.screen.dart';
 
 class MostrarRol extends StatefulWidget {
   const MostrarRol({Key? key}) : super(key: key);
@@ -132,18 +131,9 @@ class _MostrarRolState extends State<MostrarRol> {
           width: 15,
         ),
         Expanded(
-            flex: 1,
-            child: TextButton(
-                child: const Text('Actualizar'),
-                onPressed: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (BuildContext context) {
-                    return new ActualizarRole2(
-                        id: lista.id,
-                        rol: lista.rol,
-                        descripcion: lista.descripcion);
-                  }));
-                })),
+          flex: 1,
+          child: const Text('Actualizar'),
+        ),
         Expanded(
             flex: 1,
             child: TextButton(
