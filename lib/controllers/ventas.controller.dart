@@ -33,7 +33,7 @@ Future crearVenta_Controller(
         totalIsv, totalVenta, totalDescuentoVenta, puntoDeEmision, establecimiento, tipo, idSesion, idUsuario,idCliente);
         print(ventas);
     if (ventas is IdVenta) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Venta añadida con exito')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Venta creada con exito')));
       return ventas;
     } else if (ventas == 500) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Ocurrió un error en el servidor al crear la venta, comuniquese con el administrador.')));

@@ -349,7 +349,7 @@ var   totalDescuentoVentaController = TextEditingController();
                                  editar.then((value){
                                   print('asjasd');
 
-                                  
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Venta añadida con exito')));
 
 
                                  });
