@@ -700,7 +700,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     margin: EdgeInsets.all(5),
                                     child: RaisedButton(
                                       onPressed: () {
-                                        ActualizarProducto(
+                                        ActualizarProducto2(
                                             idProducto.text,
                                             codigoProducto.text,
                                             nombreProducto.text,

@@ -132,7 +132,7 @@ Future<List<Producto?>> ActualizarProducto2(
   Producto? producto = null;
   List<Producto?> productoCreado = [];
   try {
-    var response = await http.put(Uri.parse(API_URL + "producto/actualizarproducto/"),
+    var response = await http.post(Uri.parse(API_URL + "producto/actualizarproducto/"),
         body: ({
           'id': idProducto,
           'codigoProducto': codigoProducto,
