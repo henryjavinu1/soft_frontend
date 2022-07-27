@@ -29,7 +29,7 @@ Future<ManipularArqueo?> crearArqueo_Controller(
     if (arqueo != null) {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Arqueo Creado con exito')));
-      Navigator.pushNamed(context, 'PrincipalVenta');
+      Navigator.pushNamed(context, 'traer_arqueo');
     } else {}
   } else {
     ScaffoldMessenger.of(context)
