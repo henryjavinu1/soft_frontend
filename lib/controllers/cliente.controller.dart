@@ -21,7 +21,7 @@ Future<Cliente?> crearCliente_Controller(
         dni, email, rtn, nombreCliente, direccion, telefonoCliente);
     if (cliente != null) {
       ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Cliente cliente añadido con exito")));
+          const SnackBar(content: Text("Cliente añadido con exito")));
       Navigator.pushNamed(context, "traer_clientes");
     } else {}
   } else {

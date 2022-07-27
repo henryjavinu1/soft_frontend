@@ -80,7 +80,7 @@ class _ActualizarRole2State extends State<ActualizarRole2> {
                               height: 40,
                             ),
                             const Text(
-                              "descricpion",
+                              "Descripcion",
                               style: TextStyle(fontSize: 18),
                             ),
                             TextFormField(

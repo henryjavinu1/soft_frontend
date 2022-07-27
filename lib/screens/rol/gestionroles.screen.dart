@@ -27,7 +27,15 @@ class _MostrarRolState extends State<MostrarRol> {
     var buscadorcontroller = TextEditingController();
 
     return Scaffold(
-        appBar: AppBar(title: const Text("Modulo Roles")),
+        appBar: AppBar(title: const Text('Modulo Roles'), actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.popAndPushNamed(context, 'PrincipalGestion');
+            },
+            child: Text('Regresar',
+                style: TextStyle(color: Colors.white, fontSize: 20)),
+          ),
+        ]),
         body: Container(
           child: FutureBuilder(
             future: mostrarRol(),
@@ -139,10 +147,9 @@ class _MostrarRolState extends State<MostrarRol> {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (BuildContext context) {
                     return new ActualizarRole2(
-                      id: lista.id,
-                      rol: lista.rol,
-                      descripcion: lista.descripcion,
-                    );
+                        id: lista.id,
+                        rol: lista.rol,
+                        descripcion: lista.descripcion);
                   }));
                 })),
         Expanded(

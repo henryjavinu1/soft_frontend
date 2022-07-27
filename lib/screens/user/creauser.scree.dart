@@ -19,7 +19,16 @@ class _CrearUserState extends State<CrearUser> {
       Scaffold(body: LayoutBuilder(builder: (context, constraints) {
         return Scaffold(
           appBar: AppBar(
-            title: Text("Crear Usuario"),
+            title: Text('Crear Usuario'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.popAndPushNamed(context, 'gestionUsuarios');
+                },
+                child: Text('Regresar',
+                    style: TextStyle(color: Colors.white, fontSize: 20)),
+              ),
+            ],
           ),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
