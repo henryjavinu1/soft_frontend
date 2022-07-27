@@ -1,10 +1,11 @@
-// ignore_for_file: unnecessary_new
-
 import 'package:flutter/material.dart';
+import 'package:simple_animations/simple_animations.dart';
 import 'package:soft_frontend/controllers/user.controller.dart';
 import 'package:soft_frontend/screens/user/updateuser.screen.dart';
 import 'package:soft_frontend/services/user.service.dart';
 import '../../models/gestionUsuario.model.dart';
+import 'package:soft_frontend/widgets/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MostrarUsuarios extends StatefulWidget {
   const MostrarUsuarios({Key? key}) : super(key: key);
@@ -27,7 +28,18 @@ class _MostrarUsuariosState extends State<MostrarUsuarios> {
     var buscadorcontroller = TextEditingController();
 
     return Scaffold(
-        appBar: AppBar(title: const Text("Modulo Usuarios")),
+        appBar: AppBar(
+            automaticallyImplyLeading: false,
+            title: const Text('Modulo Usuarios'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.popAndPushNamed(context, 'PrincipalGestion');
+                },
+                child: Text('Regresar',
+                    style: TextStyle(color: Colors.white, fontSize: 20)),
+              ),
+            ]),
         body: Container(
           child: FutureBuilder(
             future: mostrarUsuarios(),
@@ -39,24 +51,24 @@ class _MostrarUsuariosState extends State<MostrarUsuarios> {
                 listaUsuarios = lista.todoslosUsuarios;
 
                 return Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.only(left: 10.10, top: 20.5),
                   child: Column(
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           TextButton(
                             onPressed: () {
                               Navigator.pushNamed(context, 'crearUsuarios');
                             },
                             child: Container(
-                                width: size.width * 0.2,
-                                padding: const EdgeInsets.all(15),
+                                width: size.width * 0.15,
+                                padding: const EdgeInsets.all(10),
                                 child: const Text(
-                                  "Nuevo Usuario",
+                                  'Nuevo Usuario',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: 18, color: Color(0xFFF1F1F1)),
+                                      fontSize: 16, color: Color(0xFFF1F1F1)),
                                 )),
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
@@ -70,40 +82,64 @@ class _MostrarUsuariosState extends State<MostrarUsuarios> {
                       ),
                       Row(
                         children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: size.height * 0.15),
-                            child: Text(
-                              'User',
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.bold),
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              color: Color(0x89ECEAEA), height: 25,
+                              child: Text(
+                                'Usuario',
+                                style: TextStyle(
+                                  fontSize: size.width * 0.011,
+                                  color: Color(0xFF121213),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              //),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(left: size.height * 0.35),
-                            child: Text(
-                              'Email',
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.bold),
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              color: Color(0x89ECEAEA),
+                              height: 25,
+                              child: Text(
+                                'Email',
+                                style: TextStyle(
+                                    fontSize: size.width * 0.011,
+                                    color: Color(0xFF121213),
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(left: size.height * 0.40),
-                            child: Text(
-                              'Rol',
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.bold),
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              color: Color(0x89ECEAEA), height: 25,
+                              //Padding(
+                              //padding: EdgeInsets.only(left: size.height * 0.15),
+                              child: Text(
+                                'Rol',
+                                style: TextStyle(
+                                    fontSize: size.width * 0.011,
+                                    color: Color(0xFF121213),
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(left: size.height * 0.50),
-                            child: Text(
-                              'Opciones',
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.bold),
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              color: Color(0x89ECEAEA), height: 25,
+                              //Padding(
+                              //padding: EdgeInsets.only(left: size.height * 0.15),
+                              child: Text(
+                                'Opciones',
+                                style: TextStyle(
+                                    fontSize: size.width * 0.011,
+                                    color: Color(0x89ECEAEA),
+                                    height: 25,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ),
                         ],

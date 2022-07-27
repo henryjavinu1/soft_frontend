@@ -27,7 +27,15 @@ class _MostrarRolState extends State<MostrarRol> {
     var buscadorcontroller = TextEditingController();
 
     return Scaffold(
-        appBar: AppBar(title: const Text("Modulo Roles")),
+        appBar: AppBar(title: const Text('Modulo Roles'), actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.popAndPushNamed(context, 'PrincipalGestion');
+            },
+            child: Text('Regresar',
+                style: TextStyle(color: Colors.white, fontSize: 20)),
+          ),
+        ]),
         body: Container(
           child: FutureBuilder(
             future: mostrarRol(),
