@@ -118,6 +118,21 @@ class _MostrarUsuariosState extends State<MostrarUsuarios> {
                               //Padding(
                               //padding: EdgeInsets.only(left: size.height * 0.15),
                               child: Text(
+                                'Empleado',
+                                style: TextStyle(
+                                    fontSize: size.width * 0.011,
+                                    color: Color(0xFF121213),
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              color: Color(0x89ECEAEA), height: 25,
+                              //Padding(
+                              //padding: EdgeInsets.only(left: size.height * 0.15),
+                              child: Text(
                                 'Rol',
                                 style: TextStyle(
                                     fontSize: size.width * 0.011,
@@ -136,8 +151,7 @@ class _MostrarUsuariosState extends State<MostrarUsuarios> {
                                 'Opciones',
                                 style: TextStyle(
                                     fontSize: size.width * 0.011,
-                                    color: Color(0x89ECEAEA),
-                                    height: 25,
+                                    color: Color(0xFF121213),
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
@@ -173,6 +187,7 @@ class _MostrarUsuariosState extends State<MostrarUsuarios> {
       children: [
         Expanded(flex: 2, child: Text(lista.usuario)),
         Expanded(flex: 2, child: Text(lista.email)),
+        Expanded(flex: 2, child: Text(lista.idEmpleado.toString())),
         Expanded(flex: 2, child: Text(lista.idRol.toString())),
         const SizedBox(
           width: 15,
@@ -189,8 +204,8 @@ class _MostrarUsuariosState extends State<MostrarUsuarios> {
                         usuario: lista.usuario,
                         password: lista.password,
                         email: lista.email,
-                        idEmpleado: lista.idEmpleado,
-                        idRol: lista.idRol);
+                        idEmpleado: lista.idEmpleado.toString(),
+                        idRol: lista.idRol.toString());
                   }));
                 })),
         Expanded(

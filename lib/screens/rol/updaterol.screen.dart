@@ -53,20 +53,6 @@ class _ActualizarRole2State extends State<ActualizarRole2> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              "ID",
-                              style: const TextStyle(fontSize: 18),
-                            ),
-                            TextFormField(
-                              enabled: false,
-                              controller: idController,
-                              decoration: const InputDecoration(
-                                border: const UnderlineInputBorder(),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 40,
-                            ),
-                            const Text(
                               "Rol",
                               style: TextStyle(fontSize: 18),
                             ),

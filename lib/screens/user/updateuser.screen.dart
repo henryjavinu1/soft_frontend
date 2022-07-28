@@ -12,8 +12,8 @@ class ActualizarUsuario2 extends StatefulWidget {
 
   @override
   State<ActualizarUsuario2> createState() => _ActualizarUsuario2State();
-  final int id, idEmpleado, idRol;
-  final String usuario, password, email;
+  final int id;
+  final String usuario, password, email, idEmpleado, idRol;
 }
 
 class _ActualizarUsuario2State extends State<ActualizarUsuario2> {
@@ -26,9 +26,9 @@ class _ActualizarUsuario2State extends State<ActualizarUsuario2> {
   late TextEditingController emailController =
       TextEditingController(text: widget.email);
   late TextEditingController idEmpleadoController =
-      TextEditingController(text: widget.idEmpleado.toString());
+      TextEditingController(text: widget.idEmpleado);
   late TextEditingController idRolController =
-      TextEditingController(text: widget.idRol.toString());
+      TextEditingController(text: widget.idRol);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,20 +60,6 @@ class _ActualizarUsuario2State extends State<ActualizarUsuario2> {
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              "ID",
-                              style: const TextStyle(fontSize: 18),
-                            ),
-                            TextFormField(
-                              enabled: false,
-                              controller: idController,
-                              decoration: const InputDecoration(
-                                border: const UnderlineInputBorder(),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 40,
-                            ),
                             const Text(
                               "Usuario",
                               style: TextStyle(fontSize: 18),

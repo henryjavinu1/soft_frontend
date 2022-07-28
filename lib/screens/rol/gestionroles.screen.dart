@@ -51,15 +51,15 @@ class _MostrarRolState extends State<MostrarRol> {
                   child: Column(
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           TextButton(
                             onPressed: () {
                               Navigator.pushNamed(context, 'crearRol');
                             },
                             child: Container(
-                                width: size.width * 0.2,
-                                padding: const EdgeInsets.all(15),
+                                width: size.width * 0.15,
+                                padding: const EdgeInsets.all(10),
                                 child: const Text(
                                   "Nuevo Rol",
                                   textAlign: TextAlign.center,
@@ -78,31 +78,49 @@ class _MostrarRolState extends State<MostrarRol> {
                       ),
                       Row(
                         children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: size.height * 0.20),
-                            child: Text(
-                              'Rol',
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.bold),
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              color: Color(0x89ECEAEA), height: 25,
+                              child: Text(
+                                'Rol',
+                                style: TextStyle(
+                                  fontSize: size.width * 0.011,
+                                  color: Color(0xFF121213),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              //),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(left: size.height * 0.45),
-                            child: Text(
-                              'Descripcion',
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.bold),
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              color: Color(0x89ECEAEA), height: 25,
+                              child: Text(
+                                'Descripcion',
+                                style: TextStyle(
+                                  fontSize: size.width * 0.011,
+                                  color: Color(0xFF121213),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              //),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(left: size.height * 0.75),
-                            child: Text(
-                              'Opciones',
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.bold),
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              color: Color(0x89ECEAEA), height: 25,
+                              child: Text(
+                                'Opciones',
+                                style: TextStyle(
+                                  fontSize: size.width * 0.011,
+                                  color: Color(0xFF121213),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              //),
                             ),
                           ),
                         ],

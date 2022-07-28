@@ -8,6 +8,7 @@ class CrearUser extends StatefulWidget {
 }
 
 class _CrearUserState extends State<CrearUser> {
+  var idController = TextEditingController();
   var usuarioController = TextEditingController();
   var passwordController = TextEditingController();
   var emailController = TextEditingController();
@@ -134,6 +135,7 @@ class _CrearUserState extends State<CrearUser> {
                                     child: ElevatedButton(
                                         onPressed: () =>
                                             crearUsuario_Controller(
+                                                idController.text,
                                                 usuarioController.text,
                                                 passwordController.text,
                                                 emailController.text,

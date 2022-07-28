@@ -12,7 +12,7 @@ import '../services/rol.service.dart';
 
 Future<Rol?> CreaRol_controller(
     String id, String rol, String descripcion, context) async {
-  List<Rol?> role = await crearRol(id, rol, descripcion, context);
+  List<Rol?> role = await crearRol(rol, descripcion, context);
   if (role != null) {
     ScaffoldMessenger.of(context)
         .showSnackBar(const SnackBar(content: Text("Rol creado con exito")));

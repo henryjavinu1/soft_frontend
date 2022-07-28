@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:soft_frontend/models/models.dart';
 
 Usuario usuarioFromJson(String str) => Usuario.fromJson(json.decode(str));
 String usuarioToJson(Usuario data) => json.encode(data.toJson());
