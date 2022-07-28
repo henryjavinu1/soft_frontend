@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: 'ventas',
+      initialRoute: 'traer_arqueo',
       routes: {
         'login': (_) => const Login(),
 
