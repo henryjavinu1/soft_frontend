@@ -100,23 +100,6 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                             ),
                           ),
                         )),
-                        /*TextButton(
-                          onPressed: null,
-                          child: Center(
-                            child: ElevatedButton(
-                              onPressed: () => Navigator.of(context)
-                                  .push(new MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    new BuscarArqueoIdUsuario(),
-                              )),
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 5, vertical: 5),
-                                child: Text('Buscar un Arqueo'),
-                              ),
-                            ),
-                          ),
-                        ),*/
                         TextButton(
                           onPressed: null,
                           child: Center(
@@ -418,31 +401,6 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                                                             TextAlign.center,
                                                         textScaleFactor: 1,
                                                       )),
-                                                  /*Expanded(
-                                                      flex: 1,
-                                                      child: Text(
-                                                        _textEditingController!
-                                                                .text.isNotEmpty
-                                                            ? filtroArqueos[
-                                                                    index]
-                                                                .isDelete
-                                                                .toString()
-                                                            : listaArqueos[
-                                                                    index]
-                                                                .isDelete
-                                                                .toString(),
-                                                        style: GoogleFonts.lato(
-                                                            fontSize:
-                                                                size.width *
-                                                                    0.01,
-                                                            fontWeight:
-                                                                FontWeight.w800,
-                                                            color:
-                                                                Colors.black),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        textScaleFactor: 1,
-                                                      )),*/
                                                   Expanded(
                                                       flex: 3,
                                                       child: Text(
@@ -556,7 +514,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                                                                   .toString());
                                                         },
                                                       )),
-                                                  Expanded(
+                                                  /*Expanded(
                                                       flex: 3,
                                                       child: TextButton(
                                                         child: Text(
@@ -577,18 +535,11 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                                                                   .idArqueo
                                                                   .toString());
                                                         },
-                                                      )),
+                                                      )),*/
                                                 ],
                                               ),
                                             );
                                           }),
-                                      /*ListView.separated(
-                                        itemBuilder: (_, i) =>
-                                            item(listaArqueos[i]),
-                                        itemCount: list.arqueos.length,
-                                        separatorBuilder: (_, i) =>
-                                            const Divider(),
-                                      ),*/
                                     ),
                                   ),
                                 ),
@@ -605,7 +556,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
         ));
   }
 
-  Widget item(Arqueo lista) {
+  /*Widget item(Arqueo lista) {
     Size size = MediaQuery.of(context).size;
     return Row(
       children: [
@@ -775,7 +726,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
             )),
       ],
     );
-  }
+  }*/
 
   void _showDialog(BuildContext context, String idArqueo) {
     showDialog(
@@ -804,12 +755,11 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
     );
   }
 
-  void _showDialogActualizar(BuildContext context, String idUsuario,
-      String idSesion, String idArqueo) {
+  void _showDialogActualizar(
+      BuildContext context, String idUsuario, String idSesion) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        print(idArqueo);
         return AlertDialog(
           title: Text('Actualizar Arqueo'),
           content: Text('¿Quieres actualizar el arqueo?'),
@@ -818,7 +768,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
               child: Text('Si'),
               onPressed: () {
                 actualizarArqueoCerrandoSesion_Controller(
-                    idUsuario, idSesion, idArqueo, context);
+                    idUsuario, idSesion, context);
               },
             ),
             ElevatedButton(
@@ -831,14 +781,5 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
         );
       },
     );
-  }
-
-  void buscarArqueoIdUsuario(String query) {
-    final sugerencia = listaArqueos.where((listaArqueos) {
-      final idSesion1 = listaArqueos.idUsuario;
-      final input = query;
-      return idSesion1.toString().contains(input);
-    }).toList();
-    setState(() => listaArqueos = sugerencia);
   }
 }

@@ -38,10 +38,10 @@ Future<ManipularArqueo?> crearArqueo_Controller(
 }
 
 Future<ManipularArqueo?> actualizarArqueoCerrandoSesion_Controller(
-    String idUsuario, String idSesion, String idArqueo, context) async {
-  if (idUsuario.isNotEmpty && idSesion.isNotEmpty && idArqueo.isNotEmpty) {
+    String idUsuario, String idSesion, context) async {
+  if (idUsuario.isNotEmpty && idSesion.isNotEmpty) {
     List<ManipularArqueo?> arqueo1 =
-        await actualizarArqueoCerrandoSesion(idUsuario, idSesion, idArqueo);
+        await actualizarArqueoCerrandoSesion(idUsuario, idSesion);
     if (arqueo1 != null) {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Arqueo Actualizado con exito')));
