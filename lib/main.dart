@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soft_frontend/constans.dart';
 import 'package:soft_frontend/models/models.dart';
 import 'package:soft_frontend/models/mostrarUnaFactura.model.dart';
 import 'package:soft_frontend/screens/arqueo/buscarArqueoIdUsuario.screen.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      scaffoldMessengerKey: snackbarKey,
       debugShowCheckedModeBanner: false,
       title: 'Soft',
       theme: ThemeData(

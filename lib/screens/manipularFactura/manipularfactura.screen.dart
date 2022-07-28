@@ -639,7 +639,7 @@ class _ManipularFacturaState extends State<ManipularFactura> {
         // Búsqueda por empleado
         case 4:
           facturasTemp.clear();
-          await filtrarFacturasPorIdEmpleado(_textController,
+          await filtrarFacturasPorNombreEmpleado(_textController,
               (val) => setState(() => facturasTemp = val), context);
           break;
         // Búsqueda por número de factura
@@ -1013,7 +1013,7 @@ class _CamposDeBusquedaState extends State<CamposDeBusqueda> {
         controller: widget._textController,
         decoration: InputDecoration(
           border: OutlineInputBorder(),
-          labelText: 'Id de empleado',
+          labelText: 'Nombre de empleado',
         ),
       );
     } else {
