@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:soft_frontend/models/models.dart';
 
 Usuario usuarioFromJson(String str) => Usuario.fromJson(json.decode(str));
 String usuarioToJson(Usuario data) => json.encode(data.toJson());
@@ -29,6 +30,7 @@ class TodosLosUsuarios {
     required this.isDelete,
     required this.createdAt,
     required this.updatedAt,
+    //required this.empleado,
     required this.idEmpleado,
     required this.idRol,
   });
@@ -40,6 +42,7 @@ class TodosLosUsuarios {
   bool isDelete;
   DateTime createdAt;
   DateTime updatedAt;
+  //TodoslosEmpleados empleado;
   int idEmpleado;
   int idRol;
 
@@ -52,6 +55,7 @@ class TodosLosUsuarios {
           isDelete: json['isDelete'] ?? false,
           createdAt: DateTime.parse(json['createdAt']),
           updatedAt: DateTime.parse(json['updatedAt']),
+          //empleado: TodoslosEmpleados.fromJson(json['dni']),
           idEmpleado: json['idEmpleado'] ?? 0,
           idRol: json['idRol'] ?? 0);
 
@@ -63,6 +67,7 @@ class TodosLosUsuarios {
         'isDelete': isDelete,
         'createdAt': createdAt.toIso8601String(),
         'updatedAt': updatedAt.toIso8601String(),
+        //'empleado': empleado.toJson(),
         'idEmpleado': idEmpleado,
         'idRol': idRol,
       };

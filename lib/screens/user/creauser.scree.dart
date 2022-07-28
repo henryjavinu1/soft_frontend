@@ -8,6 +8,7 @@ class CrearUser extends StatefulWidget {
 }
 
 class _CrearUserState extends State<CrearUser> {
+  var idController = TextEditingController();
   var usuarioController = TextEditingController();
   var passwordController = TextEditingController();
   var emailController = TextEditingController();
@@ -19,7 +20,16 @@ class _CrearUserState extends State<CrearUser> {
       Scaffold(body: LayoutBuilder(builder: (context, constraints) {
         return Scaffold(
           appBar: AppBar(
-            title: Text("Crear Usuario"),
+            title: Text('Crear Usuario'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.popAndPushNamed(context, 'gestionUsuarios');
+                },
+                child: Text('Regresar',
+                    style: TextStyle(color: Colors.white, fontSize: 20)),
+              ),
+            ],
           ),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
@@ -125,6 +135,7 @@ class _CrearUserState extends State<CrearUser> {
                                     child: ElevatedButton(
                                         onPressed: () =>
                                             crearUsuario_Controller(
+                                                idController.text,
                                                 usuarioController.text,
                                                 passwordController.text,
                                                 emailController.text,
