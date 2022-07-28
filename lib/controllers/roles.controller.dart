@@ -12,7 +12,7 @@ import '../services/rol.service.dart';
 
 Future<Rol?> CreaRol_controller(
     String id, String rol, String descripcion, context) async {
-  List<Rol?> role = await crearRol(id, rol, descripcion, context);
+  List<Rol?> role = await crearRol(rol, descripcion, context);
   if (role != null) {
     ScaffoldMessenger.of(context)
         .showSnackBar(const SnackBar(content: Text("Rol creado con exito")));
@@ -28,19 +28,4 @@ Future<Role?> eliminarrol_Controller(String id, context) async {
     ScaffoldMessenger.of(context)
         .showSnackBar(const SnackBar(content: Text("Rol eliminado con exito")));
   } else {}
-}
-
-Future<Role?> actualizarRole_Controller(
-    String id, String rol, String descripcion, context) async {
-  if (id.isNotEmpty && rol.isNotEmpty && descripcion.isNotEmpty) {
-    List<Role?> Listroles = await ActualizarRole(id, rol, descripcion);
-    if (Listroles != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("rol Actualizado con exito")));
-      Navigator.pushNamed(context, "gestionRol");
-    } else {}
-  } else {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text("Campos en blanco")));
-  }
 }

@@ -32,7 +32,7 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
             'Fecha Inicio',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
-            textAlign: TextAlign.center,
+            textAlign: TextAlign.left,
             textScaleFactor: 1,
           ),
         ),
@@ -42,7 +42,7 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
             'Fecha Final',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
-            textAlign: TextAlign.center,
+            textAlign: TextAlign.left,
             textScaleFactor: 1,
           ),
         ),
@@ -142,7 +142,7 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
             '#Usuario',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
-            textAlign: TextAlign.center,
+            textAlign: TextAlign.left,
             textScaleFactor: 1,
           ),
         ),
@@ -152,7 +152,7 @@ class CabeceraDeTablaArqueo extends StatelessWidget {
             '#Sesion',
             style: GoogleFonts.lato(
                 fontSize: size.width * 0.01, fontWeight: FontWeight.w800),
-            textAlign: TextAlign.center,
+            textAlign: TextAlign.left,
             textScaleFactor: 1,
           ),
         ),

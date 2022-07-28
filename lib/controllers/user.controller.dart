@@ -60,8 +60,14 @@ Future<bool?> logeado() async {
   }
 }
 
-Future<User?> crearUsuario_Controller(String usuario, String password,
-    String email, String idEmpleado, String idRol, context) async {
+Future<User?> crearUsuario_Controller(
+    String id,
+    String usuario,
+    String password,
+    String email,
+    String idEmpleado,
+    String idRol,
+    context) async {
   List<User?> user =
       await crearUser(usuario, password, email, idEmpleado, idRol);
 
