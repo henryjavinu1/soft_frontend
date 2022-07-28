@@ -52,7 +52,7 @@ class PantallaDesktop extends StatelessWidget {
             onPressed: () {
               _showDialog(context);
             },
-            child: Text("Cerrar Sesion",
+            child: Text('Cerrar Sesion',
                 style: TextStyle(color: Colors.white, fontSize: 20)),
           ),
         ],
@@ -67,7 +67,7 @@ class PantallaDesktop extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: const [
                 Text(
-                  "Panel Principal de Modulos",
+                  'Panel Principal de Modulos',
                   style: TextStyle(fontSize: 20),
                 ),
               ],
@@ -81,7 +81,7 @@ class PantallaDesktop extends StatelessWidget {
                     visible: true,
                     child: TextButtons(
                       img: 'mantenimiento.png',
-                      name: "Modulo de Mantenimiento",
+                      name: 'Modulo de Mantenimiento',
                       route: 'mantenimiento',
                       width: 0.2,
                       fontSize: 15,
@@ -95,8 +95,26 @@ class PantallaDesktop extends StatelessWidget {
                   visible: true,
                   child: TextButtons(
                     img: 'salario.png',
-                    name: "Modulo de Ventas",
+                    name: 'Modulo de Ventas',
                     route: 'PrincipalVenta',
+                    width: 0.2,
+                    fontSize: 15,
+                  ),
+                ),
+              ],
+              const SizedBox(
+                width: 30,
+              ),
+              if (permisosId.contains(1) ||
+                  permisosId.contains(2) ||
+                  permisosId.contains(3) ||
+                  permisosId.contains(4)) ...[
+                Visibility(
+                  visible: true,
+                  child: TextButtons(
+                    img: 'equilibrar.png',
+                    name: 'Modulo de Arqueos',
+                    route: 'traer_arqueo',
                     width: 0.2,
                     fontSize: 15,
                   ),
@@ -112,7 +130,7 @@ class PantallaDesktop extends StatelessWidget {
                   visible: true,
                   child: TextButtons(
                     img: 'empleado.png',
-                    name: "Gestion de Usuarios",
+                    name: 'Gestion de Usuarios',
                     route: 'PrincipalGestion',
                     width: 0.2,
                     fontSize: 15,
