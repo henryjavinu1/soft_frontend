@@ -60,6 +60,13 @@ class _VentanaVentaState extends State<VentanaVenta> {
             child: Text('Regresar',
                 style: TextStyle(color: Colors.white, fontSize: 20)),
           ),
+          TextButton(
+            onPressed: () {
+              //Navigator.popAndPushNamed(context, '');
+            },
+            child: Text('Cerrar Sesión',
+                style: TextStyle(color: Colors.white, fontSize: 20)),
+          ),
         ],
       ),
       body: Container(
@@ -599,23 +606,4 @@ class _VentanaVentaState extends State<VentanaVenta> {
         ));
   }
 }
-
-/*
-class _ListaDetalles extends StatelessWidget {
-  final List<TodosLosDetalle> detalles;
-
-  _ListaDetalles(this.detalles);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: detalles.length,
-      itemBuilder: (BuildContext context, int i) {
-        final detalle = detalles[i];
-        return ListTile(
-          title: Text('${detalle.id} ${detalle.idProducto}'),
-        );
-      },
-    );
-  }*/
 
