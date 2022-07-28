@@ -39,7 +39,7 @@ class _ManipularFacturaState extends State<ManipularFactura> {
   bool mostrarOpcionesDeBusquedaMovil = false;
   // Para mostrar el textFiled en la versión móvil.
   bool mostrarCamposDeBusquedaMovil = false;
-  // Para ocultar el FAB de búsqueda en la versión móvil al momento de estar 
+  // Para ocultar el FAB de búsqueda en la versión móvil al momento de estar
   // en el formulario de búsqueda emergente.
   bool ocultarFAB = false;
 
@@ -366,13 +366,13 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                             // Menor a 800: No mostrar dropdown, textfield y botón buscar.
                             : SizedBox(),
                         // Validar tamaño de la pantalla (ancho), Si es menor a 800 y la variable mostrarListaFacturasTemporal
-                        // Es verdadera, mostrar botón limpiar búsqueda, caso contrario, no mostrar botón limpiar búsqueda. 
+                        // Es verdadera, mostrar botón limpiar búsqueda, caso contrario, no mostrar botón limpiar búsqueda.
                         (size.width < 800 && mostrarListaFacturasTemporal)
                             // Menor a 800 y mostrarListaFacturasTemporal verdadero: mostrar botón limpiar búsqueda.
                             ? Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                ElevatedButton(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  ElevatedButton(
                                     child: Text('Limpiar búsqueda'),
                                     onPressed: () {
                                       mostrarListaFacturasTemporal = false;
@@ -380,8 +380,8 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                                       setState(() {});
                                     },
                                   ),
-                              ],
-                            )
+                                ],
+                              )
                             // Mayor a 800 y mostrarListaFacturasTemporal falso: no mostrar botón limpiar búsqueda.
                             : SizedBox(),
                         // Validar tamaño de la pantalla, Si es mayor a 800 mostrar tabla de facturas dekstop, Si es menor
@@ -421,9 +421,10 @@ class _ManipularFacturaState extends State<ManipularFactura> {
                     ),
                   ),
                   // Validar tamaño de la pantalla, si es menor a 800 y la variable
-                  // mostrarOpcionesDeBusquedaMovil es verdadero, mostrará 
+                  // mostrarOpcionesDeBusquedaMovil es verdadero, mostrará
                   // Un fondo oscuro al mostrar los FAB.
-                  ((size.width < 800 && mostrarOpcionesDeBusquedaMovil) || mostrarCamposDeBusquedaMovil)
+                  ((size.width < 800 && mostrarOpcionesDeBusquedaMovil) ||
+                          mostrarCamposDeBusquedaMovil)
                       // Menor a 800 y mostrarOpcionesDeBusquedaMovil verdadero:
                       // Mostrará fondo opaco al estar activo los FAB
                       ? Container(
@@ -625,16 +626,16 @@ class _ManipularFacturaState extends State<ManipularFactura> {
           break;
         //Búsqueda por talonario
         case 3:
-          if (_atributoSeleccionado == 0) {
-            facturasTemp.clear();
-            await filtrarFacturasPorIdTalonario(_textController,
-                (val) => setState(() => facturasTemp = val), context);
-            // Si la búsqueda es por CAI
-          } else if (_atributoSeleccionado == 1) {
-            facturasTemp.clear();
-            await filtrarFacturasPorCAI(_textController,
-                (val) => setState(() => facturasTemp = val), context);
-          }
+          // if (_atributoSeleccionado == 0) {
+          //   facturasTemp.clear();
+          //   await filtrarFacturasPorIdTalonario(_textController,
+          //       (val) => setState(() => facturasTemp = val), context);
+          //   // Si la búsqueda es por CAI
+          // } else if (_atributoSeleccionado == 1) {
+          facturasTemp.clear();
+          await filtrarFacturasPorCAI(_textController,
+              (val) => setState(() => facturasTemp = val), context);
+          // }
           break;
         // Búsqueda por empleado
         case 4:
@@ -956,58 +957,65 @@ class _CamposDeBusquedaState extends State<CamposDeBusqueda> {
         ],
       );
     } else if (widget.campo == 3) {
-      if (opciones == 0) {
-        label = 'Id de talonario';
-      } else if (opciones == 1) {
-        label = 'CAI';
-      }
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          TextField(
-            controller: widget._textController,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: label,
-            ),
-          ),
-          SizedBox(height: 15),
-          Row(
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  opciones = 0;
-                  widget.callback(opciones);
-                  setState(() {});
-                },
-                child: Text('Id de talonario'),
-                style: ButtonStyle(
-                  backgroundColor: (opciones == 0)
-                      ? MaterialStateProperty.all(Colors.blue)
-                      : MaterialStateProperty.all(Colors.grey),
-                ),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  opciones = 1;
-                  widget.callback(opciones);
-                  setState(() {});
-                },
-                child: Text('CAI'),
-                style: ButtonStyle(
-                  backgroundColor: (opciones == 1)
-                      ? MaterialStateProperty.all(Colors.blue)
-                      : MaterialStateProperty.all(Colors.grey),
-                ),
-              ),
-            ],
-          )
-        ],
+      return TextField(
+        controller: widget._textController,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(),
+          labelText: 'CAI',
+        ),
       );
+      // if (opciones == 0) {
+      //   label = 'Id de talonario';
+      // } else if (opciones == 1) {
+      //   label = 'CAI';
+      // }
+      // return Column(
+      //   mainAxisAlignment: MainAxisAlignment.start,
+      //   crossAxisAlignment: CrossAxisAlignment.start,
+      //   children: [
+      //     TextField(
+      //       controller: widget._textController,
+      //       decoration: InputDecoration(
+      //         border: OutlineInputBorder(),
+      //         labelText: label,
+      //       ),
+      //     ),
+      //     SizedBox(height: 15),
+      //     Row(
+      //       children: [
+      //         ElevatedButton(
+      //           onPressed: () {
+      //             opciones = 0;
+      //             widget.callback(opciones);
+      //             setState(() {});
+      //           },
+      //           child: Text('Id de talonario'),
+      //           style: ButtonStyle(
+      //             backgroundColor: (opciones == 0)
+      //                 ? MaterialStateProperty.all(Colors.blue)
+      //                 : MaterialStateProperty.all(Colors.grey),
+      //           ),
+      //         ),
+      //         SizedBox(
+      //           width: 10,
+      //         ),
+      //         ElevatedButton(
+      //           onPressed: () {
+      //             opciones = 1;
+      //             widget.callback(opciones);
+      //             setState(() {});
+      //           },
+      //           child: Text('CAI'),
+      //           style: ButtonStyle(
+      //             backgroundColor: (opciones == 1)
+      //                 ? MaterialStateProperty.all(Colors.blue)
+      //                 : MaterialStateProperty.all(Colors.grey),
+      //           ),
+      //         ),
+      //       ],
+      //     )
+      //   ],
+      // );
     } else if (widget.campo == 4) {
       return TextField(
         controller: widget._textController,

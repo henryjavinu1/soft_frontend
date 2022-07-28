@@ -124,15 +124,11 @@ Future filtrarFacturasPorFecha(
 }
 
 Future filtrarFacturasPorTalonario(
-    String idTalonario, String cai, String token) async {
+    String cai, String token) async {
   List<FacturaBuscada> facturaVacia = [];
   String url = API_URL + 'buscarfacturaportalonario/';
   try {
-    if (idTalonario.isEmpty && cai.isNotEmpty) {
-      url = url + '?cai=$cai';
-    } else {
-      url = url + '?idTalonario=$idTalonario';
-    }
+    url = url + '?cai=$cai';
     print(url);
     var response = await http.post(Uri.parse(url), body: {'token': token});
     print(response.request);
