@@ -62,7 +62,7 @@ class _CrearEmpleadosState extends State<crearEmpleados> {
                                 controller: dniController,
                                 decoration: InputDecoration(
                                     border: UnderlineInputBorder(),
-                                    hintText: '0610-1990-1789'),
+                                    hintText: '061019901789'),
                               ),
                               SizedBox(
                                 height: 40,
@@ -145,6 +145,19 @@ class _CrearEmpleadosState extends State<crearEmpleados> {
                               SizedBox(
                                 height: 40,
                               ),
+                              // DropdownButton(
+                              //   items: _lista.map((String a){
+                              //     return DropdownMenuItem(
+                              //       value: a,
+                              //       child: Text(a));
+
+                              //   }).toList(),
+                              //   onChanged: (_value)=>{
+                              //     setState(() {
+                              //       _vista = _value;
+                              //     })
+                              //   },
+                              //   hint: Text(_vista),
                               Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
@@ -176,8 +189,7 @@ class _CrearEmpleadosState extends State<crearEmpleados> {
                                         child: Center(
                                             child: ElevatedButton(
                                                 onPressed: () =>
-                                                     Navigator.popAndPushNamed(context, 
-                                                        'traer_empleados'),
+                                                     Navigator.popAndPushNamed(context,'traer_empleados'),
                                                 child: Padding(
                                                   padding: EdgeInsets.symmetric(
                                                       horizontal: 10,
