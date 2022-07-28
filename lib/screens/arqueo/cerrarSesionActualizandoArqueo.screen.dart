@@ -99,7 +99,6 @@ class _ActualizarArqueCerrandoSesionState
                                           actualizarArqueoCerrandoSesion_Controller(
                                               idUsuarioController.text,
                                               idSesionController.text,
-                                              idArqueoController.text,
                                               context);
                                         }),
                                     child: const Padding(

@@ -12,7 +12,9 @@ import 'package:soft_frontend/services/cliente.service.dart';
 import 'package:soft_frontend/models/cliente.model.dart';
 import 'package:soft_frontend/models/cliente.model.dart';
 import 'package:soft_frontend/services/detalleventa.service.dart';
+import 'package:soft_frontend/screens/arqueo/mostrarArqueo.screen.dart';
 
+import '../../controllers/Arqueo.controller.dart';
 import '../../controllers/detalleventa.controller.dart';
 import '../../services/ventas.service.dart';
 
@@ -60,6 +62,14 @@ class _VentanaVentaState extends State<VentanaVenta> {
             child: Text('Regresar',
                 style: TextStyle(color: Colors.white, fontSize: 20)),
           ),
+          /*TextButton(
+            onPressed: () {
+              _showDialogCerrarSesion(context, idUsuario, idSesion)
+            },
+            child: Text('Cerrar Sesión',
+            
+                style: TextStyle(color: Colors.white, fontSize: 20)),
+          ),*/
         ],
       ),
       body: Container(
@@ -598,24 +608,32 @@ class _VentanaVentaState extends State<VentanaVenta> {
           ],
         ));
   }
-}
 
-/*
-class _ListaDetalles extends StatelessWidget {
-  final List<TodosLosDetalle> detalles;
-
-  _ListaDetalles(this.detalles);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: detalles.length,
-      itemBuilder: (BuildContext context, int i) {
-        final detalle = detalles[i];
-        return ListTile(
-          title: Text('${detalle.id} ${detalle.idProducto}'),
+  void _showDialogCerrarSesion(
+      BuildContext context, String idUsuario, String idSesion) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Actualizar Arqueo'),
+          content: Text('¿Quieres actualizar el arqueo?'),
+          actions: <Widget>[
+            ElevatedButton(
+              child: Text('Si'),
+              onPressed: () {
+                actualizarArqueoCerrandoSesion_Controller(
+                    idUsuario, idSesion, context);
+              },
+            ),
+            ElevatedButton(
+              child: Text('No'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
         );
       },
     );
-  }*/
-
+  }
+}
