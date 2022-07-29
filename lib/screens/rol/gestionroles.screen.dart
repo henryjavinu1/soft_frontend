@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_new
 
 import 'package:flutter/material.dart';
+import 'package:soft_frontend/screens/rol/updaterol.screen.dart';
 import 'package:soft_frontend/services/rol.service.dart';
 import '../../models/gestionrol.model.dart';
 import 'package:soft_frontend/controllers/roles.controller.dart';
@@ -157,9 +158,18 @@ class _MostrarRolState extends State<MostrarRol> {
           width: 15,
         ),
         Expanded(
-          flex: 1,
-          child: const Text('Actualizar'),
-        ),
+            flex: 1,
+            child: TextButton(
+                child: const Text('Actualizar'),
+                onPressed: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (BuildContext context) {
+                    return new ActualizarRole2(
+                        id: lista.id,
+                        rol: lista.rol,
+                        descripcion: lista.descripcion);
+                  }));
+                })),
         Expanded(
             flex: 1,
             child: TextButton(
