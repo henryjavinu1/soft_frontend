@@ -4,6 +4,7 @@ import 'package:soft_frontend/models/manipularVenta.model.dart';
 import 'package:soft_frontend/models/ventaBuscada.model.dart';
 import 'package:soft_frontend/services/mostrarVentas.service.dart';
 
+import '../../services/ventas.service.dart';
 import 'generarFactura.screen.dart';
 
 class BuscarVenta extends StatefulWidget {
@@ -418,16 +419,8 @@ class _BuscarVentaState extends State<BuscarVenta> {
           ),
         ),
         TextButton(
-          onPressed: null,
-          child: ElevatedButton(
-            onPressed: () => Navigator.of(context).push(
-              new MaterialPageRoute(
-                builder: (BuildContext context) =>
-                    new CrearFactura(venta: lista),
-              ),
-            ),
-            child: Text('Eliminar'),
-          ),
+          onPressed: () => eliminarVenta(lista.id.toString()),
+          child: Text('Eliminar'),
         ),
       ],
     );
