@@ -162,9 +162,6 @@ class _TodosLosEmpleados2State extends State<TodosLosEmpleados2> {
       children: [
         Expanded(flex: 4, child: Text(lista.dni)),
         Expanded(flex: 4, child: Text(lista.nombre)),
-        const SizedBox(
-          width: 10,
-        ),
         Expanded(flex: 5, child: Text(lista.apellido)),
         Expanded(flex: 5, child: Text(lista.direccion)),
         Expanded(flex: 3, child: Text(lista.telefono)),

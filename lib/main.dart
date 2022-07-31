@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soft_frontend/constans.dart';
 import 'package:soft_frontend/models/models.dart';
 import 'package:soft_frontend/models/mostrarUnaFactura.model.dart';
 import 'package:soft_frontend/screens/arqueo/buscarArqueoIdUsuario.screen.dart';
@@ -31,12 +32,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      scaffoldMessengerKey: snackbarKey,
       debugShowCheckedModeBanner: false,
       title: 'Soft',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+<<<<<<< HEAD
       initialRoute: 'manipular_factura',
+=======
+      initialRoute: 'login',
+>>>>>>> main
       routes: {
         'login': (_) => const Login(),
 
@@ -49,7 +55,7 @@ class MyApp extends StatelessWidget {
         'crearUsuarios': (_) => CrearUser(),
         'crearRol': (_) => CrearRol(),
         'gestionUsuarios': (_) => const MostrarUsuarios(),
-        //'ventas': (_) => const Venta(),
+        'ventas': (_) => const VentanaVenta(),
         'gestionRol': (_) => const MostrarRol(),
         'traer_empleados': (_) => const TodosLosEmpleados2(),
         //'buscar_cliente': (_) => BuscarClientes(),
