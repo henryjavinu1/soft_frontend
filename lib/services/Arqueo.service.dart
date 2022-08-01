@@ -79,7 +79,7 @@ Future<List<ManipularArqueo?>> crearArqueo(
 }
 
 Future<List<ManipularArqueo?>> actualizarArqueoCerrandoSesion(
-    String idUsuario, String idSesion, String idArqueo) async {
+    String idUsuario, String idSesion) async {
   var client = http.Client();
   ManipularArqueo? arqueo1 = null;
   List<ManipularArqueo> arqueoActualizado = [];
@@ -90,7 +90,6 @@ Future<List<ManipularArqueo?>> actualizarArqueoCerrandoSesion(
         body: ({
           'idUsuario': idUsuario,
           'idSesion': idSesion,
-          'idArqueo': idArqueo,
         }));
     print(response.body);
     if (response.statusCode == 200) {

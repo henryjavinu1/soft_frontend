@@ -17,7 +17,16 @@ class _CrearRolState extends State<CrearRol> {
       Scaffold(body: LayoutBuilder(builder: (context, constraints) {
         return Scaffold(
           appBar: AppBar(
-            title: Text("Crear Rol"),
+            title: Text('Crear Rol'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.popAndPushNamed(context, 'gestionRol');
+                },
+                child: Text('Regresar',
+                    style: TextStyle(color: Colors.white, fontSize: 20)),
+              ),
+            ],
           ),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
@@ -52,16 +61,6 @@ class _CrearRolState extends State<CrearRol> {
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  "ID Rol",
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                                TextFormField(
-                                  controller: idRolController,
-                                  decoration: InputDecoration(
-                                      border: UnderlineInputBorder(),
-                                      hintText: 'rol'),
-                                ),
                                 SizedBox(
                                   height: 40,
                                 ),
