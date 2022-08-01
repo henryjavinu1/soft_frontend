@@ -131,10 +131,11 @@ Future<List<String>> mostrarTotales(int idVenta) async {
       num impuestos = 0;
       num descuentos = 0;
       for (var element in detalleVentas.detalleDeVentaNueva) {
-        total = total + ((element.cantidad * double.parse(element.precioUnitario))*(double.parse(element.isvAplicado)/100)) + (double.parse(element.precioUnitario) * element.cantidad) - double.parse(element.descuentoAplicado);
+        //((element.cantidad * double.parse(element.precioUnitario))*(double.parse(element.isvAplicado)/100)) + (double.parse(element.precioUnitario) * element.cantidad) - double.parse(element.descuentoAplicado);
         subtotal = subtotal + (double.parse(element.precioUnitario) * element.cantidad);
         impuestos = impuestos + ((element.cantidad * double.parse(element.precioUnitario))*(double.parse(element.isvAplicado)/100));
-        descuentos = descuentos +  double.parse(element.descuentoAplicado);
+        descuentos = descuentos +  (((element.cantidad * double.parse(element.precioUnitario))*(double.parse(element.isvAplicado)/100))+(double.parse(element.precioUnitario) * element.cantidad)) * (double.parse(element.descuentoAplicado)/100);
+        total = total + ((double.parse(element.precioUnitario) * element.cantidad) + ((element.cantidad * double.parse(element.precioUnitario))*(double.parse(element.isvAplicado)/100))) - (((element.cantidad * double.parse(element.precioUnitario))*(double.parse(element.isvAplicado)/100))+(double.parse(element.precioUnitario) * element.cantidad)) * (double.parse(element.descuentoAplicado)/100);
         print(total);
         print(impuestos);
         print(descuentos);
