@@ -50,7 +50,7 @@ class TodosLosUsuarios {
       TodosLosUsuarios(
           id: json['id'] ?? 0,
           usuario: json['usuario'] ?? '',
-          password: json[''] ?? '',
+          password: json['password'] ?? '',
           email: json['email'] ?? '',
           isDelete: json['isDelete'] ?? false,
           createdAt: DateTime.parse(json['createdAt']),
