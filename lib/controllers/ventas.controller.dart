@@ -84,18 +84,3 @@ Future<Ventas?> eliminarVenta_Controller(String id,context) async {
   } else {}
 }
 
-/*  Future buscarProductoController(TextEditingController codigoProducto, context) async {
-  if (codigoProducto.text.isNotEmpty) {
-    final response = await buscarProductoService(codigoProducto.text, context);
-    if (response is ProductoBuscado) {
-      final productoBusc = await 
-      return response;
-    } else if (response == 404) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('No se encontró el producto buscado.')));
-    } else if (response == 500) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Hubo un error interno en el servidor al buscar el producto.')));
-    }
-  } else {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Por favor ingrese un código de producto para realizar la búsqueda.')));
-  }
-}  */

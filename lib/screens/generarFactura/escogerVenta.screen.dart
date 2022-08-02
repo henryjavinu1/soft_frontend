@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_frontend/screens/generarFactura/generarFactura.screen.dart';
 import 'package:soft_frontend/models/ventaBuscada.model.dart';
 import 'package:soft_frontend/services/mostrarVentas.service.dart';
+import 'package:soft_frontend/services/ventas.service.dart';
 
 class EscogerVenta extends StatefulWidget {
   @override
@@ -241,28 +242,19 @@ class _EscogerVentaState extends State<EscogerVenta> {
               ),
             ),
             TextButton(
-              onPressed: null,
-              child: ElevatedButton(
-                onPressed: () => Navigator.of(context).push(
-                  new MaterialPageRoute(
-                    builder: (BuildContext context) =>
-                        new CrearFactura(venta: venta),
-                  ),
-                ),
-                child: Text('Procesar'),
-              ),
+              onPressed: () => procesarVenta(venta.id.toString())
+                  .then((value) => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CrearFactura(venta: venta),
+                        ),
+                      )),
+              child: Text('Procesar'),
             ),
             TextButton(
-              onPressed: null,
-              child: ElevatedButton(
-                onPressed: () => Navigator.of(context).push(
-                  new MaterialPageRoute(
-                    builder: (BuildContext context) =>
-                        new CrearFactura(venta: venta),
-                  ),
-                ),
-                child: Text('Eliminar'),
-              ),
+              onPressed: () => eliminarVenta(venta.id.toString())
+                  .then((value) => this._cargarFact()),
+              child: Text('Eliminar'),
             ),
           ],
         ));

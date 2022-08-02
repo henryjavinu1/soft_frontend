@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_new
 
 import 'package:flutter/material.dart';
+import 'package:soft_frontend/screens/rol/updaterol.screen.dart';
 import 'package:soft_frontend/services/rol.service.dart';
 import '../../models/gestionrol.model.dart';
 import 'package:soft_frontend/controllers/roles.controller.dart';
@@ -26,7 +27,15 @@ class _MostrarRolState extends State<MostrarRol> {
     var buscadorcontroller = TextEditingController();
 
     return Scaffold(
-        appBar: AppBar(title: const Text("Modulo Roles")),
+        appBar: AppBar(title: const Text('Modulo Roles'), actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.popAndPushNamed(context, 'PrincipalGestion');
+            },
+            child: Text('Regresar',
+                style: TextStyle(color: Colors.white, fontSize: 20)),
+          ),
+        ]),
         body: Container(
           child: FutureBuilder(
             future: mostrarRol(),
@@ -42,15 +51,15 @@ class _MostrarRolState extends State<MostrarRol> {
                   child: Column(
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           TextButton(
                             onPressed: () {
                               Navigator.pushNamed(context, 'crearRol');
                             },
                             child: Container(
-                                width: size.width * 0.2,
-                                padding: const EdgeInsets.all(15),
+                                width: size.width * 0.15,
+                                padding: const EdgeInsets.all(10),
                                 child: const Text(
                                   "Nuevo Rol",
                                   textAlign: TextAlign.center,
@@ -69,31 +78,49 @@ class _MostrarRolState extends State<MostrarRol> {
                       ),
                       Row(
                         children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: size.height * 0.20),
-                            child: Text(
-                              'Rol',
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.bold),
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              color: Color(0x89ECEAEA), height: 25,
+                              child: Text(
+                                'Rol',
+                                style: TextStyle(
+                                  fontSize: size.width * 0.011,
+                                  color: Color(0xFF121213),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              //),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(left: size.height * 0.45),
-                            child: Text(
-                              'Descripcion',
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.bold),
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              color: Color(0x89ECEAEA), height: 25,
+                              child: Text(
+                                'Descripcion',
+                                style: TextStyle(
+                                  fontSize: size.width * 0.011,
+                                  color: Color(0xFF121213),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              //),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(left: size.height * 0.75),
-                            child: Text(
-                              'Opciones',
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.bold),
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              color: Color(0x89ECEAEA), height: 25,
+                              child: Text(
+                                'Opciones',
+                                style: TextStyle(
+                                  fontSize: size.width * 0.011,
+                                  color: Color(0xFF121213),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              //),
                             ),
                           ),
                         ],
@@ -131,9 +158,18 @@ class _MostrarRolState extends State<MostrarRol> {
           width: 15,
         ),
         Expanded(
-          flex: 1,
-          child: const Text('Actualizar'),
-        ),
+            flex: 1,
+            child: TextButton(
+                child: const Text('Actualizar'),
+                onPressed: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (BuildContext context) {
+                    return new ActualizarRole2(
+                        id: lista.id,
+                        rol: lista.rol,
+                        descripcion: lista.descripcion);
+                  }));
+                })),
         Expanded(
             flex: 1,
             child: TextButton(

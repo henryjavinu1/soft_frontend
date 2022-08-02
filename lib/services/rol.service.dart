@@ -6,14 +6,13 @@ import '../models/rol.model.dart';
 import '../models/gestionrol.model.dart';
 import 'package:soft_frontend/constans.dart';
 
-Future<List<Rol?>> crearRol(
-    String id, String rol, String descripcion, context) async {
+Future<List<Rol?>> crearRol(String rol, String descripcion, context) async {
   var client = http.Client();
   Rol? role;
   List<Rol?> RolCreado = [];
   try {
     var response = await client.post(Uri.parse(API_URL + "roles/create"),
-        body: ({'id': id, 'rol': rol, 'descripcion': descripcion}));
+        body: ({'rol': rol, 'descripcion': descripcion}));
     print(response.body);
     if (response.statusCode == 200) {
       print(Rol);
@@ -56,6 +55,30 @@ Future<List<Role?>> eliminarRol(String id) async {
   } catch (e) {
     print(e);
     return rolCreado;
+  } finally {
+    http.Client().close();
+  }
+}
+
+Future<List<Role?>> ActualizarRole(
+    String id, String rol, String descripcion) async {
+  var client = http.Client();
+  Role? roles = null;
+  List<Role> RoleActualizado = [];
+  try {
+    var response = await http.put(Uri.parse(API_URL + 'roles/updaterol'),
+        body: ({
+          'id': id,
+          'rol': rol,
+          'descripcion': descripcion,
+        }));
+    print(response.body);
+    if (response.statusCode == 200) {
+      print(Role);
+    } else {}
+    return RoleActualizado;
+  } catch (e) {
+    return RoleActualizado;
   } finally {
     http.Client().close();
   }

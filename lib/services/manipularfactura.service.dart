@@ -14,21 +14,19 @@ import 'package:soft_frontend/models/unaFacturaBuscada.model.dart';
 Future traerFactura(String token) async {
   try {
     var response = await http
-        .post(Uri.parse(API_URL + 'traerFacturas'), body: ({
-          'token': token
-        }))
+        .post(Uri.parse(API_URL + 'traerFacturas'), body: ({'token': token}))
         .timeout(Duration(seconds: 15));
     print(response.statusCode);
     if (response.statusCode == 200) {
       final facturas = manipularFacturaResponseFromJson(response.body);
       return facturas;
-    } else if(response.statusCode == 500) {
+    } else if (response.statusCode == 500) {
       return 500;
     } else if (response.statusCode == 403) {
       return 403;
     }
   } on TimeoutException catch (_) {
-     throw ('Tiempo de espera alcanzado');
+    throw ('Tiempo de espera alcanzado');
   } catch (e) {
     print(e);
     return 2;
@@ -38,9 +36,8 @@ Future traerFactura(String token) async {
 Future buscarFacturaPorNumero(String numeroFactura, String token) async {
   try {
     var response = await http.post(
-      Uri.parse(API_URL + 'buscarfactura/?numeroFactura=$numeroFactura'),
-      body: {'token': token}
-    ).timeout(Duration(seconds: 5));
+        Uri.parse(API_URL + 'buscarfactura/?numeroFactura=$numeroFactura'),
+        body: {'token': token}).timeout(Duration(seconds: 5));
     if (response.statusCode == 200) {
       final facturaBuscada =
           UnaFacturaBuscada.fromJson(jsonDecode(response.body));
@@ -56,7 +53,8 @@ Future buscarFacturaPorNumero(String numeroFactura, String token) async {
   }
 }
 
-Future filtrarFacturasPorCliente(String nombre, String rtn, String dni, String token) async {
+Future filtrarFacturasPorCliente(
+    String nombre, String rtn, String dni, String token) async {
   List<FacturaBuscada> facturaVacia = [];
   String url = API_URL + 'buscarfacturaporcliente/';
   try {
@@ -91,7 +89,8 @@ Future filtrarFacturasPorCliente(String nombre, String rtn, String dni, String t
   }
 }
 
-Future filtrarFacturasPorFecha(String fecha1, String fecha2, String token) async {
+Future filtrarFacturasPorFecha(
+    String fecha1, String fecha2, String token) async {
   List<FacturaBuscada> facturaVacia = [];
   String url = API_URL + 'buscarfacturaporfecha/';
   try {
@@ -124,15 +123,12 @@ Future filtrarFacturasPorFecha(String fecha1, String fecha2, String token) async
   }
 }
 
-Future filtrarFacturasPorTalonario(String idTalonario, String cai, String token) async {
+Future filtrarFacturasPorTalonario(
+    String cai, String token) async {
   List<FacturaBuscada> facturaVacia = [];
   String url = API_URL + 'buscarfacturaportalonario/';
   try {
-    if (idTalonario.isEmpty && cai.isNotEmpty) {
-      url = url + '?cai=$cai';
-    } else {
-      url = url + '?idTalonario=$idTalonario';
-    }
+    url = url + '?cai=$cai';
     print(url);
     var response = await http.post(Uri.parse(url), body: {'token': token});
     print(response.request);
@@ -157,16 +153,11 @@ Future filtrarFacturasPorTalonario(String idTalonario, String cai, String token)
   }
 }
 
-Future filtrarFacturasPorEmpleado(
-  String idEmpleado,
-  String token
-) async {
+Future filtrarFacturasPorEmpleado(String nombreEmpleado, String token) async {
   List<FacturaBuscada> facturaVacia = [];
   String url = API_URL + 'buscarfacturaporempleado/';
   try {
-    if (idEmpleado.isNotEmpty) {
-      url = url + '?idEmpleado=$idEmpleado';
-    }
+    url = url + '?nombre=$nombreEmpleado';
     print(url);
     var response = await http.post(Uri.parse(url), body: {'token': token});
     print(response.request);
@@ -215,11 +206,10 @@ Future mostrarDatosDeUnaFactura(String numeroFactura, String token) async {
 }
 
 Future descargarFactura() async {
-  String url = API_URL+'descargardactura';
+  String url = API_URL + 'descargardactura';
   try {
     final response = await http.post(Uri.parse(url));
-    if (response.statusCode == 200) {
-    }
+    if (response.statusCode == 200) {}
     return response.body;
   } catch (e) {
     print(e);

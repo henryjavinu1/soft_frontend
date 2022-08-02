@@ -63,7 +63,7 @@ class _CrearClientesState extends State<CrearClientes> {
                                   controller: dniController,
                                   decoration: InputDecoration(
                                       border: UnderlineInputBorder(),
-                                      hintText: '0601-19090-04049'),
+                                      hintText: '0601200012345'),
                                 ),
                                 SizedBox(
                                   height: 40,
@@ -76,7 +76,7 @@ class _CrearClientesState extends State<CrearClientes> {
                                   controller: rtnController,
                                   decoration: InputDecoration(
                                       border: UnderlineInputBorder(),
-                                      hintText: '0601-1909-04043'),
+                                      hintText: '06012005012345'),
                                 ),
                                 SizedBox(
                                   height: 40,
@@ -115,7 +115,7 @@ class _CrearClientesState extends State<CrearClientes> {
                                   controller: telefonoController,
                                   decoration: InputDecoration(
                                       border: UnderlineInputBorder(),
-                                      hintText: '3377-2797'),
+                                      hintText: '33772797'),
                                 ),
                                 SizedBox(
                                   height: 40,
@@ -147,8 +147,7 @@ class _CrearClientesState extends State<CrearClientes> {
                                             telefonoController.text,
                                             context
                                             ),
-                                          
-                                        child: Padding(
+                                          child: Padding(
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 10, vertical: 10),
                                           child: Text('Aceptar'),
@@ -159,7 +158,7 @@ class _CrearClientesState extends State<CrearClientes> {
                                   onPressed: null,
                                   child: Center(
                                       child: ElevatedButton(
-                                        onPressed: () => Navigator.popAndPushNamed(context, 'traer_clientes'),
+                                        onPressed: () => Navigator.pushReplacementNamed(context,'traer_clientes'),
                                         child: Padding(
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 10, vertical: 10),

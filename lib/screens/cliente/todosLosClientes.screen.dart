@@ -104,12 +104,12 @@ class _TodosLosClientes2State extends State<TodosLosClientes2> {
                         Expanded(child:
                         Padding(
                           padding: EdgeInsets.only(left: size.height * 0.05),
-                          child: Text('Apellido', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
+                          child: Text('Direccion', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
                         )),
                         Expanded(child:
                         Padding(
                           padding: EdgeInsets.only(left: size.height * 0.05),
-                          child: Text('Dirección', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
+                          child: Text('Correo', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
                         )),
                         Expanded(child:
                         Padding(
@@ -149,9 +149,6 @@ class _TodosLosClientes2State extends State<TodosLosClientes2> {
       children: [
         Expanded(flex: 2, child: Text(lista.dni)),
         Expanded(flex: 2, child: Text(lista.nombreCliente)),
-        const SizedBox(
-          width: 10,
-        ),
         Expanded(flex: 2, child: Text(lista.direccion)),
         Expanded(flex: 2, child: Text(lista.email)),
         Expanded(
