@@ -15,8 +15,6 @@ class CrearFactura extends StatefulWidget {
   State<CrearFactura> createState() => _CrearFacturaState();
 }
 
-bool _hasBeenPressed = false;
-
 class _CrearFacturaState extends State<CrearFactura> {
   List<TipoPagoBuscado> tipoPagos = [];
   var idVentaController = TextEditingController();
@@ -156,14 +154,10 @@ class _CrearFacturaState extends State<CrearFactura> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            RaisedButton(
-              color: _hasBeenPressed
-                  ? Color.fromARGB(255, 217, 217, 218)
-                  : Color.fromARGB(255, 209, 105, 105),
+            TextButton(
               onPressed: () => {
                 setState(() {
                   idTipoPagoController.text = tipoPago.idTipoPago.toString();
-                  _hasBeenPressed = !_hasBeenPressed;
                 })
               },
               child: Padding(
