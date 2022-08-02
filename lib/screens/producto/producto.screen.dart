@@ -6,12 +6,16 @@ import 'package:soft_frontend/controllers/producto.controller.dart';
 import 'package:soft_frontend/models/Producto.model.dart';
 import 'package:soft_frontend/models/buscarProducto.dart';
 import 'package:soft_frontend/screens/tipoproducto/tipoproducto.screen.dart';
+import 'package:soft_frontend/screens/principalmantenimiento/principalmantenimiento.screen.dart';
 import 'package:soft_frontend/services/producto.service.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:soft_frontend/controllers/producto.controller.dart' as globals;
 
 void TipoProducto() {
   runApp(const PantallaProducto());
 }
+
+bool isCorrect = false;
 
 class PantallaProducto extends StatelessWidget {
   const PantallaProducto({Key? key}) : super(key: key);
@@ -49,6 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool isExcento2 = false;
   String isExcento3 = "";
   int isExceptoN = 0;
+  bool esCorrecto = false;
  // Porque tantas isExcepto? porque ando probando, y todas sirven, porfa no borrarlas u , u, hay una que se usa en
  // actualizar y otra en crear, 
 
@@ -70,7 +75,10 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(icon: const Icon( Icons.arrow_back),
-          onPressed: () {Navigator.pushReplacementNamed(context, 'traer_empleados');},),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => PantallaMantenimientoPrincipal(),));
+                }
+            ,),
           title: Text(widget.title),
         ),
         body: Row(
@@ -156,20 +164,25 @@ class _MyHomePageState extends State<MyHomePage> {
 // Este es para buscar productos.
 // Se usan dos listas, la que va filtrando y la que static que cuando se borra llena a la que filtra.
   _searchBar() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextField(
-        decoration: InputDecoration(hintText: 'Buscar producto'),
-        onChanged: (text) {
-          text = text.toLowerCase();
-          setState(() {
-            tiposN = tipos.where((note) {
-              var noteTitle = note.nombreProducto.toString().toLowerCase();
-              return noteTitle.contains(text);
-            }).toList();
-          });
-        },
-      ),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextField(
+            decoration: InputDecoration(hintText: 'Buscar producto'),
+            onChanged: (text) {
+              text = text.toLowerCase();
+              setState(() {
+                tiposN = tipos.where((note) {
+                  var noteTitle = note.nombreProducto.toString().toLowerCase();
+                  return noteTitle.contains(text);
+                }).toList();
+              });
+            },
+          ),
+        ),
+        _cardCabecera(),
+      ],
     );
   }
 
@@ -806,7 +819,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Expanded(
               flex: 1,
               child: Text(
-                tiposN[index].isvProducto.toString(),
+                tiposN[index].isvProducto.toString() + "%",
                 style: GoogleFonts.lato(fontSize: 15),
               ),
             ),
@@ -839,6 +852,72 @@ class _MyHomePageState extends State<MyHomePage> {
                     _ventanaEliminar(context, tiposN[index].id.toString());
                   },
                 )),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _cardCabecera() {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.only(
+            top: 10.0, bottom: 10.0, left: 16.0, right: 16),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Expanded(
+              flex: 1,
+              child: Text(
+                "Codigo Producto",
+                style: GoogleFonts.lato(fontSize: 15),
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Text(
+                "Nombre Producto",
+                style: GoogleFonts.lato(fontSize: 15),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Text(
+                "Precio",
+                style: GoogleFonts.lato(fontSize: 15),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Text(
+                "Cantidad",
+                style: GoogleFonts.lato(fontSize: 15),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Text(
+                "ISV",
+                style: GoogleFonts.lato(fontSize: 15),
+              ),
+            ),
+
+            // cantidad y precio tan invertidos, al actualizar muestran los valores invertidos, primero va precio y despues cantidad
+            //  Aqui los invierto para que se vean como deben verse.
+            Expanded(
+                flex: 1,
+                child:Text(
+                  "",
+                  style: GoogleFonts.lato(fontSize: 15),
+                  ),
+                ),
+            Expanded(
+              flex: 1,
+              child:Text(
+                "",
+                style: GoogleFonts.lato(fontSize: 15),
+              ),
+            ),
           ],
         ),
       ),
@@ -879,15 +958,14 @@ class _MyHomePageState extends State<MyHomePage> {
             final tipo = suggestion!;
             idTipoProductoG = tipo.id.toString();
             this._typeAheadController.text = tipo.tipoProducto;
-             /*
 
-            
-            ScaffoldMessenger.of(context),
+            /*            
+              ScaffoldMessenger.of(context),
               ..removeCurrentSnackBar()
               ..showSnackBar(SnackBar(
                 content: Text('TipoProducto: ${tipo.tipoProducto}'),
               ));
-              */
+            */
           },
         )
     );
@@ -1099,7 +1177,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           margin: EdgeInsets.all(5),
                                           child: RaisedButton(
                                             onPressed: () {
-                                              crearProducto2(
+                                             isCorrect = pruebaControlador(
                                                   codigoProductoController.text,
                                                   nombreProductoController.text,
                                                   precioProductoController.text,
@@ -1109,8 +1187,27 @@ class _MyHomePageState extends State<MyHomePage> {
                                                   isExcento.toString(),
                                                   idTipoProductoG,
                                                   context);
+                                              /*
+                                              crearProductoController(
+                                                  codigoProductoController.text,
+                                                  nombreProductoController.text,
+                                                  precioProductoController.text,
+                                                  cantidadProductoController.text,
+                                                  isvProductoController.text,
+                                                  descProductoController.text,
+                                                  isExcento.toString(),
+                                                  idTipoProductoG,
+                                                  context);
+
+                                               */
+                                             if (isCorrect == true){
+                                               _ventanaExito(context);
+                                               Navigator.pop(context);
+                                             } else {
+                                               _ventanaError(context);
+                                             }
                                               Navigator.pop(context);
-                                              _ventanaExito(context);
+                                              initState();
                                             },
                                             child: Text('Guardar'),
                                             padding: EdgeInsets.all(10),
@@ -1380,6 +1477,48 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-// Llenare un listado de tipo producto y por medio del id voy a obtener el nombre del tipo producto, 
-// Porque hago esto? No le entendi a los helpers y ya es medio tarde, 
+  void _ventanaError(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          actions: <Widget>[
+            Container(
+              width: 500,
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(40),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Ocurrio un error al realizar esta acción, intente de nuevo.",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      Container(
+                          width: 80,
+                          height: 40,
+                          margin: EdgeInsets.all(5),
+                          child: RaisedButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              //initState();
+                            },
+                            child: Text('OK'),
+                            padding: EdgeInsets.all(10),
+                          )),
+                      SizedBox(
+                        height: 40,
+                      ),
+                    ]),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }

@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_frontend/constans.dart';
+import 'package:soft_frontend/screens/producto/producto.screen.dart';
 import 'package:soft_frontend/models/tipoproducto.model.dart';
 import 'package:soft_frontend/services/tipoproducto.service.dart';
 void TipoProducto() {
@@ -78,7 +79,9 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(icon: const Icon( Icons.arrow_back),
-          onPressed: () {Navigator.pushReplacementNamed(context, 'PantallaProductos');},),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => PantallaProducto(),));
+            },),
           title: Text(widget.title),
         ),
         body: Row(
@@ -135,22 +138,27 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _searchBar() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextField(
-        decoration: InputDecoration(
-            hintText: 'Buscar tipo producto'
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextField(
+            decoration: InputDecoration(
+                hintText: 'Buscar tipo producto'
+            ),
+            onChanged: (text) {
+              text = text.toLowerCase();
+              setState(() {
+                tiposN = tipos.where((note) {
+                  var noteTitle = note.tipoProducto.toString().toLowerCase();
+                  return noteTitle.contains(text);
+                }).toList();
+              });
+            },
+          ),
         ),
-        onChanged: (text) {
-          text = text.toLowerCase();
-          setState(() {
-            tiposN = tipos.where((note) {
-              var noteTitle = note.tipoProducto.toString().toLowerCase();
-              return noteTitle.contains(text);
-            }).toList();
-          });
-        },
-      ),
+        _cabecera(),
+      ],
     );
   }
 
@@ -473,6 +481,48 @@ return Card(
                     _ventanaEliminar2(context, tiposN[index].id.toString());                                  
                   },
                 )),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _cabecera() {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.only(
+            top: 10.0, bottom: 10.0, left: 16.0, right: 16),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Expanded(
+              flex: 1,
+              child: Text(
+                "Tipo producto",
+                style: GoogleFonts.lato(fontSize: 15),
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Text(
+                "Descripción",
+                style: GoogleFonts.lato(fontSize: 15),
+              ),
+            ),
+            Expanded(
+                flex: 1,
+              child: Text(
+                "Descripción",
+                style: GoogleFonts.lato(fontSize: 15),
+              ),
+            ),
+            Expanded(
+                flex: 1,
+                child: Text(
+                "Descripción",
+                style: GoogleFonts.lato(fontSize: 15),
+              ),
+            ),
           ],
         ),
       ),
