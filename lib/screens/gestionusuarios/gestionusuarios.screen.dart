@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:soft_frontend/controllers/user.controller.dart';
+import 'package:soft_frontend/models/models.dart';
 import 'package:soft_frontend/screens/user/updateuser.screen.dart';
 import 'package:soft_frontend/services/user.service.dart';
 import '../../models/gestionUsuario.model.dart';
@@ -187,8 +188,10 @@ class _MostrarUsuariosState extends State<MostrarUsuarios> {
       children: [
         Expanded(flex: 2, child: Text(lista.usuario)),
         Expanded(flex: 2, child: Text(lista.email)),
-        Expanded(flex: 2, child: Text(lista.idEmpleado.toString())),
-        Expanded(flex: 2, child: Text(lista.idRol.toString())),
+        Expanded(flex: 2, child: Text(lista.empleado.dni)),
+        Expanded(flex: 2, child: Text(lista.role.rol)),
+        //Expanded(flex: 2, child: Text(lista.idEmpleado.toString())),
+        //Expanded(flex: 2, child: Text(lista.idRol.toString())),
         const SizedBox(
           width: 15,
         ),
@@ -202,7 +205,7 @@ class _MostrarUsuariosState extends State<MostrarUsuarios> {
                     return new ActualizarUsuario2(
                         id: lista.id,
                         usuario: lista.usuario,
-                        password: lista.password,
+                        //password: lista.password,
                         email: lista.email,
                         idEmpleado: lista.idEmpleado.toString(),
                         idRol: lista.idRol.toString());
