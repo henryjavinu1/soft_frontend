@@ -68,11 +68,6 @@ class _CrearFacturaState extends State<CrearFactura> {
     direccionClienteController.text = widget.venta.direccionCliente.toString();
     idEmpleadoController.text = widget.venta.idEmpleado.toString();
     nombreEmpleadoController.text = widget.venta.nombreEmpleado.toString();
-
-    //idTipoPagoController.text = widget.idTipoPago.toString();
-    //tipoDePagoController.text = widget.tipoPago.tipoDePago;
-    //crear varios campos de texto para ingresar los datos del cliente
-    // ignore: dead_code, dead_code
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -158,8 +153,8 @@ class _CrearFacturaState extends State<CrearFactura> {
           children: [
             RaisedButton(
               color: _hasBeenPressed
-                  ? Color.fromARGB(255, 217, 217, 218)
-                  : Color.fromARGB(255, 209, 105, 105),
+                  ? Color.fromARGB(255, 255, 255, 255)
+                  : Color.fromARGB(255, 227, 233, 239),
               onPressed: () => {
                 setState(() {
                   idTipoPagoController.text = tipoPago.idTipoPago.toString();

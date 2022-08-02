@@ -242,13 +242,14 @@ class _EscogerVentaState extends State<EscogerVenta> {
               ),
             ),
             TextButton(
-              onPressed: () => procesarVenta(venta.id.toString())
-                  .then((value) => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => CrearFactura(venta: venta),
-                        ),
-                      )),
+              onPressed: () => procesarVenta(venta.id.toString()).then(
+                (value) => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CrearFactura(venta: venta),
+                  ),
+                ),
+              ),
               child: Text('Procesar'),
             ),
             TextButton(

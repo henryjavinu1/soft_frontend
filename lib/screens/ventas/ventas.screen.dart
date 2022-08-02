@@ -73,28 +73,9 @@ class _VentanaVentaState extends State<VentanaVenta> {
       ),
       body: Container(
         child: Padding(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: const [
-                      Icon(Icons.account_circle_rounded),
-                      Text('Nombre de Usuario')
-                    ],
-                  ),
-                  const Text('Nombre de Empresa'),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text('9 Jueves 2022'),
-                      Text('10:00 AM'),
-                    ],
-                  )
-                ],
-              ),
               const SizedBox(
                 height: 30,
               ),
@@ -398,44 +379,44 @@ class _VentanaVentaState extends State<VentanaVenta> {
                               children: [
                                 Text(
                                   'Descuento',
-                                  style: TextStyle(fontSize: 10),
+                                  style: TextStyle(fontSize: 15),
                                 ),
                                 Text(
                                   descuentos,
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),
                                 ),
                                 SizedBox(
                                   height: 10,
                                 ),
                                 Text(
                                   'Sub Total',
-                                  style: TextStyle(fontSize: 10),
+                                  style: TextStyle(fontSize: 15),
                                 ),
                                 Text(
                                   subTotal,
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),
                                 ),
                                 SizedBox(
                                   height: 10,
                                 ),
                                 Text(
                                   'Impuesto',
-                                  style: TextStyle(fontSize: 10),
+                                  style: TextStyle(fontSize: 15),
                                 ),
                                 Text(
                                   impuestos,
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),
                                 ),
                                 SizedBox(
                                   height: 10,
                                 ),
                                 Text(
                                   'Total a Cancelar',
-                                  style: TextStyle(fontSize: 10),
+                                  style: TextStyle(fontSize: 15),
                                 ),
                                 Text(
                                   total,
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),
                                 ),
                               ]),
                         )
@@ -449,21 +430,86 @@ class _VentanaVentaState extends State<VentanaVenta> {
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
+                          Row(
+
+                            children: [
+                              Expanded(
+                                  flex: 1,
+                                  child: Text(
+                                    'Codigo',
+                                    style: TextStyle(
+                                      fontSize: size.width * 0.009,
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                              Expanded(
+                                flex: 3,
+                                  child: Text(
+                                    'Nombre del Producto',
+                                    style: TextStyle(
+                                      fontSize: size.width * 0.009,
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                              Expanded(
+                                flex: 1,
+                                  child: Text(
+                                    'Precio',
+                                    style: TextStyle(
+                                      fontSize: size.width * 0.009,
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                              Expanded(
+                                flex: 1,
+                                  child: Text(
+                                    'Cantidad',
+                                    style: TextStyle(
+                                      fontSize: size.width * 0.009,
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                              Expanded(
+                                flex: 1,
+                                  child: Text(
+                                    'ISV',
+                                    style: TextStyle(
+                                      fontSize: size.width * 0.009,
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                              Expanded(
+                                flex: 1,
+                                  child: Text(
+                                    'Descuento',
+                                    style: TextStyle(
+                                      fontSize: size.width*0.009,
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                              Expanded(
+                                flex: 1,
+                                  child: Text(
+                                    'Total',
+                                    style: TextStyle(
+                                      fontSize: size.width * 0.009,
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                              Expanded(
+                                flex: 1,
+                                  child: Text(
+                                    'Opciones',
+                                    style: TextStyle(
+                                      fontSize: size.width * 0.009,
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                            ],
+                          ),
                           Container(
                               width: size.width * 0.7,
                               height: size.height * 0.6,
-                              /*child: FutureBuilder(
-                              future: mostrardetalleventa(),
-                              builder: (BuildContext context, AsyncSnapshot snapshot){
-                                
-                                if ( snapshot.connectionState == ConnectionState.waiting){
-                                return Center(child:  CircularProgressIndicator());
-                              } else{ 
-                                return _ListaDetalles( snapshot.data );
-                          
-                              }
-                              }
-                            ),*/
                               child: (idVentaActual != -1)
                                   ? Expanded(
                                       child: FutureBuilder(
@@ -486,7 +532,9 @@ class _VentanaVentaState extends State<VentanaVenta> {
                                                         .detalleDeVentaNueva[i]),
                                               );
                                             } else {
-                                              return CircularProgressIndicator();
+                                              return Center(
+                                                  child:
+                                                      CircularProgressIndicator());
                                             }
                                           }),
                                     )
@@ -511,6 +559,7 @@ class _VentanaVentaState extends State<VentanaVenta> {
     return Container(
         decoration: BoxDecoration(color: Colors.white),
         child: Row(
+          
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
@@ -568,18 +617,7 @@ class _VentanaVentaState extends State<VentanaVenta> {
               ),
             ),
 
-            // Expanded(
-            // flex: 1,
-            // child: TextButton(
-            // child: const Text('Actualizar'),
-            // onPressed: () {
-            // Navigator.of(context);
-            // .push(MaterialPageRoute(builder: (BuildContext context) {
-            // return new ActualizarCliente2(
-
-            // }));
-            // },
-            // )),
+  
             Expanded(
                 flex: 1,
                 child: TextButton(
