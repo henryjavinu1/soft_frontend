@@ -62,14 +62,13 @@ class _VentanaVentaState extends State<VentanaVenta> {
             child: Text('Regresar',
                 style: TextStyle(color: Colors.white, fontSize: 20)),
           ),
-          /*TextButton(
+          TextButton(
             onPressed: () {
-              _showDialogCerrarSesion(context, idUsuario, idSesion)
+              _showDialogCerrarSesion(context);
             },
             child: Text('Cerrar Sesión',
-            
                 style: TextStyle(color: Colors.white, fontSize: 20)),
-          ),*/
+          ),
         ],
       ),
       body: Container(
@@ -609,8 +608,7 @@ class _VentanaVentaState extends State<VentanaVenta> {
         ));
   }
 
-  void _showDialogCerrarSesion(
-      BuildContext context, String idUsuario, String idSesion) {
+  void _showDialogCerrarSesion(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -621,8 +619,7 @@ class _VentanaVentaState extends State<VentanaVenta> {
             ElevatedButton(
               child: Text('Si'),
               onPressed: () {
-                actualizarArqueoCerrandoSesion_Controller(
-                    idUsuario, idSesion, context);
+                actualizarArqueoCerrandoSesion_Controller(context);
               },
             ),
             ElevatedButton(
