@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:soft_frontend/main.dart';
 import 'package:soft_frontend/models/mostrarUnaFactura.model.dart';
 import 'package:soft_frontend/services/sharepreference.service.dart';
 
@@ -314,4 +313,43 @@ Future mostrarDatosDeUnaFacturaController(String numeroFactura, context) async {
       Navigator.pushReplacementNamed(context, 'login');
     }
   }
+}
+
+
+class Totales {
+  double totalFactura = 0.00;
+  double subTotalFactura = 0.00;
+  double importeExcento = 0.00;
+  double importeGravado15 = 0.00;
+  double importeGravado18 = 0.00;
+  double isv15 = 0.00;
+  double isv18 = 0.00;
+}
+
+Totales calcularTotales(List<DetallesDeVenta?> detalleDeVenta) {
+  Totales totales = Totales();
+  for (var i = 0; i < detalleDeVenta.length; i++) {
+    totales.totalFactura =  totales.totalFactura + double.parse('${ detalleDeVenta[i]?.totalDetalleVenta }');
+    if (detalleDeVenta[i]!.producto!.isExcento) {
+      totales.importeExcento = totales.importeExcento + double.parse('${ detalleDeVenta[i]?.totalDetalleVenta }');
+    } else {
+      if (detalleDeVenta[i]!.isvAplicado == '18.00') {
+        totales.importeGravado18 += (double.parse('${ detalleDeVenta[i]?.totalDetalleVenta  }')/1.18);
+        totales.isv18 += (totales.importeGravado18 * 0.18);
+      } else {
+        totales.importeGravado15 += (double.parse('${ detalleDeVenta[i]?.totalDetalleVenta  }')/1.15);
+        totales.isv15 += (totales.importeGravado15 * 0.15);
+      }
+    }
+  }
+  totales.subTotalFactura = totales.importeExcento + totales.importeGravado15 + totales.importeGravado18;
+  print('==========================================');
+  print('Total factura: ${totales.totalFactura}');
+  print('Total excento: ${totales.importeExcento}');
+  print('importe gravado 15%: ${totales.importeGravado15.toStringAsFixed(2)}');
+  print('isv 15%: ${totales.isv15.toStringAsFixed(2)}');
+  print('importe gravado 18%: ${totales.importeGravado18.toStringAsFixed(2)}');
+  print('isv 18%: ${totales.isv18.toStringAsFixed(2)}');
+  print('Sub total: ${totales.subTotalFactura.toStringAsFixed(2)}');
+  return totales;
 }
