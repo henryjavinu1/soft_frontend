@@ -19,22 +19,33 @@ Future<Producto?> crearProductoController(
       cantidadProducto.isNotEmpty &&
       isvProducto.isNotEmpty &&
       descProducto.isNotEmpty &&
-      isExcento.isNotEmpty &&
       idTipoProducto.isNotEmpty) {
       List<Producto?> producto = await crearProducto2(codigoProducto, nombreProducto, precioProducto, cantidadProducto, isvProducto, descProducto, isExcento, idTipoProducto, context);
     if (producto != null) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Producto añadido con exito")));
+       ScaffoldMessenger.of(context)               
+              ..removeCurrentSnackBar()
+              ..showSnackBar(SnackBar(
+                content: Text('Producto creado con éxito.'),
+              ));
     } else {
+       ScaffoldMessenger.of(context)               
+              ..removeCurrentSnackBar()
+              ..showSnackBar(SnackBar(
+                content: Text('Error al crear el producto.'),
+              ));
       
     }
   } else {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text("Por favor rellenar todos los campos.")));
+    ScaffoldMessenger.of(context)               
+              ..removeCurrentSnackBar()
+              ..showSnackBar(SnackBar(
+                content: Text('Por favor rellene todos los campos'),
+              ));
   }
 }
 
 
-Future<Empleado?> actualizaProductoController(
+Future<Producto?> actualizaProductoController(
     String id,
     String codigoProducto,
     String nombreProducto,
@@ -56,12 +67,19 @@ Future<Empleado?> actualizaProductoController(
       idTipoProducto.isNotEmpty) {
     List<Producto?> producto = await ActualizarProducto2(id, codigoProducto, nombreProducto, precioProducto, cantidadProducto, isvProducto, descProducto, isExcento, idTipoProducto, context );
     if (producto != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Producto actualizado con éxito")));
+      ScaffoldMessenger.of(context)               
+              ..removeCurrentSnackBar()
+              ..showSnackBar(SnackBar(
+                content: Text('Producto actualizado con éxito.'),
+              ));
+            
     } else {}
   } else {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text("Por favor rellenar todos los campos.")));
+    ScaffoldMessenger.of(context)               
+              ..removeCurrentSnackBar()
+              ..showSnackBar(SnackBar(
+                content: Text('Por favor rellene todos los campos'),
+              ));
   }
 }
 
