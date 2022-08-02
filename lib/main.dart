@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: 'PantallaProductos',
+      initialRoute: 'login',
       routes: {
         'login': (_) => const Login(),
 
