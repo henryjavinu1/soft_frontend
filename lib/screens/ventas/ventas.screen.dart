@@ -62,14 +62,13 @@ class _VentanaVentaState extends State<VentanaVenta> {
             child: Text('Regresar',
                 style: TextStyle(color: Colors.white, fontSize: 20)),
           ),
-          /*TextButton(
+          TextButton(
             onPressed: () {
-              _showDialogCerrarSesion(context, idUsuario, idSesion)
+              _showDialogCerrarSesion(context);
             },
-            child: Text('Cerrar Sesión',
-            
+            child: Text('Cerrar Turno',
                 style: TextStyle(color: Colors.white, fontSize: 20)),
-          ),*/
+          ),
         ],
       ),
       body: Container(
@@ -384,7 +383,9 @@ class _VentanaVentaState extends State<VentanaVenta> {
                                 ),
                                 Text(
                                   descuentos,
-                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
                                 ),
                                 SizedBox(
                                   height: 10,
@@ -395,7 +396,9 @@ class _VentanaVentaState extends State<VentanaVenta> {
                                 ),
                                 Text(
                                   subTotal,
-                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
                                 ),
                                 SizedBox(
                                   height: 10,
@@ -406,7 +409,9 @@ class _VentanaVentaState extends State<VentanaVenta> {
                                 ),
                                 Text(
                                   impuestos,
-                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
                                 ),
                                 SizedBox(
                                   height: 10,
@@ -417,7 +422,9 @@ class _VentanaVentaState extends State<VentanaVenta> {
                                 ),
                                 Text(
                                   total,
-                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
                                 ),
                               ]),
                         )
@@ -432,77 +439,76 @@ class _VentanaVentaState extends State<VentanaVenta> {
                       child: Column(
                         children: [
                           Row(
-
                             children: [
                               Expanded(
                                   flex: 1,
                                   child: Text(
                                     'Codigo',
                                     style: TextStyle(
-                                      fontSize: size.width * 0.009,
+                                        fontSize: size.width * 0.009,
                                         color: Colors.blue,
                                         fontWeight: FontWeight.bold),
                                   )),
                               Expanded(
-                                flex: 3,
+                                  flex: 3,
                                   child: Text(
                                     'Nombre del Producto',
                                     style: TextStyle(
-                                      fontSize: size.width * 0.009,
+                                        fontSize: size.width * 0.009,
                                         color: Colors.blue,
                                         fontWeight: FontWeight.bold),
                                   )),
                               Expanded(
-                                flex: 1,
+                                  flex: 1,
                                   child: Text(
                                     'Precio',
                                     style: TextStyle(
-                                      fontSize: size.width * 0.009,
+                                        fontSize: size.width * 0.009,
                                         color: Colors.blue,
                                         fontWeight: FontWeight.bold),
                                   )),
                               Expanded(
-                                flex: 1,
+                                  flex: 1,
                                   child: Text(
                                     'Cantidad',
                                     style: TextStyle(
-                                      fontSize: size.width * 0.009,
+                                        fontSize: size.width * 0.009,
                                         color: Colors.blue,
                                         fontWeight: FontWeight.bold),
                                   )),
                               Expanded(
-                                flex: 1,
+                                  flex: 1,
                                   child: Text(
                                     'ISV',
                                     style: TextStyle(
-                                      fontSize: size.width * 0.009,
+                                        fontSize: size.width * 0.009,
                                         color: Colors.blue,
                                         fontWeight: FontWeight.bold),
                                   )),
                               Expanded(
-                                flex: 1,
+                                  flex: 1,
                                   child: Text(
                                     'Descuento',
                                     style: TextStyle(
-                                      fontSize: size.width*0.009,
+                                        fontSize: size.width * 0.009,
                                         color: Colors.blue,
                                         fontWeight: FontWeight.bold),
                                   )),
                               Expanded(
-                                flex: 1,
+                                  flex: 1,
                                   child: Text(
                                     'Total',
                                     style: TextStyle(
-                                      fontSize: size.width * 0.009,
+                                        fontSize: size.width * 0.009,
                                         color: Colors.blue,
                                         fontWeight: FontWeight.bold),
                                   )),
                               Expanded(
-                                flex: 1,
+                                  flex: 1,
                                   child: Text(
                                     'Opciones',
                                     style: TextStyle(
-                                      fontSize: size.width * 0.009,
+                                        fontSize: size.width * 0.009,
                                         color: Colors.blue,
                                         fontWeight: FontWeight.bold),
                                   )),
@@ -560,7 +566,6 @@ class _VentanaVentaState extends State<VentanaVenta> {
     return Container(
         decoration: BoxDecoration(color: Colors.white),
         child: Row(
-          
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
@@ -602,7 +607,6 @@ class _VentanaVentaState extends State<VentanaVenta> {
                 style: TextStyle(fontSize: size.width * 0.009),
               ),
             ),
-
             Expanded(
               flex: 1,
               child: Text(
@@ -617,8 +621,6 @@ class _VentanaVentaState extends State<VentanaVenta> {
                 style: TextStyle(fontSize: size.width * 0.009),
               ),
             ),
-
-  
             Expanded(
                 flex: 1,
                 child: TextButton(
@@ -647,20 +649,18 @@ class _VentanaVentaState extends State<VentanaVenta> {
         ));
   }
 
-  void _showDialogCerrarSesion(
-      BuildContext context, String idUsuario, String idSesion) {
+  void _showDialogCerrarSesion(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Actualizar Arqueo'),
-          content: Text('¿Quieres actualizar el arqueo?'),
+          title: Text('Cerrar Turno'),
+          content: Text('¿Quieres cerrar el Turno?'),
           actions: <Widget>[
             ElevatedButton(
               child: Text('Si'),
               onPressed: () {
-                actualizarArqueoCerrandoSesion_Controller(
-                    idUsuario, idSesion, context);
+                actualizarArqueoCerrandoSesion_Controller(context);
               },
             ),
             ElevatedButton(
