@@ -26,9 +26,9 @@ class _ActualizarUsuario2State extends State<ActualizarUsuario2> {
   late TextEditingController emailController =
       TextEditingController(text: widget.email);
   late TextEditingController idEmpleadoController =
-      TextEditingController(text: widget.idEmpleado);
+      TextEditingController(text: widget.idEmpleado.toString());
   late TextEditingController idRolController =
-      TextEditingController(text: widget.idRol);
+      TextEditingController(text: widget.idRol.toString());
   @override
   Widget build(BuildContext context) {
     return Scaffold(

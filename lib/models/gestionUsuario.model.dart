@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:html';
+import 'package:soft_frontend/models/gestionrol.model.dart';
 import 'package:soft_frontend/models/models.dart';
 
 Usuario usuarioFromJson(String str) => Usuario.fromJson(json.decode(str));
@@ -30,9 +32,10 @@ class TodosLosUsuarios {
     required this.isDelete,
     required this.createdAt,
     required this.updatedAt,
-    //required this.empleado,
+    required this.empleado,
     required this.idEmpleado,
     required this.idRol,
+    required this.roles,
   });
 
   int id;
@@ -42,23 +45,25 @@ class TodosLosUsuarios {
   bool isDelete;
   DateTime createdAt;
   DateTime updatedAt;
-  //TodoslosEmpleados empleado;
+  TodoslosEmpleados empleado;
   int idEmpleado;
   int idRol;
+  TodosLosRol roles;
 
   factory TodosLosUsuarios.fromJson(Map<String, dynamic> json) =>
       TodosLosUsuarios(
-          id: json['id'] ?? 0,
-          usuario: json['usuario'] ?? '',
-          password: json['password'] ?? '',
-          email: json['email'] ?? '',
-          isDelete: json['isDelete'] ?? false,
-          createdAt: DateTime.parse(json['createdAt']),
-          updatedAt: DateTime.parse(json['updatedAt']),
-          //empleado: TodoslosEmpleados.fromJson(json['dni']),
-          idEmpleado: json['idEmpleado'] ?? 0,
-          idRol: json['idRol'] ?? 0);
-
+        id: json['id'] ?? 0,
+        usuario: json['usuario'] ?? '',
+        password: json['password'] ?? '',
+        email: json['email'] ?? '',
+        isDelete: json['isDelete'] ?? false,
+        createdAt: DateTime.parse(json['createdAt']),
+        updatedAt: DateTime.parse(json['updatedAt']),
+        empleado: TodoslosEmpleados.fromJson(json['empleado'] ?? ''),
+        idEmpleado: json['idEmpleado'] ?? 0,
+        idRol: json['idRol'] ?? 0,
+        roles: TodosLosRol.fromJson(json['roles'] ?? ''),
+      );
   Map<String, dynamic> toJson() => {
         'id': id,
         'usuario': usuario,
@@ -67,8 +72,9 @@ class TodosLosUsuarios {
         'isDelete': isDelete,
         'createdAt': createdAt.toIso8601String(),
         'updatedAt': updatedAt.toIso8601String(),
-        //'empleado': empleado.toJson(),
+        'dni': empleado.toJson(),
         'idEmpleado': idEmpleado,
         'idRol': idRol,
+        'rol': roles.toJson(),
       };
 }

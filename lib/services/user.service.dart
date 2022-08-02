@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:html';
+//import 'dart:html';
 import '../models/user.model.dart';
 import '../models/gestionUsuario.model.dart';
-import 'package:http/http.dart' as http;
 import 'package:soft_frontend/constans.dart';
 
 Future<User?> logins(String username, String passwd) async {
@@ -87,12 +88,11 @@ Future<List<Usuario?>> eliminarUsuario(String id) async {
 
 Future<List<Usuario?>> ActualizarUsuario(String id, String usuario,
     String password, String email, String idEmpleado, String idRol) async {
-  ////////////////
   var client = http.Client();
-  Usuario? usuario = null;
+  Usuario? usuarios = null;
   List<Usuario> usuarioActualizado = [];
   try {
-    var response = await http.put(Uri.parse(API_URL + 'user/updateuser'),
+    var response = await http.put(Uri.parse(API_URL + 'user/updateUser'),
         body: ({
           'id': id,
           'usuario': usuario,
@@ -104,10 +104,7 @@ Future<List<Usuario?>> ActualizarUsuario(String id, String usuario,
     print(response.body);
     if (response.statusCode == 200) {
       print(Usuario);
-      //return clienteCreado;
-    } else {
-      // return clienteCreado;
-    }
+    } else {}
     return usuarioActualizado;
   } catch (e) {
     return usuarioActualizado;

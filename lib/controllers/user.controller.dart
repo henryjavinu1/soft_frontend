@@ -105,6 +105,11 @@ Future<Usuario?> actualizarUsuario_Controller(
     List<Usuario?> Listusuario = await ActualizarUsuario(
         id, usuario, password, email, idEmpleado, idRol);
     if (Listusuario != null) {
+      print(usuario);
+      print(password);
+      print(email);
+      print(idEmpleado);
+      print(idRol);
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Usuario Actualizado con exito")));
       Navigator.pushNamed(context, "gestionUsuarios");
