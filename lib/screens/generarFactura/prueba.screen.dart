@@ -12,7 +12,7 @@ class BuscarVenta extends StatefulWidget {
 
   @override
   State<BuscarVenta> createState() => _BuscarVentaState();
-}
+} //procesarVenta(venta.id.toString())
 
 class _BuscarVentaState extends State<BuscarVenta> {
   final TextEditingController? _textEditingController = TextEditingController();
