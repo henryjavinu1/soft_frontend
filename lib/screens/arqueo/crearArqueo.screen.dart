@@ -48,7 +48,7 @@ class _CrearArqueoState extends State<CrearArqueo> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              /*Text(
                                 'Id Sesion',
                                 style: TextStyle(fontSize: 18),
                               ),
@@ -71,7 +71,7 @@ class _CrearArqueoState extends State<CrearArqueo> {
                               ),
                               SizedBox(
                                 height: 40,
-                              ),
+                              ),*/
                               Text(
                                 'Efectivo Apertura',
                                 style: TextStyle(fontSize: 18),
@@ -89,8 +89,6 @@ class _CrearArqueoState extends State<CrearArqueo> {
                                 child: Center(
                                   child: ElevatedButton(
                                       onPressed: () => crearArqueo_Controller(
-                                          idSesionController.text,
-                                          idUsuarioController.text,
                                           efectivoAperturaController.text,
                                           context),
                                       child: Padding(

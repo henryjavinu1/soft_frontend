@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 
 import '../../models/Arqueo.model.dart';
 import '../../services/Arqueo.service.dart';
@@ -71,8 +71,8 @@ class _BuscarArqueoIdUsuarioState extends State<BuscarArqueoIdUsuario> {
                                 onPressed: null,
                                 child: Center(
                                   child: ElevatedButton(
-                                      onPressed: () => buscarArqueoPorIdUsuario(
-                                          idUsuarioController.text),
+                                      onPressed: () => filtrarArqueoIdUsuario_Controller(
+                                          idUsuarioController.text,context),
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 10, vertical: 10),
@@ -91,3 +91,4 @@ class _BuscarArqueoIdUsuarioState extends State<BuscarArqueoIdUsuario> {
         );
       }));
 }
+*/
