@@ -56,16 +56,7 @@ Future crearDetalle_Controller(
     return 1928;
   }
 }
-/*
-    if (detalleventa != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Detalle Venta añadida con exito")));
-    } else {}
-  } else {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text("Campos en blanco")));
-  }
-}*/
+
 
 Future buscarProductoController(
     TextEditingController codigoProducto, TextEditingController cantidadProducController, int idVentaActual, context) async {
@@ -78,9 +69,10 @@ Future buscarProductoController(
       double precio = double.parse(response.producto.precioProducto);
       double isv = double.parse(response.producto.isvProducto);
       double descuento = double.parse(response.producto.descProducto);
-      double total = ((cantidad * precio)*(isv/100))+(precio * cantidad) - descuento;
+      double total = ((cantidad * precio)*(isv/100))+(precio * cantidad) ;
+      double total2 = total - (descuento/100)*(total);
       final detalle = await crearDetalle_Controller(
-          cantidadProducController.text, response.producto.precioProducto, total.toString(), response.producto.isvProducto, response.producto.descProducto, idVentaActual.toString(), response.producto.id.toString(), context);
+          cantidadProducController.text, response.producto.precioProducto, total2.toString(), response.producto.isvProducto, response.producto.descProducto, idVentaActual.toString(), response.producto.id.toString(), context);
       if (detalle == 200) {
         DetalleDeVentasXid detalles = await mostrardetalleventa(idVentaActual);
         print(detalles);
