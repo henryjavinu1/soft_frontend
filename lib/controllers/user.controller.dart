@@ -91,22 +91,22 @@ Future<Usuario?> eliminarUsuario_Controller(String id, context) async {
 Future<Usuario?> actualizarUsuario_Controller(
     String id,
     String usuario,
-    String password,
+    //String password,
     String email,
     String idEmpleado,
     String idRol,
     context) async {
   if (id.isNotEmpty &&
       usuario.isNotEmpty &&
-      password.isNotEmpty &&
+      //password.isNotEmpty &&
       email.isNotEmpty &&
       idEmpleado.isNotEmpty &&
       idRol.isNotEmpty) {
     List<Usuario?> Listusuario = await ActualizarUsuario(
-        id, usuario, password, email, idEmpleado, idRol);
+        id, usuario, /*password,*/ email, idEmpleado, idRol);
     if (Listusuario != null) {
       print(usuario);
-      print(password);
+      //print(password);
       print(email);
       print(idEmpleado);
       print(idRol);

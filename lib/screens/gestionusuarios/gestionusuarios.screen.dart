@@ -189,9 +189,9 @@ class _MostrarUsuariosState extends State<MostrarUsuarios> {
         Expanded(flex: 2, child: Text(lista.usuario)),
         Expanded(flex: 2, child: Text(lista.email)),
         Expanded(flex: 2, child: Text(lista.empleado.dni)),
-        Expanded(flex: 2, child: Text(lista.roles.rol)),
-        Expanded(flex: 2, child: Text(lista.idEmpleado.toString())),
-        Expanded(flex: 2, child: Text(lista.idRol.toString())),
+        Expanded(flex: 2, child: Text(lista.role.rol)),
+        //Expanded(flex: 2, child: Text(lista.idEmpleado.toString())),
+        //Expanded(flex: 2, child: Text(lista.idRol.toString())),
         const SizedBox(
           width: 15,
         ),
@@ -205,7 +205,7 @@ class _MostrarUsuariosState extends State<MostrarUsuarios> {
                     return new ActualizarUsuario2(
                         id: lista.id,
                         usuario: lista.usuario,
-                        password: lista.password,
+                        //password: lista.password,
                         email: lista.email,
                         idEmpleado: lista.idEmpleado.toString(),
                         idRol: lista.idRol.toString());

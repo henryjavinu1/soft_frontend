@@ -5,7 +5,7 @@ class ActualizarUsuario2 extends StatefulWidget {
   const ActualizarUsuario2(
       {required this.id,
       required this.usuario,
-      required this.password,
+      //required this.password,
       required this.email,
       required this.idEmpleado,
       required this.idRol});
@@ -13,7 +13,7 @@ class ActualizarUsuario2 extends StatefulWidget {
   @override
   State<ActualizarUsuario2> createState() => _ActualizarUsuario2State();
   final int id;
-  final String usuario, password, email, idEmpleado, idRol;
+  final String usuario, /*password,*/ email, idEmpleado, idRol;
 }
 
 class _ActualizarUsuario2State extends State<ActualizarUsuario2> {
@@ -21,8 +21,8 @@ class _ActualizarUsuario2State extends State<ActualizarUsuario2> {
       TextEditingController(text: widget.id.toString());
   late TextEditingController usuarioController =
       TextEditingController(text: widget.usuario);
-  late TextEditingController passwordController =
-      TextEditingController(text: widget.password);
+  //late TextEditingController passwordController =
+  //  TextEditingController(text: widget.password);
   late TextEditingController emailController =
       TextEditingController(text: widget.email);
   late TextEditingController idEmpleadoController =
@@ -77,12 +77,12 @@ class _ActualizarUsuario2State extends State<ActualizarUsuario2> {
                               "password",
                               style: TextStyle(fontSize: 18),
                             ),
-                            TextFormField(
+                            /* TextFormField(
                               controller: passwordController,
                               decoration: const InputDecoration(
                                   border: UnderlineInputBorder(),
                                   hintText: '***********'),
-                            ),
+                            ),*/
                             const SizedBox(
                               height: 40,
                             ),
@@ -133,7 +133,7 @@ class _ActualizarUsuario2State extends State<ActualizarUsuario2> {
                                           actualizarUsuario_Controller(
                                               idController.text,
                                               usuarioController.text,
-                                              passwordController.text,
+                                              //passwordController.text,
                                               emailController.text,
                                               idEmpleadoController.text,
                                               idRolController.text,

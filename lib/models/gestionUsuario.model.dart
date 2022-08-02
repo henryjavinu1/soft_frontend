@@ -35,7 +35,7 @@ class TodosLosUsuarios {
     required this.empleado,
     required this.idEmpleado,
     required this.idRol,
-    required this.roles,
+    required this.role,
   });
 
   int id;
@@ -48,7 +48,7 @@ class TodosLosUsuarios {
   TodoslosEmpleados empleado;
   int idEmpleado;
   int idRol;
-  TodosLosRol roles;
+  TodosLosRol role;
 
   factory TodosLosUsuarios.fromJson(Map<String, dynamic> json) =>
       TodosLosUsuarios(
@@ -62,7 +62,7 @@ class TodosLosUsuarios {
         empleado: TodoslosEmpleados.fromJson(json['empleado'] ?? ''),
         idEmpleado: json['idEmpleado'] ?? 0,
         idRol: json['idRol'] ?? 0,
-        roles: TodosLosRol.fromJson(json['roles'] ?? ''),
+        role: TodosLosRol.fromJson(json['role'] ?? ''),
       );
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -75,6 +75,6 @@ class TodosLosUsuarios {
         'dni': empleado.toJson(),
         'idEmpleado': idEmpleado,
         'idRol': idRol,
-        'rol': roles.toJson(),
+        'rol': role.toJson(),
       };
 }
