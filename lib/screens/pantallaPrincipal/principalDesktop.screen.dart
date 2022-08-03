@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soft_frontend/controllers/user.controller.dart';
+import 'package:soft_frontend/services/sharepreference.service.dart';
 import '../../models/models.dart';
 import '../../widgets/widgets.dart';
 
@@ -39,43 +40,36 @@ class PantallaDesktop extends StatelessWidget {
   Widget build(BuildContext context) {
     final int? cantidadPermisos = user?.rol.permisos.length;
     final List<int?> permisosId = <int>[];
-
     for (int i = 0; i < cantidadPermisos!; i++) {
       permisosId.add(user?.rol.permisos[i].id);
     }
 
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              _showDialog(context);
+            },
+            child: Text('Cerrar Sesion',
+                style: TextStyle(color: Colors.white, fontSize: 20)),
+          ),
+        ],
+        title: Text('Pantalla Principal'),
+      ),
       body: Container(
         color: const Color(0xffF3F3F3),
         child: Padding(
           padding: const EdgeInsets.all(50),
           child: Column(children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: const [
                 Text(
-                  "Panel Principal ${user?.usuario}",
-                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                  'Panel Principal de Modulos',
+                  style: TextStyle(fontSize: 20),
                 ),
-                const SizedBox(
-                  width: 40,
-                ),
-                TextButton(
-                  onPressed: () => logout_controller(context),
-                  child: Container(
-                      width: size.width * 0.3,
-                      padding: const EdgeInsets.all(25),
-                      child: const Text(
-                        "Cerrar Sesion",
-                        textAlign: TextAlign.center,
-                        style:
-                            TextStyle(fontSize: 18, color: Color(0xff525252)),
-                      )),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        const Color(0xffD9D9D9)),
-                  ),
-                )
               ],
             ),
             const SizedBox(
@@ -86,10 +80,11 @@ class PantallaDesktop extends StatelessWidget {
                 Visibility(
                     visible: true,
                     child: TextButtons(
-                      name: "Modulo de Mantenimiento",
+                      img: 'mantenimiento.png',
+                      name: 'Modulo de Mantenimiento',
                       route: 'mantenimiento',
-                      width: 0.3,
-                      fontSize: 18,
+                      width: 0.2,
+                      fontSize: 15,
                     )),
               ],
               SizedBox(
@@ -99,38 +94,83 @@ class PantallaDesktop extends StatelessWidget {
                 Visibility(
                   visible: true,
                   child: TextButtons(
-                    name: "Modulo de Ventas",
+                    img: 'salario.png',
+                    name: 'Modulo de Ventas',
                     route: 'PrincipalVenta',
-                    width: 0.3,
-                    fontSize: 18,
+                    width: 0.2,
+                    fontSize: 15,
                   ),
                 ),
               ],
+              const SizedBox(
+                width: 30,
+              ),
+              if (permisosId.contains(1) ||
+                  permisosId.contains(2) ||
+                  permisosId.contains(3) ||
+                  permisosId.contains(4)) ...[
+                Visibility(
+                  visible: true,
+                  child: TextButtons(
+                    img: 'equilibrar.png',
+                    name: 'Modulo de Arqueos',
+                    route: 'traer_arqueo',
+                    width: 0.2,
+                    fontSize: 15,
+                  ),
+                ),
+              ],
+              const SizedBox(
+                width: 30,
+              ),
+              if (permisosId.contains(43) ||
+                  permisosId.contains(28) ||
+                  permisosId.contains(12)) ...[
+                Visibility(
+                  visible: true,
+                  child: TextButtons(
+                    img: 'empleado.png',
+                    name: 'Gestion de Usuarios',
+                    route: 'PrincipalGestion',
+                    width: 0.2,
+                    fontSize: 15,
+                  ),
+                ),
+              ]
             ]),
-            const SizedBox(
-              height: 30,
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (permisosId.contains(43) ||
-                    permisosId.contains(28) ||
-                    permisosId.contains(12)) ...[
-                  Visibility(
-                    visible: true,
-                    child: TextButtons(
-                      name: "Gestion de Usuarios",
-                      route: 'PrincipalGestion',
-                      width: 0.3,
-                      fontSize: 18,
-                    ),
-                  ),
-                ]
-              ],
+              children: [],
             )
           ]),
         ),
       ),
+    );
+  }
+
+  void _showDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Cerrar Sesion"),
+          content: Text("¿Esta seguro que quiere cerrar Sesion?"),
+          actions: <Widget>[
+            ElevatedButton(
+              child: Text("Si"),
+              onPressed: () {
+                logout_controller(context);
+              },
+            ),
+            ElevatedButton(
+              child: Text("No"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

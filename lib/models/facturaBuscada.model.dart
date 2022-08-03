@@ -29,7 +29,7 @@ class FacturaBuscada {
     });
 
     int? idFactura;
-    int? numeroFactura;
+    String numeroFactura;
     DateTime? fechaFactura;
     String? descuentoTotalFactura;
     String? isvTotalFactura;

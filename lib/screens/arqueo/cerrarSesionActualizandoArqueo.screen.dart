@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import '../../controllers/Arqueo.controller.dart';
 
 class ActualizarArqueCerrandoSesion extends StatefulWidget {
@@ -99,7 +99,6 @@ class _ActualizarArqueCerrandoSesionState
                                           actualizarArqueoCerrandoSesion_Controller(
                                               idUsuarioController.text,
                                               idSesionController.text,
-                                              idArqueoController.text,
                                               context);
                                         }),
                                     child: const Padding(
@@ -120,4 +119,4 @@ class _ActualizarArqueCerrandoSesionState
       ),
     );
   }
-}
+}*/

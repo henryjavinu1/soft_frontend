@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:soft_frontend/models/tipoproducto.model.dart';
 import 'dart:convert';
+import '../constans.dart';
 
 // ignore: non_constant_identifier_names
 class FetchUser{
@@ -9,7 +10,7 @@ class FetchUser{
   List <Tipoproducto> results = [];
   Future <List<Tipoproducto>>getUserList({String? query}) async{
     var data = [];
-    var url = Uri.parse("http://localhost:8080/api/producto/mostrartipos");
+    var url = Uri.parse( API_URL + "producto/mostrartipos");
     var response = await http.get(url);
     List<Tipoproducto> users = [];
     try {
@@ -35,7 +36,7 @@ class FetchUser{
 
 Future<List<Tipoproducto>> fetchNotes2() async{
   var data = [];
-  var url = Uri.parse("http://localhost:8080/api/producto/mostrartipos");
+  var url = Uri.parse(API_URL + "producto/mostrartipos");
   var response = await http.get(url);
   List<Tipoproducto> users = [];
 
@@ -61,7 +62,7 @@ Future<void> crearTipoProducto(String tipoProducto, String descripcionProducto,
       descripcionProducto.isNotEmpty &&
       isvTipoProducto.isNotEmpty) {
     var response = await http.post(
-        Uri.parse("http://localhost:8080/api/producto/tipoproducto/"),
+        Uri.parse(API_URL + "producto/tipoproducto/"),
         body: ({
           'tipoProducto': tipoProducto,
           'descripcionProducto': descripcionProducto,
@@ -85,7 +86,7 @@ Future<void> ActualizarTipoProducto(String idTipoProducto, String tipoProducto,
   if (idTipoProducto.isNotEmpty && tipoProducto.isNotEmpty &&
       descripcionProducto.isNotEmpty && isvTipoProducto.isNotEmpty) {
     var response = await http.post(
-        Uri.parse("http://localhost:8080/api/producto/actualizartipo/"),
+        Uri.parse(API_URL + "producto/actualizartipo/"),
         body: ({
           'id': idTipoProducto,
           'tipoProducto': tipoProducto,
@@ -105,7 +106,7 @@ Future<void> ActualizarTipoProducto(String idTipoProducto, String tipoProducto,
 
 Future<void> EliminarTipoProducto(String idTipoProducto, context) async {
   var response = await http.post(
-      Uri.parse("http://localhost:8080/api/producto/eliminartipo"),
+      Uri.parse(API_URL + "producto/eliminartipo"),
       body: ({
         'id': idTipoProducto,
       }));
@@ -118,7 +119,7 @@ Future<void> EliminarTipoProducto(String idTipoProducto, context) async {
 
 Future<List<Tipoproducto>> obtenerTipos() async{
     var data = [];
-    var url = Uri.parse("http://localhost:8080/api/producto/mostrartipos");
+    var url = Uri.parse(API_URL + "producto/mostrartipos");
     var response = await http.get(url);
     List<Tipoproducto> users = [];
 

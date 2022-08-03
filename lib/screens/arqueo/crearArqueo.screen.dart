@@ -48,7 +48,7 @@ class _CrearArqueoState extends State<CrearArqueo> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              /*Text(
                                 'Id Sesion',
                                 style: TextStyle(fontSize: 18),
                               ),
@@ -71,7 +71,7 @@ class _CrearArqueoState extends State<CrearArqueo> {
                               ),
                               SizedBox(
                                 height: 40,
-                              ),
+                              ),*/
                               Text(
                                 'Efectivo Apertura',
                                 style: TextStyle(fontSize: 18),
@@ -89,8 +89,6 @@ class _CrearArqueoState extends State<CrearArqueo> {
                                 child: Center(
                                   child: ElevatedButton(
                                       onPressed: () => crearArqueo_Controller(
-                                          idSesionController.text,
-                                          idUsuarioController.text,
                                           efectivoAperturaController.text,
                                           context),
                                       child: Padding(
@@ -100,6 +98,32 @@ class _CrearArqueoState extends State<CrearArqueo> {
                                       )),
                                 ),
                               ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              TextButton(
+                                onPressed: null,
+                                child: Center(
+                                  child: ElevatedButton(
+                                      onPressed: () =>
+                                          Navigator.popAndPushNamed(
+                                              context, 'traer_arqueo'),
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10, vertical: 10),
+                                        child: Text('Regresar'),
+                                      )),
+                                ),
+                              ),
+                              /*TextButton(
+                                onPressed: () {
+                                  Navigator.popAndPushNamed(
+                                      context, 'pantalla_principal');
+                                },
+                                child: Text('Regresar',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 20)),
+                              )*/
                             ]),
                       ),
                     ),

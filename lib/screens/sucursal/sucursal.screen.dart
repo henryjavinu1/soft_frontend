@@ -15,6 +15,11 @@ class _SucursalScreenState extends State<SucursalScreen> {
   late Future<Sucursal> sucursal;
   var nombreSucursal = TextEditingController();
   var lemaSucursal = TextEditingController();
+  var direccion = TextEditingController();
+  var telefono = TextEditingController();
+  var email = TextEditingController();
+  var rtn = TextEditingController();
+  var logo = TextEditingController();
 
   @override
   void initState() {
@@ -25,6 +30,11 @@ class _SucursalScreenState extends State<SucursalScreen> {
       setState(() {
         nombreSucursal.text = value.sucursal.nombreSucursal;
         lemaSucursal.text = value.sucursal.lemaSucursal;
+        direccion.text = value.sucursal.direccion;
+        telefono.text = value.sucursal.telefono;
+        email.text = value.sucursal.email;
+        rtn.text = value.sucursal.rtn;
+        logo.text = value.sucursal.logo;
       });
     });
   }
@@ -39,47 +49,116 @@ class _SucursalScreenState extends State<SucursalScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppTheme.primaryColor,
         title: Text('Mantenimiento | Sucursal'),
       ),
-      body: Column(
-        children: [
-          Divider(),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30.0),
-            child: TextFormField(
-              decoration: InputDecoration(label: Text('Nombre Sucursal')),
-              controller: nombreSucursal,
+      body: Container(
+        color: Colors.grey,
+        child: Column(
+          children: [
+            Container(
+              color: Colors.white,
+              margin: EdgeInsets.symmetric(
+                  horizontal: width * 0.3, vertical: height * 0.02),
+              height: height * 0.65,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: width * 0.01, vertical: height * 0.01),
+                    child: Text(
+                      'Edición de Sucursal',
+                      style: TextStyle(
+                          fontSize: height * 0.05,
+                          color: AppTheme.primaryColor,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30.0),
+                    child: TextFormField(
+                      decoration:
+                          InputDecoration(label: Text('Nombre Sucursal')),
+                      controller: nombreSucursal,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(label: Text('Lema Sucursal')),
+                      controller: lemaSucursal,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(label: Text('Dirección')),
+                      controller: direccion,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(label: Text('Teléfono')),
+                      controller: telefono,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(label: Text('Email')),
+                      controller: email,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(label: Text('RTN')),
+                      controller: rtn,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(label: Text('URL logo')),
+                      controller: logo,
+                    ),
+                  ),
+                  Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 30.0),
+                      child: TextButton(
+                          style: AppTheme.lightTheme.textButtonTheme.style,
+                          onPressed: () {
+                            Future<String> actualizar = updateSucursal(
+                                1,
+                                nombreSucursal.text,
+                                lemaSucursal.text,
+                                direccion.text,
+                                telefono.text,
+                                email.text,
+                                rtn.text,
+                                logo.text);
+                            actualizar.then((value) {
+                              setState(() {
+                                getSucursal(1);
+                              });
+                              _Alerta(context, value);
+                            });
+                          },
+                          child: Text('Guardar')),
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30.0),
-            child: TextFormField(
-              decoration: InputDecoration(label: Text('Lema Sucursal')),
-              controller: lemaSucursal,
-            ),
-          ),
-          Center(
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 30.0),
-              child: TextButton(
-                  style: AppTheme.lightTheme.textButtonTheme.style,
-                  onPressed: () {
-                    Future<String> actualizar = updateSucursal(
-                        1, nombreSucursal.text, lemaSucursal.text);
-                    actualizar.then((value) {
-                      setState(() {
-                        getSucursal(1);
-                      });
-                      _Alerta(context, value);
-                    });
-                  },
-                  child: Text('Guardar')),
-            ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

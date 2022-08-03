@@ -11,15 +11,16 @@ import '../models/cliente.model.dart';
 Future<List<Cliente?>> crearCliente(
     String dni,
     String email,
-    String rtn, /////////////////
+    String rtn, 
     String nombre,
     String direccion,
-    String telefono) async {
+    String telefono,
+    context) async {
   var client = http.Client();
   Cliente? cliente = null;
   List<Cliente?> clienteCreado = [];
   try {
-    var response = await http.post(Uri.parse(API_URL + "cliente/crearCliente"),
+    var response = await http.post(Uri.parse(API_URL + 'cliente/crearCliente'),
         body: ({
           'dni': dni,
           'email': email,
@@ -32,6 +33,9 @@ Future<List<Cliente?>> crearCliente(
     if (response.statusCode == 200) {
       print(Cliente);
       //return clienteCreado;
+    } else if (response.statusCode == 400) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('El dni ya esta siendo utilizado')));
     } else {
       // return clienteCreado;
     }
@@ -50,7 +54,7 @@ Future<List<Cliente?>> eliminarCliente(String id) async {
   List<Cliente?> clienteCreado = [];
   try {
     var response = await http.post(
-        Uri.parse(API_URL + "cliente/eliminarCliente"),
+        Uri.parse(API_URL + 'cliente/eliminarCliente'),
         body: ({'id': id}));
     print(response.body);
     if (response.statusCode == 200) {
@@ -70,7 +74,6 @@ Future<List<Cliente?>> eliminarCliente(String id) async {
 
 Future<List<Cliente?>> ActualizarCliente(String id, String dni, String email,
     String rtn, String nombre, String direccion, String telefono) async {
-  ////////////////
   var client = http.Client();
   Cliente? cliente = null;
   List<Cliente?> clienteCreado = [];
@@ -104,24 +107,24 @@ Future<List<Cliente?>> ActualizarCliente(String id, String dni, String email,
 Future<void> buscarClienteNombre(String nombre, context) async {
   if (nombre.isNotEmpty) {
     var response = await http.post(
-        Uri.parse(API_URL + "cliente/buscarClientePorNombre"),
+        Uri.parse(API_URL + 'cliente/buscarClientePorNombre'),
         body: ({'nombreCliente': nombre}));
 
     if (response.statusCode == 200) {
       Cliente cliente = clienteFromJson(response.body);
       ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("Cliente Creado")));
+          .showSnackBar(const SnackBar(content: Text('Cliente Creado')));
     }
   } else {
     ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Favor llenar todos los campos")));
+        const SnackBar(content: Text('Favor llenar todos los campos')));
   }
 }
 
 Future traerClientes() async {
   try {
     final response = await http.post(
-        Uri.parse(API_URL + "cliente/traerTodosLosClientes")); ///////////////
+        Uri.parse(API_URL + 'cliente/traerTodosLosClientes')); ///////////////
     if (response.statusCode == 200) {
       // print(response.request);
       // print(jsonDecode(response.body));
@@ -133,17 +136,17 @@ Future traerClientes() async {
 
 Future<void> buscarClienteDni(String dni, context) async {
   if (dni.isNotEmpty) {
-    var response = await http.post(Uri.parse(API_URL + "cliente/buscarcliente"),
+    var response = await http.post(Uri.parse(API_URL + 'cliente/buscarcliente'),
         body: ({'dni': dni}));
 
     if (response.statusCode == 200) {
       Cliente cliente = clienteFromJson(response.body);
 
       ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("Cliente encontrado")));
+          .showSnackBar(const SnackBar(content: Text('Cliente encontrado')));
     }
   } else {
     ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Error al encontrar el cliente")));
+        const SnackBar(content: Text('Error al encontrar el cliente')));
   }
 }

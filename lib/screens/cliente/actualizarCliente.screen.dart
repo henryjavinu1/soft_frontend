@@ -48,20 +48,20 @@ class _ActualizarCliente2State extends State<ActualizarCliente2> {
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              "ID",
-                              style: const TextStyle(fontSize: 18),
-                            ),
-                            TextFormField(
-                              enabled: false,
-                              controller: idController,
-                              decoration: const InputDecoration(
-                                border: const UnderlineInputBorder(),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 40,
-                            ),
+                            // const Text(
+                            //   "ID",
+                            //   style: const TextStyle(fontSize: 18),
+                            // ),
+                            // TextFormField(
+                            //   enabled: false,
+                            //   controller: idController,
+                            //   decoration: const InputDecoration(
+                            //     border: const UnderlineInputBorder(),
+                            //   ),
+                            // ),
+                            // const SizedBox(
+                            //   height: 40,
+                            // ),
                             const Text(
                               "Identificacion/DNI",
                               style: TextStyle(fontSize: 18),
@@ -70,7 +70,7 @@ class _ActualizarCliente2State extends State<ActualizarCliente2> {
                               controller: dniController,
                               decoration: const InputDecoration(
                                   border: UnderlineInputBorder(),
-                                  hintText: '060190900404'),
+                                ),
                             ),
                             const SizedBox(
                               height: 40,
@@ -83,7 +83,7 @@ class _ActualizarCliente2State extends State<ActualizarCliente2> {
                               controller: rtnController,
                               decoration: const InputDecoration(
                                   border: UnderlineInputBorder(),
-                                  hintText: '0601909004043'),
+                              ),
                             ),
                             const SizedBox(
                               height: 40,
@@ -96,7 +96,7 @@ class _ActualizarCliente2State extends State<ActualizarCliente2> {
                               controller: nombreController,
                               decoration: const InputDecoration(
                                   border: UnderlineInputBorder(),
-                                  hintText: 'Juan'),
+                                ),
                             ),
                             const SizedBox(
                               height: 40,
@@ -109,7 +109,7 @@ class _ActualizarCliente2State extends State<ActualizarCliente2> {
                               controller: direccionController,
                               decoration: const InputDecoration(
                                   border: const UnderlineInputBorder(),
-                                  hintText: 'Barrio las vegas'),
+                                ),
                             ),
                             const SizedBox(
                               height: 40,
@@ -122,7 +122,7 @@ class _ActualizarCliente2State extends State<ActualizarCliente2> {
                               controller: telefonoController,
                               decoration: const InputDecoration(
                                   border: const UnderlineInputBorder(),
-                                  hintText: '27820000'),
+                                ),
                             ),
                             const SizedBox(
                               height: 40,
@@ -135,7 +135,7 @@ class _ActualizarCliente2State extends State<ActualizarCliente2> {
                               controller: emailController,
                               decoration: const InputDecoration(
                                   border: const UnderlineInputBorder(),
-                                  hintText: 'Example@dominio.com'),
+                                ),
                             ),
                             const SizedBox(
                               height: 40,

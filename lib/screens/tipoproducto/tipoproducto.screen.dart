@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:soft_frontend/constans.dart';
+import 'package:soft_frontend/screens/producto/producto.screen.dart';
 import 'package:soft_frontend/models/tipoproducto.model.dart';
 import 'package:soft_frontend/services/tipoproducto.service.dart';
 void TipoProducto() {
@@ -38,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<List<Tipoproducto>> fetchNotes2() async{
     var data = [];
-    var url = Uri.parse("http://localhost:8080/api/producto/mostrartipos");
+    var url = Uri.parse(API_URL + "producto/mostrartipos");
     var response = await http.get(url);
     List<Tipoproducto> users = [];
 
@@ -61,6 +64,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState(){
     fetchNotes2().then((value) {
+      tipos.clear();
+      tiposN.clear();
       setState(() {
         tipos.addAll(value);
         tiposN.addAll(value);
@@ -73,6 +78,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          leading: IconButton(icon: const Icon( Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => PantallaProducto(),));
+            },),
           title: Text(widget.title),
         ),
         body: Row(
@@ -102,34 +111,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                   padding: EdgeInsets.all(25),
                                 )),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                                width: 120,
-                                height: 80,
-                                margin: EdgeInsets.all(5),
-                                child: RaisedButton(
-                                  onPressed: () {
-                                    _ventanaActualizar(context);
-                                  },
-                                  child: Text('Actualizar'),
-                                  padding: EdgeInsets.all(25),
-                                )),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                                width: 120,
-                                height: 80,
-                                margin: EdgeInsets.all(5),
-                                child: RaisedButton(
-                                  onPressed: () {
-                                    _ventanaEliminar(context);
-                                  },
-                                  child: Text('Eliminar'),
-                                  padding: EdgeInsets.all(20),
-                                )),
-                          ),
                         ]),
                       ),
                     ),
@@ -157,22 +138,27 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _searchBar() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextField(
-        decoration: InputDecoration(
-            hintText: 'Buscar tipo producto'
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextField(
+            decoration: InputDecoration(
+                hintText: 'Buscar tipo producto'
+            ),
+            onChanged: (text) {
+              text = text.toLowerCase();
+              setState(() {
+                tiposN = tipos.where((note) {
+                  var noteTitle = note.tipoProducto.toString().toLowerCase();
+                  return noteTitle.contains(text);
+                }).toList();
+              });
+            },
+          ),
         ),
-        onChanged: (text) {
-          text = text.toLowerCase();
-          setState(() {
-            tiposN = tipos.where((note) {
-              var noteTitle = note.tipoProducto.toString().toLowerCase();
-              return noteTitle.contains(text);
-            }).toList();
-          });
-        },
-      ),
+        _cabecera(),
+      ],
     );
   }
 
@@ -194,56 +180,64 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Tipo de Producto",
-                        style: TextStyle(fontSize: 18),
+                      Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Text(
+                          "Tipo de Producto",
+                          style: TextStyle(fontSize: 18),
+                        ),
                       ),
                       TextFormField(
                         controller: tipoProductoController,
                         decoration:
-                        InputDecoration(border: UnderlineInputBorder()),
+                        InputDecoration(border: OutlineInputBorder(),),
                       ),
-                      SizedBox(
-                        height: 40,
-                      ),
-                      Text(
-                        "Descripción",
-                        style: TextStyle(fontSize: 18),
+                      Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Text(
+                          "Descripción",
+                          style: TextStyle(fontSize: 18),
+                        ),
                       ),
                       TextFormField(
                         controller: descripcionProductoController,
                         decoration:
-                        InputDecoration(border: UnderlineInputBorder()),
+                        InputDecoration(border: OutlineInputBorder(),),
                       ),
-                      SizedBox(
-                        height: 40,
-                      ),
-                      Text(
-                        "ISV",
-                        style: TextStyle(fontSize: 18),
+                      Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Text(
+                          "ISV",
+                          style: TextStyle(fontSize: 18),
+                        ),
                       ),
                       TextFormField(
                         controller: isvTipoProductoController,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
-                            border: UnderlineInputBorder(),
+                            border: OutlineInputBorder(),
                             hintText: 'Escribir en valor decimal.'),
                       ),
-                      Container(
-                          width: 80,
-                          height: 40,
-                          margin: EdgeInsets.all(5),
-                          child: RaisedButton(
-                            onPressed: () => crearTipoProducto(
-                                tipoProductoController.text,
-                                descripcionProductoController.text,
-                                isvTipoProductoController.text,
-                                context),
-                            child: Text('Guardar'),
-                            padding: EdgeInsets.all(10),
-                          )),
+                      Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Container(
+                            height: 40,
+                            margin: EdgeInsets.all(5),
+                            child: RaisedButton(
+                              onPressed: () { crearTipoProducto(
+                                  tipoProductoController.text,
+                                  descripcionProductoController.text,
+                                  isvTipoProductoController.text,
+                                  context);
+                                  Navigator.pop(context);
+                                  _ventanaExito(context); 
+                                  },
+                              child: Text('Guardar'),
+                              padding: EdgeInsets.all(10),
+                            )),
+                      ),
                       SizedBox(
-                        height: 40,
+                        height: 10,
                       ),
                     ]),
               ),
@@ -258,7 +252,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _ventanaEliminar(BuildContext context) {
     var idTipoProductoController = TextEditingController();
-
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -272,15 +265,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "id Tipo de Producto",
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      TextFormField(
-                        controller: idTipoProductoController,
-                        decoration:
-                        InputDecoration(border: UnderlineInputBorder()),
-                      ),
                       SizedBox(
                         height: 40,
                       ),
@@ -307,11 +291,15 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _ventanaActualizar(BuildContext context) {
-    var idTipoProductoController = TextEditingController();
-    var tipoProducto2Controller = TextEditingController();
-    var descripcion2ProductoController = TextEditingController();
-    var isvTipoProducto2Controller = TextEditingController();
+  void _ventanaActualizar(BuildContext context, String idTipoProductoP, String tipoProductoP, String descripcionProductoP, String isvTipoProductoP) {
+    late TextEditingController idTipoProducto =
+        TextEditingController(text: idTipoProductoP);
+    late TextEditingController tipoProducto2 =
+        TextEditingController(text: tipoProductoP);    
+    late TextEditingController descripcionProducto=
+        TextEditingController(text: descripcionProductoP);
+    late TextEditingController isvTipoProducto=
+        TextEditingController(text: isvTipoProductoP);
 
     showDialog(
       context: context,
@@ -327,23 +315,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "id Tipo de Producto",
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      TextFormField(
-                        controller: idTipoProductoController,
-                        decoration:
-                        InputDecoration(border: UnderlineInputBorder()),
-                      ),
-                      SizedBox(
-                        height: 40,
-                      ),
-                      Text(
                         "Tipo de Producto",
                         style: TextStyle(fontSize: 18),
                       ),
                       TextFormField(
-                        controller: tipoProducto2Controller,
+                        controller: tipoProducto2,
                         decoration:
                         InputDecoration(border: UnderlineInputBorder()),
                       ),
@@ -355,7 +331,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         style: TextStyle(fontSize: 18),
                       ),
                       TextFormField(
-                        controller: descripcion2ProductoController,
+                        controller: descripcionProducto,
                         decoration:
                         InputDecoration(border: UnderlineInputBorder()),
                       ),
@@ -367,7 +343,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         style: TextStyle(fontSize: 18),
                       ),
                       TextFormField(
-                        controller: isvTipoProducto2Controller,
+                        controller: isvTipoProducto,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                             border: UnderlineInputBorder(),
@@ -378,12 +354,16 @@ class _MyHomePageState extends State<MyHomePage> {
                           height: 40,
                           margin: EdgeInsets.all(5),
                           child: RaisedButton(
-                            onPressed: () => ActualizarTipoProducto(
-                                idTipoProductoController.text,
-                                tipoProducto2Controller.text,
-                                descripcion2ProductoController.text,
-                                isvTipoProducto2Controller.text,
-                                context),
+                            onPressed: () {
+                              ActualizarTipoProducto(
+                                idTipoProductoP,
+                                tipoProducto2.text,
+                                descripcionProducto.text,
+                                isvTipoProducto.text,
+                                context);
+                                Navigator.pop(context);
+                                _ventanaExito(context);                              
+                            },                           
                             child: Text('Actualizar'),
                             padding: EdgeInsets.all(10),
                           )),
@@ -464,32 +444,83 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _listItem(index) {
-    return Card(
-
+return Card(
       child: Padding(
-        padding: const EdgeInsets.only(top: 32.0, bottom: 32.0, left: 16.0, right: 16),
-        child: Column(
+        padding: const EdgeInsets.only(
+            top: 10.0, bottom: 10.0, left: 16.0, right: 16),
+        child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget> [
-            Text(
-              tiposN[index].tipoProducto.toString(),
-              style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold
+          children: <Widget>[
+            Expanded(
+              flex: 1,
+              child: Text(
+                tiposN[index].tipoProducto.toString(),
+                style: GoogleFonts.lato(fontSize: 15),
               ),
             ),
-            Text(
-              tiposN[index].descripcionProducto.toString(),
-              style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold
+            Expanded(
+              flex: 2,
+              child: Text(
+                tiposN[index].descripcionProducto.toString(),
+                style: GoogleFonts.lato(fontSize: 15),
+              ),
+            ),         
+            Expanded(
+                flex: 1,
+                child: TextButton(
+                  child: Text("Actualizar"),
+                  onPressed: () {
+                    _ventanaActualizar(context, tiposN[index].id.toString(), tiposN[index].tipoProducto.toString(), tiposN[index].descripcionProducto.toString(), tiposN[index].isvTipoProducto.toString() );
+                  },
+                )),
+            Expanded(
+                flex: 1,
+                child: TextButton(
+                  child: Text("Eliminar"),
+                  onPressed: () {
+                    _ventanaEliminar2(context, tiposN[index].id.toString());                                  
+                  },
+                )),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _cabecera() {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.only(
+            top: 10.0, bottom: 10.0, left: 16.0, right: 16),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Expanded(
+              flex: 1,
+              child: Text(
+                "Tipo producto",
+                style: GoogleFonts.lato(fontSize: 15),
               ),
             ),
-            Text(
-              tiposN[index].isvTipoProducto.toString(),
-              style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold
+            Expanded(
+              flex: 2,
+              child: Text(
+                "Descripción",
+                style: GoogleFonts.lato(fontSize: 15),
+              ),
+            ),
+            Expanded(
+                flex: 1,
+              child: Text(
+                "Descripción",
+                style: GoogleFonts.lato(fontSize: 15),
+              ),
+            ),
+            Expanded(
+                flex: 1,
+                child: Text(
+                "Descripción",
+                style: GoogleFonts.lato(fontSize: 15),
               ),
             ),
           ],
@@ -497,4 +528,116 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
+  void _ventanaExito(BuildContext context) {
+    var idTipoProductoController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          actions: <Widget>[
+            Container(
+              width: 500,
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(40),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Acción realizada con éxito.",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      Container(
+                          width: 80,
+                          height: 40,
+                          margin: EdgeInsets.all(5),
+                          child: RaisedButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              initState();
+                            },
+                            child: Text('OK'),
+                            padding: EdgeInsets.all(10),
+                          )),
+                      SizedBox(
+                        height: 40,
+                      ),
+                    ]),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _ventanaEliminar2(BuildContext context, String idTipoProductoP) {
+    late TextEditingController idTipoProducto =
+        TextEditingController(text: idTipoProductoP);
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          actions: <Widget>[
+            Container(
+              color: Colors.white,
+              child: Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(40),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "¿Está seguro de eliminar el tipo de producto?",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                            width: 200,
+                            height: 100,
+                            margin: EdgeInsets.all(5),
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: RaisedButton(
+                                    onPressed: () {
+                                      EliminarTipoProducto(
+                                        idTipoProducto.text,
+                                        context);
+                                      Navigator.pop(context);
+                                      _ventanaExito(context);
+                                    },
+                                    child: Text('Eliminar'),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(6.0),
+                                  child: RaisedButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text('Cancelar'),
+                                  ),
+                                ),
+                              ],
+                            )),
+                      ]),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 }
