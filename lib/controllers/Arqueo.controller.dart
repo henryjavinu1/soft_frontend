@@ -79,7 +79,7 @@ Future actualizarArqueoCerrandoSesion_Controller(context) async {
     if (arqueo1 != null) {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Arqueo Actualizado con exito')));
-      Navigator.pushNamed(context, 'traer_arqueo');
+      Navigator.popAndPushNamed(context, 'traer_arqueo');
     } else {}
   }
 }
