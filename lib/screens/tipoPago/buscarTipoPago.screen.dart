@@ -6,6 +6,7 @@ import 'package:soft_frontend/models/tipoPagoBuscado.model.dart';
 import 'package:soft_frontend/screens/generarFactura/generarFactura.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/crearTipoPago.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/editarTipoPago.screen.dart';
+import '../../controllers/tipoDePago.controller.dart';
 import '../../models/tipoPago.model.dart';
 import '../../services/tipoPago.service.dart';
 
@@ -173,9 +174,9 @@ class _BuscarTipoPagoState extends State<BuscarTipoPago> {
               child: Text('Editar'),
             ),
             TextButton(
-              onPressed: () =>
-                  EliminarTipoPago(tipoPago.idTipoPago.toString(), context)
-                      .then((value) => this._cargarFact()),
+              onPressed: () => eliminarTipoPago_Controller(
+                      tipoPago.idTipoPago.toString(), context)
+                  .then((value) => this._cargarFact()),
               child: Text('Eliminar'),
             ),
           ],
