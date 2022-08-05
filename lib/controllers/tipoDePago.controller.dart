@@ -62,6 +62,6 @@ Future<TipoPago?> eliminarTipoPago_Controller(
   print(idTipoPago);
   if (tipopago != null) {
     ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Cliente eliminado con exito")));
+        const SnackBar(content: Text("Tipo Pago eliminado con exito")));
   } else {}
 }
