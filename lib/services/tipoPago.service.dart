@@ -1,7 +1,11 @@
+import 'dart:math';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'package:soft_frontend/models/manipularTipoPago.dart';
+import 'package:soft_frontend/models/tipoPago.model.dart';
 import 'package:soft_frontend/models/unPagoBuscado.model.dart';
 import '../constans.dart';
 
