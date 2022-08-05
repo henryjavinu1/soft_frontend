@@ -1,7 +1,11 @@
+import 'dart:math';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'package:soft_frontend/models/manipularTipoPago.dart';
+import 'package:soft_frontend/models/tipoPago.model.dart';
 import 'package:soft_frontend/models/unPagoBuscado.model.dart';
 import '../constans.dart';
 
@@ -28,30 +32,53 @@ Future<List<Tipopago?>> CrearTipoPago(
   }
 }
 
-Future<void> EliminarTipoPago(String idTipoPago, context) async {
-  var response = await http.post(Uri.parse(API_URL + "gene/eliminartipopago"),
-      body: ({
-        'idTipoPago': idTipoPago,
-      }));
-
-  if (response.statusCode == 200) {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text("Tipo de Pago Eliminado")));
+Future<List<TipoPago?>> EliminarTipoPago(String idTipoPago, context) async {
+  print(idTipoPago);
+  var tipo = http.Client();
+  TipoPago? tipopag = null;
+  List<TipoPago?> tipoPagoCreado = [];
+  try {
+    var response = await http.post(Uri.parse(API_URL + 'gene/eliminartipopago'),
+        body: ({'idTipoPago': idTipoPago}));
+    print(response.body);
+    if (response.statusCode == 200) {
+      print(TipoPago);
+    } else {
+      //
+    }
+    return tipoPagoCreado;
+  } catch (e) {
+    print(e);
+    return tipoPagoCreado;
+  } finally {
+    http.Client().close();
   }
 }
 
-Future<void> EditarTipoPago(String idTipoPago, String tipoDePago,
+Future<List<TipoPago?>> actualizarTipoPago(String idTipoPago, String tipoDePago,
     String descripcionTipoPago, context) async {
-  var response = await http.post(Uri.parse(API_URL + "gene/actualizartipopago"),
-      body: ({
-        'idTipoPago': idTipoPago,
-        'tipoDePago': tipoDePago,
-        'descripcionTipoPago': descripcionTipoPago,
-      }));
-
-  if (response.statusCode == 200) {
-    ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Tipo de Pago Actualizado")));
+  var client = http.Client();
+  TipoPago? tipopago = null;
+  List<TipoPago?> tipoPagoCreado = [];
+  try {
+    var response =
+        await http.post(Uri.parse(API_URL + "gene/actualizartipopago"),
+            body: ({
+              'idTipoPago': idTipoPago,
+              'tipoDePago': tipoDePago,
+              'descripcionTipoPago': descripcionTipoPago,
+            }));
+    print(response.body);
+    if (response.statusCode == 200) {
+      print(TipoPago);
+    } else {
+      //
+    }
+    return tipoPagoCreado;
+  } catch (e) {
+    return tipoPagoCreado;
+  } finally {
+    http.Client().close();
   }
 }
 
@@ -74,3 +101,32 @@ Future traerPago() async {
     return 2;
   }
 }
+
+/*
+Future<void> EliminarTipoPago(String idTipoPago, context) async {
+  var response = await http.post(Uri.parse(API_URL + "gene/eliminartipopago"),
+      body: ({
+        'idTipoPago': idTipoPago,
+      }));
+
+  if (response.statusCode == 200) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text("Tipo de Pago Eliminado")));
+  }
+}
+
+
+Future<void> EditarTipoPago(String idTipoPago, String tipoDePago,
+    String descripcionTipoPago, context) async {
+  var response = await http.post(Uri.parse(API_URL + "gene/actualizartipopago"),
+      body: ({
+        'idTipoPago': idTipoPago,
+        'tipoDePago': tipoDePago,
+        'descripcionTipoPago': descripcionTipoPago,
+      }));
+
+  if (response.statusCode == 200) {
+    ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Tipo de Pago Actualizado")));
+  }
+}*/

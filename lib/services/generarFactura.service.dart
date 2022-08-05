@@ -7,23 +7,6 @@ import 'package:soft_frontend/models/models.dart';
 import '../constans.dart';
 import '../models/crearFactura.model.dart';
 
-Future<void> crearFactunhra(String idVenta, String idTipoPago, context) async {
-  if (idVenta.isNotEmpty && idTipoPago.isNotEmpty) {
-    var response = await http.post(Uri.parse(API_URL + "gene/insertfact"),
-        body: ({
-          'idVenta': idVenta,
-          'idTipoPago': idTipoPago,
-        }));
-    if (response.statusCode == 200) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("Factura Creado")));
-    }
-  } else {
-    ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Error al crear un Factura")));
-  }
-}
-
 Future<List<Factura?>> crearFactura(
     String idVenta, String idTipoPago, context) async {
   var fact = http.Client();
