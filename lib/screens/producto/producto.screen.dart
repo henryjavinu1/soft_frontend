@@ -6,12 +6,16 @@ import 'package:soft_frontend/controllers/producto.controller.dart';
 import 'package:soft_frontend/models/Producto.model.dart';
 import 'package:soft_frontend/models/buscarProducto.dart';
 import 'package:soft_frontend/screens/tipoproducto/tipoproducto.screen.dart';
+import 'package:soft_frontend/screens/principalmantenimiento/principalmantenimiento.screen.dart';
 import 'package:soft_frontend/services/producto.service.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:soft_frontend/controllers/producto.controller.dart' as globals;
 
 void TipoProducto() {
   runApp(const PantallaProducto());
 }
+
+bool isCorrect = false;
 
 class PantallaProducto extends StatelessWidget {
   const PantallaProducto({Key? key}) : super(key: key);
@@ -44,6 +48,14 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Producto> tiposN = <Producto>[];
   final TextEditingController _typeAheadController = TextEditingController();
   String idTipoProductoG = "";
+  String excenteo = "";
+  int isExcento =0;
+  bool isExcento2 = false;
+  String isExcento3 = "";
+  int isExceptoN = 0;
+  bool esCorrecto = false;
+ // Porque tantas isExcepto? porque ando probando, y todas sirven, porfa no borrarlas u , u, hay una que se usa en
+ // actualizar y otra en crear, 
 
   @override
   void initState() {
@@ -62,6 +74,11 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          leading: IconButton(icon: const Icon( Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => PantallaMantenimientoPrincipal(),));
+                }
+            ,),
           title: Text(widget.title),
         ),
         body: Row(
@@ -84,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 margin: EdgeInsets.all(5),
                                 child: RaisedButton(
                                   onPressed: () {
-                                    _ventanaCrearTipoProducto(context);
+                                    _ventanaNueva(context);
                                   },
                                   child: Text('Agregar'),
                                   padding: EdgeInsets.all(25),
@@ -147,20 +164,25 @@ class _MyHomePageState extends State<MyHomePage> {
 // Este es para buscar productos.
 // Se usan dos listas, la que va filtrando y la que static que cuando se borra llena a la que filtra.
   _searchBar() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextField(
-        decoration: InputDecoration(hintText: 'Buscar producto'),
-        onChanged: (text) {
-          text = text.toLowerCase();
-          setState(() {
-            tiposN = tipos.where((note) {
-              var noteTitle = note.nombreProducto.toString().toLowerCase();
-              return noteTitle.contains(text);
-            }).toList();
-          });
-        },
-      ),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextField(
+            decoration: InputDecoration(hintText: 'Buscar producto'),
+            onChanged: (text) {
+              text = text.toLowerCase();
+              setState(() {
+                tiposN = tipos.where((note) {
+                  var noteTitle = note.nombreProducto.toString().toLowerCase();
+                  return noteTitle.contains(text);
+                }).toList();
+              });
+            },
+          ),
+        ),
+        _cardCabecera(),
+      ],
     );
   }
 
@@ -309,12 +331,41 @@ class _MyHomePageState extends State<MyHomePage> {
                                   style: TextStyle(fontSize: 18),
                                 ),
                               ),
-                              TextFormField(
-                                controller: isExcentoController,
-                                keyboardType: TextInputType.text,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: RadioListTile<int>(
+                                      value: 1,
+                                      groupValue: isExcento,
+                                      title: Text('Si'),
+                                      onChanged: (value) => setState(() => isExcento2 =true),
+                                    ),
                                 ),
+
+                                Expanded(
+                                    child: RadioListTile<int>(
+                                      value: 2,
+                                      groupValue: isExcento,
+                                      title: Text('Si'),
+                                      onChanged: (value) => setState(() => isExcento2 =false),
+                                    ),
+                                ),
+
+                                /*
+                                  Expanded(
+                                    child: RadioListTile(
+                                        title: Text("No"),
+                                        value: "No", 
+                                        groupValue: excenteo, 
+                                        onChanged: (value){
+                                          setState(() {
+                                              excenteo = value.toString();
+                                          });
+                                        },
+                                    ),
+                                  ),
+                                  */
+                                ],
                               ),
                               
                             ]),
@@ -394,7 +445,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 cantidadProductoController.text,
                                                 isvProductoController.text,
                                                 descProductoController.text,
-                                                isExcentoController.text,
+                                                "0",
                                                 idTipoProductoG,
                                                 context);
                                             Navigator.pop(context);
@@ -768,7 +819,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Expanded(
               flex: 1,
               child: Text(
-                tiposN[index].isvProducto.toString(),
+                tiposN[index].isvProducto.toString() + "%",
                 style: GoogleFonts.lato(fontSize: 15),
               ),
             ),
@@ -780,7 +831,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: TextButton(
                   child: Text("Actualizar"),
                   onPressed: () {
-                    _ventanaActualizar(
+                    _ventanaNuevaActualizar(
                         context,
                         tiposN[index].id.toString(),
                         tiposN[index].codigoProducto.toString(),
@@ -801,6 +852,72 @@ class _MyHomePageState extends State<MyHomePage> {
                     _ventanaEliminar(context, tiposN[index].id.toString());
                   },
                 )),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _cardCabecera() {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.only(
+            top: 10.0, bottom: 10.0, left: 16.0, right: 16),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Expanded(
+              flex: 1,
+              child: Text(
+                "Codigo Producto",
+                style: GoogleFonts.lato(fontSize: 15),
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Text(
+                "Nombre Producto",
+                style: GoogleFonts.lato(fontSize: 15),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Text(
+                "Precio",
+                style: GoogleFonts.lato(fontSize: 15),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Text(
+                "Cantidad",
+                style: GoogleFonts.lato(fontSize: 15),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Text(
+                "ISV",
+                style: GoogleFonts.lato(fontSize: 15),
+              ),
+            ),
+
+            // cantidad y precio tan invertidos, al actualizar muestran los valores invertidos, primero va precio y despues cantidad
+            //  Aqui los invierto para que se vean como deben verse.
+            Expanded(
+                flex: 1,
+                child:Text(
+                  "",
+                  style: GoogleFonts.lato(fontSize: 15),
+                  ),
+                ),
+            Expanded(
+              flex: 1,
+              child:Text(
+                "",
+                style: GoogleFonts.lato(fontSize: 15),
+              ),
+            ),
           ],
         ),
       ),
@@ -841,14 +958,14 @@ class _MyHomePageState extends State<MyHomePage> {
             final tipo = suggestion!;
             idTipoProductoG = tipo.id.toString();
             this._typeAheadController.text = tipo.tipoProducto;
-            //ScaffoldMessenger.of(context),
 
-              /*
+            /*            
+              ScaffoldMessenger.of(context),
               ..removeCurrentSnackBar()
               ..showSnackBar(SnackBar(
                 content: Text('TipoProducto: ${tipo.tipoProducto}'),
               ));
-              */
+            */
           },
         )
     );
@@ -886,5 +1003,522 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  void _ventanaNueva(BuildContext context){
+    var idProductoController = TextEditingController();
+    var codigoProductoController = TextEditingController();
+    var nombreProductoController = TextEditingController();
+    var precioProductoController = TextEditingController();
+    var cantidadProductoController = TextEditingController();
+    var isvProductoController = TextEditingController();
+    var descProductoController = TextEditingController();
+    var isExcentoController = TextEditingController();
+    var idTipoProductoController = TextEditingController();
 
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        int selectedRadio = 0;
+        return AlertDialog(
+          content: StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              return Container(
+                color: Colors.white,
+                child: Column(
+                  children: [
+                    Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      Container(
+                        width: 350,
+                        height: 350,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text(
+                                    "Código Producto",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                                TextFormField(
+                                  controller: codigoProductoController,
+                                  decoration:
+                                      InputDecoration(border: OutlineInputBorder(),
+                                      ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text(
+                                    "Precio",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                                TextFormField(
+                                  controller: precioProductoController,
+                                  decoration:
+                                      InputDecoration(border: OutlineInputBorder(),
+                                      ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text(
+                                    "ISV",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                                TextFormField(
+                                    controller: isvProductoController,
+                                    keyboardType: TextInputType.text,
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(),
+                                    )),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text(
+                                    "Excento",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: RadioListTile<int>(
+                                        value: 1,
+                                        groupValue: isExcento,
+                                        title: Text('Si'),
+                                        onChanged: (value) { setState(() => isExcento = 1);
+                                        isExcento2 = true;
+                                        },
+                                      ),
+                                    ),
+
+                                    Expanded(
+                                      child: RadioListTile<int>(
+                                        value: 0,
+                                        groupValue: isExcento,
+                                        title: Text('No'),
+                                        onChanged: (value) {
+                                          setState(() => isExcento = 0);
+                                          isExcento2 = false;
+                                        }
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                
+                              ]),
+                        ),
+                      ),
+                      Container(
+                        width: 350,
+                        height: 350,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text(
+                                    "Nombre del producto",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                                TextFormField(
+                                  controller: nombreProductoController,
+                                  decoration:
+                                      InputDecoration(border: OutlineInputBorder(),),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text(
+                                    "Cantidad en existencia",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                                TextFormField(
+                                  controller: cantidadProductoController,
+                                  decoration:
+                                      InputDecoration(border: OutlineInputBorder(),),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text(
+                                    "Descuento",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                                TextFormField(
+                                  controller: descProductoController,
+                                  keyboardType: TextInputType.text,
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text(
+                                    "Tipo producto",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                                _buscarTipoProducto(),
+                              
+                              ]),
+                        ),
+                      ),
+                    ]),
+                      Row(
+                              children: [
+                                Container(
+                                          width: 100,
+                                          height: 50,
+                                          margin: EdgeInsets.all(5),
+                                          child: RaisedButton(
+                                            onPressed: () {
+                                             isCorrect = pruebaControlador(
+                                                  codigoProductoController.text,
+                                                  nombreProductoController.text,
+                                                  precioProductoController.text,
+                                                  cantidadProductoController.text,
+                                                  isvProductoController.text,
+                                                  descProductoController.text,
+                                                  isExcento.toString(),
+                                                  idTipoProductoG,
+                                                  context);
+                                              /*
+                                              crearProductoController(
+                                                  codigoProductoController.text,
+                                                  nombreProductoController.text,
+                                                  precioProductoController.text,
+                                                  cantidadProductoController.text,
+                                                  isvProductoController.text,
+                                                  descProductoController.text,
+                                                  isExcento.toString(),
+                                                  idTipoProductoG,
+                                                  context);
+
+                                               */
+                                             if (isCorrect == true){
+                                               _ventanaExito(context);
+                                               Navigator.pop(context);
+                                             } else {
+                                               _ventanaError(context);
+                                             }
+                                              Navigator.pop(context);
+                                              initState();
+                                            },
+                                            child: Text('Guardar'),
+                                            padding: EdgeInsets.all(10),
+                                          )),
+                                Container(
+                                          width: 100,
+                                          height: 50,
+                                          margin: EdgeInsets.all(5),
+                                          child: RaisedButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text('Cancelar'),
+                                            padding: EdgeInsets.all(10),
+                                          )),
+                                          
+                              ],
+                            ),
+                  ],
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  void _ventanaNuevaActualizar(
+    BuildContext context,
+      String idProductoP,
+      String codigoProductoP,
+      String nombreProductoP,
+      String cantidadProductoP,
+      String precioProductoP,
+      String isvProductoP,
+      String descProductoP,
+      String isExcentoP,
+      String idTipoProductoP
+  ){
+    late TextEditingController idProducto =
+        TextEditingController(text: idProductoP);
+    late TextEditingController codigoProducto =
+        TextEditingController(text: codigoProductoP);
+    late TextEditingController nombreProducto =
+        TextEditingController(text: nombreProductoP);
+    late TextEditingController precioProducto =
+        TextEditingController(text: precioProductoP);
+    late TextEditingController cantidadProducto =
+        TextEditingController(text: cantidadProductoP);
+    late TextEditingController isvProducto =
+        TextEditingController(text: isvProductoP);
+    late TextEditingController descProducto =
+        TextEditingController(text: descProductoP);
+    late TextEditingController isExcento5 =
+        TextEditingController(text: isExcentoP);
+    late TextEditingController idTipoProducto =
+        TextEditingController(text: idTipoProductoP);
+        if (isExcentoP.toString() == "true"){
+            isExceptoN =1;
+        } else {
+          isExceptoN =0;
+        }
+
+    
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        int selectedRadio = 0;
+        return AlertDialog(
+          content: StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              return Container(
+                color: Colors.white,
+                child: Column(
+                  children: [
+                    Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      Container(
+                        width: 350,
+                        height: 350,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text(
+                                    "Código Producto",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                                TextFormField(
+                                  controller: codigoProducto,
+                                  decoration:
+                                      InputDecoration(border: OutlineInputBorder(),
+                                      ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text(
+                                    "Precio",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                                TextFormField(
+                                  controller: precioProducto,
+                                  decoration:
+                                      InputDecoration(border: OutlineInputBorder(),
+                                      ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text(
+                                    "ISV",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                                TextFormField(
+                                    controller: isvProducto,
+                                    keyboardType: TextInputType.text,
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(),
+                                    )),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text(
+                                    "Excento",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: RadioListTile<int>(
+                                        value: 1,
+                                        groupValue: isExceptoN,
+                                        title: Text('Si'),
+                                        onChanged: (value) { setState(() => isExceptoN = 1);
+                                        isExcento2 = true;
+                                        },
+                                      ),
+                                    ),
+
+                                    Expanded(
+                                      child: RadioListTile<int>(
+                                        value: 0,
+                                        groupValue: isExceptoN,
+                                        title: Text('No'),
+                                        onChanged: (value) {
+                                          setState(() => isExceptoN = 0);
+                                          isExcento2 = false;
+                                        }
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                
+                              ]),
+                        ),
+                      ),
+                      Container(
+                        width: 350,
+                        height: 350,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text(
+                                    "Nombre del producto",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                                TextFormField(
+                                  controller: nombreProducto,
+                                  decoration:
+                                      InputDecoration(border: OutlineInputBorder(),),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text(
+                                    "Cantidad en existencia",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                                TextFormField(
+                                  controller: cantidadProducto,
+                                  decoration:
+                                      InputDecoration(border: OutlineInputBorder(),),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text(
+                                    "Descuento",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                                TextFormField(
+                                  controller: descProducto,
+                                  keyboardType: TextInputType.text,
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text(
+                                    "Tipo producto",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                                _buscarTipoProducto(),
+                              
+                              ]),
+                        ),
+                      ),
+                    ]),
+                      Row(
+                              children: [
+                                Container(
+                                          width: 100,
+                                          height: 50,
+                                          margin: EdgeInsets.all(5),
+                                          child: RaisedButton(
+                                            onPressed: () {
+                                              ActualizarProducto2(
+                                                  idProducto.text,
+                                                  codigoProducto.text,
+                                                  nombreProducto.text,
+                                                  precioProducto.text,
+                                                  cantidadProducto.text,
+                                                  isvProducto.text,
+                                                  descProducto.text,
+                                                  isExcento2.toString(),
+                                                  idTipoProductoG,
+                                                  context);
+                                              Navigator.pop(context);
+                                              _ventanaExito(context);
+                                            },
+                                            child: Text('Guardar'),
+                                            padding: EdgeInsets.all(10),
+                                          )),
+                                Container(
+                                          width: 100,
+                                          height: 50,
+                                          margin: EdgeInsets.all(5),
+                                          child: RaisedButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text('Cancelar'),
+                                            padding: EdgeInsets.all(10),
+                                          )),
+                                          
+                              ],
+                            ),
+                  ],
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  void _ventanaError(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          actions: <Widget>[
+            Container(
+              width: 500,
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(40),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Ocurrio un error al realizar esta acción, intente de nuevo.",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      Container(
+                          width: 80,
+                          height: 40,
+                          margin: EdgeInsets.all(5),
+                          child: RaisedButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              //initState();
+                            },
+                            child: Text('OK'),
+                            padding: EdgeInsets.all(10),
+                          )),
+                      SizedBox(
+                        height: 40,
+                      ),
+                    ]),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }

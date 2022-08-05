@@ -46,7 +46,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
           ],
         ),
         body: FutureBuilder(
-          future: traerArqueos(),
+          future: listarArqueos_Controller(context),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const CircularProgressIndicator();
@@ -104,11 +104,9 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                           onPressed: null,
                           child: Center(
                             child: ElevatedButton(
-                              onPressed: () => Navigator.of(context)
-                                  .push(new MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    new CrearArqueo(),
-                              )),
+                              onPressed: () {
+                                _showDialogCrearArqueo(context);
+                              },
                               child: Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 5, vertical: 5),
@@ -117,23 +115,6 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                             ),
                           ),
                         ),
-                        /*TextButton(
-                          onPressed: null,
-                          child: Center(
-                            child: ElevatedButton(
-                              onPressed: () => Navigator.of(context)
-                                  .push(new MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    new ActualizarArqueCerrandoSesion(),
-                              )),
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 5, vertical: 5),
-                                child: Text('Cerrar Sesion'),
-                              ),
-                            ),
-                          ),
-                        ),*/
                         const SizedBox(
                           height: 50,
                         ),
@@ -506,7 +487,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                                                       child: TextButton(
                                                         child: Text('Eliminar'),
                                                         onPressed: () {
-                                                          _showDialog(
+                                                          _showDialogEliminar(
                                                               context,
                                                               listaArqueos[
                                                                       index]
@@ -556,7 +537,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
         ));
   }
 
-  void _showDialog(BuildContext context, String idArqueo) {
+  void _showDialogEliminar(BuildContext context, String idArqueo) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -583,6 +564,99 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
     );
   }
 
+  void _showDialogCrearArqueo(BuildContext context) {
+    var efectivoAperturaController = TextEditingController();
+    Size size = MediaQuery.of(context).size;
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            actions: <Widget>[
+              Container(
+                color: Colors.white,
+                child: Column(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: 350,
+                          height: 250,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text(
+                                    'Efectivo de Apertura',
+                                    style: GoogleFonts.lato(
+                                        fontSize: size.width * 0.01,
+                                        fontWeight: FontWeight.w800,
+                                        color: Colors.black),
+                                  ),
+                                ),
+                                TextFormField(
+                                  controller: efectivoAperturaController,
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    labelText: 'Efectivo de Apertura',
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          flex: 1,
+                                          child: ElevatedButton(
+                                            child: Text('Crear Arqueo'),
+                                            onPressed: () {
+                                              crearArqueo_Controller(
+                                                  efectivoAperturaController
+                                                      .text
+                                                      .trim(),
+                                                  context);
+                                            },
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        Expanded(
+                                          flex: 1,
+                                          child: ElevatedButton(
+                                            child: Text('Cancelar'),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ],
+          );
+        });
+  }
+
   void _showDialogActualizar(
       BuildContext context, String idUsuario, String idSesion) {
     showDialog(
@@ -595,8 +669,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
             ElevatedButton(
               child: Text('Si'),
               onPressed: () {
-                actualizarArqueoCerrandoSesion_Controller(
-                    idUsuario, idSesion, context);
+                actualizarArqueoCerrandoSesion_Controller(context);
               },
             ),
             ElevatedButton(
