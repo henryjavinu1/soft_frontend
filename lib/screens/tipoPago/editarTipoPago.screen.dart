@@ -4,7 +4,7 @@ import 'package:soft_frontend/screens/tipoPago/buscarTipoPago.screen.dart';
 
 import '../../controllers/tipoDePago.controller.dart';
 import '../../models/tipoPagoBuscado.model.dart';
-import '../../services/tipoPago.service.dart';
+import '../../services/tipopago.service.dart';
 
 class EditarTipoPagos extends StatefulWidget {
   final TipoPagoBuscado tipoPago;

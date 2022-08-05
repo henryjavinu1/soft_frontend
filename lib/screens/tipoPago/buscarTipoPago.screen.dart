@@ -8,7 +8,7 @@ import 'package:soft_frontend/screens/tipoPago/crearTipoPago.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/editarTipoPago.screen.dart';
 import '../../controllers/tipoDePago.controller.dart';
 import '../../models/tipoPago.model.dart';
-import '../../services/tipoPago.service.dart';
+import '../../services/tipopago.service.dart';
 
 class BuscarTipoPago extends StatefulWidget {
   @override

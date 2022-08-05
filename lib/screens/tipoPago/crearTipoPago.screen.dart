@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:soft_frontend/services/tipoPago.service.dart';
+import 'package:soft_frontend/services/tipopago.service.dart';
 
 import '../../controllers/tipoDePago.controller.dart';
 import 'buscarTipoPago.screen.dart';

@@ -3,7 +3,7 @@ import 'package:soft_frontend/models/tipoPago.model.dart';
 import 'package:soft_frontend/models/unPagoBuscado.model.dart';
 import 'package:soft_frontend/screens/tipoPago/editarTipoPago.screen.dart';
 import '../screens/tipoPago/buscarTipoPago.screen.dart';
-import '../services/tipoPago.service.dart';
+import '../services/tipopago.service.dart';
 
 //Controlador para xrear un nuevo tipo de pagoo
 Future<TipoPago?> crearTipoPago_Controller(
