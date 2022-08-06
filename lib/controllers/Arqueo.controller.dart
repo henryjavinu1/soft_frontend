@@ -46,7 +46,7 @@ Future eliminarArqueo_Controller(String idArqueo, context) async {
     List<ManipularArqueo?> arq = await eliminarArqueo(idArqueo, token);
     print(idArqueo);
     if (arq != null) {
-      Navigator.pushNamed(context, 'traer_arqueo');
+      Navigator.pushReplacementNamed(context, 'traer_arqueo');
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Arqueo eliminado con exito')));
     } else {}
@@ -79,7 +79,7 @@ Future actualizarArqueoCerrandoSesion_Controller(context) async {
     if (arqueo1 != null) {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Arqueo Actualizado con exito')));
-      Navigator.pushNamed(context, 'traer_arqueo');
+      Navigator.popAndPushNamed(context, 'traer_arqueo');
     } else {}
   }
 }

@@ -153,17 +153,17 @@ class PantallaDesktop extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Cerrar Sesion"),
-          content: Text("¿Esta seguro que quiere cerrar Sesion?"),
+          title: Text('Cerrar Sesion'),
+          content: Text('¿Esta seguro que quiere cerrar Sesion?'),
           actions: <Widget>[
             ElevatedButton(
-              child: Text("Si"),
+              child: Text('Si'),
               onPressed: () {
                 logout_controller(context);
               },
             ),
             ElevatedButton(
-              child: Text("No"),
+              child: Text('No'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
