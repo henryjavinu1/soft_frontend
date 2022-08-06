@@ -1,40 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:soft_frontend/models/tipoproducto.model.dart';
+import 'package:soft_frontend/models/Tipoproducto.model.dart';
 import 'dart:convert';
 import '../constans.dart';
 
 // ignore: non_constant_identifier_names
-class FetchUser{
+class FetchUser {
   String fetchurl = "";
-  List <Tipoproducto> results = [];
-  Future <List<Tipoproducto>>getUserList({String? query}) async{
+  List<Tipoproducto> results = [];
+  Future<List<Tipoproducto>> getUserList({String? query}) async {
     var data = [];
-    var url = Uri.parse( API_URL + "producto/mostrartipos");
+    var url = Uri.parse(API_URL + "producto/mostrartipos");
     var response = await http.get(url);
     List<Tipoproducto> users = [];
     try {
       if (response.statusCode == 200) {
-        var units = (json.decode(response.body) as Map<String, dynamic>)["tipoProducto"];
+        var units = (json.decode(response.body)
+            as Map<String, dynamic>)["tipoProducto"];
         //results = units.map((e) => Tipoproducto.fromJson(e)).toList();
-        for(var u in units){
-          Tipoproducto user = Tipoproducto(id: u["id"],tipoProducto: u["tipoProducto"],descripcionProducto: u["descripcionProducto"], isvTipoProducto: u["isvTipoProducto"]);
+        for (var u in units) {
+          Tipoproducto user = Tipoproducto(
+              id: u["id"],
+              tipoProducto: u["tipoProducto"],
+              descripcionProducto: u["descripcionProducto"],
+              isvTipoProducto: u["isvTipoProducto"]);
           users.add(user);
         }
-        if (query != null){
-          users = users.where((element) => element.tipoProducto!.toLowerCase().contains(query.toLowerCase())).toList();
+        if (query != null) {
+          users = users
+              .where((element) => element.tipoProducto!
+                  .toLowerCase()
+                  .contains(query.toLowerCase()))
+              .toList();
         }
       } else {
         print('Api error');
       }
-    } on Exception catch (e){
+    } on Exception catch (e) {
       print('error: $e');
     }
     return users;
   }
 }
 
-Future<List<Tipoproducto>> fetchNotes2() async{
+Future<List<Tipoproducto>> fetchNotes2() async {
   var data = [];
   var url = Uri.parse(API_URL + "producto/mostrartipos");
   var response = await http.get(url);
@@ -42,15 +51,20 @@ Future<List<Tipoproducto>> fetchNotes2() async{
 
   try {
     if (response.statusCode == 200) {
-      var units = (json.decode(response.body) as Map<String, dynamic>)["tipoProducto"];
-      for(var u in units){
-        Tipoproducto user = Tipoproducto(id: u["id"],tipoProducto: u["tipoProducto"],descripcionProducto: u["descripcionProducto"], isvTipoProducto: u["isvTipoProducto"]);
+      var units =
+          (json.decode(response.body) as Map<String, dynamic>)["tipoProducto"];
+      for (var u in units) {
+        Tipoproducto user = Tipoproducto(
+            id: u["id"],
+            tipoProducto: u["tipoProducto"],
+            descripcionProducto: u["descripcionProducto"],
+            isvTipoProducto: u["isvTipoProducto"]);
         users.add(user);
       }
     } else {
       print('Api error');
     }
-  } on Exception catch (e){
+  } on Exception catch (e) {
     print('error: $e');
   }
   return users;
@@ -61,20 +75,18 @@ Future<void> crearTipoProducto(String tipoProducto, String descripcionProducto,
   if (tipoProducto.isNotEmpty &&
       descripcionProducto.isNotEmpty &&
       isvTipoProducto.isNotEmpty) {
-    var response = await http.post(
-        Uri.parse(API_URL + "producto/tipoproducto/"),
-        body: ({
-          'tipoProducto': tipoProducto,
-          'descripcionProducto': descripcionProducto,
-          'isvTipoProducto': isvTipoProducto,
-        }));
+    var response =
+        await http.post(Uri.parse(API_URL + "producto/tipoproducto/"),
+            body: ({
+              'tipoProducto': tipoProducto,
+              'descripcionProducto': descripcionProducto,
+              'isvTipoProducto': isvTipoProducto,
+            }));
 
     if (response.statusCode == 200) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text("Tipo de producto creado exitosamente.")));
-    } else {
-
-    }
+    } else {}
   } else {
     ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Error al crear el tipo de producto.")));
@@ -83,16 +95,18 @@ Future<void> crearTipoProducto(String tipoProducto, String descripcionProducto,
 
 Future<void> ActualizarTipoProducto(String idTipoProducto, String tipoProducto,
     String descripcionProducto, String isvTipoProducto, context) async {
-  if (idTipoProducto.isNotEmpty && tipoProducto.isNotEmpty &&
-      descripcionProducto.isNotEmpty && isvTipoProducto.isNotEmpty) {
-    var response = await http.post(
-        Uri.parse(API_URL + "producto/actualizartipo/"),
-        body: ({
-          'id': idTipoProducto,
-          'tipoProducto': tipoProducto,
-          'descripcionProducto': descripcionProducto,
-          'isvTipoProducto': isvTipoProducto
-        }));
+  if (idTipoProducto.isNotEmpty &&
+      tipoProducto.isNotEmpty &&
+      descripcionProducto.isNotEmpty &&
+      isvTipoProducto.isNotEmpty) {
+    var response =
+        await http.post(Uri.parse(API_URL + "producto/actualizartipo/"),
+            body: ({
+              'id': idTipoProducto,
+              'tipoProducto': tipoProducto,
+              'descripcionProducto': descripcionProducto,
+              'isvTipoProducto': isvTipoProducto
+            }));
 
     if (response.statusCode == 200) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -105,36 +119,40 @@ Future<void> ActualizarTipoProducto(String idTipoProducto, String tipoProducto,
 }
 
 Future<void> EliminarTipoProducto(String idTipoProducto, context) async {
-  var response = await http.post(
-      Uri.parse(API_URL + "producto/eliminartipo"),
+  var response = await http.post(Uri.parse(API_URL + "producto/eliminartipo"),
       body: ({
         'id': idTipoProducto,
       }));
 
   if (response.statusCode == 200) {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text("Tipo de Producto eliminado.")));
+    ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Tipo de Producto eliminado.")));
   }
 }
 
-Future<List<Tipoproducto>> obtenerTipos() async{
-    var data = [];
-    var url = Uri.parse(API_URL + "producto/mostrartipos");
-    var response = await http.get(url);
-    List<Tipoproducto> users = [];
+Future<List<Tipoproducto>> obtenerTipos() async {
+  var data = [];
+  var url = Uri.parse(API_URL + "producto/mostrartipos");
+  var response = await http.get(url);
+  List<Tipoproducto> users = [];
 
-    try {
-      if (response.statusCode == 200) {
-        var units = (json.decode(response.body) as Map<String, dynamic>)["tipoProducto"];
-        for(var u in units){
-          Tipoproducto user = Tipoproducto(id: u["id"],tipoProducto: u["tipoProducto"],descripcionProducto: u["descripcionProducto"], isvTipoProducto: u["isvTipoProducto"]);
-          users.add(user);
-        }
-      } else {
-        print('Api error');
+  try {
+    if (response.statusCode == 200) {
+      var units =
+          (json.decode(response.body) as Map<String, dynamic>)["tipoProducto"];
+      for (var u in units) {
+        Tipoproducto user = Tipoproducto(
+            id: u["id"],
+            tipoProducto: u["tipoProducto"],
+            descripcionProducto: u["descripcionProducto"],
+            isvTipoProducto: u["isvTipoProducto"]);
+        users.add(user);
       }
-    } on Exception catch (e){
-      print('error: $e');
+    } else {
+      print('Api error');
     }
-    return users;
+  } on Exception catch (e) {
+    print('error: $e');
   }
+  return users;
+}
