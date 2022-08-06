@@ -4,15 +4,15 @@ import 'dart:convert';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_frontend/constans.dart';
 import 'package:soft_frontend/screens/producto/producto.screen.dart';
-import 'package:soft_frontend/models/tipoproducto.model.dart';
+import 'package:soft_frontend/models/Tipoproducto.model.dart';
 import 'package:soft_frontend/services/tipoproducto.service.dart';
+
 void TipoProducto() {
   runApp(const PantallaTipoProducto());
 }
 
 class PantallaTipoProducto extends StatelessWidget {
   const PantallaTipoProducto({Key? key}) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +36,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  List<Tipoproducto> tipos = <Tipoproducto> [];
-  List<Tipoproducto> tiposN = <Tipoproducto> [];
+  List<Tipoproducto> tipos = <Tipoproducto>[];
+  List<Tipoproducto> tiposN = <Tipoproducto>[];
 
-  Future<List<Tipoproducto>> fetchNotes2() async{
+  Future<List<Tipoproducto>> fetchNotes2() async {
     var data = [];
     var url = Uri.parse(API_URL + "producto/mostrartipos");
     var response = await http.get(url);
@@ -47,22 +47,27 @@ class _MyHomePageState extends State<MyHomePage> {
 
     try {
       if (response.statusCode == 200) {
-        var units = (json.decode(response.body) as Map<String, dynamic>)["tipoProducto"];
-        for(var u in units){
-          Tipoproducto user = Tipoproducto(id: u["id"],tipoProducto: u["tipoProducto"],descripcionProducto: u["descripcionProducto"], isvTipoProducto: u["isvTipoProducto"]);
+        var units = (json.decode(response.body)
+            as Map<String, dynamic>)["tipoProducto"];
+        for (var u in units) {
+          Tipoproducto user = Tipoproducto(
+              id: u["id"],
+              tipoProducto: u["tipoProducto"],
+              descripcionProducto: u["descripcionProducto"],
+              isvTipoProducto: u["isvTipoProducto"]);
           users.add(user);
         }
       } else {
         print('Api error');
       }
-    } on Exception catch (e){
+    } on Exception catch (e) {
       print('error: $e');
     }
     return users;
   }
 
   @override
-  void initState(){
+  void initState() {
     fetchNotes2().then((value) {
       tipos.clear();
       tiposN.clear();
@@ -78,10 +83,14 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: IconButton(icon: const Icon( Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => PantallaProducto(),));
-            },),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => PantallaProducto(),
+              ));
+            },
+          ),
           title: Text(widget.title),
         ),
         body: Row(
@@ -124,8 +133,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: 900,
                   height: 500,
                   child: ListView.builder(
-                    itemBuilder: (context, index){
-                      return index == 0 ? _searchBar(): _listItem(index - 1);
+                    itemBuilder: (context, index) {
+                      return index == 0 ? _searchBar() : _listItem(index - 1);
                     },
                     itemCount: tiposN.length + 1,
                   ),
@@ -133,8 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
           ],
-        )
-    );
+        ));
   }
 
   _searchBar() {
@@ -143,9 +151,7 @@ class _MyHomePageState extends State<MyHomePage> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextField(
-            decoration: InputDecoration(
-                hintText: 'Buscar tipo producto'
-            ),
+            decoration: InputDecoration(hintText: 'Buscar tipo producto'),
             onChanged: (text) {
               text = text.toLowerCase();
               setState(() {
@@ -189,8 +195,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       TextFormField(
                         controller: tipoProductoController,
-                        decoration:
-                        InputDecoration(border: OutlineInputBorder(),),
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(5.0),
@@ -201,8 +208,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       TextFormField(
                         controller: descripcionProductoController,
-                        decoration:
-                        InputDecoration(border: OutlineInputBorder(),),
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(5.0),
@@ -224,14 +232,15 @@ class _MyHomePageState extends State<MyHomePage> {
                             height: 40,
                             margin: EdgeInsets.all(5),
                             child: RaisedButton(
-                              onPressed: () { crearTipoProducto(
-                                  tipoProductoController.text,
-                                  descripcionProductoController.text,
-                                  isvTipoProductoController.text,
-                                  context);
-                                  Navigator.pop(context);
-                                  _ventanaExito(context); 
-                                  },
+                              onPressed: () {
+                                crearTipoProducto(
+                                    tipoProductoController.text,
+                                    descripcionProductoController.text,
+                                    isvTipoProductoController.text,
+                                    context);
+                                Navigator.pop(context);
+                                _ventanaExito(context);
+                              },
                               child: Text('Guardar'),
                               padding: EdgeInsets.all(10),
                             )),
@@ -247,8 +256,6 @@ class _MyHomePageState extends State<MyHomePage> {
       },
     );
   }
-
-
 
   void _ventanaEliminar(BuildContext context) {
     var idTipoProductoController = TextEditingController();
@@ -274,8 +281,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           margin: EdgeInsets.all(5),
                           child: RaisedButton(
                             onPressed: () => EliminarTipoProducto(
-                                idTipoProductoController.text,
-                                context),
+                                idTipoProductoController.text, context),
                             child: Text('Eliminar'),
                             padding: EdgeInsets.all(10),
                           )),
@@ -291,14 +297,19 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _ventanaActualizar(BuildContext context, String idTipoProductoP, String tipoProductoP, String descripcionProductoP, String isvTipoProductoP) {
+  void _ventanaActualizar(
+      BuildContext context,
+      String idTipoProductoP,
+      String tipoProductoP,
+      String descripcionProductoP,
+      String isvTipoProductoP) {
     late TextEditingController idTipoProducto =
         TextEditingController(text: idTipoProductoP);
     late TextEditingController tipoProducto2 =
-        TextEditingController(text: tipoProductoP);    
-    late TextEditingController descripcionProducto=
+        TextEditingController(text: tipoProductoP);
+    late TextEditingController descripcionProducto =
         TextEditingController(text: descripcionProductoP);
-    late TextEditingController isvTipoProducto=
+    late TextEditingController isvTipoProducto =
         TextEditingController(text: isvTipoProductoP);
 
     showDialog(
@@ -321,7 +332,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       TextFormField(
                         controller: tipoProducto2,
                         decoration:
-                        InputDecoration(border: UnderlineInputBorder()),
+                            InputDecoration(border: UnderlineInputBorder()),
                       ),
                       SizedBox(
                         height: 40,
@@ -333,7 +344,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       TextFormField(
                         controller: descripcionProducto,
                         decoration:
-                        InputDecoration(border: UnderlineInputBorder()),
+                            InputDecoration(border: UnderlineInputBorder()),
                       ),
                       SizedBox(
                         height: 40,
@@ -356,14 +367,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: RaisedButton(
                             onPressed: () {
                               ActualizarTipoProducto(
-                                idTipoProductoP,
-                                tipoProducto2.text,
-                                descripcionProducto.text,
-                                isvTipoProducto.text,
-                                context);
-                                Navigator.pop(context);
-                                _ventanaExito(context);                              
-                            },                           
+                                  idTipoProductoP,
+                                  tipoProducto2.text,
+                                  descripcionProducto.text,
+                                  isvTipoProducto.text,
+                                  context);
+                              Navigator.pop(context);
+                              _ventanaExito(context);
+                            },
                             child: Text('Actualizar'),
                             padding: EdgeInsets.all(10),
                           )),
@@ -404,7 +415,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       TextFormField(
                         controller: tipoProductoController,
                         decoration:
-                        InputDecoration(border: UnderlineInputBorder()),
+                            InputDecoration(border: UnderlineInputBorder()),
                       ),
                       SizedBox(
                         height: 40,
@@ -416,7 +427,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       TextFormField(
                         controller: descripcionProductoController,
                         decoration:
-                        InputDecoration(border: UnderlineInputBorder()),
+                            InputDecoration(border: UnderlineInputBorder()),
                       ),
                       SizedBox(
                         height: 40,
@@ -434,7 +445,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       SizedBox(
                         height: 40,
-                      ),]),
+                      ),
+                    ]),
               ),
             ),
           ],
@@ -444,7 +456,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _listItem(index) {
-return Card(
+    return Card(
       child: Padding(
         padding: const EdgeInsets.only(
             top: 10.0, bottom: 10.0, left: 16.0, right: 16),
@@ -464,13 +476,18 @@ return Card(
                 tiposN[index].descripcionProducto.toString(),
                 style: GoogleFonts.lato(fontSize: 15),
               ),
-            ),         
+            ),
             Expanded(
                 flex: 1,
                 child: TextButton(
                   child: Text("Actualizar"),
                   onPressed: () {
-                    _ventanaActualizar(context, tiposN[index].id.toString(), tiposN[index].tipoProducto.toString(), tiposN[index].descripcionProducto.toString(), tiposN[index].isvTipoProducto.toString() );
+                    _ventanaActualizar(
+                        context,
+                        tiposN[index].id.toString(),
+                        tiposN[index].tipoProducto.toString(),
+                        tiposN[index].descripcionProducto.toString(),
+                        tiposN[index].isvTipoProducto.toString());
                   },
                 )),
             Expanded(
@@ -478,7 +495,7 @@ return Card(
                 child: TextButton(
                   child: Text("Eliminar"),
                   onPressed: () {
-                    _ventanaEliminar2(context, tiposN[index].id.toString());                                  
+                    _ventanaEliminar2(context, tiposN[index].id.toString());
                   },
                 )),
           ],
@@ -510,15 +527,15 @@ return Card(
               ),
             ),
             Expanded(
-                flex: 1,
+              flex: 1,
               child: Text(
                 "Descripción",
                 style: GoogleFonts.lato(fontSize: 15),
               ),
             ),
             Expanded(
-                flex: 1,
-                child: Text(
+              flex: 1,
+              child: Text(
                 "Descripción",
                 style: GoogleFonts.lato(fontSize: 15),
               ),
@@ -611,8 +628,7 @@ return Card(
                                   child: RaisedButton(
                                     onPressed: () {
                                       EliminarTipoProducto(
-                                        idTipoProducto.text,
-                                        context);
+                                          idTipoProducto.text, context);
                                       Navigator.pop(context);
                                       _ventanaExito(context);
                                     },
@@ -639,5 +655,4 @@ return Card(
       },
     );
   }
-
 }

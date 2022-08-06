@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_frontend/models/ventaBuscada.model.dart';
 import 'package:soft_frontend/screens/manipularFactura/manipularfactura.screen.dart';
-import 'package:soft_frontend/services/generarfactura.service.dart';
+import 'package:soft_frontend/services/generarFactura.service.dart';
 import '../../controllers/generarfactura.controller.dart';
 import '../../models/tipoPagoBuscado.model.dart';
-import '../../services/tipopago.service.dart';
+import '../../services/tipoPago.service.dart';
 import 'escogerVenta.screen.dart';
 
 class CrearFactura extends StatefulWidget {

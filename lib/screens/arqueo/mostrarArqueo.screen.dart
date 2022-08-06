@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_frontend/controllers/Arqueo.controller.dart';
 import 'package:soft_frontend/models/Arqueo.model.dart';
-import 'package:soft_frontend/services/arqueo.service.dart';
+import 'package:soft_frontend/services/Arqueo.service.dart';
 import 'package:soft_frontend/screens/arqueo/crearArqueo.screen.dart';
 import 'package:soft_frontend/screens/arqueo/components/cabeceraDeTablaArqueo.component.dart';
 

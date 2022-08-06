@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_frontend/models/manipularVenta.model.dart';
 import 'package:soft_frontend/models/ventaBuscada.model.dart';
-import 'package:soft_frontend/services/mostrarventas.service.dart';
+import 'package:soft_frontend/services/mostrarVentas.service.dart';
 
 import '../../services/ventas.service.dart';
 import 'generarFactura.screen.dart';
