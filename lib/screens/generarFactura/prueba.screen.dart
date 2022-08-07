@@ -1,29 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:soft_frontend/models/manipularVenta.model.dart';
+import 'package:soft_frontend/controllers/ventas.controller.dart';
+import 'package:soft_frontend/screens/generarFactura/generarFactura.screen.dart';
 import 'package:soft_frontend/models/ventaBuscada.model.dart';
-import 'package:soft_frontend/services/mostrarventas.service.dart';
+import 'package:soft_frontend/screens/manipularFactura/components/cabeceradetabla.component.dart';
+import 'package:soft_frontend/services/mostrarVentas.service.dart';
+import 'package:soft_frontend/services/ventas.service.dart';
 
-import '../../services/ventas.service.dart';
-import 'generarFactura.screen.dart';
+import '../../models/ventas.model.dart';
+import 'components/cabeceraDeTablaVenta.components.dart';
 
-class BuscarVenta extends StatefulWidget {
-  const BuscarVenta({Key? key}) : super(key: key);
-
+class EscogerVentaPrueb extends StatefulWidget {
+  const EscogerVentaPrueb({Key? key}) : super(key: key);
   @override
-  State<BuscarVenta> createState() => _BuscarVentaState();
-} //procesarVenta(venta.id.toString())
+  State<EscogerVentaPrueb> createState() => _EscogerVentaPruebState();
+}
 
-class _BuscarVentaState extends State<BuscarVenta> {
+class _EscogerVentaPruebState extends State<EscogerVentaPrueb> {
   final TextEditingController? _textEditingController = TextEditingController();
-  List<MostrarVenta> listaVentas = [];
-  List<MostrarVenta> filtroVentas = [];
+  List<MostrarVenta> listaVenta = [];
+  List<MostrarVenta> filtroVenta = [];
 
   @override
   void initState() {
-    // TODO: implement initState
+// TODO: implement initState
     super.initState();
   }
+
+/*_cargarFact() async {
+this.venta = await traerVentas();
+setState(() {});
+}*/
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +38,7 @@ class _BuscarVentaState extends State<BuscarVenta> {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: const Text('Modulo Venta'),
+          title: const Text('Modulo Ventas'),
           actions: <Widget>[
             TextButton(
               onPressed: () {
@@ -43,13 +50,13 @@ class _BuscarVentaState extends State<BuscarVenta> {
           ],
         ),
         body: FutureBuilder(
-          future: traerVentas(),
+          future: mostrarVentasDetalladas(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const CircularProgressIndicator();
             } else if (snapshot.connectionState == ConnectionState.done) {
-              ManipularVenta lista = snapshot.data;
-              listaVentas = lista.ventaA;
+              VentaBuscada list = snapshot.data;
+              listaVenta = list.venta;
 
               return Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -62,7 +69,7 @@ class _BuscarVentaState extends State<BuscarVenta> {
                           child: Padding(
                             padding: EdgeInsets.only(right: size.width * 0.01),
                             child: Text(
-                              'Buscar Venta por Id',
+                              'Buscar Venta por Nombre Cliente',
                               style: GoogleFonts.poppins(
                                   color: Colors.black87,
                                   fontSize: size.width * 0.015,
@@ -71,253 +78,291 @@ class _BuscarVentaState extends State<BuscarVenta> {
                           ),
                         ),
                         Expanded(
-                            child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.width * 0.02),
-                          child: TextField(
-                            onChanged: (value) {
-                              setState(() {
-                                filtroVentas = listaVentas
-                                    .where((element) =>
-                                        element.id.toString().contains(value))
-                                    .toList();
-                              });
-                            },
-                            controller: _textEditingController,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(size.width * 0.02),
-                                borderSide: BorderSide(
-                                  color: Colors.black,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: size.width * 0.02),
+                            child: TextField(
+                              onChanged: (value) {
+                                setState(() {
+                                  filtroVenta = listaVenta.where((element) {
+                                    var busq = element.nombreCliente
+                                        .toString()
+                                        .toLowerCase();
+                                    return busq.contains(value);
+                                  }).toList();
+                                });
+                              },
+                              controller: _textEditingController,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(size.width * 0.02),
+                                  borderSide: BorderSide(
+                                    color: Colors.black,
+                                  ),
                                 ),
+                                labelText: 'Nombre de Cliente',
                               ),
-                              labelText: 'Id de Venta',
                             ),
                           ),
-                        )),
-                        const SizedBox(
-                          height: 50,
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 40,
-                    ),
                     Expanded(
-                        child: Container(
-                            margin: EdgeInsets.symmetric(
-                                vertical: size.height * 0.02),
-                            padding: EdgeInsets.symmetric(
-                                vertical: size.height * 0.02,
-                                horizontal: size.height * 0.03),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(5))),
-                            child: Column(
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Center(
-                                      child: ListView.builder(
-                                          scrollDirection: Axis.vertical,
-                                          itemCount: _textEditingController!
-                                                  .text.isNotEmpty
-                                              ? filtroVentas.length
-                                              : listaVentas.length,
-                                          itemBuilder: (context, index) {
-                                            //item(listaArqueos[index]);
-                                            return Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Row(
-                                                children: [
-                                                  Expanded(
-                                                      flex: 1,
-                                                      child: Text(
-                                                        _textEditingController!
-                                                                .text.isNotEmpty
-                                                            ? filtroVentas[
-                                                                    index]
-                                                                .id
-                                                                .toString()
-                                                            : listaVentas[index]
-                                                                .id
-                                                                .toString(),
-                                                        style: GoogleFonts.lato(
-                                                            fontSize:
-                                                                size.width *
-                                                                    0.01,
-                                                            fontWeight:
-                                                                FontWeight.w800,
-                                                            color:
-                                                                Colors.black),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        textScaleFactor: 1,
-                                                      )),
-                                                  Expanded(
-                                                      flex: 3,
-                                                      child: Text(
-                                                        _textEditingController!
-                                                                .text.isNotEmpty
-                                                            ? filtroVentas[
-                                                                    index]
-                                                                .totalIsv
-                                                                .toString()
-                                                            : listaVentas[index]
-                                                                .totalIsv
-                                                                .toString(),
-                                                        style: GoogleFonts.lato(
-                                                            fontSize:
-                                                                size.width *
-                                                                    0.01,
-                                                            fontWeight:
-                                                                FontWeight.w800,
-                                                            color:
-                                                                Colors.black),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        textScaleFactor: 1,
-                                                      )),
-                                                  Expanded(
-                                                      flex: 3,
-                                                      child: Text(
-                                                        _textEditingController!
-                                                                .text.isNotEmpty
-                                                            ? filtroVentas[
-                                                                    index]
-                                                                .totalDescuentoVenta
-                                                                .toString()
-                                                            : listaVentas[index]
-                                                                .totalDescuentoVenta
-                                                                .toString(),
-                                                        style: GoogleFonts.lato(
-                                                            fontSize:
-                                                                size.width *
-                                                                    0.01,
-                                                            fontWeight:
-                                                                FontWeight.w800,
-                                                            color:
-                                                                Colors.black),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        textScaleFactor: 1,
-                                                      )),
-                                                  Expanded(
-                                                      flex: 2,
-                                                      child: Text(
-                                                        _textEditingController!
-                                                                .text.isNotEmpty
-                                                            ? filtroVentas[
-                                                                    index]
-                                                                .totalVenta
-                                                                .toString()
-                                                            : listaVentas[index]
-                                                                .totalVenta
-                                                                .toString(),
-                                                        style: GoogleFonts.lato(
-                                                            fontSize:
-                                                                size.width *
-                                                                    0.01,
-                                                            fontWeight:
-                                                                FontWeight.w800,
-                                                            color:
-                                                                Colors.black),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        textScaleFactor: 1,
-                                                      )),
-                                                  Expanded(
-                                                      flex: 2,
-                                                      child: Text(
-                                                        _textEditingController!
-                                                                .text.isNotEmpty
-                                                            ? filtroVentas[
-                                                                    index]
-                                                                .establecimiento
-                                                                .toString()
-                                                            : listaVentas[index]
-                                                                .establecimiento
-                                                                .toString(),
-                                                        style: GoogleFonts.lato(
-                                                            fontSize:
-                                                                size.width *
-                                                                    0.01,
-                                                            fontWeight:
-                                                                FontWeight.w800,
-                                                            color:
-                                                                Colors.black),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        textScaleFactor: 1,
-                                                      )),
-                                                  Expanded(
-                                                      flex: 2,
-                                                      child: Text(
-                                                        _textEditingController!
-                                                                .text.isNotEmpty
-                                                            ? filtroVentas[
-                                                                    index]
-                                                                .nombreEmpleado
-                                                                .toString()
-                                                            : listaVentas[index]
-                                                                .nombreEmpleado
-                                                                .toString(),
-                                                        style: GoogleFonts.lato(
-                                                            fontSize:
-                                                                size.width *
-                                                                    0.01,
-                                                            fontWeight:
-                                                                FontWeight.w800,
-                                                            color:
-                                                                Colors.black),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        textScaleFactor: 1,
-                                                      )),
-                                                  Expanded(
-                                                      flex: 2,
-                                                      child: Text(
-                                                        _textEditingController!
-                                                                .text.isNotEmpty
-                                                            ? filtroVentas[
-                                                                    index]
-                                                                .nombreCliente
-                                                                .toString()
-                                                            : listaVentas[index]
-                                                                .nombreCliente
-                                                                .toString(),
-                                                        style: GoogleFonts.lato(
-                                                            fontSize:
-                                                                size.width *
-                                                                    0.01,
-                                                            fontWeight:
-                                                                FontWeight.w800,
-                                                            color:
-                                                                Colors.black),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        textScaleFactor: 1,
-                                                      )),
-                                                ],
+                      child: Container(
+                        margin:
+                            EdgeInsets.symmetric(vertical: size.height * 0.02),
+                        padding: EdgeInsets.symmetric(
+                            vertical: size.height * 0.02,
+                            horizontal: size.height * 0.03),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(5))),
+                        child: Column(
+                          children: [
+                            CabeceraDeTablaVenta(size: size),
+                            SizedBox(
+                              height: size.height * 0.01,
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.vertical,
+                                    itemCount:
+                                        _textEditingController!.text.isNotEmpty
+                                            ? filtroVenta.length
+                                            : listaVenta.length,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                                flex: 1,
+                                                child: Text(
+                                                  _textEditingController!
+                                                          .text.isNotEmpty
+                                                      ? filtroVenta[index]
+                                                          .totalIsv
+                                                          .toString()
+                                                      : listaVenta[index]
+                                                          .totalIsv
+                                                          .toString(),
+                                                  style: GoogleFonts.lato(
+                                                      fontSize:
+                                                          size.width * 0.01,
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                      color: Colors.black),
+                                                  textAlign: TextAlign.center,
+                                                  textScaleFactor: 1,
+                                                )),
+                                            Expanded(
+                                                flex: 1,
+                                                child: Text(
+                                                  _textEditingController!
+                                                          .text.isNotEmpty
+                                                      ? filtroVenta[index]
+                                                          .totalVenta
+                                                          .toString()
+                                                      : listaVenta[index]
+                                                          .totalVenta
+                                                          .toString(),
+                                                  style: GoogleFonts.lato(
+                                                      fontSize:
+                                                          size.width * 0.01,
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                      color: Colors.black),
+                                                  textAlign: TextAlign.center,
+                                                  textScaleFactor: 1,
+                                                )),
+                                            Expanded(
+                                                flex: 1,
+                                                child: Text(
+                                                  _textEditingController!
+                                                          .text.isNotEmpty
+                                                      ? filtroVenta[index]
+                                                          .totalDescuentoVenta
+                                                          .toString()
+                                                      : listaVenta[index]
+                                                          .totalDescuentoVenta
+                                                          .toString(),
+                                                  style: GoogleFonts.lato(
+                                                      fontSize:
+                                                          size.width * 0.01,
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                      color: Colors.black),
+                                                  textAlign: TextAlign.center,
+                                                  textScaleFactor: 1,
+                                                )),
+                                            Expanded(
+                                                flex: 1,
+                                                child: Text(
+                                                  _textEditingController!
+                                                          .text.isNotEmpty
+                                                      ? filtroVenta[index]
+                                                          .nombreCliente
+                                                          .toString()
+                                                      : listaVenta[index]
+                                                          .nombreCliente
+                                                          .toString(),
+                                                  style: GoogleFonts.lato(
+                                                      fontSize:
+                                                          size.width * 0.01,
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                      color: Colors.black),
+                                                  textAlign: TextAlign.center,
+                                                  textScaleFactor: 1,
+                                                )),
+                                            Expanded(
+                                                flex: 1,
+                                                child: Text(
+                                                  _textEditingController!.text.isNotEmpty
+                                                      ? filtroVenta[index]
+                                                          .dni
+                                                          .toString()
+                                                      : listaVenta[index]
+                                                          .dni
+                                                          .toString(),
+                                                  style: GoogleFonts.lato(
+                                                      fontSize:
+                                                          size.width * 0.01,
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                      color: Colors.black),
+                                                  textAlign: TextAlign.center,
+                                                  textScaleFactor: 1,
+                                                )),
+                                            Expanded(
+                                                flex: 1,
+                                                child: Text(
+                                                  _textEditingController!.text.isNotEmpty
+                                                      ? filtroVenta[index]
+                                                          .rtn
+                                                          .toString()
+                                                      : listaVenta[index]
+                                                          .rtn
+                                                          .toString(),
+                                                  style: GoogleFonts.lato(
+                                                      fontSize:
+                                                          size.width * 0.01,
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                      color: Colors.black),
+                                                  textAlign: TextAlign.center,
+                                                  textScaleFactor: 1,
+                                                )),
+                                            Expanded(
+                                                flex: 1,
+                                                child: Text(
+                                                  _textEditingController!
+                                                          .text.isNotEmpty
+                                                      ? filtroVenta[index]
+                                                          .direccionCliente
+                                                          .toString()
+                                                      : listaVenta[index]
+                                                          .direccionCliente
+                                                          .toString(),
+                                                  style: GoogleFonts.lato(
+                                                      fontSize:
+                                                          size.width * 0.01,
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                      color: Colors.black),
+                                                  textAlign: TextAlign.center,
+                                                  textScaleFactor: 1,
+                                                )),
+                                            Expanded(
+                                                flex: 1,
+                                                child: Text(
+                                                  _textEditingController!
+                                                          .text.isNotEmpty
+                                                      ? filtroVenta[index]
+                                                          .telefonoCliente
+                                                          .toString()
+                                                      : listaVenta[index]
+                                                          .telefonoCliente
+                                                          .toString(),
+                                                  style: GoogleFonts.lato(
+                                                      fontSize:
+                                                          size.width * 0.01,
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                      color: Colors.black),
+                                                  textAlign: TextAlign.center,
+                                                  textScaleFactor: 1,
+                                                )),
+                                            Expanded(
+                                                flex: 1,
+                                                child: Text(
+                                                  _textEditingController!
+                                                          .text.isNotEmpty
+                                                      ? filtroVenta[index]
+                                                          .nombreEmpleado
+                                                          .toString()
+                                                      : listaVenta[index]
+                                                          .nombreEmpleado
+                                                          .toString(),
+                                                  style: GoogleFonts.lato(
+                                                      fontSize:
+                                                          size.width * 0.01,
+                                                      fontWeight:
+                                                          FontWeight.w800,
+                                                      color: Colors.black),
+                                                  textAlign: TextAlign.center,
+                                                  textScaleFactor: 1,
+                                                )),
+                                            Expanded(
+                                              flex: 1,
+                                              child: TextButton(
+                                                onPressed: () => procesarVenta(
+                                                        listaVenta[index]
+                                                            .id
+                                                            .toString())
+                                                    .then(
+                                                  (value) => Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          CrearFactura(
+                                                        venta:
+                                                            listaVenta[index],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                child: Text('Procesar'),
                                               ),
-                                            );
-                                          }),
-                                      /*ListView.separated(
-                                        itemBuilder: (_, i) =>
-                                            item(listaArqueos[i]),
-                                        itemCount: list.arqueos.length,
-                                        separatorBuilder: (_, i) =>
-                                            const Divider(),
-                                      ),*/
-                                    ),
+                                            ),
+                                            Expanded(
+                                              flex: 1,
+                                              child: TextButton(
+                                                onPressed: () =>
+                                                    eliminarVenta_Controller(
+                                                        listaVenta[index]
+                                                            .id
+                                                            .toString(),
+                                                        context),
+                                                child: Text('Eliminar'),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    },
                                   ),
                                 ),
-                              ],
-                            ))),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               );
@@ -327,102 +372,5 @@ class _BuscarVentaState extends State<BuscarVenta> {
             );
           },
         ));
-  }
-
-  Widget item(MostrarVenta lista) {
-    Size size = MediaQuery.of(context).size;
-    return Row(
-      children: [
-        Expanded(
-            flex: 1,
-            child: Text(
-              lista.id.toString(),
-              style: GoogleFonts.lato(
-                  fontSize: size.width * 0.01,
-                  fontWeight: FontWeight.w800,
-                  color: Colors.black),
-              textAlign: TextAlign.center,
-              textScaleFactor: 1,
-            )),
-        Expanded(
-            flex: 1,
-            child: Text(
-              lista.totalIsv.toString(),
-              style: GoogleFonts.lato(
-                  fontSize: size.width * 0.01,
-                  fontWeight: FontWeight.w800,
-                  color: Colors.black),
-              textScaleFactor: 1,
-            )),
-        Expanded(
-            flex: 1,
-            child: Text(
-              lista.totalDescuentoVenta.toString(),
-              style: GoogleFonts.lato(
-                  fontSize: size.width * 0.01,
-                  fontWeight: FontWeight.w800,
-                  color: Colors.black),
-              textScaleFactor: 1,
-            )),
-        Expanded(
-            flex: 1,
-            child: Text(
-              lista.totalVenta,
-              style: GoogleFonts.lato(
-                  fontSize: size.width * 0.01,
-                  fontWeight: FontWeight.w800,
-                  color: Colors.black),
-              textAlign: TextAlign.center,
-              textScaleFactor: 1,
-            )),
-        Expanded(
-            flex: 1,
-            child: Text(
-              lista.establecimiento,
-              style: GoogleFonts.lato(
-                  fontSize: size.width * 0.01,
-                  fontWeight: FontWeight.w800,
-                  color: Colors.black),
-              textAlign: TextAlign.center,
-              textScaleFactor: 1,
-            )),
-        Expanded(
-            flex: 1,
-            child: Text(lista.nombreEmpleado,
-                style: GoogleFonts.lato(
-                    fontSize: size.width * 0.01,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.black),
-                textAlign: TextAlign.center,
-                textScaleFactor: 1)),
-        Expanded(
-            flex: 1,
-            child: Text(
-              lista.nombreCliente,
-              style: GoogleFonts.lato(
-                  fontSize: size.width * 0.01,
-                  fontWeight: FontWeight.w800,
-                  color: Colors.black),
-              textAlign: TextAlign.center,
-              textScaleFactor: 1,
-            )),
-        TextButton(
-          onPressed: null,
-          child: ElevatedButton(
-            onPressed: () => Navigator.of(context).push(
-              new MaterialPageRoute(
-                builder: (BuildContext context) =>
-                    new CrearFactura(venta: lista),
-              ),
-            ),
-            child: Text('Procesar'),
-          ),
-        ),
-        TextButton(
-          onPressed: () => eliminarVenta(lista.id.toString()),
-          child: Text('Eliminar'),
-        ),
-      ],
-    );
   }
 }

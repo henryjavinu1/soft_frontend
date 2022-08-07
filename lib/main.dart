@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: 'mostrar_ventas',
+      initialRoute: 'traer_arqueo',
       routes: {
         'login': (_) => const Login(),
 
@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
         'PantallaTipoProductos': (_) => PantallaTipoProducto(),
         'PantallaProductos': (_) => PantallaProducto(),
         'mostrar_ventas': (_) => EscogerVenta(),
-        'prueba': (_) => BuscarVenta(),
+        'prueba': (_) => EscogerVentaPrueb(),
       },
     );
   }

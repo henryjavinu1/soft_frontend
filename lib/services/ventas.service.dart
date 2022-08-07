@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import '../models/ventaBuscada.model.dart';
 import 'package:flutter/material.dart';
 import 'package:soft_frontend/models/IdVenta.model.dart';
 import 'package:soft_frontend/models/ProductoBuscado.model.dart';
@@ -159,5 +159,21 @@ Future<String> actualizarVenta(id, totalISVController, totalVentaController,
   } catch (e) {
     print(e);
     return e.toString();
+  }
+}
+
+Future mostrarVentasDetalladas() async {
+  try {
+    var response =
+        await http.post(Uri.parse(API_URL + 'detalleVentaDetalladas'));
+// print(response.body);
+// DetalleVenta detalleVenta = DetalleVenta.fromJson();
+    if (response.statusCode == 200) {
+      final VentaBuscada listventa = ventaBuscadaFromJson(response.body);
+      return listventa;
+    }
+  } catch (e) {
+    print(e);
+    return 2;
   }
 }
