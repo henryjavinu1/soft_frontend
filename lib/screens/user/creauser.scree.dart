@@ -3,8 +3,12 @@ import 'package:soft_frontend/controllers/user.controller.dart';
 import 'package:soft_frontend/services/user.service.dart';
 
 class CrearUser extends StatefulWidget {
+  const CrearUser({
+    required this.dni,
+  });
   @override
   State<CrearUser> createState() => _CrearUserState();
+  final String dni;
 }
 
 class _CrearUserState extends State<CrearUser> {
@@ -12,7 +16,8 @@ class _CrearUserState extends State<CrearUser> {
   var usuarioController = TextEditingController();
   var passwordController = TextEditingController();
   var emailController = TextEditingController();
-  var idEmpleadoController = TextEditingController();
+  late TextEditingController dniEmpleadoController =
+      TextEditingController(text: widget.dni);
   var idRolController = TextEditingController();
 
   @override
@@ -108,7 +113,7 @@ class _CrearUserState extends State<CrearUser> {
                                   style: TextStyle(fontSize: 18),
                                 ),
                                 TextFormField(
-                                  controller: idEmpleadoController,
+                                  controller: dniEmpleadoController,
                                   decoration: InputDecoration(
                                       border: UnderlineInputBorder(),
                                       hintText: '1'),
@@ -139,7 +144,7 @@ class _CrearUserState extends State<CrearUser> {
                                                 usuarioController.text,
                                                 passwordController.text,
                                                 emailController.text,
-                                                idEmpleadoController.text,
+                                                dniEmpleadoController.text,
                                                 idRolController.text,
                                                 context),
                                         child: Padding(
