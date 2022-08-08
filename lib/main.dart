@@ -6,7 +6,6 @@ import 'package:soft_frontend/screens/arqueo/buscarArqueoIdUsuario.screen.dart';
 import 'package:soft_frontend/screens/cliente/todosLosClientes.screen.dart';
 import 'package:soft_frontend/screens/empleado/crearEmpleado.screen.dart';
 import 'package:soft_frontend/screens/generarFactura/escogerVenta.screen.dart';
-import 'package:soft_frontend/screens/generarFactura/prueba.screen.dart';
 import 'package:soft_frontend/screens/manipularFactura/manipularfactura.screen.dart';
 import 'package:soft_frontend/screens/screens.dart';
 import 'package:soft_frontend/screens/sucursal/sucursal.screen.dart';
@@ -38,7 +37,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: 'traer_arqueo',
+      initialRoute: 'mostrar_ventas',
       routes: {
         'login': (_) => const Login(),
 
@@ -64,8 +63,7 @@ class MyApp extends StatelessWidget {
         'PrincipalGestion': (_) => PantallaGestionPrincipal(),
         'PantallaTipoProductos': (_) => PantallaTipoProducto(),
         'PantallaProductos': (_) => PantallaProducto(),
-        'mostrar_ventas': (_) => EscogerVenta(),
-        'prueba': (_) => EscogerVentaPrueb(),
+        'mostrar_ventas': (_) => EscogerVentaPrueb(),
       },
     );
   }
