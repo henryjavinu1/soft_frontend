@@ -55,18 +55,18 @@ class _MostrarUsuariosState extends State<MostrarUsuarios> {
                   padding: const EdgeInsets.only(left: 10.10, top: 20.5),
                   child: Column(
                     children: [
-                      Row(
+                      /*Row(
                         // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           TextButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, 'crearUsuarios');
+                              Navigator.pushNamed(context, 'gestionUsuarios');
                             },
                             child: Container(
                                 width: size.width * 0.15,
                                 padding: const EdgeInsets.all(10),
                                 child: const Text(
-                                  'Nuevo Usuario',
+                                  'Ver Usuarios',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 16, color: Color(0xFFF1F1F1)),
@@ -77,7 +77,7 @@ class _MostrarUsuariosState extends State<MostrarUsuarios> {
                             ),
                           ),
                         ],
-                      ),
+                      ),*/
                       const SizedBox(
                         height: 40,
                       ),

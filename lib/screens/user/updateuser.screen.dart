@@ -44,11 +44,11 @@ class _ActualizarUsuario2State extends State<ActualizarUsuario2> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 3),
+                /* const SizedBox(height: 3),
                 const Text(
                   "Por favor llene los campos",
                   style: TextStyle(fontSize: 15, color: Color(0xff606060)),
-                ),
+                ),*/
                 const SizedBox(height: 10),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
@@ -104,6 +104,7 @@ class _ActualizarUsuario2State extends State<ActualizarUsuario2> {
                               style: const TextStyle(fontSize: 18),
                             ),
                             TextFormField(
+                              enabled: false,
                               controller: idEmpleadoController,
                               decoration: const InputDecoration(
                                   border: UnderlineInputBorder(),

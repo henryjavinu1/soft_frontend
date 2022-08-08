@@ -45,7 +45,7 @@ class _TodosLosEmpleados2State extends State<TodosLosEmpleados2> {
               Empleado lista = snapshot.data;
               listaEmpleados = lista.todoslosEmpleados;
               return Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(7.0),
                 child: Column(
                   children: [
                     Row(
@@ -98,75 +98,110 @@ class _TodosLosEmpleados2State extends State<TodosLosEmpleados2> {
                     Row(
                       children: [
                         Expanded(
-                            child: Padding(
-                          padding: EdgeInsets.only(left: size.height * 0.01),
-                          child: Text(
-                            'DNI',
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold),
+                          flex: 1,
+                          child: Container(
+                            color: Color(0x89ECEAEA), height: 25,
+                            child: Text(
+                              'DNI',
+                              style: TextStyle(
+                                fontSize: size.width * 0.01,
+                                color: Color(0xFF121213),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            //),
                           ),
-                        )),
+                        ),
                         Expanded(
-                            child: Padding(
-                          padding: EdgeInsets.only(left: size.height * 0.01),
-                          child: Text(
-                            'Nombre',
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold),
+                          flex: 1,
+                          child: Container(
+                            color: Color(0x89ECEAEA), height: 25,
+                            child: Text(
+                              'Nombre',
+                              style: TextStyle(
+                                fontSize: size.width * 0.01,
+                                color: Color(0xFF121213),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            //),
                           ),
-                        )),
+                        ),
                         Expanded(
-                            child: Padding(
-                          padding: EdgeInsets.only(left: size.height * 0.01),
-                          child: Text(
-                            'Apellido',
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold),
+                          flex: 1,
+                          child: Container(
+                            color: Color(0x89ECEAEA), height: 25,
+                            child: Text(
+                              'Apellido',
+                              style: TextStyle(
+                                fontSize: size.width * 0.01,
+                                color: Color(0xFF121213),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            //),
                           ),
-                        )),
+                        ),
                         Expanded(
-                            child: Padding(
-                          padding: EdgeInsets.only(left: size.height * 0.05),
-                          child: Text(
-                            'Dirección',
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold),
+                          flex: 1,
+                          child: Container(
+                            color: Color(0x89ECEAEA), height: 25,
+                            child: Text(
+                              'Direccion',
+                              style: TextStyle(
+                                fontSize: size.width * 0.01,
+                                color: Color(0xFF121213),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            //),
                           ),
-                        )),
+                        ),
                         Expanded(
-                            child: Padding(
-                          padding: EdgeInsets.only(left: size.height * 0.08),
-                          child: Text(
-                            'Teléfono',
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold),
+                          flex: 1,
+                          child: Container(
+                            color: Color(0x89ECEAEA), height: 25,
+                            child: Text(
+                              'Telefono',
+                              style: TextStyle(
+                                fontSize: size.width * 0.01,
+                                color: Color(0xFF121213),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            //),
                           ),
-                        )),
+                        ),
                         Expanded(
-                            child: Padding(
-                          padding: EdgeInsets.only(left: size.height * 0.03),
-                          child: Text(
-                            'Sexo',
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold),
+                          flex: 1,
+                          child: Container(
+                            color: Color(0x89ECEAEA), height: 25,
+                            child: Text(
+                              'Sexo',
+                              style: TextStyle(
+                                fontSize: size.width * 0.0,
+                                color: Color(0xFF121213),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            //),
                           ),
-                        )),
+                        ),
                         Expanded(
-                            child: Padding(
-                          padding: EdgeInsets.only(left: size.height * 0.02),
-                          child: Text(
-                            'Opciones',
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold),
+                          flex: 1,
+                          child: Container(
+                            color: Color(0x89ECEAEA), height: 25,
+                            child: Text(
+                              'Opciones',
+                              style: TextStyle(
+                                fontSize: size.width * 0.01,
+                                color: Color(0xFF121213),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            //),
                           ),
-                        )),
+                        ),
                       ],
                     ),
                     const SizedBox(
@@ -232,7 +267,8 @@ class _TodosLosEmpleados2State extends State<TodosLosEmpleados2> {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (BuildContext context) {
                   return new CrearUser(
-                    dni: lista.dni,
+                    id: lista.id,
+                    //email: lista.direccion,
                   );
                 }));
               },
