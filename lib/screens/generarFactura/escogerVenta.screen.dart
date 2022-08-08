@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_frontend/controllers/ventas.controller.dart';
 import 'package:soft_frontend/screens/generarFactura/generarFactura.screen.dart';
 import 'package:soft_frontend/models/ventaBuscada.model.dart';
-import 'package:soft_frontend/screens/manipularFactura/components/cabeceradetabla.component.dart';
 import 'package:soft_frontend/services/mostrarVentas.service.dart';
 import 'package:soft_frontend/services/ventas.service.dart';
 
@@ -11,7 +10,6 @@ import '../../models/ventas.model.dart';
 import 'components/cabeceraDeTablaVenta.components.dart';
 
 class EscogerVentaPrueb extends StatefulWidget {
-  const EscogerVentaPrueb({Key? key}) : super(key: key);
   @override
   State<EscogerVentaPrueb> createState() => _EscogerVentaPruebState();
 }
