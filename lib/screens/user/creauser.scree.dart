@@ -69,7 +69,7 @@ class _CrearUserState extends State<CrearUser> {
                               )),
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
-                                Color(0xFF6876F7)),
+                                Color(0xFF3D95E7)),
                           ),
                         ),
                       ],
@@ -164,7 +164,7 @@ class _CrearUserState extends State<CrearUser> {
                                       SizedBox(
                                         height: 40,
                                       ),
-                                      Text(
+                                      /* Text(
                                         "ID Empleado",
                                         style: TextStyle(fontSize: 18),
                                       ),
@@ -190,7 +190,7 @@ class _CrearUserState extends State<CrearUser> {
                                       ),
                                       SizedBox(
                                         height: 40,
-                                      ),
+                                      ),*/
                                       TextButton(
                                         onPressed: null,
                                         child: Center(

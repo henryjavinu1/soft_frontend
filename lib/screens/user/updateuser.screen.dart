@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soft_frontend/controllers/user.controller.dart';
+import 'package:soft_frontend/services/rol.service.dart';
 
 class ActualizarUsuario2 extends StatefulWidget {
   const ActualizarUsuario2(
@@ -8,12 +9,13 @@ class ActualizarUsuario2 extends StatefulWidget {
       //required this.password,
       required this.email,
       required this.idEmpleado,
-      required this.idRol});
+      required this.idRol,
+      required this.empleado});
 
   @override
   State<ActualizarUsuario2> createState() => _ActualizarUsuario2State();
   final int id;
-  final String usuario, /*password,*/ email, idEmpleado, idRol;
+  final String usuario, /*password,*/ email, idEmpleado, idRol, empleado;
 }
 
 class _ActualizarUsuario2State extends State<ActualizarUsuario2> {
@@ -29,6 +31,8 @@ class _ActualizarUsuario2State extends State<ActualizarUsuario2> {
       TextEditingController(text: widget.idEmpleado.toString());
   late TextEditingController idRolController =
       TextEditingController(text: widget.idRol.toString());
+  late TextEditingController dniEmpleadoController =
+      TextEditingController(text: widget.empleado);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,12 +104,12 @@ class _ActualizarUsuario2State extends State<ActualizarUsuario2> {
                               height: 40,
                             ),
                             const Text(
-                              "ID Empleado",
+                              "DNI Empleado",
                               style: const TextStyle(fontSize: 18),
                             ),
                             TextFormField(
                               enabled: false,
-                              controller: idEmpleadoController,
+                              controller: dniEmpleadoController,
                               decoration: const InputDecoration(
                                   border: UnderlineInputBorder(),
                                   hintText: '1'),
@@ -136,7 +140,7 @@ class _ActualizarUsuario2State extends State<ActualizarUsuario2> {
                                               usuarioController.text,
                                               //passwordController.text,
                                               emailController.text,
-                                              idEmpleadoController.text,
+                                              //idEmpleadoController.text,
                                               idRolController.text,
                                               context);
                                         }),

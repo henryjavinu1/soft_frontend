@@ -93,22 +93,22 @@ Future<Usuario?> actualizarUsuario_Controller(
     String usuario,
     //String password,
     String email,
-    String idEmpleado,
+    //String idEmpleado,
     String idRol,
     context) async {
   if (id.isNotEmpty &&
       usuario.isNotEmpty &&
       //password.isNotEmpty &&
       email.isNotEmpty &&
-      idEmpleado.isNotEmpty &&
+      //idEmpleado.isNotEmpty &&
       idRol.isNotEmpty) {
     List<Usuario?> Listusuario = await ActualizarUsuario(
-        id, usuario, /*password,*/ email, idEmpleado, idRol);
+        id, usuario, /*password,*/ email, /*idEmpleado,*/ idRol);
     if (Listusuario != null) {
       print(usuario);
       //print(password);
       print(email);
-      print(idEmpleado);
+      //print(idEmpleado);
       print(idRol);
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Usuario Actualizado con exito")));
