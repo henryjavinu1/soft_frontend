@@ -57,11 +57,10 @@ class _Pantalla extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading :false,
+        automaticallyImplyLeading: false,
         title: Text("Modulo Ventas"),
-         actions: <Widget>[
+        actions: <Widget>[
           TextButton(
-            
             onPressed: () {
               Navigator.popAndPushNamed(context, 'pantalla_principal');
             },
@@ -82,8 +81,6 @@ class _Pantalla extends StatelessWidget {
                   'Modulo de Ventas',
                   style: TextStyle(fontSize: 20),
                 ),
-                
-            
               ],
             ),
             const SizedBox(

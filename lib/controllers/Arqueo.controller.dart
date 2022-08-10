@@ -62,7 +62,7 @@ Future crearArqueo_Controller(String efectivoApertura, context) async {
       if (arqueo != null) {
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Arqueo Creado con exito')));
-        Navigator.pushNamed(context, 'PrincipalVenta');
+        Navigator.pushReplacementNamed(context, 'ventas');
       } else {}
     } else {
       ScaffoldMessenger.of(context)
@@ -99,5 +99,17 @@ Future filtrarArqueoIdUsuario_Controller(
       MensajePeticion mensajeError = response;
       dialogMensajeProblema(context, mensajeError.msg);
     }
+  }
+}
+
+Future validarArqueoActivo_Controller(context) async {
+  final token = await expectToken(context);
+  if (token != '') {
+    List<ManipularArqueo?> arqueo1 = await validarArqueoActivo(token);
+    if (arqueo1 != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Por favor Cree un nuevo')));
+      Navigator.popAndPushNamed(context, 'crear_arqueo');
+    } else {}
   }
 }
