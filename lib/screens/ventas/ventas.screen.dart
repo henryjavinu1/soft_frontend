@@ -44,6 +44,8 @@ class _VentanaVentaState extends State<VentanaVenta> {
   int idDetalleActual = 0;
   late DetalleDeVentasXid datosDetalle;
   double subtotal = 0;
+  int isExcento = 0;
+  bool isExcento2 = false;
 
   @override
   Widget build(BuildContext context) {
@@ -191,7 +193,7 @@ class _VentanaVentaState extends State<VentanaVenta> {
                 ),
               ),
               const SizedBox(
-                height: 30,
+                height: 25,
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -200,6 +202,44 @@ class _VentanaVentaState extends State<VentanaVenta> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Container(
+                          width: size.width * 0.2,
+                          child: Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Text(
+                                      "Excento",
+                                      style: TextStyle(fontSize: 15),
+                                    ),
+                                  ),
+                        ),
+                        Container(
+                          width: size.width * 0.2,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: RadioListTile<int>(
+                                value: 1,
+                                groupValue: isExcento,
+                                title: Text('Si'),
+                                onChanged: (value) { setState(() => isExcento = 1);
+                                isExcento2 = true;
+                                },
+                              ),
+                            ),
+                              Expanded(
+                              child: RadioListTile<int>(
+                              value: 0,
+                              groupValue: isExcento,
+                              title: Text('No'),
+                              onChanged: (value) {
+                              setState(() => isExcento = 0);
+                              isExcento2 = false;
+                              }
+                            ),
+                          ),
+                      ],
+                    ),
+                        ),
                         Container(
                           width: size.width * 0.2,
                           child: TextFormField(
@@ -265,6 +305,7 @@ class _VentanaVentaState extends State<VentanaVenta> {
                                             codProductoController,
                                             cantidadProducController,
                                             idVentaActual,
+                                            isExcento2,
                                             context);
 
                                     if (response == DetalleDeVentasXid) {
@@ -431,8 +472,8 @@ class _VentanaVentaState extends State<VentanaVenta> {
                       child: Column(
                         children: [
                           Row(
-
                             children: [
+                              
                               Expanded(
                                   flex: 1,
                                   child: Text(

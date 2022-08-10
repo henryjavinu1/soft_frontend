@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+//import 'package:soft_frontend/models/buscarProducto.dart';
+//import 'package:soft_frontend/models/buscarProducto.dart';
 import 'package:soft_frontend/models/tipoproducto.model.dart';
 import 'dart:convert';
 import '../constans.dart';
@@ -138,3 +140,58 @@ Future<List<Tipoproducto>> obtenerTipos() async{
     }
     return users;
   }
+
+Future<List<Tipoproducto?>> crearTipoProducto2(
+  String tipoProducto, 
+  String descripcionProducto,
+  String isvTipoProducto, context) async {
+  Tipoproducto? tipoproducto = null;
+  List<Tipoproducto?> productoCreado = [];
+  try {
+    var response =
+        await http.post(Uri.parse(API_URL + "producto/tipoproducto/"),
+            body: ({
+          'tipoProducto': tipoProducto,
+          'descripcionProducto': descripcionProducto,
+          'isvTipoProducto': isvTipoProducto,
+        }));
+    print(response.body);
+    if (response.statusCode == 200) {
+      print(tipoproducto);
+    } else {
+    }
+    return productoCreado;
+  } catch (e) {
+    return productoCreado;
+  } finally {
+  }
+}
+
+Future<List<Tipoproducto?>> ActualizarTipoProducto2(
+ String idTipoProducto, String tipoProducto,
+    String descripcionProducto, String isvTipoProducto, context) async {////////////////
+  Tipoproducto? tipoProducto = null;
+  List<Tipoproducto?> productoCreado = [];
+  try {
+    var response = await http.post(Uri.parse(API_URL + "producto/actualizartipo/"),
+        body: ({
+          'id': idTipoProducto,
+          'tipoProducto': tipoProducto,
+          'descripcionProducto': descripcionProducto,
+          'isvTipoProducto': isvTipoProducto
+        }));
+    print(response.body);
+    if (response.statusCode == 200) {
+      print(tipoProducto);
+      //return clienteCreado;
+    } else {
+      // return clienteCreado;
+    }
+    return productoCreado;
+  } catch (e) {
+    return productoCreado;
+  } finally {
+    http.Client().close();
+  }
+}
+

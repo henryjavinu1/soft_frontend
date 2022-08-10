@@ -66,7 +66,7 @@ Future<Producto?> actualizaProductoController(
     String isExcento,
     String idTipoProducto,
     context) async {
-  if (id.isEmpty &&
+  if (id.isNotEmpty &&
       codigoProducto.isNotEmpty &&
       nombreProducto.isNotEmpty &&
       precioProducto.isNotEmpty &&

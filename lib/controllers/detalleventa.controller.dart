@@ -59,7 +59,7 @@ Future crearDetalle_Controller(
 
 
 Future buscarProductoController(
-    TextEditingController codigoProducto, TextEditingController cantidadProducController, int idVentaActual, context) async {
+    TextEditingController codigoProducto, TextEditingController cantidadProducController, int idVentaActual, bool isExcento, context) async {
       print(cantidadProducController);
   if (codigoProducto.text.isNotEmpty) {
     final response = await buscarProductoService(codigoProducto.text.trim(), context);
@@ -69,6 +69,38 @@ Future buscarProductoController(
       double precio = double.parse(response.producto.precioProducto);
       double isv = double.parse(response.producto.isvProducto);
       double descuento = double.parse(response.producto.descProducto);
+
+      // Aqui lo que se hace es que si se selecciono que el cliente es excento, los impuestos van a 0.
+       if (isExcento == true){
+         double total = (precio * cantidad);
+         double total2 = total - (descuento/100)*(total);
+         final detalle = await crearDetalle_Controller(
+             cantidadProducController.text, response.producto.precioProducto, total2.toString(), "0", response.producto.descProducto, idVentaActual.toString(), response.producto.id.toString(), context);
+         if (detalle == 200) {
+           DetalleDeVentasXid detalles = await mostrardetalleventa(idVentaActual);
+           print(detalles);
+           return detalles;
+         } else {
+           return false;
+         }
+       } else {
+         double total = ((cantidad * precio)*(isv/100))+(precio * cantidad) ;
+         double total2 = total - (descuento/100)*(total);
+         final detalle = await crearDetalle_Controller(
+             cantidadProducController.text, response.producto.precioProducto, total2.toString(), response.producto.isvProducto, response.producto.descProducto, idVentaActual.toString(), response.producto.id.toString(), context);
+         if (detalle == 200) {
+           DetalleDeVentasXid detalles = await mostrardetalleventa(idVentaActual);
+           print(detalles);
+           return detalles;
+         } else {
+           return false;
+         }
+       }
+
+
+       /*
+       Asi estaba antes del excento.
+
       double total = ((cantidad * precio)*(isv/100))+(precio * cantidad) ;
       double total2 = total - (descuento/100)*(total);
       final detalle = await crearDetalle_Controller(
@@ -80,6 +112,7 @@ Future buscarProductoController(
       } else {
         return false;
       }
+        */
           } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(
