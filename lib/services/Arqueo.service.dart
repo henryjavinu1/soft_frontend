@@ -144,11 +144,11 @@ Future validarArqueoActivo(String token) async {
         .timeout(Duration(seconds: 15));
     print(response.statusCode); ///////////////
     if (response.statusCode == 200) {
-      print(ManipularArqueo);
-    } else {
-      //return arqueoCreado;
+      return true;
+    } else if (response.statusCode == 404) {
+      return false;
     }
-    return arqueoActualizado;
+    //return arqueoActualizado;
   } on TimeoutException catch (_) {
     throw ('Tiempo de espera alcanzado');
   } catch (e) {
