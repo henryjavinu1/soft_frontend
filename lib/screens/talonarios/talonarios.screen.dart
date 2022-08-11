@@ -38,6 +38,8 @@ class _TalonariosScreenState extends State<TalonariosScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    Size size = MediaQuery.of(context).size;
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -45,191 +47,185 @@ class _TalonariosScreenState extends State<TalonariosScreen> {
         backgroundColor: AppTheme.primaryColor,
         title: const Text('Mantenimiento | Talonarios'),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-                vertical: height * 0.01, horizontal: height * 0.02),
-            child: Row(
-              children: [
-                TextButton(
-                  onPressed: () {
-                    _CreateTalonario(context);
-                  },
-                  child: Text('Crear Talonario'),
-                  style: TextButton.styleFrom(
-                      primary: Colors.white,
-                      backgroundColor: AppTheme.primaryColor),
-                )
-              ],
+      body: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  vertical: height * 0.01, horizontal: height * 0.02),
+              child: Row(
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      _CreateTalonario(context);
+                    },
+                    child: Text('Crear Talonario'),
+                    style: TextButton.styleFrom(
+                        primary: Colors.white,
+                        backgroundColor: AppTheme.primaryColor),
+                  )
+                ],
+              ),
+              
             ),
-          ),
-          const Divider(),
-          DataTable(
-            columns: const [
-              DataColumn(
-                label: Text(
-                  'ID',
-                  style: TextStyle(
-                      color: AppTheme.primaryColor,
-                      fontWeight: FontWeight.bold),
+            const Divider(),
+            DataTable(
+              columns: const [
+                DataColumn(
+                  label: Text(
+                    'ID',
+                    style: TextStyle(
+                        color: AppTheme.primaryColor,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-              DataColumn(
-                label: Text(
-                  'Rango Inicial',
-                  style: TextStyle(
-                      color: AppTheme.primaryColor,
-                      fontWeight: FontWeight.bold),
+                DataColumn(
+                  label: Text(
+                    'Rango Inicial',
+                    style: TextStyle(
+                        color: AppTheme.primaryColor,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-              DataColumn(
-                label: Text(
-                  'Rango Final',
-                  style: TextStyle(
-                      color: AppTheme.primaryColor,
-                      fontWeight: FontWeight.bold),
+                DataColumn(
+                  label: Text(
+                    'Rango Final',
+                    style: TextStyle(
+                        color: AppTheme.primaryColor,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-              DataColumn(
-                label: Text(
-                  'CAI',
-                  style: TextStyle(
-                      color: AppTheme.primaryColor,
-                      fontWeight: FontWeight.bold),
+                DataColumn(
+                  label: Text(
+                    'CAI',
+                    style: TextStyle(
+                        color: AppTheme.primaryColor,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-              DataColumn(
-                label: Text(
-                  'Sucursal',
-                  style: TextStyle(
-                      color: AppTheme.primaryColor,
-                      fontWeight: FontWeight.bold),
+                DataColumn(
+                  label: Text(
+                    'Sucursal',
+                    style: TextStyle(
+                        color: AppTheme.primaryColor,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-              DataColumn(
-                label: Text(
-                  'Fecha Limite E.',
-                  style: TextStyle(
-                      color: AppTheme.primaryColor,
-                      fontWeight: FontWeight.bold),
+                DataColumn(
+                  label: Text(
+                    'Fecha Limite E.',
+                    style: TextStyle(
+                        color: AppTheme.primaryColor,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-              DataColumn(
-                label: Text(
-                  'Activo',
-                  style: TextStyle(
-                      color: AppTheme.primaryColor,
-                      fontWeight: FontWeight.bold),
+                DataColumn(
+                  label: Text(
+                    'Activo',
+                    style: TextStyle(
+                        color: AppTheme.primaryColor,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-              DataColumn(
-                label: Text(
-                  'Eliminado',
-                  style: TextStyle(
-                      color: AppTheme.primaryColor,
-                      fontWeight: FontWeight.bold),
+                DataColumn(
+                  label: Text(
+                    'Opciones',
+                    style: TextStyle(
+                        color: AppTheme.primaryColor,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-              DataColumn(
-                label: Text(
-                  'Opciones',
-                  style: TextStyle(
-                      color: AppTheme.primaryColor,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-            ],
-            rows: List<DataRow>.generate(talonarios.length, (index) {
-              final talonario = talonarios[index];
-              return DataRow(cells: [
-                DataCell(Text(talonario.idTalonario.toString())),
-                DataCell(Text(talonario.rangoInicialFactura)),
-                DataCell(Text(talonario.rangoFinalFactura)),
-                DataCell(Text(talonario.cai)),
-                DataCell(Text(talonario.idSucursal.toString())),
-                DataCell(Text(talonario.fechaLimiteEmision.toString())),
-                DataCell(
-                    Text((talonario.active == true) ? 'Verdadero' : 'Falso')),
-                DataCell(
-                    Text((talonario.isDelete == true) ? 'Verdadero' : 'Falso')),
-                DataCell(Row(
-                  children: [
-                    TextButton(
-                        style: AppTheme.lightTheme.textButtonTheme.style,
-                        onPressed: () {
-                          _EditarTalonario(context, talonario);
-                        },
-                        child: Text('Editar')),
-                    (talonario.isDelete == false)
-                        ? TextButton(
-                            style: AppTheme.lightTheme.textButtonTheme.style,
-                            onPressed: () {
-                              _EliminarTalonario(context, talonario);
-                            },
-                            child: Text('Eliminar'))
-                        : Container(),
-                    (talonario.active == false)
-                        ? TextButton(
-                            style: AppTheme.lightTheme.textButtonTheme.style,
-                            onPressed: () {
-                              Future<String> activar = activateTalonario(
-                                  talonario.idTalonario.toString());
-                              showDialog(
-                                  barrierDismissible: false,
-                                  context: context,
-                                  builder: (buildContext) {
-                                    return Dialog(
-                                      child: Center(
-                                          child: CircularProgressIndicator()),
-                                    );
+              ],
+              rows: List<DataRow>.generate(talonarios.length, (index) {
+                final talonario = talonarios[index];
+                return DataRow(cells: [
+                  DataCell(Text(talonario.idTalonario.toString())),
+                  DataCell(Text(talonario.rangoInicialFactura)),
+                  DataCell(Text(talonario.rangoFinalFactura)),
+                  DataCell(Text(talonario.cai)),
+                  DataCell(Text(talonario.idSucursal.toString())),
+                  DataCell(Text(talonario.fechaLimiteEmision.toString())),
+                  DataCell(
+                      Text((talonario.active == true) ? 'Verdadero' : 'Falso')),
+                  DataCell(Row(
+                    children: [
+                      TextButton(
+                          style: AppTheme.lightTheme.textButtonTheme.style,
+                          onPressed: () {
+                            _EditarTalonario(context, talonario);
+                          },
+                          child: Text('Editar')),
+                      (talonario.isDelete == false)
+                          ? TextButton(
+                              style: AppTheme.lightTheme.textButtonTheme.style,
+                              onPressed: () {
+                                _EliminarTalonario(context, talonario);
+                              },
+                              child: Text('Eliminar'))
+                          : Container(),
+                      (talonario.active == false)
+                          ? TextButton(
+                              style: AppTheme.lightTheme.textButtonTheme.style,
+                              onPressed: () {
+                                Future<String> activar = activateTalonario(
+                                    talonario.idTalonario.toString());
+                                showDialog(
+                                    barrierDismissible: false,
+                                    context: context,
+                                    builder: (buildContext) {
+                                      return Dialog(
+                                        child: Center(
+                                            child: CircularProgressIndicator()),
+                                      );
+                                    });
+                                activar.then((value) {
+                                  Navigator.pop(context);
+                                  setState(() {
+                                    this._getTalonarios();
                                   });
-                              activar.then((value) {
-                                Navigator.pop(context);
-                                setState(() {
-                                  this._getTalonarios();
+                                  _Alerta(
+                                      context,
+                                      'Talonario: ' +
+                                          talonario.idTalonario.toString() +
+                                          ' Desactivado.');
                                 });
-                                _Alerta(
-                                    context,
-                                    'Talonario: ' +
-                                        talonario.idTalonario.toString() +
-                                        ' Desactivado.');
-                              });
-                            },
-                            child: Text('Activar'))
-                        : TextButton(
-                            style: AppTheme.lightTheme.textButtonTheme.style,
-                            onPressed: () {
-                              Future<String> desactivar = disactivateTalonario(
-                                  talonario.idTalonario.toString());
-                              showDialog(
-                                  barrierDismissible: false,
-                                  context: context,
-                                  builder: (buildContext) {
-                                    return Dialog(
-                                      child: Center(
-                                          child: CircularProgressIndicator()),
-                                    );
+                              },
+                              child: Text('Activar'))
+                          : TextButton(
+                              style: AppTheme.lightTheme.textButtonTheme.style,
+                              onPressed: () {
+                                Future<String> desactivar = disactivateTalonario(
+                                    talonario.idTalonario.toString());
+                                showDialog(
+                                    barrierDismissible: false,
+                                    context: context,
+                                    builder: (buildContext) {
+                                      return Dialog(
+                                        child: Center(
+                                            child: CircularProgressIndicator()),
+                                      );
+                                    });
+                                desactivar.then((value) {
+                                  Navigator.pop(context);
+                                  setState(() {
+                                    this._getTalonarios();
                                   });
-                              desactivar.then((value) {
-                                Navigator.pop(context);
-                                setState(() {
-                                  this._getTalonarios();
+                                  _Alerta(
+                                      context,
+                                      'Talonario: ' +
+                                          talonario.idTalonario.toString() +
+                                          ' Desactivado.');
                                 });
-                                _Alerta(
-                                    context,
-                                    'Talonario: ' +
-                                        talonario.idTalonario.toString() +
-                                        ' Desactivado.');
-                              });
-                            },
-                            child: Text('Desactivar'))
-                  ],
-                )),
-              ]);
-            }),
-          ),
-        ],
+                              },
+                              child: Text('Desactivar'))
+                    ],
+                  )),
+                ]);
+              }),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -313,7 +309,8 @@ class _TalonariosScreenState extends State<TalonariosScreen> {
               style: TextStyle(color: AppTheme.primaryColor),
             ),
             content: SizedBox(
-              height: height * 0.35,
+
+              height: height * 0.45,
               child: Column(
                 children: [
                   TextFormField(
