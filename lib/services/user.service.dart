@@ -86,8 +86,11 @@ Future<List<Usuario?>> eliminarUsuario(String id) async {
   }
 }
 
-Future<List<Usuario?>> ActualizarUsuario(String id, String usuario,
-    /*String password,*/ String email, String idEmpleado, String idRol) async {
+Future<List<Usuario?>> ActualizarUsuario(
+    String id,
+    String usuario,
+    /*String password,*/ String email,
+    /*String idEmpleado,*/ String idRol) async {
   var client = http.Client();
   Usuario? usuarios = null;
   List<Usuario> usuarioActualizado = [];
@@ -98,7 +101,7 @@ Future<List<Usuario?>> ActualizarUsuario(String id, String usuario,
           'usuario': usuario,
           // 'password': password,
           'email': email,
-          'idEmpleado': idEmpleado,
+          //'idEmpleado': idEmpleado,
           'idRol': idRol,
         }));
     print(response.body);

@@ -208,7 +208,8 @@ class _MostrarUsuariosState extends State<MostrarUsuarios> {
                         //password: lista.password,
                         email: lista.email,
                         idEmpleado: lista.idEmpleado.toString(),
-                        idRol: lista.idRol.toString());
+                        idRol: lista.idRol.toString(),
+                        empleado: lista.empleado.dni);
                   }));
                 })),
         Expanded(
