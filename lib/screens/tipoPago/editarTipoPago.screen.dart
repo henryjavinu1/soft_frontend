@@ -63,17 +63,20 @@ class _EditarTipoPagosState extends State<EditarTipoPagos> {
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  "id De Pago",
-                                  style: TextStyle(fontSize: 18),
+                                Visibility(
+                                  visible: false,
+                                  child: Text(
+                                    "id De Pago",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
                                 ),
-                                TextFormField(
-                                  controller: idTipoPagoController,
-                                  decoration: InputDecoration(
-                                      border: UnderlineInputBorder()),
-                                ),
-                                SizedBox(
-                                  height: 40,
+                                Visibility(
+                                  visible: false,
+                                  child: TextFormField(
+                                    controller: idTipoPagoController,
+                                    decoration: InputDecoration(
+                                        border: UnderlineInputBorder()),
+                                  ),
                                 ),
                                 Text(
                                   "Tipo De Pago",
