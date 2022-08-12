@@ -6,10 +6,11 @@ import '../services/generarFactura.service.dart';
 Future<Factura?> crearFactura_Controller(
     String idVenta, String idTipoPago, context) async {
   if (idVenta.isNotEmpty && idTipoPago.isNotEmpty) {
-    List<Factura?> factura = await crearFactura(idVenta, idTipoPago, context);
+    final factura = await crearFactura(idVenta, idTipoPago, context);
     if (factura != null) {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Factura añadido con exito")));
+      return factura;
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("No se pudo agregar la factura")));
