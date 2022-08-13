@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_frontend/controllers/Arqueo.controller.dart';
 import 'package:soft_frontend/models/Arqueo.model.dart';
-import 'package:soft_frontend/services/Arqueo.service.dart';
 import 'package:soft_frontend/screens/arqueo/crearArqueo.screen.dart';
 import 'package:soft_frontend/screens/arqueo/components/cabeceraDeTablaArqueo.component.dart';
-import 'buscarArqueoIdUsuario.screen.dart';
 
 class MostrarArqueos extends StatefulWidget {
   const MostrarArqueos({Key? key}) : super(key: key);
@@ -495,28 +493,16 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                                                                   .toString());
                                                         },
                                                       )),*/
-                                                  /*Expanded(
+                                                  Expanded(
                                                       flex: 3,
                                                       child: TextButton(
                                                         child: Text(
                                                             'Cerrar Sesion'),
                                                         onPressed: () {
                                                           _showDialogActualizar(
-                                                              context,
-                                                              listaArqueos[
-                                                                      index]
-                                                                  .idUsuario
-                                                                  .toString(),
-                                                              listaArqueos[
-                                                                      index]
-                                                                  .idSesion
-                                                                  .toString(),
-                                                              listaArqueos[
-                                                                      index]
-                                                                  .idArqueo
-                                                                  .toString());
+                                                              context);
                                                         },
-                                                      )),*/
+                                                      )),
                                                 ],
                                               ),
                                             );

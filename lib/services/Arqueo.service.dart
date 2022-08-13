@@ -109,7 +109,7 @@ Future actualizarArqueoCerrandoSesion(String token) async {
 
   try {
     var response = await http
-        .put(Uri.parse(API_URL + 'arqueo/actualizacionCerrandoSesion'),
+        .post(Uri.parse(API_URL + 'arqueo/actualizacionCerrandoSesion'),
             body: ({
               'token': token,
             }))
