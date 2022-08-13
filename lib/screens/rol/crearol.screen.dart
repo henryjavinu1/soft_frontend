@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:grouped_buttons_ns/grouped_buttons_ns.dart';
 import 'package:soft_frontend/controllers/roles.controller.dart';
+import 'package:soft_frontend/models/permisos.model.dart';
+import 'package:soft_frontend/services/permiso.service.dart';
 import 'package:soft_frontend/services/rol.service.dart';
+import 'package:soft_frontend/services/rolpermiso.service.dart';
+
+import '../../models/permiso.model.dart';
 
 class CrearRol extends StatefulWidget {
   @override
@@ -8,13 +14,33 @@ class CrearRol extends StatefulWidget {
 }
 
 class _CrearRolState extends State<CrearRol> {
+  List<Permiso2> listpermisos = [];
+  List<String> nombrePermisos = [];
+  List<String> permisossignados = [];
   var idRolController = TextEditingController();
   var rolController = TextEditingController();
   var descripcionController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    this._getPermiso();
+  }
+
+  _getPermiso() async {
+    Permisos permisos = await getPermisos();
+    listpermisos = permisos.data;
+    for (var i = 0; i < permisos.data.length; i++) {
+      nombrePermisos.add(permisos.data[i].permiso);
+    }
+    setState(() {});
+  }
+
+  @override
   Widget build(context) =>
       Scaffold(body: LayoutBuilder(builder: (context, constraints) {
+        double height = MediaQuery.of(context).size.height;
+        double width = MediaQuery.of(context).size.width;
         return Scaffold(
           appBar: AppBar(
             title: Text('Crear Rol'),
@@ -40,17 +66,8 @@ class _CrearRolState extends State<CrearRol> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Crear Rol",
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 3),
-                    const Text(
-                      "Por favor llene los campos",
-                      style: TextStyle(fontSize: 15, color: Color(0xff606060)),
-                    ),
-                    const SizedBox(height: 40),
+                    // const SizedBox(height: 3),
+                    // const SizedBox(height: 40),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: Container(
@@ -62,10 +79,24 @@ class _CrearRolState extends State<CrearRol> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 40,
+                                  height: 5,
+                                ),
+                                const Text(
+                                  'CREAR ROL',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const Text(
+                                  'Por favor llene los campos',
+                                  style: TextStyle(
+                                      fontSize: 15, color: Color(0xff606060)),
+                                ),
+                                SizedBox(
+                                  height: 20,
                                 ),
                                 Text(
-                                  "Rol",
+                                  'Rol',
                                   style: TextStyle(fontSize: 18),
                                 ),
                                 TextFormField(
@@ -78,7 +109,7 @@ class _CrearRolState extends State<CrearRol> {
                                   height: 40,
                                 ),
                                 Text(
-                                  "Descripcion",
+                                  'Descripcion',
                                   style: TextStyle(fontSize: 18),
                                 ),
                                 TextFormField(
@@ -90,15 +121,42 @@ class _CrearRolState extends State<CrearRol> {
                                 SizedBox(
                                   height: 40,
                                 ),
+                                // Container(
+                                //   height: 200,
+                                //   child: ListView.builder(
+                                //     itemCount: permisos.length,
+                                //     itemBuilder: (buildContext, index){
+                                //       var per = permisos[index];
+                                //       return Text(per.permiso);
+                                //     },
+                                //   ),
+                                // ),
+                                // SizedBox(
+                                //   height: 40,
+                                // ),
+
+                                SizedBox(
+                                  height: 200,
+                                  child: SingleChildScrollView(
+                                    child: CheckboxGroup(
+                                      labels: nombrePermisos,
+                                      onChange: (bool isChecked, String label,
+                                              int index) =>
+                                          print(
+                                              'isChecked: $isChecked   label: $label  index: $index'),
+                                    ),
+                                  ),
+                                ),
                                 TextButton(
                                   onPressed: null,
                                   child: Center(
                                     child: ElevatedButton(
-                                        onPressed: () => CreaRol_controller(
+                                        onPressed: () { /*CreaRol_controller(
                                             idRolController.text,
                                             rolController.text,
                                             descripcionController.text,
-                                            context),
+                                            context);*/
+                                            crearRolPermiso();},
                                         child: Padding(
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 10, vertical: 10),
