@@ -10,32 +10,31 @@ import 'package:soft_frontend/models/models.dart';
   RolesPermisos? rolPermiso = null;
   List<RolesPermisos?> RolesPermisosCreado = [];
  List<String> idRol=["2","2","2","2"];
- List<String> idPermiso=["3","4","5","1"];
-
+ List<String> idPermiso=["10","11","12","13"];
 Future<List<RolesPermisos?>> crearRolPermiso() async {
  Map<String,String>data;
+ List<Map>listdata = [];
   var client = http.Client();
  final uri = API_URL + 'rolpermiso/crearrolpermiso';
    data={
     
     };
   for(int i=0;i<idRol.length;i++){
-   data.addAll({"idRol":idRol[i]});
-  print(data[i]);
-
+   data.addAll({"idRol":idRol[i],'idPermiso':idPermiso[i] });
+   print([data]);
+   //listdata.add(data[i]);
+   print(listdata[i]);
   }
-  for(int i=0;i<idPermiso.length;i++){
-   data.addAll({"idPermiso":idPermiso[i]});
-  print(data[i]);
+   print(listdata[1]);
+   print(listdata.length);
 
-  }
   try {
     var response = await http.post(Uri.parse(API_URL + 'rolpermiso/crearrolpermiso'),headers: {
           'Content-type': 'application/json',
           'Accept': 'application/json',
           'Connection':'keep-alive'
         },
-        body:jsonEncode([data]));
+        body:jsonEncode(listdata));
     print(response.body);
     if (response.statusCode == 200) {
       print(RolesPermisos);
