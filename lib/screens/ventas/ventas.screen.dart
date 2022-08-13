@@ -25,6 +25,8 @@ class VentanaVenta extends StatefulWidget {
   State<VentanaVenta> createState() => _VentanaVentaState();
 }
 
+
+
 class _VentanaVentaState extends State<VentanaVenta> {
   var rtnController = TextEditingController();
   var dniController = TextEditingController();
@@ -49,7 +51,7 @@ class _VentanaVentaState extends State<VentanaVenta> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-
+    
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -84,113 +86,116 @@ class _VentanaVentaState extends State<VentanaVenta> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        child: TextButton(
-                          onPressed: null,
-                          child: Center(
-                            child: ElevatedButton(
-                              onPressed: () {
-                                if (botonesHabilitados) {
-                                  null;
-                                } else {
-                                  Navigator.pushNamed(context, 'crear_cliente');
-                                }
-                              },
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 10),
-                                child: Text('Agregar Cliente'),
-                              ),
-                              style: ButtonStyle(
-                                backgroundColor: (!botonesHabilitados)
-                                    ? MaterialStateProperty.all(Colors.blue)
-                                    : MaterialStateProperty.all(
-                                        Color.fromARGB(255, 194, 194, 194)),
-                                elevation: (botonesHabilitados)
-                                    ? MaterialStateProperty.all(0)
-                                    : MaterialStateProperty.all(5.0),
-                                // foregroundColor: MaterialStateProperty.all(Colors.black)
-                                overlayColor: (botonesHabilitados)
-                                    ? MaterialStateProperty.all(
-                                        Color.fromARGB(255, 194, 194, 194))
-                                    : MaterialStateProperty.all(
-                                        Color.fromARGB(255, 35, 156, 255)),
+                  child: SingleChildScrollView(
+                     scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          child: TextButton(
+                            onPressed: null,
+                            child: Center(
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  if (botonesHabilitados) {
+                                    null;
+                                  } else {
+                                    Navigator.pushNamed(context, 'crear_cliente');
+                                  }
+                                },
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 10),
+                                  child: Text('Agregar Cliente'),
+                                ),
+                                style: ButtonStyle(
+                                  backgroundColor: (!botonesHabilitados)
+                                      ? MaterialStateProperty.all(Colors.blue)
+                                      : MaterialStateProperty.all(
+                                          Color.fromARGB(255, 194, 194, 194)),
+                                  elevation: (botonesHabilitados)
+                                      ? MaterialStateProperty.all(0)
+                                      : MaterialStateProperty.all(5.0),
+                                  // foregroundColor: MaterialStateProperty.all(Colors.black)
+                                  overlayColor: (botonesHabilitados)
+                                      ? MaterialStateProperty.all(
+                                          Color.fromARGB(255, 194, 194, 194))
+                                      : MaterialStateProperty.all(
+                                          Color.fromARGB(255, 35, 156, 255)),
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: size.width * 0.2,
-                              child: TextFormField(
-                                controller: dniController,
-                                decoration: InputDecoration(
-                                    labelText: 'Identidad del Cliente'),
+                        Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: size.width * 0.2,
+                                child: TextFormField(
+                                  controller: dniController,
+                                  decoration: InputDecoration(
+                                      labelText: 'Identidad del Cliente'),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      TextButton(
-                          onPressed: () async {
-                            final respuesta = await habilitarVenta(dniController,
-                                nombreCliente, telCliente, context);
-                            if (respuesta is IdVenta) {
-                              idVentaActual = respuesta.id;
-                              botonesHabilitados = true;
-                              setState(() {});
-                            } else {
-                              botonesHabilitados = false;
-                              setState(() {});
-                            }
-                          },
-                          child: const Icon(Icons.search)),
-                      const SizedBox(
-                        width: 30,
-                      ),
-                      Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: size.width * 0.2,
-                              child: TextFormField(
-                                readOnly: true,
-                                controller: nombreCliente,
-                                decoration: InputDecoration(
-                                    labelText: 'Nombre del Cliente'),
+                        TextButton(
+                            onPressed: () async {
+                              final respuesta = await habilitarVenta(dniController,
+                                  nombreCliente, telCliente, context);
+                              if (respuesta is IdVenta) {
+                                idVentaActual = respuesta.id;
+                                botonesHabilitados = true;
+                                setState(() {});
+                              } else {
+                                botonesHabilitados = false;
+                                setState(() {});
+                              }
+                            },
+                            child: const Icon(Icons.search)),
+                        const SizedBox(
+                          width: 30,
+                        ),
+                        Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: size.width * 0.2,
+                                child: TextFormField(
+                                  readOnly: true,
+                                  controller: nombreCliente,
+                                  decoration: InputDecoration(
+                                      labelText: 'Nombre del Cliente'),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 30,
-                      ),
-                      Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: size.width * 0.2,
-                              child: TextFormField(
-                                readOnly: true,
-                                controller: telCliente,
-                                decoration: InputDecoration(
-                                    labelText: 'Telefono del Cliente'),
+                        const SizedBox(
+                          width: 30,
+                        ),
+                        Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: size.width * 0.2,
+                                child: TextFormField(
+                                  readOnly: true,
+                                  controller: telCliente,
+                                  decoration: InputDecoration(
+                                      labelText: 'Telefono del Cliente'),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 const SizedBox(

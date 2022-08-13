@@ -1,6 +1,7 @@
 import 'dart:js';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:soft_frontend/models/errorPeticion.model.dart';
 import 'package:soft_frontend/screens/manipularFactura/components/dialogMensajeProblema.component.dart';
 import '../models/Arqueo.model.dart';
@@ -54,6 +55,8 @@ Future eliminarArqueo_Controller(String idArqueo, context) async {
 }
 
 Future crearArqueo_Controller(String efectivoApertura, context) async {
+  SharedPreferences prefs = await  SharedPreferences.getInstance();
+    await prefs.setBool('arqueoabierto', true);
   final token = await expectToken(context);
   if (token != '') {
     if (efectivoApertura.isNotEmpty) {
@@ -72,6 +75,8 @@ Future crearArqueo_Controller(String efectivoApertura, context) async {
 }
 
 Future actualizarArqueoCerrandoSesion_Controller(context) async {
+  bool connectionResult = await setArqueadoCerrado();
+  print(connectionResult);
   final token = await expectToken(context);
   if (token != '') {
     List<ManipularArqueo?> arqueo1 =

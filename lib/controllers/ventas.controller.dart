@@ -6,6 +6,7 @@ import 'package:soft_frontend/controllers/user.controller.dart';
 import 'package:soft_frontend/models/IdVenta.model.dart';
 import 'package:soft_frontend/models/ProductoBuscado.model.dart';
 import 'package:soft_frontend/models/cliente.model.dart';
+import 'package:soft_frontend/screens/login/login.screen.dart';
 import 'package:soft_frontend/services/cliente.service.dart';
 import 'package:soft_frontend/services/sharepreference.service.dart';
 import '../models/ventas.model.dart';
@@ -28,6 +29,7 @@ Future expectToken(BuildContext context) async {
     snackbarKey.currentState?.showSnackBar(snackBar);
   }
 }
+
 Future <String> expectUser(BuildContext context) async {
   final idUser = await usercontroller().catchError((error) {
     return '';
@@ -36,6 +38,16 @@ Future <String> expectUser(BuildContext context) async {
     return idUser.id.toString();
   } else {
     return '';
+  }
+}
+Future<bool> expectlog(BuildContext context) async {
+  final login = await logeado().catchError((error) {
+    return true;
+  });
+  if (login == false) {
+    return false;
+  } else {
+    return true;
   }
 }
 Future <String> expectIdSesion(BuildContext context) async {
@@ -73,7 +85,6 @@ Future crearVenta_Controller(
       idUsuario.isNotEmpty &&
       idCliente.isNotEmpty ) {
     
-
     final ventas = await crearVenta(
         totalIsv, totalVenta, totalDescuentoVenta, puntoDeEmision, establecimiento, tipo, idSesion, idUsuario,idCliente, token);
         print(ventas);
@@ -124,7 +135,9 @@ Future<Ventas?> eliminarVenta_Controller(String id,context) async {
   List<Ventas?> venta = await eliminarVenta(id, token);
   print(id);
   if (venta != null) {
-    Navigator.popAndPushNamed(context, 'ventas');
+    Navigator.pop(context);
+    Navigator.restorablePopAndPushNamed(context, 'ventas');
+    
           ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Venta eliminada con exito")));
   } else {}

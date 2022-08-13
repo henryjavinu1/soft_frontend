@@ -15,3 +15,16 @@ import '../models/models.dart';
     return token;
 
   }
+  Future<bool> setArqueadoCerrado() async {
+    SharedPreferences prefs = await  SharedPreferences.getInstance();
+     final response = prefs.setBool("arqueoabierto",false);
+    return response;
+
+  }
+  Future<bool> getarqueo() async {
+    SharedPreferences prefs = await  SharedPreferences.getInstance();
+    bool? response = prefs.getBool("arqueoabierto");
+    return response!;
+  }
+
+
