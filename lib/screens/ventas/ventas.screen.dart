@@ -75,11 +75,11 @@ class _VentanaVentaState extends State<VentanaVenta> {
       ),
       body: Container(
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(10),
           child: Column(
             children: [
               const SizedBox(
-                height: 30,
+                height: 10,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -412,7 +412,7 @@ class _VentanaVentaState extends State<VentanaVenta> {
                           ),
                         ),
                         SizedBox(
-                          height: 40,
+                          height: 10,
                         ),
                         Container(
                           child: Column(
