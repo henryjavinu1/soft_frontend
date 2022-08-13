@@ -97,7 +97,7 @@ class PantallaDesktop extends StatelessWidget {
                   child: TextButtons(
                     img: 'salario.png',
                     name: 'Modulo de Ventas',
-                    route: 'PrincipalVenta',
+                    route: 'crear_arqueo', 
                     width: 0.2,
                     fontSize: 15,
                   ),
@@ -186,7 +186,7 @@ class PantallaDesktop extends StatelessWidget {
             ElevatedButton(
               child: Text('Si'),
               onPressed: () {
-                validarArqueoActivo_Controller(context);
+                //validarArqueoActivo_Controller(context);
               },
             ),
             ElevatedButton(

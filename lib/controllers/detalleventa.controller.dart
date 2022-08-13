@@ -72,8 +72,12 @@ Future buscarProductoController(
       double precio = double.parse(response.producto.precioProducto);
       double isv = double.parse(response.producto.isvProducto);
       double descuento = double.parse(response.producto.descProducto);
-      double total = ((cantidad * precio) * (isv / 100)) + (precio * cantidad);
-      double total2 = total - (descuento / 100) * (total);
+
+      double total = (cantidad * precio)/**(isv/100))+(precio * cantidad) */;
+      double total2 = total - (descuento/100)*(total);
+
+
+
       final detalle = await crearDetalle_Controller(
           cantidadProducController.text,
           response.producto.precioProducto,
@@ -98,7 +102,7 @@ Future buscarProductoController(
   } else {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(
-            'No se permiten campos vacíos, por favor ingrese un número de DNI.')));
+            'No se permiten campos vacíos, por favor ingrese el codigo del producto.')));
     return false;
   }
 }

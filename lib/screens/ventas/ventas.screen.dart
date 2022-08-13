@@ -25,6 +25,8 @@ class VentanaVenta extends StatefulWidget {
   State<VentanaVenta> createState() => _VentanaVentaState();
 }
 
+
+
 class _VentanaVentaState extends State<VentanaVenta> {
   var rtnController = TextEditingController();
   var dniController = TextEditingController();
@@ -50,6 +52,7 @@ class _VentanaVentaState extends State<VentanaVenta> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
 
     return Scaffold(
       appBar: AppBar(
@@ -85,7 +88,9 @@ class _VentanaVentaState extends State<VentanaVenta> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
+
+                     scrollDirection: Axis.horizontal,
+
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -98,8 +103,10 @@ class _VentanaVentaState extends State<VentanaVenta> {
                                   if (botonesHabilitados) {
                                     null;
                                   } else {
+
                                     Navigator.pushNamed(
                                         context, 'crear_cliente');
+
                                   }
                                 },
                                 child: Padding(
@@ -143,11 +150,10 @@ class _VentanaVentaState extends State<VentanaVenta> {
                         ),
                         TextButton(
                             onPressed: () async {
-                              final respuesta = await habilitarVenta(
-                                  dniController,
-                                  nombreCliente,
-                                  telCliente,
-                                  context);
+
+                              final respuesta = await habilitarVenta(dniController,
+                                  nombreCliente, telCliente, context);
+
                               if (respuesta is IdVenta) {
                                 idVentaActual = respuesta.id;
                                 botonesHabilitados = true;

@@ -311,86 +311,89 @@ class _TalonariosScreenState extends State<TalonariosScreen> {
             content: SizedBox(
 
               height: height * 0.45,
-              child: Column(
-                children: [
-                  TextFormField(
-                    controller: rangoInicialController,
-                    decoration: InputDecoration(
-                      label: Text('Rango Inicial'),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: rangoInicialController,
+                      decoration: InputDecoration(
+                        label: Text('Rango Inicial'),
+                      ),
                     ),
-                  ),
-                  TextFormField(
-                    controller: rangoFinalController,
-                    decoration: InputDecoration(
-                      label: Text('Rango Final'),
+                    TextFormField(
+                      controller: rangoFinalController,
+                      decoration: InputDecoration(
+                        label: Text('Rango Final'),
+                      ),
                     ),
-                  ),
-                  TextFormField(
-                    controller: caiController,
-                    decoration: InputDecoration(
-                      label: Text('CAI'),
+                    TextFormField(
+                      controller: caiController,
+                      decoration: InputDecoration(
+                        label: Text('CAI'),
+                      ),
                     ),
-                  ),
-                  DateTimeField(
-                    controller: fechaLimiteEController,
-                    decoration: InputDecoration(label: Text('Fecha Limite E.')),
-                    format: DateFormat("yyyy-MM-dd"),
-                    onShowPicker: (context, currentValue) {
-                      return showDatePicker(
-                          context: context,
-                          firstDate: DateTime(1900),
-                          initialDate: currentValue ?? DateTime.now(),
-                          lastDate: DateTime(2100));
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: TextButton(
-                        style: AppTheme.lightTheme.textButtonTheme.style,
-                        onPressed: () {
-                          if (rangoInicialController.text == "" &&
-                              rangoFinalController.text == "" &&
-                              caiController.text == "" &&
-                              fechaLimiteEController.text == "") {
-                            _Alerta(context, 'Debe llenar todos los campos.');
-                          } else {
-                            print(rangoInicialController.text);
-                            print(rangoFinalController.text);
-                            print(caiController.text);
-                            print(fechaLimiteEController.text);
-                            Future<String> editar = updateTalonario(
-                                talonario.idTalonario.toString(),
-                                rangoInicialController.text,
-                                rangoFinalController.text,
-                                caiController.text,
-                                fechaLimiteEController.text);
-                            showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (buildContext) {
-                                  return Dialog(
-                                    child: Center(
-                                        child: CircularProgressIndicator()),
-                                  );
+                    DateTimeField(
+                      controller: fechaLimiteEController,
+                      decoration: InputDecoration(label: Text('Fecha Limite E.')),
+                      format: DateFormat("yyyy-MM-dd"),
+                      onShowPicker: (context, currentValue) {
+                        return showDatePicker(
+                            context: context,
+                            firstDate: DateTime(1900),
+                            initialDate: currentValue ?? DateTime.now(),
+                            lastDate: DateTime(2100));
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: TextButton(
+                          style: AppTheme.lightTheme.textButtonTheme.style,
+                          onPressed: () {
+                            if (rangoInicialController.text == "" &&
+                                rangoFinalController.text == "" &&
+                                caiController.text == "" &&
+                                fechaLimiteEController.text == "") {
+                              _Alerta(context, 'Debe llenar todos los campos.');
+                            } else {
+                              print(rangoInicialController.text);
+                              print(rangoFinalController.text);
+                              print(caiController.text);
+                              print(fechaLimiteEController.text);
+                              Future<String> editar = updateTalonario(
+                                  talonario.idTalonario.toString(),
+                                  rangoInicialController.text,
+                                  rangoFinalController.text,
+                                  caiController.text,
+                                  fechaLimiteEController.text);
+                              showDialog(
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (buildContext) {
+                                    return Dialog(
+                                      child: Center(
+                                          child: CircularProgressIndicator()),
+                                    );
+                                  });
+                              editar.then((value) {
+                                Navigator.pop(context);
+                                setState(() {
+                                  this._getTalonarios();
                                 });
-                            editar.then((value) {
-                              Navigator.pop(context);
-                              setState(() {
-                                this._getTalonarios();
+                                _Alerta(
+                                    context,
+                                    'Talonario: ' +
+                                        talonario.idTalonario.toString() +
+                                        ' Editado.');
+                                Future.delayed(Duration(seconds: 2))
+                                    .then((value) => Navigator.pop(context));
                               });
-                              _Alerta(
-                                  context,
-                                  'Talonario: ' +
-                                      talonario.idTalonario.toString() +
-                                      ' Editado.');
-                              Future.delayed(Duration(seconds: 2))
-                                  .then((value) => Navigator.pop(context));
-                            });
-                          }
-                        },
-                        child: Text('Confirmar')),
-                  )
-                ],
+                            }
+                          },
+                          child: Text('Confirmar')),
+                    )
+                  ],
+                ),
               ),
             ),
           );
