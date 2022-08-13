@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:soft_frontend/models/tipoPago.model.dart';
 import 'package:soft_frontend/screens/tipoPago/buscarTipoPago.screen.dart';
 
+import '../../controllers/tipoDePago.controller.dart';
 import '../../models/tipoPagoBuscado.model.dart';
 import '../../services/tipoPago.service.dart';
 
@@ -62,17 +63,20 @@ class _EditarTipoPagosState extends State<EditarTipoPagos> {
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  "id De Pago",
-                                  style: TextStyle(fontSize: 18),
+                                Visibility(
+                                  visible: false,
+                                  child: Text(
+                                    "id De Pago",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
                                 ),
-                                TextFormField(
-                                  controller: idTipoPagoController,
-                                  decoration: InputDecoration(
-                                      border: UnderlineInputBorder()),
-                                ),
-                                SizedBox(
-                                  height: 40,
+                                Visibility(
+                                  visible: false,
+                                  child: TextFormField(
+                                    controller: idTipoPagoController,
+                                    decoration: InputDecoration(
+                                        border: UnderlineInputBorder()),
+                                  ),
                                 ),
                                 Text(
                                   "Tipo De Pago",
@@ -102,19 +106,13 @@ class _EditarTipoPagosState extends State<EditarTipoPagos> {
                                   onPressed: null,
                                   child: Center(
                                     child: ElevatedButton(
-                                        onPressed: () => EditarTipoPago(
+                                        onPressed: () =>
+                                            actualizarTipoPago_Controller(
                                                 idTipoPagoController.text,
                                                 tipoDePagoController.text,
                                                 descripcionTipoPagoController
                                                     .text,
-                                                context)
-                                            .then((value) => Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        BuscarTipoPago(),
-                                                  ),
-                                                )),
+                                                context),
                                         child: Padding(
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 10, vertical: 10),

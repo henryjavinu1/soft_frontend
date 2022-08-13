@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
-import 'package:soft_frontend/models/UnPagoBuscado.model.dart';
+import 'package:soft_frontend/models/unPagoBuscado.model.dart';
 import 'package:soft_frontend/models/tipoPagoBuscado.model.dart';
 import 'package:soft_frontend/screens/generarFactura/generarFactura.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/crearTipoPago.screen.dart';
 import 'package:soft_frontend/screens/tipoPago/editarTipoPago.screen.dart';
+import '../../controllers/tipoDePago.controller.dart';
 import '../../models/tipoPago.model.dart';
 import '../../services/tipoPago.service.dart';
+import '../talonarios/themes/app_theme.dart';
 
 class BuscarTipoPago extends StatefulWidget {
   @override
@@ -173,9 +175,44 @@ class _BuscarTipoPagoState extends State<BuscarTipoPago> {
               child: Text('Editar'),
             ),
             TextButton(
-              onPressed: () =>
-                  EliminarTipoPago(tipoPago.idTipoPago.toString(), context)
-                      .then((value) => this._cargarFact()),
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (buildContext) {
+                      return AlertDialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
+                        title: Text(
+                          'Eliminación',
+                          style: TextStyle(color: Colors.blue),
+                        ),
+                        content: SizedBox(
+                          height: 90,
+                          child: Column(
+                            children: [
+                              Text('¿Está seguro de eliminar el tipo de pago?'),
+                              Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: TextButton(
+                                  style:
+                                      AppTheme.lightTheme.textButtonTheme.style,
+                                  onPressed: () {
+                                    eliminarTipoPago_Controller(
+                                            tipoPago.idTipoPago.toString(),
+                                            context)
+                                        .then((value) => this._cargarFact());
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('Confirmar'),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    });
+              },
               child: Text('Eliminar'),
             ),
           ],

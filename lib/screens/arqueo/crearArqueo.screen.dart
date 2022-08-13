@@ -9,8 +9,6 @@ class CrearArqueo extends StatefulWidget {
 }
 
 class _CrearArqueoState extends State<CrearArqueo> {
-  var idSesionController = TextEditingController();
-  var idUsuarioController = TextEditingController();
   var efectivoAperturaController = TextEditingController();
 
   @override
@@ -34,7 +32,7 @@ class _CrearArqueoState extends State<CrearArqueo> {
                   ),
                   const SizedBox(height: 3),
                   const Text(
-                    'Por favor llene los campos',
+                    'Por favor llene el campo',
                     style: TextStyle(fontSize: 15, color: Color(0xff606060)),
                   ),
                   const SizedBox(height: 40),
@@ -48,30 +46,6 @@ class _CrearArqueoState extends State<CrearArqueo> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              /*Text(
-                                'Id Sesion',
-                                style: TextStyle(fontSize: 18),
-                              ),
-                              TextFormField(
-                                controller: idSesionController,
-                                decoration: InputDecoration(
-                                    border: UnderlineInputBorder()),
-                              ),
-                              SizedBox(
-                                height: 40,
-                              ),
-                              Text(
-                                'Id Usuario',
-                                style: TextStyle(fontSize: 18),
-                              ),
-                              TextFormField(
-                                controller: idUsuarioController,
-                                decoration: InputDecoration(
-                                    border: UnderlineInputBorder()),
-                              ),
-                              SizedBox(
-                                height: 40,
-                              ),*/
                               Text(
                                 'Efectivo Apertura',
                                 style: TextStyle(fontSize: 18),
@@ -106,12 +80,12 @@ class _CrearArqueoState extends State<CrearArqueo> {
                                 child: Center(
                                   child: ElevatedButton(
                                       onPressed: () =>
-                                          Navigator.popAndPushNamed(
-                                              context, 'traer_arqueo'),
+                                          Navigator.pushReplacementNamed(
+                                              context, 'pantalla_principal'),
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 10, vertical: 10),
-                                        child: Text('Regresar'),
+                                        child: Text('Cancelar'),
                                       )),
                                 ),
                               ),

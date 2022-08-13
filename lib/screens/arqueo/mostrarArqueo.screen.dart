@@ -4,11 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_frontend/controllers/Arqueo.controller.dart';
 import 'package:soft_frontend/models/Arqueo.model.dart';
-import 'package:soft_frontend/services/arqueo.service.dart';
 import 'package:soft_frontend/screens/arqueo/crearArqueo.screen.dart';
 import 'package:soft_frontend/screens/arqueo/components/cabeceraDeTablaArqueo.component.dart';
-
-import 'buscarArqueoIdUsuario.screen.dart';
 
 class MostrarArqueos extends StatefulWidget {
   const MostrarArqueos({Key? key}) : super(key: key);
@@ -78,6 +75,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                           padding: EdgeInsets.symmetric(
                               horizontal: size.width * 0.02),
                           child: TextField(
+                            autofocus: true,
                             onChanged: (value) {
                               setState(() {
                                 filtroArqueos = listaArqueos
@@ -100,7 +98,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                             ),
                           ),
                         )),
-                        TextButton(
+                        /*TextButton(
                           onPressed: null,
                           child: Center(
                             child: ElevatedButton(
@@ -114,7 +112,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                               ),
                             ),
                           ),
-                        ),
+                        ),*/
                         const SizedBox(
                           height: 50,
                         ),
@@ -482,7 +480,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                                                             TextAlign.center,
                                                         textScaleFactor: 1,
                                                       )),
-                                                  Expanded(
+                                                  /*Expanded(
                                                       flex: 3,
                                                       child: TextButton(
                                                         child: Text('Eliminar'),
@@ -494,29 +492,17 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                                                                   .idArqueo
                                                                   .toString());
                                                         },
-                                                      )),
-                                                  /*Expanded(
+                                                      )),*/
+                                                  Expanded(
                                                       flex: 3,
                                                       child: TextButton(
                                                         child: Text(
                                                             'Cerrar Sesion'),
                                                         onPressed: () {
                                                           _showDialogActualizar(
-                                                              context,
-                                                              listaArqueos[
-                                                                      index]
-                                                                  .idUsuario
-                                                                  .toString(),
-                                                              listaArqueos[
-                                                                      index]
-                                                                  .idSesion
-                                                                  .toString(),
-                                                              listaArqueos[
-                                                                      index]
-                                                                  .idArqueo
-                                                                  .toString());
+                                                              context);
                                                         },
-                                                      )),*/
+                                                      )),
                                                 ],
                                               ),
                                             );
@@ -614,7 +600,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Expanded(
+                                        /*Expanded(
                                           flex: 1,
                                           child: ElevatedButton(
                                             child: Text('Crear Arqueo'),
@@ -626,7 +612,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                                                   context);
                                             },
                                           ),
-                                        ),
+                                        ),*/
                                         SizedBox(
                                           width: 20,
                                         ),
@@ -657,8 +643,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
         });
   }
 
-  void _showDialogActualizar(
-      BuildContext context, String idUsuario, String idSesion) {
+  void _showDialogActualizar(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {

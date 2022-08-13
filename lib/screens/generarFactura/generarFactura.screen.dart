@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_frontend/models/ventaBuscada.model.dart';
-import 'package:soft_frontend/screens/manipularFactura/manipularfactura.screen.dart';
-import 'package:soft_frontend/services/generarFactura.service.dart';
+import 'package:soft_frontend/screens/generarFactura/components/alertaimpresion.component.dart';
+import '../../controllers/generarfactura.controller.dart';
 import '../../models/tipoPagoBuscado.model.dart';
 import '../../services/tipoPago.service.dart';
 import 'escogerVenta.screen.dart';
@@ -113,14 +113,23 @@ class _CrearFacturaState extends State<CrearFactura> {
                   onPressed: null,
                   child: Center(
                     child: ElevatedButton(
-                        onPressed: () => crearFactura(idVentaController.text,
-                                idTipoPagoController.text, context)
-                            .then((value) => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ManipularFactura(),
-                                  ),
-                                )),
+                        onPressed: () async {
+                          crearFactura_Controller(idVentaController.text,
+                                  idTipoPagoController.text, context)
+                              .then((value) {
+                                dialogOpcionDeImpresion(context, value!, 1);
+                                
+                            // descargarFacturaOriginal(context,
+                            //     value!.insertfactura.numeroFactura, 1, 1);
+                          }
+                                  // => Navigator.push(
+                                  //       context,
+                                  //       MaterialPageRoute(
+                                  //         builder: (context) => ManipularFactura(),
+                                  //       ),
+                                  //     )
+                                  );
+                        },
                         child: Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: 10, vertical: 10),

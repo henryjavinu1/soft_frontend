@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:soft_frontend/services/tipoPago.service.dart';
 
+import '../../controllers/tipoDePago.controller.dart';
 import 'buscarTipoPago.screen.dart';
 
 class CrearTipoPagos extends StatefulWidget {
@@ -76,18 +77,10 @@ class _CrearTipoPagosState extends State<CrearTipoPagos> {
                                 onPressed: null,
                                 child: Center(
                                   child: ElevatedButton(
-                                      onPressed: () => CrearTipoPago(
-                                              tipoDePagoController.text,
-                                              descripcionTipoPagoController
-                                                  .text,
-                                              context)
-                                          .then((value) => Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      BuscarTipoPago(),
-                                                ),
-                                              )),
+                                      onPressed: () => crearTipoPago_Controller(
+                                          tipoDePagoController.text,
+                                          descripcionTipoPagoController.text,
+                                          context),
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 10, vertical: 10),
