@@ -31,11 +31,14 @@ class _VentanaVentaState extends State<VentanaVenta> {
   var nombreCliente = TextEditingController();
   var telCliente = TextEditingController();
   var codProductoController = TextEditingController();
+  var nombreProductoController = TextEditingController();
+  bool activarTextFieldCodig = false;
+  bool activarTextFieldNombre = false;
   var cantidadProducController = TextEditingController();
-  var total = "0";
-  var subTotal = "0";
-  var descuentos = "0";
-  var impuestos = "0";
+  var total = '0';
+  var subTotal = '0';
+  var descuentos = '0';
+  var impuestos = '0';
   var totalISVController = TextEditingController();
   var totalVentaController = TextEditingController();
   var totalDescuentoVentaController = TextEditingController();
@@ -218,6 +221,7 @@ class _VentanaVentaState extends State<VentanaVenta> {
                               decoration: InputDecoration(labelText: 'Cantidad'),
                             ),
                           ),
+
                           const SizedBox(
                             height: 10,
                           ),
@@ -262,18 +266,170 @@ class _VentanaVentaState extends State<VentanaVenta> {
                                 child: ElevatedButton(
                                   onPressed: () async {
                                     if (botonesHabilitados) {
+
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            TextButton(
+                              onPressed: null,
+                              child: Center(
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    //usar este boton para habilitar un textformfield para ingresar el codigo del producto
+                                    if (activarTextFieldNombre == false) {
+                                      activarTextFieldCodig = true;
+                                      setState(() {});
+                                    } else {
+                                      activarTextFieldNombre = false;
+                                      activarTextFieldCodig = true;
+                                      nombreProductoController.clear();
+                                      cantidadProducController.clear();
+                                      setState(() {});
+                                    }
+                                  },
+                                  child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 10),
+                                      child: Text(
+                                        'Buscar por Codigo Producto',
+                                        textAlign: TextAlign.left,
+                                      )),
+                                ),
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: null,
+                              child: Center(
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    if (activarTextFieldCodig == false) {
+                                      activarTextFieldNombre = true;
+                                      setState(() {});
+                                    } else {
+                                      activarTextFieldCodig = false;
+                                      activarTextFieldNombre = true;
+                                      codProductoController.clear();
+                                      cantidadProducController.clear();
+                                      setState(() {});
+                                    }
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    child: Text(
+                                      'Buscar por Nombre Producto',
+                                      textAlign: TextAlign.left,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          width: size.width * 0.2,
+                          child: TextFormField(
+                            enabled: activarTextFieldCodig,
+                            autofocus: activarTextFieldCodig,
+                            controller: codProductoController,
+                            decoration: InputDecoration(
+                                labelText: 'Codigo De Producto'),
+                          ),
+                        ),
+                        Container(
+                          width: size.width * 0.2,
+                          child: TextFormField(
+                            enabled: activarTextFieldNombre,
+                            autofocus: activarTextFieldNombre,
+                            controller: nombreProductoController,
+                            decoration: InputDecoration(
+                                labelText: 'Nombre De Producto'),
+                          ),
+                        ),
+                        Container(
+                          width: size.width * 0.2,
+                          child: TextFormField(
+                            controller: cantidadProducController,
+                            decoration: InputDecoration(labelText: 'Cantidad'),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Center(
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  if (botonesHabilitados) {
+                                    eliminarVenta_Controller(
+                                        idVentaActual.toString(), context);
+                                  } else {
+                                    null;
+                                  }
+                                },
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 10),
+                                  child: Text('Anular'),
+                                ),
+                                style: ButtonStyle(
+                                  backgroundColor: (botonesHabilitados)
+                                      ? MaterialStateProperty.all(Colors.red)
+                                      : MaterialStateProperty.all(
+                                          Color.fromARGB(255, 194, 194, 194)),
+                                  elevation: (!botonesHabilitados)
+                                      ? MaterialStateProperty.all(0)
+                                      : MaterialStateProperty.all(5.0),
+                                  // foregroundColor: MaterialStateProperty.all(Colors.black)
+                                  overlayColor: (!botonesHabilitados)
+                                      ? MaterialStateProperty.all(
+                                          Color.fromARGB(255, 194, 194, 194))
+                                      : MaterialStateProperty.all(
+                                          Color.fromARGB(255, 255, 72, 59)),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            //agregar un parametro para buscar por nombre de producto
+                            Center(
+                              child: ElevatedButton(
+                                onPressed: () async {
+                                  if (botonesHabilitados) {
+                                    if (activarTextFieldCodig == true) {
+
                                       final response =
                                           await buscarProductoController(
                                               codProductoController,
                                               cantidadProducController,
                                               idVentaActual,
                                               context);
-          
+
                                       if (response == DetalleDeVentasXid) {
                                         // idDetalleActual = response.id;
                                         datosDetalle = response;
                                         print('object');
-          
+
+
                                         setState(() {});
                                       } else {
                                         print('object2');
@@ -288,8 +444,37 @@ class _VentanaVentaState extends State<VentanaVenta> {
                                           setState(() {});
                                         });
                                       }
+                                    } else if (activarTextFieldNombre == true) {
+                                      final response =
+                                          await buscarProductoNombreController(
+                                              nombreProductoController,
+                                              cantidadProducController,
+                                              idVentaActual,
+                                              context);
+                                      if (response == DetalleDeVentasXid) {
+                                        // idDetalleActual = response.id;
+                                        datosDetalle = response;
+                                        print('object');
+
+
+                                        setState(() {});
+                                      } else {
+                                        print('object2');
+                                        Future<List<String>> _total =
+                                            mostrarTotales(idVentaActual);
+                                        _total.then((value) {
+                                          print(value);
+                                          total = value[0];
+                                          impuestos = value[1];
+                                          descuentos = value[2];
+                                          subTotal = value[3];
+                                          setState(() {});
+                                        });
+                                      }
+
                                     } else {
                                       //null;
+
                                     }
                                   },
                                   child: Padding(
