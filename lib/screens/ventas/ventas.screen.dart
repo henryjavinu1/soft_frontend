@@ -31,14 +31,11 @@ class _VentanaVentaState extends State<VentanaVenta> {
   var nombreCliente = TextEditingController();
   var telCliente = TextEditingController();
   var codProductoController = TextEditingController();
-  var nombreProductoController = TextEditingController();
-  bool activarTextFieldCodig = false;
-  bool activarTextFieldNombre = false;
   var cantidadProducController = TextEditingController();
-  var total = '0';
-  var subTotal = '0';
-  var descuentos = '0';
-  var impuestos = '0';
+  var total = "0";
+  var subTotal = "0";
+  var descuentos = "0";
+  var impuestos = "0";
   var totalISVController = TextEditingController();
   var totalVentaController = TextEditingController();
   var totalDescuentoVentaController = TextEditingController();
@@ -51,7 +48,6 @@ class _VentanaVentaState extends State<VentanaVenta> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
 
     return Scaffold(
       appBar: AppBar(
@@ -75,7 +71,6 @@ class _VentanaVentaState extends State<VentanaVenta> {
         ],
       ),
       body: Container(
-        
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: SingleChildScrollView(
@@ -87,113 +82,120 @@ class _VentanaVentaState extends State<VentanaVenta> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        child: TextButton(
-                          onPressed: null,
-                          child: Center(
-                            child: ElevatedButton(
-                              onPressed: () {
-                                if (botonesHabilitados) {
-                                  null;
-                                } else {
-                                  Navigator.pushNamed(context, 'crear_cliente');
-                                }
-                              },
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 10),
-                                child: Text('Agregar Cliente'),
-                              ),
-                              style: ButtonStyle(
-                                backgroundColor: (!botonesHabilitados)
-                                    ? MaterialStateProperty.all(Colors.blue)
-                                    : MaterialStateProperty.all(
-                                        Color.fromARGB(255, 194, 194, 194)),
-                                elevation: (botonesHabilitados)
-                                    ? MaterialStateProperty.all(0)
-                                    : MaterialStateProperty.all(5.0),
-                                // foregroundColor: MaterialStateProperty.all(Colors.black)
-                                overlayColor: (botonesHabilitados)
-                                    ? MaterialStateProperty.all(
-                                        Color.fromARGB(255, 194, 194, 194))
-                                    : MaterialStateProperty.all(
-                                        Color.fromARGB(255, 35, 156, 255)),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          child: TextButton(
+                            onPressed: null,
+                            child: Center(
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  if (botonesHabilitados) {
+                                    null;
+                                  } else {
+                                    Navigator.pushNamed(
+                                        context, 'crear_cliente');
+                                  }
+                                },
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 10),
+                                  child: Text('Agregar Cliente'),
+                                ),
+                                style: ButtonStyle(
+                                  backgroundColor: (!botonesHabilitados)
+                                      ? MaterialStateProperty.all(Colors.blue)
+                                      : MaterialStateProperty.all(
+                                          Color.fromARGB(255, 194, 194, 194)),
+                                  elevation: (botonesHabilitados)
+                                      ? MaterialStateProperty.all(0)
+                                      : MaterialStateProperty.all(5.0),
+                                  // foregroundColor: MaterialStateProperty.all(Colors.black)
+                                  overlayColor: (botonesHabilitados)
+                                      ? MaterialStateProperty.all(
+                                          Color.fromARGB(255, 194, 194, 194))
+                                      : MaterialStateProperty.all(
+                                          Color.fromARGB(255, 35, 156, 255)),
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: size.width * 0.2,
-                              child: TextFormField(
-                                controller: dniController,
-                                decoration: InputDecoration(
-                                    labelText: 'Identidad del Cliente'),
+                        Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: size.width * 0.2,
+                                child: TextFormField(
+                                  controller: dniController,
+                                  decoration: InputDecoration(
+                                      labelText: 'Identidad del Cliente'),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      TextButton(
-                          onPressed: () async {
-                            final respuesta = await habilitarVenta(dniController,
-                                nombreCliente, telCliente, context);
-                            if (respuesta is IdVenta) {
-                              idVentaActual = respuesta.id;
-                              botonesHabilitados = true;
-                              setState(() {});
-                            } else {
-                              botonesHabilitados = false;
-                              setState(() {});
-                            }
-                          },
-                          child: const Icon(Icons.search)),
-                      const SizedBox(
-                        width: 30,
-                      ),
-                      Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: size.width * 0.2,
-                              child: TextFormField(
-                                readOnly: true,
-                                controller: nombreCliente,
-                                decoration: InputDecoration(
-                                    labelText: 'Nombre del Cliente'),
+                        TextButton(
+                            onPressed: () async {
+                              final respuesta = await habilitarVenta(
+                                  dniController,
+                                  nombreCliente,
+                                  telCliente,
+                                  context);
+                              if (respuesta is IdVenta) {
+                                idVentaActual = respuesta.id;
+                                botonesHabilitados = true;
+                                setState(() {});
+                              } else {
+                                botonesHabilitados = false;
+                                setState(() {});
+                              }
+                            },
+                            child: const Icon(Icons.search)),
+                        const SizedBox(
+                          width: 30,
+                        ),
+                        Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: size.width * 0.2,
+                                child: TextFormField(
+                                  readOnly: true,
+                                  controller: nombreCliente,
+                                  decoration: InputDecoration(
+                                      labelText: 'Nombre del Cliente'),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 30,
-                      ),
-                      Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: size.width * 0.2,
-                              child: TextFormField(
-                                readOnly: true,
-                                controller: telCliente,
-                                decoration: InputDecoration(
-                                    labelText: 'Telefono del Cliente'),
+                        const SizedBox(
+                          width: 30,
+                        ),
+                        Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: size.width * 0.2,
+                                child: TextFormField(
+                                  readOnly: true,
+                                  controller: telCliente,
+                                  decoration: InputDecoration(
+                                      labelText: 'Telefono del Cliente'),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -218,10 +220,10 @@ class _VentanaVentaState extends State<VentanaVenta> {
                             width: size.width * 0.2,
                             child: TextFormField(
                               controller: cantidadProducController,
-                              decoration: InputDecoration(labelText: 'Cantidad'),
+                              decoration:
+                                  InputDecoration(labelText: 'Cantidad'),
                             ),
                           ),
-
                           const SizedBox(
                             height: 10,
                           ),
@@ -266,157 +268,6 @@ class _VentanaVentaState extends State<VentanaVenta> {
                                 child: ElevatedButton(
                                   onPressed: () async {
                                     if (botonesHabilitados) {
-
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            TextButton(
-                              onPressed: null,
-                              child: Center(
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    //usar este boton para habilitar un textformfield para ingresar el codigo del producto
-                                    if (activarTextFieldNombre == false) {
-                                      activarTextFieldCodig = true;
-                                      setState(() {});
-                                    } else {
-                                      activarTextFieldNombre = false;
-                                      activarTextFieldCodig = true;
-                                      nombreProductoController.clear();
-                                      cantidadProducController.clear();
-                                      setState(() {});
-                                    }
-                                  },
-                                  child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 10),
-                                      child: Text(
-                                        'Buscar por Codigo Producto',
-                                        textAlign: TextAlign.left,
-                                      )),
-                                ),
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: null,
-                              child: Center(
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    if (activarTextFieldCodig == false) {
-                                      activarTextFieldNombre = true;
-                                      setState(() {});
-                                    } else {
-                                      activarTextFieldCodig = false;
-                                      activarTextFieldNombre = true;
-                                      codProductoController.clear();
-                                      cantidadProducController.clear();
-                                      setState(() {});
-                                    }
-                                  },
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 10),
-                                    child: Text(
-                                      'Buscar por Nombre Producto',
-                                      textAlign: TextAlign.left,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          width: size.width * 0.2,
-                          child: TextFormField(
-                            enabled: activarTextFieldCodig,
-                            autofocus: activarTextFieldCodig,
-                            controller: codProductoController,
-                            decoration: InputDecoration(
-                                labelText: 'Codigo De Producto'),
-                          ),
-                        ),
-                        Container(
-                          width: size.width * 0.2,
-                          child: TextFormField(
-                            enabled: activarTextFieldNombre,
-                            autofocus: activarTextFieldNombre,
-                            controller: nombreProductoController,
-                            decoration: InputDecoration(
-                                labelText: 'Nombre De Producto'),
-                          ),
-                        ),
-                        Container(
-                          width: size.width * 0.2,
-                          child: TextFormField(
-                            controller: cantidadProducController,
-                            decoration: InputDecoration(labelText: 'Cantidad'),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Center(
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  if (botonesHabilitados) {
-                                    eliminarVenta_Controller(
-                                        idVentaActual.toString(), context);
-                                  } else {
-                                    null;
-                                  }
-                                },
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 10),
-                                  child: Text('Anular'),
-                                ),
-                                style: ButtonStyle(
-                                  backgroundColor: (botonesHabilitados)
-                                      ? MaterialStateProperty.all(Colors.red)
-                                      : MaterialStateProperty.all(
-                                          Color.fromARGB(255, 194, 194, 194)),
-                                  elevation: (!botonesHabilitados)
-                                      ? MaterialStateProperty.all(0)
-                                      : MaterialStateProperty.all(5.0),
-                                  // foregroundColor: MaterialStateProperty.all(Colors.black)
-                                  overlayColor: (!botonesHabilitados)
-                                      ? MaterialStateProperty.all(
-                                          Color.fromARGB(255, 194, 194, 194))
-                                      : MaterialStateProperty.all(
-                                          Color.fromARGB(255, 255, 72, 59)),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            //agregar un parametro para buscar por nombre de producto
-                            Center(
-                              child: ElevatedButton(
-                                onPressed: () async {
-                                  if (botonesHabilitados) {
-                                    if (activarTextFieldCodig == true) {
-
                                       final response =
                                           await buscarProductoController(
                                               codProductoController,
@@ -429,7 +280,6 @@ class _VentanaVentaState extends State<VentanaVenta> {
                                         datosDetalle = response;
                                         print('object');
 
-
                                         setState(() {});
                                       } else {
                                         print('object2');
@@ -444,37 +294,8 @@ class _VentanaVentaState extends State<VentanaVenta> {
                                           setState(() {});
                                         });
                                       }
-                                    } else if (activarTextFieldNombre == true) {
-                                      final response =
-                                          await buscarProductoNombreController(
-                                              nombreProductoController,
-                                              cantidadProducController,
-                                              idVentaActual,
-                                              context);
-                                      if (response == DetalleDeVentasXid) {
-                                        // idDetalleActual = response.id;
-                                        datosDetalle = response;
-                                        print('object');
-
-
-                                        setState(() {});
-                                      } else {
-                                        print('object2');
-                                        Future<List<String>> _total =
-                                            mostrarTotales(idVentaActual);
-                                        _total.then((value) {
-                                          print(value);
-                                          total = value[0];
-                                          impuestos = value[1];
-                                          descuentos = value[2];
-                                          subTotal = value[3];
-                                          setState(() {});
-                                        });
-                                      }
-
                                     } else {
                                       //null;
-
                                     }
                                   },
                                   child: Padding(
@@ -522,12 +343,12 @@ class _VentanaVentaState extends State<VentanaVenta> {
                                       descuentos);
                                   editar.then((value) {
                                     print('asjasd');
-          
+
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(
-                                            content:
-                                                Text('Venta añadida con exito')));
-          
+                                            content: Text(
+                                                'Venta añadida con exito')));
+
                                     Navigator.pushReplacementNamed(
                                         context, 'mostrar_ventas');
                                   });
@@ -710,17 +531,21 @@ class _VentanaVentaState extends State<VentanaVenta> {
                                             future: mostrardetalleventa(
                                                 idVentaActual),
                                             builder: (context,
-                                                AsyncSnapshot<dynamic> snapshot) {
+                                                AsyncSnapshot<dynamic>
+                                                    snapshot) {
                                               if (snapshot.connectionState ==
                                                       ConnectionState.done &&
                                                   snapshot.data
                                                       is DetalleDeVentasXid) {
-                                                DetalleDeVentasXid datosDetalle2 =
+                                                DetalleDeVentasXid
+                                                    datosDetalle2 =
                                                     snapshot.data;
                                                 return ListView.builder(
-                                                  scrollDirection: Axis.vertical,
+                                                  scrollDirection:
+                                                      Axis.vertical,
                                                   itemCount: datosDetalle2
-                                                      .detalleDeVentaNueva.length,
+                                                      .detalleDeVentaNueva
+                                                      .length,
                                                   itemBuilder: (_, i) =>
                                                       _facturaItemList(datosDetalle2
                                                           .detalleDeVentaNueva[i]),
@@ -863,7 +688,7 @@ class _VentanaVentaState extends State<VentanaVenta> {
     );
   }
 
-    void _showDialog(BuildContext context) {
+  void _showDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -874,7 +699,7 @@ class _VentanaVentaState extends State<VentanaVenta> {
             ElevatedButton(
               child: Text("Si"),
               onPressed: () {
-                eliminarVenta_Controller( idVentaActual.toString(),context);
+                eliminarVenta_Controller(idVentaActual.toString(), context);
               },
             ),
             ElevatedButton(
@@ -889,6 +714,3 @@ class _VentanaVentaState extends State<VentanaVenta> {
     );
   }
 }
-
-
-
