@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:soft_frontend/models/Tipoproducto.model.dart';
+import 'package:soft_frontend/models/tipoproducto.model.dart';
 import '../services/tipoproducto.service.dart';
 import '../screens/tipoproducto/tipoproducto.screen.dart' as global;
 

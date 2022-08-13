@@ -1,22 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-<<<<<<< HEAD
 //import 'package:soft_frontend/models/buscarProducto.dart';
 //import 'package:soft_frontend/models/buscarProducto.dart';
 import 'package:soft_frontend/models/tipoproducto.model.dart';
-=======
-import 'package:soft_frontend/models/Tipoproducto.model.dart';
->>>>>>> main
 import 'dart:convert';
 import '../constans.dart';
 
 // ignore: non_constant_identifier_names
-<<<<<<< HEAD
 class FetchUser{
   
-=======
-class FetchUser {
->>>>>>> main
   String fetchurl = "";
   List<Tipoproducto> results = [];
   Future<List<Tipoproducto>> getUserList({String? query}) async {
@@ -141,19 +133,11 @@ Future<void> EliminarTipoProducto(String idTipoProducto, context) async {
   }
 }
 
-<<<<<<< HEAD
-Future<List<Tipoproducto>>obtenerTiposProductos() async {
-=======
 Future<List<Tipoproducto>> obtenerTipos() async {
->>>>>>> main
   var data = [];
   var url = Uri.parse(API_URL + "producto/mostrartipos");
   var response = await http.get(url);
   List<Tipoproducto> users = [];
-<<<<<<< HEAD
-=======
-
->>>>>>> main
   try {
     if (response.statusCode == 200) {
       var units =
@@ -174,7 +158,6 @@ Future<List<Tipoproducto>> obtenerTipos() async {
   }
   return users;
 }
-<<<<<<< HEAD
 
 Future<List<Tipoproducto?>> crearTipoProducto2(
   String tipoProducto, 
@@ -230,5 +213,3 @@ Future<List<Tipoproducto?>> ActualizarTipoProducto2(
   }
 }
 
-=======
->>>>>>> main

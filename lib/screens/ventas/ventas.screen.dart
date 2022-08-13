@@ -74,195 +74,6 @@ class _VentanaVentaState extends State<VentanaVenta> {
       ),
       body: Container(
         child: Padding(
-<<<<<<< HEAD
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      child: TextButton(
-                        onPressed: null,
-                        child: Center(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              if (botonesHabilitados) {
-                                null;
-                              } else {
-                                Navigator.pushNamed(context, 'crear_cliente');
-                              }
-                            },
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
-                              child: Text('Agregar Cliente'),
-                            ),
-                            style: ButtonStyle(
-                              backgroundColor: (!botonesHabilitados)
-                                  ? MaterialStateProperty.all(Colors.blue)
-                                  : MaterialStateProperty.all(
-                                      Color.fromARGB(255, 194, 194, 194)),
-                              elevation: (botonesHabilitados)
-                                  ? MaterialStateProperty.all(0)
-                                  : MaterialStateProperty.all(5.0),
-                              // foregroundColor: MaterialStateProperty.all(Colors.black)
-                              overlayColor: (botonesHabilitados)
-                                  ? MaterialStateProperty.all(
-                                      Color.fromARGB(255, 194, 194, 194))
-                                  : MaterialStateProperty.all(
-                                      Color.fromARGB(255, 35, 156, 255)),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            width: size.width * 0.2,
-                            child: TextFormField(
-                              controller: dniController,
-                              decoration: InputDecoration(
-                                  labelText: 'Identidad del Cliente'),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    TextButton(
-                        onPressed: () async {
-                          final respuesta = await habilitarVenta(dniController,
-                              nombreCliente, telCliente, context);
-                          if (respuesta is IdVenta) {
-                            idVentaActual = respuesta.id;
-                            botonesHabilitados = true;
-                            setState(() {});
-                          } else {
-                            botonesHabilitados = false;
-                            setState(() {});
-                          }
-                        },
-                        child: const Icon(Icons.search)),
-                    const SizedBox(
-                      width: 30,
-                    ),
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            width: size.width * 0.2,
-                            child: TextFormField(
-                              readOnly: true,
-                              controller: nombreCliente,
-                              decoration: InputDecoration(
-                                  labelText: 'Nombre del Cliente'),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 30,
-                    ),
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            width: size.width * 0.2,
-                            child: TextFormField(
-                              readOnly: true,
-                              controller: telCliente,
-                              decoration: InputDecoration(
-                                  labelText: 'Telefono del Cliente'),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: size.width * 0.2,
-                          child: Padding(
-                                    padding: const EdgeInsets.all(2.0),
-                                    child: Text(
-                                      "Excento",
-                                      style: TextStyle(fontSize: 15),
-                                    ),
-                                  ),
-                        ),
-                        Container(
-                          width: size.width * 0.2,
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: RadioListTile<int>(
-                                value: 1,
-                                groupValue: isExcento,
-                                title: Text('Si'),
-                                onChanged: (value) { setState(() => isExcento = 1);
-                                isExcento2 = true;
-                                },
-                              ),
-                            ),
-                              Expanded(
-                              child: RadioListTile<int>(
-                              value: 0,
-                              groupValue: isExcento,
-                              title: Text('No'),
-                              onChanged: (value) {
-                              setState(() => isExcento = 0);
-                              isExcento2 = false;
-                              }
-                            ),
-                          ),
-                      ],
-                    ),
-                        ),
-                        Container(
-                          width: size.width * 0.2,
-                          child: TextFormField(
-                            controller: codProductoController,
-                            decoration: InputDecoration(
-                                labelText: 'Codigo De Producto'),
-                          ),
-                        ),
-                        Container(
-                          width: size.width * 0.2,
-                          child: TextFormField(
-                            controller: cantidadProducController,
-                            decoration: InputDecoration(labelText: 'Cantidad'),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Center(
-=======
           padding: const EdgeInsets.all(20),
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
@@ -282,72 +93,10 @@ class _VentanaVentaState extends State<VentanaVenta> {
                           child: TextButton(
                             onPressed: null,
                             child: Center(
->>>>>>> main
                               child: ElevatedButton(
                                 onPressed: () {
                                   if (botonesHabilitados) {
                                     null;
-<<<<<<< HEAD
-                                  }
-                                },
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 10),
-                                  child: Text('Anular'),
-                                ),
-                                style: ButtonStyle(
-                                  backgroundColor: (botonesHabilitados)
-                                      ? MaterialStateProperty.all(Colors.red)
-                                      : MaterialStateProperty.all(
-                                          Color.fromARGB(255, 194, 194, 194)),
-                                  elevation: (!botonesHabilitados)
-                                      ? MaterialStateProperty.all(0)
-                                      : MaterialStateProperty.all(5.0),
-                                  // foregroundColor: MaterialStateProperty.all(Colors.black)
-                                  overlayColor: (!botonesHabilitados)
-                                      ? MaterialStateProperty.all(
-                                          Color.fromARGB(255, 194, 194, 194))
-                                      : MaterialStateProperty.all(
-                                          Color.fromARGB(255, 255, 72, 59)),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Center(
-                              child: ElevatedButton(
-                                onPressed: () async {
-                                  if (botonesHabilitados) {
-                                    final response =
-                                        await buscarProductoController(
-                                            codProductoController,
-                                            cantidadProducController,
-                                            idVentaActual,
-                                            isExcento2,
-                                            context);
-
-                                    if (response == DetalleDeVentasXid) {
-                                      // idDetalleActual = response.id;
-                                      datosDetalle = response;
-                                      print('object');
-
-                                      setState(() {});
-                                    } else {
-                                      print('object2');
-                                      Future<List<String>> _total =
-                                          mostrarTotales(idVentaActual);
-                                      _total.then((value) {
-                                        print(value);
-                                        total = value[0];
-                                        impuestos = value[1];
-                                        descuentos = value[2];
-                                        subTotal = value[3];
-                                        setState(() {});
-                                      });
-                                    }
-=======
->>>>>>> main
                                   } else {
                                     Navigator.pushNamed(
                                         context, 'crear_cliente');
@@ -377,12 +126,6 @@ class _VentanaVentaState extends State<VentanaVenta> {
                             ),
                           ),
                         ),
-<<<<<<< HEAD
-                        SizedBox(
-                          height: 10,
-                        ),
-=======
->>>>>>> main
                         Container(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -467,84 +210,6 @@ class _VentanaVentaState extends State<VentanaVenta> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-<<<<<<< HEAD
-                          Row(
-                            children: [
-                              
-                              Expanded(
-                                  flex: 1,
-                                  child: Text(
-                                    'Codigo',
-                                    style: TextStyle(
-                                      fontSize: size.width * 0.009,
-                                        color: Colors.blue,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                              Expanded(
-                                flex: 3,
-                                  child: Text(
-                                    'Nombre del Producto',
-                                    style: TextStyle(
-                                      fontSize: size.width * 0.009,
-                                        color: Colors.blue,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                              Expanded(
-                                flex: 1,
-                                  child: Text(
-                                    'Precio',
-                                    style: TextStyle(
-                                      fontSize: size.width * 0.009,
-                                        color: Colors.blue,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                              Expanded(
-                                flex: 1,
-                                  child: Text(
-                                    'Cantidad',
-                                    style: TextStyle(
-                                      fontSize: size.width * 0.009,
-                                        color: Colors.blue,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                              Expanded(
-                                flex: 1,
-                                  child: Text(
-                                    'ISV',
-                                    style: TextStyle(
-                                      fontSize: size.width * 0.009,
-                                        color: Colors.blue,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                              Expanded(
-                                flex: 1,
-                                  child: Text(
-                                    'Descuento',
-                                    style: TextStyle(
-                                      fontSize: size.width*0.009,
-                                        color: Colors.blue,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                              Expanded(
-                                flex: 1,
-                                  child: Text(
-                                    'Total',
-                                    style: TextStyle(
-                                      fontSize: size.width * 0.009,
-                                        color: Colors.blue,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                              Expanded(
-                                flex: 1,
-                                  child: Text(
-                                    'Opciones',
-                                    style: TextStyle(
-                                      fontSize: size.width * 0.009,
-                                        color: Colors.blue,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                            ],
-=======
                           Container(
                             width: size.width * 0.2,
                             child: TextFormField(
@@ -552,7 +217,6 @@ class _VentanaVentaState extends State<VentanaVenta> {
                               decoration: InputDecoration(
                                   labelText: 'Codigo De Producto'),
                             ),
->>>>>>> main
                           ),
                           Container(
                             width: size.width * 0.2,
