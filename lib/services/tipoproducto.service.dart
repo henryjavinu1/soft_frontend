@@ -8,6 +8,7 @@ import '../constans.dart';
 
 // ignore: non_constant_identifier_names
 class FetchUser{
+  
   String fetchurl = "";
   List <Tipoproducto> results = [];
   Future <List<Tipoproducto>>getUserList({String? query}) async{
