@@ -147,9 +147,7 @@ Future<List<Producto?>> ActualizarProducto2(
     print(response.body);
     if (response.statusCode == 200) {
       print(Producto);
-      //return clienteCreado;
     } else {
-      // return clienteCreado;
     }
     return productoCreado;
   } catch (e) {
