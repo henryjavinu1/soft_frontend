@@ -55,8 +55,8 @@ Future eliminarArqueo_Controller(String idArqueo, context) async {
 }
 
 Future crearArqueo_Controller(String efectivoApertura, context) async {
-  SharedPreferences prefs = await  SharedPreferences.getInstance();
-    await prefs.setBool('arqueoabierto', true);
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setBool('arqueoabierto', true);
   final token = await expectToken(context);
   if (token != '') {
     if (efectivoApertura.isNotEmpty) {
@@ -65,7 +65,7 @@ Future crearArqueo_Controller(String efectivoApertura, context) async {
       if (arqueo != null) {
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Arqueo Creado con exito')));
-        Navigator.pushReplacementNamed(context, 'ventas');
+        Navigator.pushReplacementNamed(context, 'PrincipalVentas');
       } else {}
     } else {
       ScaffoldMessenger.of(context)
