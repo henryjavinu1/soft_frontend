@@ -52,7 +52,7 @@ class _VentanaVentaState extends State<VentanaVenta> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    mostrarVentas();
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -75,105 +75,133 @@ class _VentanaVentaState extends State<VentanaVenta> {
         ],
       ),
       body: Container(
+        
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 30,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      child: TextButton(
-                        onPressed: null,
-                        child: Center(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              if (botonesHabilitados) {
-                                null;
-                              } else {
-                                Navigator.pushNamed(context, 'crear_cliente');
-                              }
-                            },
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
-                              child: Text('Agregar Cliente'),
-                            ),
-                            style: ButtonStyle(
-                              backgroundColor: (!botonesHabilitados)
-                                  ? MaterialStateProperty.all(Colors.blue)
-                                  : MaterialStateProperty.all(
-                                      Color.fromARGB(255, 194, 194, 194)),
-                              elevation: (botonesHabilitados)
-                                  ? MaterialStateProperty.all(0)
-                                  : MaterialStateProperty.all(5.0),
-                              // foregroundColor: MaterialStateProperty.all(Colors.black)
-                              overlayColor: (botonesHabilitados)
-                                  ? MaterialStateProperty.all(
-                                      Color.fromARGB(255, 194, 194, 194))
-                                  : MaterialStateProperty.all(
-                                      Color.fromARGB(255, 35, 156, 255)),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 30,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        child: TextButton(
+                          onPressed: null,
+                          child: Center(
+                            child: ElevatedButton(
+                              onPressed: () {
+                                if (botonesHabilitados) {
+                                  null;
+                                } else {
+                                  Navigator.pushNamed(context, 'crear_cliente');
+                                }
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 10),
+                                child: Text('Agregar Cliente'),
+                              ),
+                              style: ButtonStyle(
+                                backgroundColor: (!botonesHabilitados)
+                                    ? MaterialStateProperty.all(Colors.blue)
+                                    : MaterialStateProperty.all(
+                                        Color.fromARGB(255, 194, 194, 194)),
+                                elevation: (botonesHabilitados)
+                                    ? MaterialStateProperty.all(0)
+                                    : MaterialStateProperty.all(5.0),
+                                // foregroundColor: MaterialStateProperty.all(Colors.black)
+                                overlayColor: (botonesHabilitados)
+                                    ? MaterialStateProperty.all(
+                                        Color.fromARGB(255, 194, 194, 194))
+                                    : MaterialStateProperty.all(
+                                        Color.fromARGB(255, 35, 156, 255)),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            width: size.width * 0.2,
-                            child: TextFormField(
-                              controller: dniController,
-                              decoration: InputDecoration(
-                                  labelText: 'Identidad del Cliente'),
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: size.width * 0.2,
+                              child: TextFormField(
+                                controller: dniController,
+                                decoration: InputDecoration(
+                                    labelText: 'Identidad del Cliente'),
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    TextButton(
-                        onPressed: () async {
-                          final respuesta = await habilitarVenta(dniController,
-                              nombreCliente, telCliente, context);
-                          if (respuesta is IdVenta) {
-                            idVentaActual = respuesta.id;
-                            botonesHabilitados = true;
-                            setState(() {});
-                          } else {
-                            botonesHabilitados = false;
-                            setState(() {});
-                          }
-                        },
-                        child: const Icon(Icons.search)),
-                    const SizedBox(
-                      width: 30,
-                    ),
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            width: size.width * 0.2,
-                            child: TextFormField(
-                              readOnly: true,
-                              controller: nombreCliente,
-                              decoration: InputDecoration(
-                                  labelText: 'Nombre del Cliente'),
-                            ),
-                          ),
-                        ],
+                      TextButton(
+                          onPressed: () async {
+                            final respuesta = await habilitarVenta(dniController,
+                                nombreCliente, telCliente, context);
+                            if (respuesta is IdVenta) {
+                              idVentaActual = respuesta.id;
+                              botonesHabilitados = true;
+                              setState(() {});
+                            } else {
+                              botonesHabilitados = false;
+                              setState(() {});
+                            }
+                          },
+                          child: const Icon(Icons.search)),
+                      const SizedBox(
+                        width: 30,
                       ),
-                    ),
-                    const SizedBox(
-                      width: 30,
-                    ),
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: size.width * 0.2,
+                              child: TextFormField(
+                                readOnly: true,
+                                controller: nombreCliente,
+                                decoration: InputDecoration(
+                                    labelText: 'Nombre del Cliente'),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 30,
+                      ),
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: size.width * 0.2,
+                              child: TextFormField(
+                                readOnly: true,
+                                controller: telCliente,
+                                decoration: InputDecoration(
+                                    labelText: 'Telefono del Cliente'),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                     Container(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -181,12 +209,64 @@ class _VentanaVentaState extends State<VentanaVenta> {
                           Container(
                             width: size.width * 0.2,
                             child: TextFormField(
-                              readOnly: true,
-                              controller: telCliente,
+                              controller: codProductoController,
                               decoration: InputDecoration(
-                                  labelText: 'Telefono del Cliente'),
+                                  labelText: 'Codigo De Producto'),
                             ),
                           ),
+                          Container(
+                            width: size.width * 0.2,
+                            child: TextFormField(
+                              controller: cantidadProducController,
+                              decoration: InputDecoration(labelText: 'Cantidad'),
+                            ),
+                          ),
+
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Center(
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    if (botonesHabilitados) {
+                                      _showDialog(context);
+                                    } else {
+                                      null;
+                                    }
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    child: Text('Anular'),
+                                  ),
+                                  style: ButtonStyle(
+                                    backgroundColor: (botonesHabilitados)
+                                        ? MaterialStateProperty.all(Colors.red)
+                                        : MaterialStateProperty.all(
+                                            Color.fromARGB(255, 194, 194, 194)),
+                                    elevation: (!botonesHabilitados)
+                                        ? MaterialStateProperty.all(0)
+                                        : MaterialStateProperty.all(5.0),
+                                    // foregroundColor: MaterialStateProperty.all(Colors.black)
+                                    overlayColor: (!botonesHabilitados)
+                                        ? MaterialStateProperty.all(
+                                            Color.fromARGB(255, 194, 194, 194))
+                                        : MaterialStateProperty.all(
+                                            Color.fromARGB(255, 255, 72, 59)),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Center(
+                                child: ElevatedButton(
+                                  onPressed: () async {
+                                    if (botonesHabilitados) {
+
                         ],
                       ),
                     ),
@@ -336,16 +416,19 @@ class _VentanaVentaState extends State<VentanaVenta> {
                                 onPressed: () async {
                                   if (botonesHabilitados) {
                                     if (activarTextFieldCodig == true) {
+
                                       final response =
                                           await buscarProductoController(
                                               codProductoController,
                                               cantidadProducController,
                                               idVentaActual,
                                               context);
+
                                       if (response == DetalleDeVentasXid) {
                                         // idDetalleActual = response.id;
                                         datosDetalle = response;
                                         print('object');
+
 
                                         setState(() {});
                                       } else {
@@ -373,6 +456,7 @@ class _VentanaVentaState extends State<VentanaVenta> {
                                         datosDetalle = response;
                                         print('object');
 
+
                                         setState(() {});
                                       } else {
                                         print('object2');
@@ -387,274 +471,276 @@ class _VentanaVentaState extends State<VentanaVenta> {
                                           setState(() {});
                                         });
                                       }
+
+                                    } else {
+                                      //null;
+
                                     }
-                                  } else {
-                                    //null;
-                                  }
-                                },
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 10),
-                                  child: Text('Agregar Producto'),
-                                ),
-                                style: ButtonStyle(
-                                  backgroundColor: (botonesHabilitados)
-                                      ? MaterialStateProperty.all(Colors.blue)
-                                      : MaterialStateProperty.all(
-                                          Color.fromARGB(255, 194, 194, 194)),
-                                  elevation: (!botonesHabilitados)
-                                      ? MaterialStateProperty.all(0)
-                                      : MaterialStateProperty.all(5.0),
-                                  // foregroundColor: MaterialStateProperty.all(Colors.black)
-                                  overlayColor: (!botonesHabilitados)
-                                      ? MaterialStateProperty.all(
-                                          Color.fromARGB(255, 194, 194, 194))
-                                      : MaterialStateProperty.all(
-                                          Color.fromARGB(255, 35, 156, 255)),
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    child: Text('Agregar Producto'),
+                                  ),
+                                  style: ButtonStyle(
+                                    backgroundColor: (botonesHabilitados)
+                                        ? MaterialStateProperty.all(Colors.blue)
+                                        : MaterialStateProperty.all(
+                                            Color.fromARGB(255, 194, 194, 194)),
+                                    elevation: (!botonesHabilitados)
+                                        ? MaterialStateProperty.all(0)
+                                        : MaterialStateProperty.all(5.0),
+                                    // foregroundColor: MaterialStateProperty.all(Colors.black)
+                                    overlayColor: (!botonesHabilitados)
+                                        ? MaterialStateProperty.all(
+                                            Color.fromARGB(255, 194, 194, 194))
+                                        : MaterialStateProperty.all(
+                                            Color.fromARGB(255, 35, 156, 255)),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [],
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Center(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              if (botonesHabilitados) {
-                                Future<String> editar = actualizarVenta(
-                                    idVentaActual.toString(),
-                                    impuestos,
-                                    total,
-                                    descuentos);
-                                editar.then((value) {
-                                  print('asjasd');
-
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                          content:
-                                              Text('Venta añadida con exito')));
-
-                                  Navigator.pushReplacementNamed(
-                                      context, 'mostrar_ventas');
-                                });
-                              } else {
-                                null;
-                              }
-                            },
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
-                              child: Text('Realizar Venta'),
-                            ),
-                            style: ButtonStyle(
-                              backgroundColor: (botonesHabilitados)
-                                  ? MaterialStateProperty.all(Colors.green)
-                                  : MaterialStateProperty.all(
-                                      Color.fromARGB(255, 194, 194, 194)),
-                              elevation: (!botonesHabilitados)
-                                  ? MaterialStateProperty.all(0)
-                                  : MaterialStateProperty.all(5.0),
-                              // foregroundColor: MaterialStateProperty.all(Colors.black)
-                              overlayColor: (!botonesHabilitados)
-                                  ? MaterialStateProperty.all(
-                                      Color.fromARGB(255, 194, 194, 194))
-                                  : MaterialStateProperty.all(
-                                      Color.fromARGB(255, 84, 194, 88)),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 40,
-                        ),
-                        Container(
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Descuento',
-                                  style: TextStyle(fontSize: 15),
-                                ),
-                                Text(
-                                  descuentos,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  'Sub Total',
-                                  style: TextStyle(fontSize: 15),
-                                ),
-                                Text(
-                                  subTotal,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  'Impuesto',
-                                  style: TextStyle(fontSize: 15),
-                                ),
-                                Text(
-                                  impuestos,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  'Total a Cancelar',
-                                  style: TextStyle(fontSize: 15),
-                                ),
-                                Text(
-                                  total,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                              ]),
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Expanded(
-                                  flex: 1,
-                                  child: Text(
-                                    'Codigo',
-                                    style: TextStyle(
-                                        fontSize: size.width * 0.009,
-                                        color: Colors.blue,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                              Expanded(
-                                  flex: 3,
-                                  child: Text(
-                                    'Nombre del Producto',
-                                    style: TextStyle(
-                                        fontSize: size.width * 0.009,
-                                        color: Colors.blue,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                              Expanded(
-                                  flex: 1,
-                                  child: Text(
-                                    'Precio',
-                                    style: TextStyle(
-                                        fontSize: size.width * 0.009,
-                                        color: Colors.blue,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                              Expanded(
-                                  flex: 1,
-                                  child: Text(
-                                    'Cantidad',
-                                    style: TextStyle(
-                                        fontSize: size.width * 0.009,
-                                        color: Colors.blue,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                              Expanded(
-                                  flex: 1,
-                                  child: Text(
-                                    'ISV',
-                                    style: TextStyle(
-                                        fontSize: size.width * 0.009,
-                                        color: Colors.blue,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                              Expanded(
-                                  flex: 1,
-                                  child: Text(
-                                    'Descuento',
-                                    style: TextStyle(
-                                        fontSize: size.width * 0.009,
-                                        color: Colors.blue,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                              Expanded(
-                                  flex: 1,
-                                  child: Text(
-                                    'Total',
-                                    style: TextStyle(
-                                        fontSize: size.width * 0.009,
-                                        color: Colors.blue,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                              Expanded(
-                                  flex: 1,
-                                  child: Text(
-                                    'Opciones',
-                                    style: TextStyle(
-                                        fontSize: size.width * 0.009,
-                                        color: Colors.blue,
-                                        fontWeight: FontWeight.bold),
-                                  )),
                             ],
                           ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Center(
+                            child: ElevatedButton(
+                              onPressed: () {
+                                if (botonesHabilitados) {
+                                  Future<String> editar = actualizarVenta(
+                                      idVentaActual.toString(),
+                                      impuestos,
+                                      total,
+                                      descuentos);
+                                  editar.then((value) {
+                                    print('asjasd');
+          
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            content:
+                                                Text('Venta añadida con exito')));
+          
+                                    Navigator.pushReplacementNamed(
+                                        context, 'mostrar_ventas');
+                                  });
+                                } else {
+                                  null;
+                                }
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 10),
+                                child: Text('Realizar Venta'),
+                              ),
+                              style: ButtonStyle(
+                                backgroundColor: (botonesHabilitados)
+                                    ? MaterialStateProperty.all(Colors.green)
+                                    : MaterialStateProperty.all(
+                                        Color.fromARGB(255, 194, 194, 194)),
+                                elevation: (!botonesHabilitados)
+                                    ? MaterialStateProperty.all(0)
+                                    : MaterialStateProperty.all(5.0),
+                                // foregroundColor: MaterialStateProperty.all(Colors.black)
+                                overlayColor: (!botonesHabilitados)
+                                    ? MaterialStateProperty.all(
+                                        Color.fromARGB(255, 194, 194, 194))
+                                    : MaterialStateProperty.all(
+                                        Color.fromARGB(255, 84, 194, 88)),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 40,
+                          ),
                           Container(
-                              width: size.width * 0.7,
-                              height: size.height * 0.6,
-                              child: (idVentaActual != -1)
-                                  ? Expanded(
-                                      child: FutureBuilder(
-                                          future: mostrardetalleventa(
-                                              idVentaActual),
-                                          builder: (context,
-                                              AsyncSnapshot<dynamic> snapshot) {
-                                            if (snapshot.connectionState ==
-                                                    ConnectionState.done &&
-                                                snapshot.data
-                                                    is DetalleDeVentasXid) {
-                                              DetalleDeVentasXid datosDetalle2 =
-                                                  snapshot.data;
-                                              return ListView.builder(
-                                                scrollDirection: Axis.vertical,
-                                                itemCount: datosDetalle2
-                                                    .detalleDeVentaNueva.length,
-                                                itemBuilder: (_, i) =>
-                                                    _facturaItemList(datosDetalle2
-                                                        .detalleDeVentaNueva[i]),
-                                              );
-                                            } else {
-                                              return Center(
-                                                  child:
-                                                      CircularProgressIndicator());
-                                            }
-                                          }),
-                                    )
-                                  : SizedBox()),
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Descuento',
+                                    style: TextStyle(fontSize: 15),
+                                  ),
+                                  Text(
+                                    descuentos,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    'Sub Total',
+                                    style: TextStyle(fontSize: 15),
+                                  ),
+                                  Text(
+                                    subTotal,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    'Impuesto',
+                                    style: TextStyle(fontSize: 15),
+                                  ),
+                                  Text(
+                                    impuestos,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    'Total a Cancelar',
+                                    style: TextStyle(fontSize: 15),
+                                  ),
+                                  Text(
+                                    total,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                  ),
+                                ]),
+                          )
                         ],
                       ),
                     ),
-                  )
-                ],
-              ),
-            ],
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      'Codigo',
+                                      style: TextStyle(
+                                          fontSize: size.width * 0.009,
+                                          color: Colors.blue,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                Expanded(
+                                    flex: 3,
+                                    child: Text(
+                                      'Nombre del Producto',
+                                      style: TextStyle(
+                                          fontSize: size.width * 0.009,
+                                          color: Colors.blue,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      'Precio',
+                                      style: TextStyle(
+                                          fontSize: size.width * 0.009,
+                                          color: Colors.blue,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      'Cantidad',
+                                      style: TextStyle(
+                                          fontSize: size.width * 0.009,
+                                          color: Colors.blue,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      'ISV',
+                                      style: TextStyle(
+                                          fontSize: size.width * 0.009,
+                                          color: Colors.blue,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      'Descuento',
+                                      style: TextStyle(
+                                          fontSize: size.width * 0.009,
+                                          color: Colors.blue,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      'Total',
+                                      style: TextStyle(
+                                          fontSize: size.width * 0.009,
+                                          color: Colors.blue,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      'Opciones',
+                                      style: TextStyle(
+                                          fontSize: size.width * 0.009,
+                                          color: Colors.blue,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                              ],
+                            ),
+                            Container(
+                                width: size.width * 0.7,
+                                height: size.height * 0.6,
+                                child: (idVentaActual != -1)
+                                    ? Expanded(
+                                        child: FutureBuilder(
+                                            future: mostrardetalleventa(
+                                                idVentaActual),
+                                            builder: (context,
+                                                AsyncSnapshot<dynamic> snapshot) {
+                                              if (snapshot.connectionState ==
+                                                      ConnectionState.done &&
+                                                  snapshot.data
+                                                      is DetalleDeVentasXid) {
+                                                DetalleDeVentasXid datosDetalle2 =
+                                                    snapshot.data;
+                                                return ListView.builder(
+                                                  scrollDirection: Axis.vertical,
+                                                  itemCount: datosDetalle2
+                                                      .detalleDeVentaNueva.length,
+                                                  itemBuilder: (_, i) =>
+                                                      _facturaItemList(datosDetalle2
+                                                          .detalleDeVentaNueva[i]),
+                                                );
+                                              } else {
+                                                return Center(
+                                                    child:
+                                                        CircularProgressIndicator());
+                                              }
+                                            }),
+                                      )
+                                    : SizedBox()),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -776,4 +862,33 @@ class _VentanaVentaState extends State<VentanaVenta> {
       },
     );
   }
+
+    void _showDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Cerrar Sesion"),
+          content: Text("¿Esta seguro que quiere anular la venta?"),
+          actions: <Widget>[
+            ElevatedButton(
+              child: Text("Si"),
+              onPressed: () {
+                eliminarVenta_Controller( idVentaActual.toString(),context);
+              },
+            ),
+            ElevatedButton(
+              child: Text("No"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
+
+
+
