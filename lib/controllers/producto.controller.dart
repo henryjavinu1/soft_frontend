@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:soft_frontend/models/empleado.model.dart';
 import '../models/Producto.model.dart';
 import '../services/producto.service.dart';
@@ -14,18 +15,29 @@ bool pruebaControlador(
     String descProducto,
     String isExcento,
     String idTipoProducto,
-    context
-    ){
+    XFile pickedFile,
+    context) {
   bool funciona = false;
   Producto producto = Producto();
-  Future <Producto?>  producto2 = crearProductoController(codigoProducto, nombreProducto, precioProducto, cantidadProducto, isvProducto, descProducto, isExcento, idTipoProducto, context);
-  if (producto2 != null){
+  Future<Producto?> producto2 = crearProductoController(
+      codigoProducto,
+      nombreProducto,
+      precioProducto,
+      cantidadProducto,
+      isvProducto,
+      descProducto,
+      isExcento,
+      idTipoProducto,
+      pickedFile,
+      context);
+  if (producto2 != null) {
     funciona = true;
   } else {
     funciona = false;
   }
   return funciona;
 }
+
 Future<Producto?> crearProductoController(
     String codigoProducto,
     String nombreProducto,
@@ -35,6 +47,7 @@ Future<Producto?> crearProductoController(
     String descProducto,
     String isExcento,
     String idTipoProducto,
+    var pickedFile,
     context) async {
   if (codigoProducto.isNotEmpty &&
       nombreProducto.isNotEmpty &&
@@ -43,9 +56,19 @@ Future<Producto?> crearProductoController(
       isvProducto.isNotEmpty &&
       descProducto.isNotEmpty &&
       idTipoProducto.isNotEmpty) {
-      List<Producto?> producto = await crearProducto2(codigoProducto, nombreProducto, precioProducto, cantidadProducto, isvProducto, descProducto, isExcento, idTipoProducto, context);
+    List<Producto?> producto = await crearProducto2(
+        codigoProducto,
+        nombreProducto,
+        precioProducto,
+        cantidadProducto,
+        isvProducto,
+        descProducto,
+        isExcento,
+        idTipoProducto,
+        pickedFile,
+        context);
     if (producto != null) {
-       _ventanaExito(context);
+      _ventanaExito(context);
     } else {
       _ventanaError(context);
     }
@@ -53,7 +76,6 @@ Future<Producto?> crearProductoController(
     _ventanaError(context);
   }
 }
-
 
 Future<Producto?> actualizaProductoController(
     String id,
@@ -65,6 +87,7 @@ Future<Producto?> actualizaProductoController(
     String descProducto,
     String isExcento,
     String idTipoProducto,
+    XFile pickedFile,
     context) async {
   if (id.isEmpty &&
       codigoProducto.isNotEmpty &&
@@ -75,12 +98,22 @@ Future<Producto?> actualizaProductoController(
       descProducto.isNotEmpty &&
       isExcento.isNotEmpty &&
       idTipoProducto.isNotEmpty) {
-    List<Producto?> producto = await ActualizarProducto2(id, codigoProducto, nombreProducto, precioProducto, cantidadProducto, isvProducto, descProducto, isExcento, idTipoProducto, context );
+    List<Producto?> producto = await ActualizarProducto2(
+        id,
+        codigoProducto,
+        nombreProducto,
+        precioProducto,
+        cantidadProducto,
+        isvProducto,
+        descProducto,
+        isExcento,
+        idTipoProducto,
+        pickedFile,
+        context);
     if (producto != null) {
-            
     } else {}
   } else {
-    _ventanaError(context);          
+    _ventanaError(context);
   }
 }
 
@@ -93,96 +126,95 @@ Future<Producto?> eliminarProductoController(String id, context) async {
   } else {}
 }
 
-
 void _ventanaExito(BuildContext context) {
-    var idTipoProductoController = TextEditingController();
+  var idTipoProductoController = TextEditingController();
 
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          actions: <Widget>[
-            Container(
-              width: 500,
-              color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.all(40),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Acción realizada con éxito.",
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      SizedBox(
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        actions: <Widget>[
+          Container(
+            width: 500,
+            color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.all(40),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Acción realizada con éxito.",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    Container(
+                        width: 80,
                         height: 40,
-                      ),
-                      Container(
-                          width: 80,
-                          height: 40,
-                          margin: EdgeInsets.all(5),
-                          child: RaisedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                              //initState();
-                            },
-                            child: Text('OK'),
-                            padding: EdgeInsets.all(10),
-                          )),
-                      SizedBox(
-                        height: 40,
-                      ),
-                    ]),
-              ),
+                        margin: EdgeInsets.all(5),
+                        child: RaisedButton(
+                          onPressed: () {
+                            Navigator.popAndPushNamed(
+                                context, 'PantallaProductos');
+                            //initState();
+                          },
+                          child: Text('OK'),
+                          padding: EdgeInsets.all(10),
+                        )),
+                    SizedBox(
+                      height: 40,
+                    ),
+                  ]),
             ),
-          ],
-        );
-      },
-    );
-  }
+          ),
+        ],
+      );
+    },
+  );
+}
 
-
-  void _ventanaError(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          actions: <Widget>[
-            Container(
-              width: 500,
-              color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.all(40),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Ocurrio un error al realizar esta acción, intente de nuevo.",
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      SizedBox(
+void _ventanaError(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        actions: <Widget>[
+          Container(
+            width: 500,
+            color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.all(40),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Ocurrio un error al realizar esta acción, intente de nuevo.",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    Container(
+                        width: 80,
                         height: 40,
-                      ),
-                      Container(
-                          width: 80,
-                          height: 40,
-                          margin: EdgeInsets.all(5),
-                          child: RaisedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                              //initState();
-                            },
-                            child: Text('OK'),
-                            padding: EdgeInsets.all(10),
-                          )),
-                      SizedBox(
-                        height: 40,
-                      ),
-                    ]),
-              ),
+                        margin: EdgeInsets.all(5),
+                        child: RaisedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            //initState();
+                          },
+                          child: Text('OK'),
+                          padding: EdgeInsets.all(10),
+                        )),
+                    SizedBox(
+                      height: 40,
+                    ),
+                  ]),
             ),
-          ],
-        );
-      },
-    );
-  }
+          ),
+        ],
+      );
+    },
+  );
+}
