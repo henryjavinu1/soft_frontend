@@ -1,6 +1,7 @@
 import 'dart:js';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:soft_frontend/models/errorPeticion.model.dart';
 import 'package:soft_frontend/screens/manipularFactura/components/dialogMensajeProblema.component.dart';
 import '../models/Arqueo.model.dart';
@@ -46,7 +47,7 @@ Future eliminarArqueo_Controller(String idArqueo, context) async {
     List<ManipularArqueo?> arq = await eliminarArqueo(idArqueo, token);
     print(idArqueo);
     if (arq != null) {
-      Navigator.pushNamed(context, 'traer_arqueo');
+      Navigator.pushReplacementNamed(context, 'traer_arqueo');
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Arqueo eliminado con exito')));
     } else {}
@@ -54,6 +55,8 @@ Future eliminarArqueo_Controller(String idArqueo, context) async {
 }
 
 Future crearArqueo_Controller(String efectivoApertura, context) async {
+  SharedPreferences prefs = await  SharedPreferences.getInstance();
+    await prefs.setBool('arqueoabierto', true);
   final token = await expectToken(context);
   if (token != '') {
     if (efectivoApertura.isNotEmpty) {
@@ -62,7 +65,7 @@ Future crearArqueo_Controller(String efectivoApertura, context) async {
       if (arqueo != null) {
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Arqueo Creado con exito')));
-        Navigator.pushNamed(context, 'PrincipalVenta');
+        Navigator.pushReplacementNamed(context, 'ventas');
       } else {}
     } else {
       ScaffoldMessenger.of(context)
@@ -72,6 +75,8 @@ Future crearArqueo_Controller(String efectivoApertura, context) async {
 }
 
 Future actualizarArqueoCerrandoSesion_Controller(context) async {
+  bool connectionResult = await setArqueadoCerrado();
+  print(connectionResult);
   final token = await expectToken(context);
   if (token != '') {
     List<ManipularArqueo?> arqueo1 =
@@ -79,7 +84,7 @@ Future actualizarArqueoCerrandoSesion_Controller(context) async {
     if (arqueo1 != null) {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Arqueo Actualizado con exito')));
-      Navigator.pushNamed(context, 'traer_arqueo');
+      Navigator.popAndPushNamed(context, 'traer_arqueo');
     } else {}
   }
 }
@@ -99,5 +104,18 @@ Future filtrarArqueoIdUsuario_Controller(
       MensajePeticion mensajeError = response;
       dialogMensajeProblema(context, mensajeError.msg);
     }
+  }
+}
+
+Future validarArqueoActivo_Controller(context) async {
+  final token = await expectToken(context);
+  if (token != '') {
+    //List<ManipularArqueo?> arqueo1 = await validarArqueoActivo(token);
+    var resp = await validarArqueoActivo(token);
+    if (!resp) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Por favor Cree un nuevo')));
+      Navigator.popAndPushNamed(context, 'crear_arqueo');
+    } else {}
   }
 }

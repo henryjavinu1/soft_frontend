@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:soft_frontend/controllers/user.controller.dart';
 import 'package:soft_frontend/services/sharepreference.service.dart';
+import '../../controllers/Arqueo.controller.dart';
 import '../../models/models.dart';
 import '../../widgets/widgets.dart';
 
@@ -96,7 +97,7 @@ class PantallaDesktop extends StatelessWidget {
                   child: TextButtons(
                     img: 'salario.png',
                     name: 'Modulo de Ventas',
-                    route: 'PrincipalVenta',
+                    route: 'crear_arqueo', 
                     width: 0.2,
                     fontSize: 15,
                   ),
@@ -153,17 +154,43 @@ class PantallaDesktop extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Cerrar Sesion"),
-          content: Text("¿Esta seguro que quiere cerrar Sesion?"),
+          title: Text('Cerrar Sesion'),
+          content: Text('¿Esta seguro que quiere cerrar Sesion?'),
           actions: <Widget>[
             ElevatedButton(
-              child: Text("Si"),
+              child: Text('Si'),
               onPressed: () {
                 logout_controller(context);
               },
             ),
             ElevatedButton(
-              child: Text("No"),
+              child: Text('No'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showDialogValidarArqeuoActivo(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Validar Arqueo Activo'),
+          content: Text('¿Esta seguro que quiere Validar un Arqueo?'),
+          actions: <Widget>[
+            ElevatedButton(
+              child: Text('Si'),
+              onPressed: () {
+                //validarArqueoActivo_Controller(context);
+              },
+            ),
+            ElevatedButton(
+              child: Text('No'),
               onPressed: () {
                 Navigator.of(context).pop();
               },

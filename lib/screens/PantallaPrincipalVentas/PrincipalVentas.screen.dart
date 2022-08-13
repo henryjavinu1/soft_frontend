@@ -5,6 +5,7 @@ import 'package:soft_frontend/controllers/user.controller.dart';
 import 'package:soft_frontend/screens/screens.dart';
 import '../../models/models.dart';
 import '../../widgets/widgets.dart';
+import 'package:soft_frontend/controllers/Arqueo.controller.dart';
 
 class PantallaPrincipalVenta extends StatefulWidget {
   const PantallaPrincipalVenta({Key? key}) : super(key: key);
@@ -14,6 +15,12 @@ class PantallaPrincipalVenta extends StatefulWidget {
 }
 
 class _PantallaPrincipalVentaState extends State<PantallaPrincipalVenta> {
+  @override
+  void initState() {
+    validarArqueoActivo_Controller(context);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -57,11 +64,10 @@ class _Pantalla extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading :false,
+        automaticallyImplyLeading: false,
         title: Text("Modulo Ventas"),
-         actions: <Widget>[
+        actions: <Widget>[
           TextButton(
-            
             onPressed: () {
               Navigator.popAndPushNamed(context, 'pantalla_principal');
             },
@@ -82,8 +88,6 @@ class _Pantalla extends StatelessWidget {
                   'Modulo de Ventas',
                   style: TextStyle(fontSize: 20),
                 ),
-                
-            
               ],
             ),
             const SizedBox(

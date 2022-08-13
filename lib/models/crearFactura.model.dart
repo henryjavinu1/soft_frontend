@@ -50,12 +50,12 @@ class Insertfactura {
   DateTime fechaFactura;
   String descuentoTotalFactura;
   String isvTotalFactura;
-  String totalFactura;
+  double totalFactura;
   int subTotalExonerado;
-  int subTotalFactura;
+  double subTotalFactura;
   String cantidadLetras;
   bool estado;
-  int idTipoPago;
+  String idTipoPago;
   int idCliente;
   int idUsuario;
   int idEmpleado;

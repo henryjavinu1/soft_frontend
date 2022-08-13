@@ -10,29 +10,32 @@ import '../models/ProductoBuscado.model.dart';
 import '../models/detalleventa.model.dart';
 
 Future mostrardetalleventa(int idVenta) async {
-
   //List<TodosLosDetalle> detalleVentaVacia = [];
   try {
-    var response =
-        await http.post(Uri.parse(API_URL + 'mostrardetalle'),
-        body: ({'idVenta' : idVenta.toString()}));
-   // print(response.body);
-   // DetalleVenta detalleVenta = DetalleVenta.fromJson();
-   print(response.request);
-   print(response.statusCode);
+    var response = await http.post(Uri.parse(API_URL + 'mostrardetalle'),
+        body: ({'idVenta': idVenta.toString()}));
+    // print(response.body);
+    // DetalleVenta detalleVenta = DetalleVenta.fromJson();
+    print(response.request);
+    print(response.statusCode);
     if (response.statusCode == 200) {
       print('hola mundo');
       final detalleVentas = detalleDeVentasXidFromJson(response.body);
       return detalleVentas;
-    } 
-    
+    }
   } catch (e) {
     print(e);
   }
 }
 
-Future crearDetalle(String cantidad, String precioUnitario, String isvAplicado,
-    String descuentoAplicado, String totalDetalleVenta, String idVentas, String idProducto) async {
+Future crearDetalle(
+    String cantidad,
+    String precioUnitario,
+    String isvAplicado,
+    String descuentoAplicado,
+    String totalDetalleVenta,
+    String idVentas,
+    String idProducto) async {
   try {
     var response = await http.post(Uri.parse(API_URL + 'detalleventa'),
         body: ({
@@ -42,7 +45,7 @@ Future crearDetalle(String cantidad, String precioUnitario, String isvAplicado,
           'descuentoAplicado': descuentoAplicado,
           'totalDetalleVenta': totalDetalleVenta,
           'idVentas': idVentas,
-          'idProducto':idProducto
+          'idProducto': idProducto
         }));
     print(response.statusCode);
     if (response.statusCode == 200) {
@@ -61,10 +64,10 @@ Future crearDetalle(String cantidad, String precioUnitario, String isvAplicado,
   }
 }
 
-
 Future buscarProductoService(String codigoProducto, context) async {
   try {
-    var response = await http.post(Uri.parse(API_URL+'producto/buscarproductoxcodigo'),
+    var response = await http.post(
+        Uri.parse(API_URL + 'producto/buscarproductoxcodigo'),
         body: ({'codigoProducto': codigoProducto}));
     print(jsonDecode(response.body));
     print(response.statusCode);
@@ -82,6 +85,26 @@ Future buscarProductoService(String codigoProducto, context) async {
   }
 }
 
+Future buscarProductoNombreService(String nombreProducto, context) async {
+  try {
+    var response = await http.post(
+        Uri.parse(API_URL + 'producto/buscarproductoxnombre'),
+        body: ({'nombreProducto': nombreProducto}));
+    print(jsonDecode(response.body));
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      final producto = productoBuscadoFromJson(response.body);
+      return producto;
+    } else if (response.statusCode == 404) {
+      return 404;
+    } else if (response.statusCode == 500) {
+      return 500;
+    }
+  } catch (e) {
+    print(e);
+    return 1928;
+  }
+}
 
 Future eliminarDetalle(String id) async {
   print(id);
@@ -89,8 +112,7 @@ Future eliminarDetalle(String id) async {
   DetalleDeVentasXid? detalle = null;
   List<DetalleDeVentasXid?> detalleCreada = [];
   try {
-    var response = await http.post(
-        Uri.parse(API_URL + "eliminardetalle"),
+    var response = await http.post(Uri.parse(API_URL + "eliminardetalle"),
         body: ({'id': id}));
     print(response.body);
     if (response.statusCode == 200) {
@@ -108,34 +130,44 @@ Future eliminarDetalle(String id) async {
   }
 }
 
-
-
 Future<List<String>> mostrarTotales(int idVenta) async {
-
   //List<TodosLosDetalle> detalleVentaVacia = [];
   List<String> numeros = [];
   try {
-    var response =
-        await http.post(Uri.parse(API_URL + 'mostrardetalle'),
-        body: ({'idVenta' : idVenta.toString()}));
-   // print(response.body);
-   // DetalleVenta detalleVenta = DetalleVenta.fromJson();
-   print(response.request);
-   print(response.statusCode);
+    var response = await http.post(Uri.parse(API_URL + 'mostrardetalle'),
+        body: ({'idVenta': idVenta.toString()}));
+    // print(response.body);
+    // DetalleVenta detalleVenta = DetalleVenta.fromJson();
+    print(response.request);
+    print(response.statusCode);
     if (response.statusCode == 200) {
       print('hola mundo');
       final detalleVentas = detalleDeVentasXidFromJson(response.body);
-      
+
       num total = 0;
       num subtotal = 0;
       num impuestos = 0;
       num descuentos = 0;
       for (var element in detalleVentas.detalleDeVentaNueva) {
         //((element.cantidad * double.parse(element.precioUnitario))*(double.parse(element.isvAplicado)/100)) + (double.parse(element.precioUnitario) * element.cantidad) - double.parse(element.descuentoAplicado);
-        subtotal = subtotal + (double.parse(element.precioUnitario) * element.cantidad);
-        impuestos = impuestos + ((element.cantidad * double.parse(element.precioUnitario))*(double.parse(element.isvAplicado)/100));
-        descuentos = descuentos +  (((element.cantidad * double.parse(element.precioUnitario))*(double.parse(element.isvAplicado)/100))+(double.parse(element.precioUnitario) * element.cantidad)) * (double.parse(element.descuentoAplicado)/100);
-        total = total + ((double.parse(element.precioUnitario) * element.cantidad) + ((element.cantidad * double.parse(element.precioUnitario))*(double.parse(element.isvAplicado)/100))) - (((element.cantidad * double.parse(element.precioUnitario))*(double.parse(element.isvAplicado)/100))+(double.parse(element.precioUnitario) * element.cantidad)) * (double.parse(element.descuentoAplicado)/100);
+        subtotal = subtotal +
+            (double.parse(element.precioUnitario) * element.cantidad);
+        impuestos = impuestos +
+            ((element.cantidad * double.parse(element.precioUnitario)) *
+                (double.parse(element.isvAplicado) / 100));
+        descuentos = descuentos +
+            (((element.cantidad * double.parse(element.precioUnitario)) *
+                        (double.parse(element.isvAplicado) / 100)) +
+                    (double.parse(element.precioUnitario) * element.cantidad)) *
+                (double.parse(element.descuentoAplicado) / 100);
+        total = total +
+            ((double.parse(element.precioUnitario) * element.cantidad) +
+                ((element.cantidad * double.parse(element.precioUnitario)) *
+                    (double.parse(element.isvAplicado) / 100))) -
+            (((element.cantidad * double.parse(element.precioUnitario)) *
+                        (double.parse(element.isvAplicado) / 100)) +
+                    (double.parse(element.precioUnitario) * element.cantidad)) *
+                (double.parse(element.descuentoAplicado) / 100);
         print(total);
         print(impuestos);
         print(descuentos);
@@ -145,7 +177,7 @@ Future<List<String>> mostrarTotales(int idVenta) async {
       numeros.add(descuentos.toString());
       numeros.add(subtotal.toString());
       return numeros;
-    } 
+    }
     return numeros;
   } catch (e) {
     print(e);
