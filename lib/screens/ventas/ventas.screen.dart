@@ -51,7 +51,7 @@ class _VentanaVentaState extends State<VentanaVenta> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -74,7 +74,6 @@ class _VentanaVentaState extends State<VentanaVenta> {
         ],
       ),
       body: Container(
-        
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: SingleChildScrollView(
@@ -87,7 +86,9 @@ class _VentanaVentaState extends State<VentanaVenta> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SingleChildScrollView(
+
                      scrollDirection: Axis.horizontal,
+
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -100,7 +101,10 @@ class _VentanaVentaState extends State<VentanaVenta> {
                                   if (botonesHabilitados) {
                                     null;
                                   } else {
-                                    Navigator.pushNamed(context, 'crear_cliente');
+
+                                    Navigator.pushNamed(
+                                        context, 'crear_cliente');
+
                                   }
                                 },
                                 child: Padding(
@@ -144,8 +148,10 @@ class _VentanaVentaState extends State<VentanaVenta> {
                         ),
                         TextButton(
                             onPressed: () async {
+
                               final respuesta = await habilitarVenta(dniController,
                                   nombreCliente, telCliente, context);
+
                               if (respuesta is IdVenta) {
                                 idVentaActual = respuesta.id;
                                 botonesHabilitados = true;
@@ -220,7 +226,8 @@ class _VentanaVentaState extends State<VentanaVenta> {
                             width: size.width * 0.2,
                             child: TextFormField(
                               controller: cantidadProducController,
-                              decoration: InputDecoration(labelText: 'Cantidad'),
+                              decoration:
+                                  InputDecoration(labelText: 'Cantidad'),
                             ),
                           ),
                           const SizedBox(
@@ -273,12 +280,12 @@ class _VentanaVentaState extends State<VentanaVenta> {
                                               cantidadProducController,
                                               idVentaActual,
                                               context);
-          
+
                                       if (response == DetalleDeVentasXid) {
                                         // idDetalleActual = response.id;
                                         datosDetalle = response;
                                         print('object');
-          
+
                                         setState(() {});
                                       } else {
                                         print('object2');
@@ -342,12 +349,12 @@ class _VentanaVentaState extends State<VentanaVenta> {
                                       descuentos);
                                   editar.then((value) {
                                     print('asjasd');
-          
+
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(
-                                            content:
-                                                Text('Venta añadida con exito')));
-          
+                                            content: Text(
+                                                'Venta añadida con exito')));
+
                                     Navigator.pushReplacementNamed(
                                         context, 'mostrar_ventas');
                                   });
@@ -530,17 +537,21 @@ class _VentanaVentaState extends State<VentanaVenta> {
                                             future: mostrardetalleventa(
                                                 idVentaActual),
                                             builder: (context,
-                                                AsyncSnapshot<dynamic> snapshot) {
+                                                AsyncSnapshot<dynamic>
+                                                    snapshot) {
                                               if (snapshot.connectionState ==
                                                       ConnectionState.done &&
                                                   snapshot.data
                                                       is DetalleDeVentasXid) {
-                                                DetalleDeVentasXid datosDetalle2 =
+                                                DetalleDeVentasXid
+                                                    datosDetalle2 =
                                                     snapshot.data;
                                                 return ListView.builder(
-                                                  scrollDirection: Axis.vertical,
+                                                  scrollDirection:
+                                                      Axis.vertical,
                                                   itemCount: datosDetalle2
-                                                      .detalleDeVentaNueva.length,
+                                                      .detalleDeVentaNueva
+                                                      .length,
                                                   itemBuilder: (_, i) =>
                                                       _facturaItemList(datosDetalle2
                                                           .detalleDeVentaNueva[i]),
@@ -683,7 +694,7 @@ class _VentanaVentaState extends State<VentanaVenta> {
     );
   }
 
-    void _showDialog(BuildContext context) {
+  void _showDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -694,7 +705,7 @@ class _VentanaVentaState extends State<VentanaVenta> {
             ElevatedButton(
               child: Text("Si"),
               onPressed: () {
-                eliminarVenta_Controller( idVentaActual.toString(),context);
+                eliminarVenta_Controller(idVentaActual.toString(), context);
               },
             ),
             ElevatedButton(
@@ -709,6 +720,3 @@ class _VentanaVentaState extends State<VentanaVenta> {
     );
   }
 }
-
-
-

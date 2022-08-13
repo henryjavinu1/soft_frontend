@@ -109,7 +109,7 @@ Future actualizarArqueoCerrandoSesion(String token) async {
 
   try {
     var response = await http
-        .put(Uri.parse(API_URL + 'arqueo/actualizacionCerrandoSesion'),
+        .post(Uri.parse(API_URL + 'arqueo/actualizacionCerrandoSesion'),
             body: ({
               'token': token,
             }))
@@ -121,6 +121,34 @@ Future actualizarArqueoCerrandoSesion(String token) async {
       //return arqueoCreado;
     }
     return arqueoActualizado;
+  } on TimeoutException catch (_) {
+    throw ('Tiempo de espera alcanzado');
+  } catch (e) {
+    print(e);
+    return 2;
+  } finally {
+    http.Client().close();
+  }
+}
+
+Future validarArqueoActivo(String token) async {
+  var client = http.Client();
+  ManipularArqueo? arqueo1 = null;
+  List<ManipularArqueo> arqueoActualizado = [];
+  try {
+    var response = await http
+        .post(Uri.parse(API_URL + 'arqueo/validarArqueoActivo'),
+            body: ({
+              'token': token,
+            }))
+        .timeout(Duration(seconds: 15));
+    print(response.statusCode); ///////////////
+    if (response.statusCode == 200) {
+      return true;
+    } else if (response.statusCode == 404) {
+      return false;
+    }
+    //return arqueoActualizado;
   } on TimeoutException catch (_) {
     throw ('Tiempo de espera alcanzado');
   } catch (e) {

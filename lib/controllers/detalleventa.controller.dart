@@ -57,22 +57,36 @@ Future crearDetalle_Controller(
   }
 }
 
-
 Future buscarProductoController(
-    TextEditingController codigoProducto, TextEditingController cantidadProducController, int idVentaActual, context) async {
-      print(cantidadProducController);
+    TextEditingController codigoProducto,
+    TextEditingController cantidadProducController,
+    int idVentaActual,
+    context) async {
+  print(cantidadProducController);
   if (codigoProducto.text.isNotEmpty) {
-    final response = await buscarProductoService(codigoProducto.text.trim(), context);
+    final response =
+        await buscarProductoService(codigoProducto.text.trim(), context);
     if (response is ProductoBuscado) {
       // multiplicacion (cantidad* precioUnitario) +ISV -DESC
       double cantidad = double.parse(cantidadProducController.text);
       double precio = double.parse(response.producto.precioProducto);
       double isv = double.parse(response.producto.isvProducto);
       double descuento = double.parse(response.producto.descProducto);
+
       double total = (cantidad * precio)/**(isv/100))+(precio * cantidad) */;
       double total2 = total - (descuento/100)*(total);
+
+
+
       final detalle = await crearDetalle_Controller(
-          cantidadProducController.text, response.producto.precioProducto, total2.toString(), response.producto.isvProducto, response.producto.descProducto, idVentaActual.toString(), response.producto.id.toString(), context);
+          cantidadProducController.text,
+          response.producto.precioProducto,
+          total2.toString(),
+          response.producto.isvProducto,
+          response.producto.descProducto,
+          idVentaActual.toString(),
+          response.producto.id.toString(),
+          context);
       if (detalle == 200) {
         DetalleDeVentasXid detalles = await mostrardetalleventa(idVentaActual);
         print(detalles);
@@ -80,10 +94,9 @@ Future buscarProductoController(
       } else {
         return false;
       }
-          } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(
-              'No se encontró el producto')));
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('No se encontró el producto')));
       return false;
     }
   } else {
@@ -94,16 +107,59 @@ Future buscarProductoController(
   }
 }
 
+Future buscarProductoNombreController(
+    TextEditingController nombreProducto,
+    TextEditingController cantidadProducController,
+    int idVentaActual,
+    context) async {
+  print(cantidadProducController);
+  if (nombreProducto.text.isNotEmpty) {
+    final response =
+        await buscarProductoNombreService(nombreProducto.text.trim(), context);
+    if (response is ProductoBuscado) {
+      // multiplicacion (cantidad* precioUnitario) +ISV -DESC
+      double cantidad = double.parse(cantidadProducController.text);
+      double precio = double.parse(response.producto.precioProducto);
+      double isv = double.parse(response.producto.isvProducto);
+      double descuento = double.parse(response.producto.descProducto);
+      double total = ((cantidad * precio) * (isv / 100)) + (precio * cantidad);
+      double total2 = total - (descuento / 100) * (total);
+      final detalle = await crearDetalle_Controller(
+          cantidadProducController.text,
+          response.producto.precioProducto,
+          total2.toString(),
+          response.producto.isvProducto,
+          response.producto.descProducto,
+          idVentaActual.toString(),
+          response.producto.id.toString(),
+          context);
+      if (detalle == 200) {
+        DetalleDeVentasXid detalles = await mostrardetalleventa(idVentaActual);
+        print(detalles);
+        return detalles;
+      } else {
+        return false;
+      }
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('No se encontró el producto')));
+      return false;
+    }
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(
+            'No se permiten campos vacíos, por favor ingrese un número de DNI.')));
+    return false;
+  }
+}
 
-
-Future<DetalleDeVentasXid?> eliminarDetalle_Controller(String id,context) async {
+Future<DetalleDeVentasXid?> eliminarDetalle_Controller(
+    String id, context) async {
   List<DetalleDeVentasXid?> detalle = await eliminarDetalle(id);
   print(id);
   if (detalle != null) {
-   
     // Navigator.pushNamed(context, 'ventas');
-          ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Detalle eliminado con exito"))
-          );
+    ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Detalle eliminado con exito")));
   } else {}
 }
