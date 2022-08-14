@@ -36,7 +36,8 @@ Future crearVenta(
     String tipo,
     String idSesion,
     String idUsuario,
-    String idCliente) async {
+    String idCliente,
+    String token) async {
   try {
     var response = await http.post(Uri.parse(API_URL + 'ventas'),
         body: ({
@@ -48,7 +49,8 @@ Future crearVenta(
           'tipo': tipo,
           'idSesion': idSesion,
           'idUsuario': idUsuario,
-          'idCliente': idCliente
+          'idCliente': idCliente,
+          'token' : token,
         }));
     print(response.statusCode);
     if (response.statusCode == 200) {
@@ -108,14 +110,15 @@ Future procesarVenta(String id) async {
   }
 }
 
-Future eliminarVenta(String id) async {
+Future eliminarVenta(String id, String token ) async {
   print(id);
   var client = http.Client();
   Ventas? venta = null;
   List<Ventas?> ventaCreada = [];
   try {
     var response = await http.post(Uri.parse(API_URL + "eliminarVenta"),
-        body: ({'id': id}));
+        body: ({'id': id,
+        'token': token,}));
     print(response.body);
     if (response.statusCode == 200) {
       print(Ventas);
