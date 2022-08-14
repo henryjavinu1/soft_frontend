@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 //import 'package:soft_frontend/models/buscarProducto.dart';
 //import 'package:soft_frontend/models/buscarProducto.dart';
-import 'package:soft_frontend/models/tipoproducto.model.dart';
+import 'package:soft_frontend/models/Tipoproducto.model.dart';
 import 'dart:convert';
 import '../constans.dart';
 
 // ignore: non_constant_identifier_names
-class FetchUser{
-  
+class FetchUser {
   String fetchurl = "";
   List<Tipoproducto> results = [];
   Future<List<Tipoproducto>> getUserList({String? query}) async {
@@ -96,13 +95,20 @@ Future<void> crearTipoProducto(String tipoProducto, String descripcionProducto,
   }
 }
 
-Future<Tipoproducto?> ActualizarTipoProducto(String idTipoProducto, String tipoProducto,
-    String descripcionProducto, String isvTipoProducto, context) async {
+Future<Tipoproducto?> ActualizarTipoProducto(
+    String idTipoProducto,
+    String tipoProducto,
+    String descripcionProducto,
+    String isvTipoProducto,
+    context) async {
   if (idTipoProducto.isNotEmpty &&
       tipoProducto.isNotEmpty &&
       descripcionProducto.isNotEmpty &&
       isvTipoProducto.isNotEmpty) {
-    Tipoproducto tipoproducto = Tipoproducto(tipoProducto: tipoProducto, descripcionProducto: descripcionProducto, isvTipoProducto: isvTipoProducto);
+    Tipoproducto tipoproducto = Tipoproducto(
+        tipoProducto: tipoProducto,
+        descripcionProducto: descripcionProducto,
+        isvTipoProducto: isvTipoProducto);
     var response =
         await http.post(Uri.parse(API_URL + "producto/actualizartipo/"),
             body: ({
@@ -161,55 +167,51 @@ Future<List<Tipoproducto>> obtenerTipos() async {
   return users;
 }
 
-Future<List<Tipoproducto?>> crearTipoProducto2(
-  String tipoProducto, 
-  String descripcionProducto,
-  String isvTipoProducto, context) async {
+Future<List<Tipoproducto?>> crearTipoProducto2(String tipoProducto,
+    String descripcionProducto, String isvTipoProducto, context) async {
   Tipoproducto? tipoproducto = null;
   List<Tipoproducto?> productoCreado = [];
   try {
     var response =
         await http.post(Uri.parse(API_URL + "producto/tipoproducto/"),
             body: ({
-          'tipoProducto': tipoProducto,
-          'descripcionProducto': descripcionProducto,
-          'isvTipoProducto': isvTipoProducto,
-        }));
+              'tipoProducto': tipoProducto,
+              'descripcionProducto': descripcionProducto,
+              'isvTipoProducto': isvTipoProducto,
+            }));
     print(response.body);
     if (response.statusCode == 200) {
       print(tipoproducto);
-    } else {
-    }
+    } else {}
     return productoCreado;
   } catch (e) {
     return productoCreado;
-  } finally {
-  }
+  } finally {}
 }
 
 Future<List<Tipoproducto?>> ActualizarTipoProducto2(
- String idTipoProducto, String tipoProducto,
-    String descripcionProducto, String isvTipoProducto, context) async {
+    String idTipoProducto,
+    String tipoProducto,
+    String descripcionProducto,
+    String isvTipoProducto,
+    context) async {
   Tipoproducto? tipoProductom = null;
   List<Tipoproducto?> productoCreado = [];
   try {
-    var response = await http.post(Uri.parse(API_URL + "producto/actualizartipo/"),
-        body: ({
-          'id': idTipoProducto.toString(),
-          'tipoProducto': tipoProducto,
-          'descripcionProducto': descripcionProducto,
-          'isvTipoProducto': isvTipoProducto
-        }));
+    var response =
+        await http.post(Uri.parse(API_URL + "producto/actualizartipo/"),
+            body: ({
+              'id': idTipoProducto.toString(),
+              'tipoProducto': tipoProducto,
+              'descripcionProducto': descripcionProducto,
+              'isvTipoProducto': isvTipoProducto
+            }));
     print(response.body);
     if (response.statusCode == 200) {
       print(tipoProductom);
-    } else {
-    }
+    } else {}
     return productoCreado;
   } catch (e) {
     return productoCreado;
-  } finally {
-
-  }
+  } finally {}
 }
-
