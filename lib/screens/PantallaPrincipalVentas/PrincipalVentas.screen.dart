@@ -57,11 +57,10 @@ class _Pantalla extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading :false,
+        automaticallyImplyLeading: false,
         title: Text("Modulo Ventas"),
-         actions: <Widget>[
+        actions: <Widget>[
           TextButton(
-            
             onPressed: () {
               Navigator.popAndPushNamed(context, 'pantalla_principal');
             },
@@ -82,8 +81,6 @@ class _Pantalla extends StatelessWidget {
                   'Modulo de Ventas',
                   style: TextStyle(fontSize: 20),
                 ),
-                
-            
               ],
             ),
             const SizedBox(
@@ -111,6 +108,21 @@ class _Pantalla extends StatelessWidget {
                     img: 'notas.png',
                     name: 'Facturacion',
                     route: 'manipular_factura',
+                    width: 0.3,
+                    fontSize: 18,
+                  ),
+                ),
+              ],
+              SizedBox(
+                width: 30,
+              ),
+              if (permisosId.contains(15)) ...[
+                Visibility(
+                  visible: true,
+                  child: TextButtons(
+                    img: 'venta-cruzada.png',
+                    name: 'Procesar Ventas',
+                    route: 'mostrar_ventas',
                     width: 0.3,
                     fontSize: 18,
                   ),

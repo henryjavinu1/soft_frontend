@@ -115,15 +115,9 @@ class _CrearFacturaState extends State<CrearFactura> {
                   child: Center(
                     child: ElevatedButton(
                         onPressed: () => crearFactura_Controller(
-                                idVentaController.text,
-                                idTipoPagoController.text,
-                                context)
-                            .then((value) => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ManipularFactura(),
-                                  ),
-                                )),
+                            idVentaController.text,
+                            idTipoPagoController.text,
+                            context),
                         child: Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: 10, vertical: 10),

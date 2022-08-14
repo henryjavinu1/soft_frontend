@@ -8,16 +8,13 @@ import '../constans.dart';
 import '../models/crearFactura.model.dart';
 
 Future<List<Factura?>> crearFactura(
-    String idVenta, String idTipoPago, context) async {
+    String idVenta, String idTipoPago, String token, context) async {
   var fact = http.Client();
   Factura? factura = null;
   List<Factura?> facturaCreada = [];
   try {
     var response = await http.post(Uri.parse(API_URL + "gene/insertfact"),
-        body: ({
-          'idVenta': idVenta,
-          'idTipoPago': idTipoPago,
-        }));
+        body: ({'idVenta': idVenta, 'idTipoPago': idTipoPago, 'token': token}));
     if (response.statusCode == 200) {
       final Facturaa = json.decode(response.body);
       print(Facturaa);
