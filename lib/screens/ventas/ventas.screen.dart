@@ -320,9 +320,9 @@ class _VentanaVentaState extends State<VentanaVenta> {
                                           await buscarProductoController(
                                               codProductoController,
                                               cantidadProducController,
+                                              isExcento2,
                                               idVentaActual,
                                               context);
-
                                       if (response == DetalleDeVentasXid) {
                                         // idDetalleActual = response.id;
                                         datosDetalle = response;

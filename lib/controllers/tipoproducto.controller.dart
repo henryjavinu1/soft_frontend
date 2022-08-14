@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:soft_frontend/models/tipoproducto.model.dart';
 import '../services/tipoproducto.service.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:soft_frontend/screens/tipoproducto/tipoproducto.screen.dart';
 import '../screens/tipoproducto/tipoproducto.screen.dart' as global;
 
 var estaCorrecto;
@@ -20,6 +23,25 @@ bool controladorCrearTipoProducto(
   }
   return funciona;
 }
+
+bool controladorActualizarTipoProducto(
+    String id,
+    String tipoproducto,
+    String descripcionProducto,
+    String isvTipoProducto,
+    context
+    ){
+  bool funciona = false;
+  Tipoproducto tipoProducto = Tipoproducto();
+  Future <Tipoproducto?>  producto2 = actualizarTipoProductoController(id, tipoproducto, descripcionProducto, isvTipoProducto, context);
+  if (producto2 == null){
+    funciona = true;
+  } else {
+    funciona = false;
+  }
+  return funciona;
+}
+
 Future<Tipoproducto?>crearTipoProductoController(
     String tipoproducto2,
     String descripcionProducto,
@@ -46,17 +68,22 @@ Future<Tipoproducto?> actualizarTipoProductoController(
     String descripcionProducto,
     String isvTipoProducto,
     context) async {
-  if (tipoproducto2.isNotEmpty &&
+  if (id.isNotEmpty &&
+  tipoproducto2.isNotEmpty &&
       descripcionProducto.isNotEmpty &&
       isvTipoProducto.isNotEmpty
       ) {
-    List<Tipoproducto?> producto = await ActualizarTipoProducto2(id, tipoproducto2, descripcionProducto, isvTipoProducto, context );
+    Tipoproducto? producto = await ActualizarTipoProducto(id, tipoproducto2, descripcionProducto, isvTipoProducto, context );
     if (producto != null) {
-            
-    } else {}
+       _ventanaExito(context);
+    } else {
+    _ventanaError(context);          
+    }
+    return producto;
   } else {
     _ventanaError(context);          
   }
+
 }
 
 void _ventanaExito(BuildContext context) {
@@ -134,7 +161,8 @@ void _ventanaExito(BuildContext context) {
                           margin: EdgeInsets.all(5),
                           child: RaisedButton(
                             onPressed: () {
-                              Navigator.pop(context);
+                              Navigator.popAndPushNamed(
+                                  context, 'PantallaTipoProductos');
                               //initState();
                             },
                             child: Text('OK'),

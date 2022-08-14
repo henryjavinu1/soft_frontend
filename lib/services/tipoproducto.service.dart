@@ -96,12 +96,13 @@ Future<void> crearTipoProducto(String tipoProducto, String descripcionProducto,
   }
 }
 
-Future<void> ActualizarTipoProducto(String idTipoProducto, String tipoProducto,
+Future<Tipoproducto?> ActualizarTipoProducto(String idTipoProducto, String tipoProducto,
     String descripcionProducto, String isvTipoProducto, context) async {
   if (idTipoProducto.isNotEmpty &&
       tipoProducto.isNotEmpty &&
       descripcionProducto.isNotEmpty &&
       isvTipoProducto.isNotEmpty) {
+    Tipoproducto tipoproducto = Tipoproducto(tipoProducto: tipoProducto, descripcionProducto: descripcionProducto, isvTipoProducto: isvTipoProducto);
     var response =
         await http.post(Uri.parse(API_URL + "producto/actualizartipo/"),
             body: ({
@@ -114,6 +115,7 @@ Future<void> ActualizarTipoProducto(String idTipoProducto, String tipoProducto,
     if (response.statusCode == 200) {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Tipo de Producto Actualizado.")));
+      return tipoproducto;
     }
   } else {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -187,29 +189,27 @@ Future<List<Tipoproducto?>> crearTipoProducto2(
 
 Future<List<Tipoproducto?>> ActualizarTipoProducto2(
  String idTipoProducto, String tipoProducto,
-    String descripcionProducto, String isvTipoProducto, context) async {////////////////
-  Tipoproducto? tipoProducto = null;
+    String descripcionProducto, String isvTipoProducto, context) async {
+  Tipoproducto? tipoProductom = null;
   List<Tipoproducto?> productoCreado = [];
   try {
     var response = await http.post(Uri.parse(API_URL + "producto/actualizartipo/"),
         body: ({
-          'id': idTipoProducto,
+          'id': idTipoProducto.toString(),
           'tipoProducto': tipoProducto,
           'descripcionProducto': descripcionProducto,
           'isvTipoProducto': isvTipoProducto
         }));
     print(response.body);
     if (response.statusCode == 200) {
-      print(tipoProducto);
-      //return clienteCreado;
+      print(tipoProductom);
     } else {
-      // return clienteCreado;
     }
     return productoCreado;
   } catch (e) {
     return productoCreado;
   } finally {
-    http.Client().close();
+
   }
 }
 

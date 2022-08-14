@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soft_frontend/constans.dart';
+import 'package:soft_frontend/controllers/tipoproducto.controller.dart';
 import 'package:soft_frontend/screens/producto/producto.screen.dart';
 import 'package:soft_frontend/models/Tipoproducto.model.dart';
 import 'package:soft_frontend/services/tipoproducto.service.dart';
@@ -38,6 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   List<Tipoproducto> tipos = <Tipoproducto>[];
   List<Tipoproducto> tiposN = <Tipoproducto>[];
+  bool isCorrect = false;
 
   Future<List<Tipoproducto>> fetchNotes2() async {
     var data = [];
@@ -83,12 +86,15 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-              icon: const Icon(Icons.arrow_back),
+          actions: <Widget>[
+            TextButton(
               onPressed: () {
-                Navigator.pushReplacementNamed(context, 'PantallaProductos');
+                Navigator.popAndPushNamed(context, 'PantallaProductos');
               },
+              child: Text('Regresar',
+                  style: TextStyle(color: Colors.white, fontSize: 20)),
             ),
+          ],
           title: Text(widget.title),
         ),
         body: Row(
@@ -231,13 +237,18 @@ class _MyHomePageState extends State<MyHomePage> {
                             margin: EdgeInsets.all(5),
                             child: RaisedButton(
                               onPressed: () {
-                                crearTipoProducto(
+                                isCorrect = controladorCrearTipoProducto(
                                     tipoProductoController.text,
                                     descripcionProductoController.text,
                                     isvTipoProductoController.text,
                                     context);
-                                Navigator.pop(context);
-                                _ventanaExito(context);
+                                if (isCorrect == true) {
+                                  Navigator.pop(context);
+                                  initState();
+                                } else {
+                                  _ventanaError(context);
+                                }
+                                initState();
                               },
                               child: Text('Guardar'),
                               padding: EdgeInsets.all(10),
@@ -364,14 +375,15 @@ class _MyHomePageState extends State<MyHomePage> {
                           margin: EdgeInsets.all(5),
                           child: RaisedButton(
                             onPressed: () {
-                              ActualizarTipoProducto(
+                              estaCorrecto = controladorActualizarTipoProducto(
                                   idTipoProductoP,
                                   tipoProducto2.text,
                                   descripcionProducto.text,
                                   isvTipoProducto.text,
                                   context);
-                              Navigator.pop(context);
-                              _ventanaExito(context);
+                              Navigator.popAndPushNamed(
+                                  context, 'PantallaTipoProductos');
+                              initState();
                             },
                             child: Text('Actualizar'),
                             padding: EdgeInsets.all(10),
@@ -573,7 +585,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           margin: EdgeInsets.all(5),
                           child: RaisedButton(
                             onPressed: () {
-                              Navigator.pop(context);
+                              Navigator.popAndPushNamed(
+                                  context, 'PantallaTipoProductos');
                               initState();
                             },
                             child: Text('OK'),
@@ -646,6 +659,51 @@ class _MyHomePageState extends State<MyHomePage> {
                             )),
                       ]),
                 ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _ventanaError(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          actions: <Widget>[
+            Container(
+              width: 500,
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(40),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Ocurrio un error al realizar esta acción, intente de nuevo.",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      Container(
+                          width: 80,
+                          height: 40,
+                          margin: EdgeInsets.all(5),
+                          child: RaisedButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              //initState();
+                            },
+                            child: Text('OK'),
+                            padding: EdgeInsets.all(10),
+                          )),
+                      SizedBox(
+                        height: 40,
+                      ),
+                    ]),
               ),
             ),
           ],

@@ -15,6 +15,7 @@ import 'package:soft_frontend/models/buscarProducto.dart';
 import 'package:soft_frontend/screens/tipoproducto/tipoproducto.screen.dart';
 import 'package:soft_frontend/screens/principalmantenimiento/principalmantenimiento.screen.dart';
 import 'package:soft_frontend/services/producto.service.dart';
+import 'package:soft_frontend/services/tipoproducto.service.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:soft_frontend/controllers/producto.controller.dart' as globals;
 
@@ -34,6 +35,7 @@ class _PantallaProductoState extends State<PantallaProducto> {
   int _counter = 0;
   List<Producto> tipos = <Producto>[];
   List<Producto> tiposN = <Producto>[];
+  bool _loading = true;
 
   final TextEditingController _typeAheadController = TextEditingController();
   String idTipoProductoG = "";
@@ -44,39 +46,57 @@ class _PantallaProductoState extends State<PantallaProducto> {
   int isExceptoN = 0;
   bool esCorrecto = false;
   String urlImage = "";
+  String? pathActualizar ="";
 
   // Porque tantas isExcepto? porque ando probando, y todas sirven, porfa no borrarlas u , u, hay una que se usa en
   // actualizar y otra en crear,
 
   @override
   void initState() {
+    super.initState();
+    //getInitData();
+    fetchData();
+  }
+
+  fetchData() async {
     tipos.clear();
     tiposN.clear();
-    obtenerProductos().then((value) {
+    var res = await obtenerProductos().then((value) {
       setState(() {
         tipos.addAll(value);
         tiposN.addAll(value);
       });
     });
-    super.initState();
+    setState(() {
+      _loading = false;
+    });
+  }
+
+  Future<void> getInitData() async {
+    await obtenerProductos().then((value) {
+      setState(() {
+        tipos.addAll(value);
+        tiposN.addAll(value);
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text('Nueva Venta'),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              Navigator.popAndPushNamed(context, 'mantenimiento');
-            },
-            child: Text('Regresar',
-                style: TextStyle(color: Colors.white, fontSize: 20)),
-          ),
-        ],
-      ),
+          automaticallyImplyLeading: false,
+          title: Text('Nueva Venta'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.popAndPushNamed(context, 'mantenimiento');
+              },
+              child: Text('Regresar',
+                  style: TextStyle(color: Colors.white, fontSize: 20)),
+            ),
+          ],
+        ),
         body: Row(
           children: [
             Padding(
@@ -146,12 +166,15 @@ class _PantallaProductoState extends State<PantallaProducto> {
                   Container(
                     width: 1200,
                     height: 500,
-                    child: 
-                    ListView.builder(
-                      itemBuilder: (context, index) {
-                        return index == 0 ? _searchBar() : _listItem(index - 1);
-                      },
-                      itemCount: tiposN.length + 1,
+                    child: Expanded(
+                      child: ListView.builder(
+                        itemBuilder: (context, index) {
+                          return index == 0
+                              ? _searchBar()
+                              : _listItem(index - 1);
+                        },
+                        itemCount: tiposN.length + 1,
+                      ),
                     ),
                   ),
                 ],
@@ -237,10 +260,17 @@ class _PantallaProductoState extends State<PantallaProducto> {
                               margin: EdgeInsets.all(5),
                               child: RaisedButton(
                                 onPressed: () {
-                                  ActualizarSaldo(codigoProductoController.text,
-                                      cantidadProductoController.text, context);
-                                  Navigator.pop(context);
-                                  _ventanaExito(context);
+                                  isCorrect = controladorCantidad(
+                                      codigoProductoController.text,
+                                      cantidadProductoController.text,
+                                      context);
+                                  if (isCorrect == true) {
+                                    initState();
+                                    Navigator.pop(context);
+                                  } else {
+                                    _ventanaError(context);
+                                  }
+                                  initState();
                                 },
                                 child: Text('Actualizar'),
                                 padding: EdgeInsets.all(10),
@@ -249,227 +279,6 @@ class _PantallaProductoState extends State<PantallaProducto> {
                   ),
                 ),
               ]),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void _ventanaCrearTipoProducto(BuildContext context) {
-    var idProductoController = TextEditingController();
-    var codigoProductoController = TextEditingController();
-    var nombreProductoController = TextEditingController();
-    var precioProductoController = TextEditingController();
-    var cantidadProductoController = TextEditingController();
-    var isvProductoController = TextEditingController();
-    var descProductoController = TextEditingController();
-    var isExcentoController = TextEditingController();
-    var idTipoProductoController = TextEditingController();
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          actions: <Widget>[
-            Container(
-              color: Colors.white,
-              child: Column(
-                children: [
-                  Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Container(
-                      width: 350,
-                      height: 350,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Text(
-                                  "Código Producto",
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              ),
-                              TextFormField(
-                                controller: codigoProductoController,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Text(
-                                  "Precio",
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              ),
-                              TextFormField(
-                                controller: precioProductoController,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Text(
-                                  "ISV",
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              ),
-                              TextFormField(
-                                  controller: isvProductoController,
-                                  keyboardType: TextInputType.text,
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(),
-                                  )),
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Text(
-                                  "Excento",
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: RadioListTile<int>(
-                                      value: 1,
-                                      groupValue: isExcento,
-                                      title: Text('Si'),
-                                      onChanged: (value) =>
-                                          setState(() => isExcento2 = true),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: RadioListTile<int>(
-                                      value: 2,
-                                      groupValue: isExcento,
-                                      title: Text('Si'),
-                                      onChanged: (value) =>
-                                          setState(() => isExcento2 = false),
-                                    ),
-                                  ),
-
-                                  /*
-                                  Expanded(
-                                    child: RadioListTile(
-                                        title: Text("No"),
-                                        value: "No",
-                                        groupValue: excenteo,
-                                        onChanged: (value){
-                                          setState(() {
-                                              excenteo = value.toString();
-                                          });
-                                        },
-                                    ),
-                                  ),
-                                  */
-                                ],
-                              ),
-                            ]),
-                      ),
-                    ),
-                    Container(
-                      width: 350,
-                      height: 350,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Text(
-                                  "Nombre del producto",
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              ),
-                              TextFormField(
-                                controller: nombreProductoController,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Text(
-                                  "Cantidad en existencia",
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              ),
-                              TextFormField(
-                                controller: cantidadProductoController,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Text(
-                                  "Descuento",
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              ),
-                              TextFormField(
-                                controller: descProductoController,
-                                keyboardType: TextInputType.text,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Text(
-                                  "Tipo producto",
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              ),
-                              _buscarTipoProducto(),
-                            ]),
-                      ),
-                    ),
-                  ]),
-                  Row(
-                    children: [
-                      Container(
-                          width: 100,
-                          height: 50,
-                          margin: EdgeInsets.all(5),
-                          child: RaisedButton(
-                            onPressed: () {
-                              crearProducto2(
-                                  codigoProductoController.text,
-                                  nombreProductoController.text,
-                                  precioProductoController.text,
-                                  cantidadProductoController.text,
-                                  isvProductoController.text,
-                                  descProductoController.text,
-                                  "0",
-                                  idTipoProductoG,
-                                  imagePiker,
-                                  context);
-                              _ventanaExito(context);
-                            },
-                            child: Text('Guardar'),
-                            padding: EdgeInsets.all(10),
-                          )),
-                      Container(
-                          width: 100,
-                          height: 50,
-                          margin: EdgeInsets.all(5),
-                          child: RaisedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: Text('Cancelar'),
-                            padding: EdgeInsets.all(10),
-                          )),
-                    ],
-                  ),
-                ],
-              ),
             ),
           ],
         );
@@ -767,6 +576,7 @@ class _PantallaProductoState extends State<PantallaProducto> {
                                             context);
                                         Navigator.pop(context);
                                         _ventanaExito(context);
+                                        initState();
                                       },
                                       child: Text('Actualizar'),
                                       padding: EdgeInsets.all(10),
@@ -831,8 +641,8 @@ class _PantallaProductoState extends State<PantallaProducto> {
             Expanded(
                 flex: 1,
                 child: FadeInImage(
-                  height: 100,
-                  width: 100,
+                    height: 100,
+                    width: 100,
                     image: NetworkImage('http://localhost:8080/' + enlace),
                     placeholder:
                         AssetImage('./assets/images/jar-loading.gif'))),
@@ -854,7 +664,7 @@ class _PantallaProductoState extends State<PantallaProducto> {
                       tiposN[index].isvProducto.toString(),
                       tiposN[index].descProducto.toString(),
                       tiposN[index].isExcento.toString(),
-                      path = 'http://localhost:8080/'+enlace,
+                      path = url + enlace,
                       tiposN[index].idTipoProducto.toString(),
                     );
                     print(tiposN[index].urlImage);
@@ -972,7 +782,7 @@ class _PantallaProductoState extends State<PantallaProducto> {
         idTipoProductoG = tipo.id.toString();
         this._typeAheadController.text = tipo.tipoProducto;
 
-        /*            
+        /*
               ScaffoldMessenger.of(context),
               ..removeCurrentSnackBar()
               ..showSnackBar(SnackBar(
@@ -1123,7 +933,6 @@ class _PantallaProductoState extends State<PantallaProducto> {
                                           ),
                                         ],
                                       ),
-                                      
                                     ]),
                               ),
                             ),
@@ -1184,16 +993,11 @@ class _PantallaProductoState extends State<PantallaProducto> {
                                         ),
                                       ),
                                       _buscarTipoProducto(),
-                                      
-                                    ]
-                                    ),
-                                    
+                                    ]),
                               ),
                             ),
-                            
                           ]),
                       Row(
-                        
                         children: [
                           (path == null)
                               ? Container(
@@ -1231,25 +1035,56 @@ class _PantallaProductoState extends State<PantallaProducto> {
                             margin: EdgeInsets.all(2),
                             child: RaisedButton(
                               onPressed: () {
-                                isCorrect = pruebaControlador(
-                                    codigoProductoController.text,
-                                    nombreProductoController.text,
-                                    precioProductoController.text,
-                                    cantidadProductoController.text,
-                                    isvProductoController.text,
-                                    descProductoController.text,
-                                    isExcento.toString(),
-                                    idTipoProductoG,
-                                    imagePiker,
-                                    context);
-
-                                if (isCorrect == true) {
-                                  _ventanaExito(context);
-                                  Navigator.pop(context);
+                                //Estos if anidados, estan porque de verdad, Dios sabra porque no puede
+                                // hacer una comparacion
+                                if(codigoProductoController.text!=""){
+                                  if(nombreProductoController.text!= ""){
+                                    if (precioProductoController.text!=""){
+                                      if(cantidadProductoController.text!=""){
+                                        if(isvProductoController.text!=""){
+                                          isCorrect = pruebaControlador(
+                                              codigoProductoController.text,
+                                              nombreProductoController.text,
+                                              precioProductoController.text,
+                                              cantidadProductoController.text,
+                                              isvProductoController.text,
+                                              descProductoController.text,
+                                              isExcento.toString(),
+                                              idTipoProductoG,
+                                              imagePiker,
+                                              context);
+                                          if (isCorrect == true){
+                                            Navigator.pop(context);
+                                            _ventanaExito(context);
+                                            initState();
+                                          }
+                                        } else {
+                                          _ventanaError(context);
+                                        }
+                                      } else{
+                                        _ventanaError(context);
+                                      }
+                                    } else {
+                                      _ventanaError(context);
+                                    }
+                                  } else {
+                                    _ventanaError(context);
+                                  }
                                 } else {
                                   _ventanaError(context);
                                 }
-                                Navigator.pop(context);
+
+                                /*
+                                if (isCorrect == true) {
+                                  Navigator.pop(context);
+                                  _ventanaExito(context);
+                                  initState();
+                                } else {
+                                  _ventanaError(context);
+                                }}
+
+
+                                 */
                                 initState();
                               },
                               child: Text('Guardar'),
@@ -1266,7 +1101,6 @@ class _PantallaProductoState extends State<PantallaProducto> {
                               child: Text('Cancelar'),
                               padding: EdgeInsets.all(10),
                             )),
-                        
                       ]),
                     ],
                   ),
@@ -1291,8 +1125,6 @@ class _PantallaProductoState extends State<PantallaProducto> {
       String isExcentoP,
       String? path,
       String idTipoProductoP) {
-        
-        
     late TextEditingController idProducto =
         TextEditingController(text: idProductoP);
     late TextEditingController codigoProducto =
@@ -1309,6 +1141,7 @@ class _PantallaProductoState extends State<PantallaProducto> {
         TextEditingController(text: descProductoP);
     late TextEditingController isExcento5 =
         TextEditingController(text: isExcentoP);
+    idTipoProductoG = idTipoProductoP;
     late TextEditingController idTipoProducto =
         TextEditingController(text: idTipoProductoP);
     if (isExcentoP.toString() == "true") {
@@ -1316,6 +1149,9 @@ class _PantallaProductoState extends State<PantallaProducto> {
     } else {
       isExceptoN = 0;
     }
+    pathActualizar = path;
+    imagePiker = path;
+    bool imagenNueva = false;
 
     showDialog<void>(
       context: context,
@@ -1473,42 +1309,38 @@ class _PantallaProductoState extends State<PantallaProducto> {
                             ),
                           ),
                         ]),
-
                     Row(
-                        
-                        children: [
-                          (path == null)
-                              ? Container(
-                                  width: 150,
-                                  height: 150,
-                                  child: FadeInImage(
-                                    fit: BoxFit.contain,
-                                    image: AssetImage(
-                                        './assets/images/no-image.png'),
-                                    placeholder: AssetImage(
-                                        './assets/images/no-image.png'),
-                                  ),
-                                )
-                              : Image.network(
-                                  path!,
-                                  width: 100,
-                                  height: 100,
+                      children: [
+                        (path == null)
+                            ? Container(
+                                width: 150,
+                                height: 150,
+                                child: FadeInImage(
+                                  fit: BoxFit.contain,
+                                  image: AssetImage(
+                                      './assets/images/no-image.png'),
+                                  placeholder: AssetImage(
+                                      './assets/images/no-image.png'),
                                 ),
-                          TextButton(
-                              child: Text('Agregar Imagen'),
-                              onPressed: () async {
-                                picker = ImagePicker();
-                                imagePiker = await picker.pickImage(
-                                    source: ImageSource.gallery);
-                                setState(() {
-                                  path = imagePiker!.path;
-
-                                });
-                                
-
-                              }),
-                        ],
-                      ),
+                              )
+                            : Image.network(
+                                path!,
+                                width: 100,
+                                height: 100,
+                              ),
+                        TextButton(
+                            child: Text('Agregar Imagen'),
+                            onPressed: () async {
+                              picker = ImagePicker();
+                              imagePiker = await picker.pickImage(
+                                  source: ImageSource.gallery);
+                              setState(() {
+                                path = imagePiker!.path;
+                                imagenNueva = true;
+                              });
+                            }),
+                      ],
+                    ),
                     Row(
                       children: [
                         Container(
@@ -1517,20 +1349,51 @@ class _PantallaProductoState extends State<PantallaProducto> {
                             margin: EdgeInsets.all(5),
                             child: RaisedButton(
                               onPressed: () {
-                                ActualizarProducto2(
-                                    idProducto.text,
-                                    codigoProducto.text,
-                                    nombreProducto.text,
-                                    precioProducto.text,
-                                    cantidadProducto.text,
-                                    isvProducto.text,
-                                    descProducto.text,
-                                    isExcento2.toString(),
-                                    idTipoProductoG,
-                                    imagePiker,
-                                    context);
-                                Navigator.pop(context);
-                                _ventanaExito(context);
+                                if (imagenNueva == false){
+                                  isCorrect = controladorActualizarSinProducto(
+                                      idProducto.text,
+                                      codigoProducto.text,
+                                      nombreProducto.text,
+                                      precioProducto.text,
+                                      cantidadProducto.text,
+                                      isvProducto.text,
+                                      descProducto.text,
+                                      isExcento2.toString(),
+                                      idTipoProductoG,
+                                      context
+                                  );
+                                  if (isCorrect == true) {
+                                    initState();
+                                    Navigator.pop(context);
+                                  } else {
+                                    _ventanaError(context);
+                                  }
+                                  initState();
+
+                                } else {
+                                  isCorrect = controladorActualizarConImagen(
+                                      idProducto.text,
+                                      codigoProducto.text,
+                                      nombreProducto.text,
+                                      precioProducto.text,
+                                      cantidadProducto.text,
+                                      isvProducto.text,
+                                      descProducto.text,
+                                      isExcento2.toString(),
+                                      idTipoProductoG,
+                                      imagePiker,
+                                      context);
+                                  if (isCorrect == true) {
+                                    _ventanaExito(context);
+                                    initState();
+                                    Navigator.pop(context);
+                                  } else {
+                                    _ventanaError(context);
+                                  }
+                                  initState();
+                                }
+
+
                               },
                               child: Text('Guardar'),
                               padding: EdgeInsets.all(10),
