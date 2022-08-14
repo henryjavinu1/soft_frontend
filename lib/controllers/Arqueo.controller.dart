@@ -65,7 +65,7 @@ Future crearArqueo_Controller(String efectivoApertura, context) async {
       if (arqueo != null) {
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Arqueo Creado con exito')));
-        Navigator.pushReplacementNamed(context, 'PrincipalVentas');
+        Navigator.pushReplacementNamed(context, 'pantalla_principal');
       } else {}
     } else {
       ScaffoldMessenger.of(context)
@@ -112,6 +112,7 @@ Future validarArqueoActivo_Controller(context) async {
   if (token != '') {
     //List<ManipularArqueo?> arqueo1 = await validarArqueoActivo(token);
     var resp = await validarArqueoActivo(token);
+    print(resp);
     if (!resp) {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Por favor Cree un nuevo')));
