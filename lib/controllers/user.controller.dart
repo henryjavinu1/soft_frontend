@@ -47,7 +47,7 @@ Future<bool?> logout_controller(context) async {
               child: Text("Ir Pantalla Arqueo"),
               onPressed: () {
                 Navigator.pop(context);
-                Navigator.popAndPushNamed(context, 'traer_arqueo');
+                Navigator.popAndPushNamed(context, 'ventas');
               },
             ),
             ElevatedButton(

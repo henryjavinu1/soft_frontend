@@ -493,6 +493,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                                                                   .toString());
                                                         },
                                                       )),*/
+                                                  /*
                                                   Expanded(
                                                       flex: 3,
                                                       child: TextButton(
@@ -502,7 +503,7 @@ class _MostrarArqueosState extends State<MostrarArqueos> {
                                                           _showDialogActualizar(
                                                               context);
                                                         },
-                                                      )),
+                                                      )),*/
                                                 ],
                                               ),
                                             );
