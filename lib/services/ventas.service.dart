@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import '../models/ventaBuscada.model.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,8 @@ Future crearVenta(
     String tipo,
     String idSesion,
     String idUsuario,
-    String idCliente) async {
+    String idCliente,
+    String token) async {
   try {
     var response = await http.post(Uri.parse(API_URL + 'ventas'),
         body: ({
@@ -48,7 +50,8 @@ Future crearVenta(
           'tipo': tipo,
           'idSesion': idSesion,
           'idUsuario': idUsuario,
-          'idCliente': idCliente
+          'idCliente': idCliente,
+          'token': token,
         }));
     print(response.statusCode);
     if (response.statusCode == 200) {
@@ -108,14 +111,17 @@ Future procesarVenta(String id) async {
   }
 }
 
-Future eliminarVenta(String id) async {
+Future eliminarVenta(String id, String token) async {
   print(id);
   var client = http.Client();
   Ventas? venta = null;
   List<Ventas?> ventaCreada = [];
   try {
     var response = await http.post(Uri.parse(API_URL + "eliminarVenta"),
-        body: ({'id': id}));
+        body: ({
+          'id': id,
+          'token': token,
+        }));
     print(response.body);
     if (response.statusCode == 200) {
       print(Ventas);
@@ -162,7 +168,7 @@ Future<String> actualizarVenta(id, totalISVController, totalVentaController,
   }
 }
 
-Future mostrarVentasDetalladas() async {
+/*Future mostrarVentasDetallabdas() async {
   try {
     var response =
         await http.post(Uri.parse(API_URL + 'detalleVentaDetalladas'));
@@ -172,6 +178,27 @@ Future mostrarVentasDetalladas() async {
       final VentaBuscada listventa = ventaBuscadaFromJson(response.body);
       return listventa;
     }
+  } catch (e) {
+    print(e);
+    return 2;
+  }
+}*/
+
+Future mostrarVentasDetalladas(String token) async {
+  try {
+    final response = await http
+        .post(Uri.parse(API_URL + 'detalleVentaDetalladas'),
+            body: ({'token': token}))
+        .timeout(Duration(seconds: 15));
+    print(response.statusCode); ///////////////
+    if (response.statusCode == 200) {
+      // print(response.request);
+      //print(jsonDecode(response.body));
+      VentaBuscada listventa = ventaBuscadaFromJson(response.body);
+      return listventa;
+    }
+  } on TimeoutException catch (_) {
+    throw ('Tiempo de espera alcanzado');
   } catch (e) {
     print(e);
     return 2;

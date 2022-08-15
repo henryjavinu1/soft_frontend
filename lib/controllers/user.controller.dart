@@ -7,6 +7,7 @@ import 'package:soft_frontend/screens/login/login.screen.dart';
 import 'package:soft_frontend/screens/pantallaPrincipal/principal.screen.dart';
 import 'package:soft_frontend/services/login.service.dart';
 import 'package:soft_frontend/models/user.model.dart';
+import 'package:soft_frontend/services/sharepreference.service.dart';
 import 'package:soft_frontend/services/user.service.dart';
 
 Future<bool> login_controller(String usuario, String passwd, context) async {
@@ -30,7 +31,36 @@ Future<bool> login_controller(String usuario, String passwd, context) async {
   }
 }
 
-Future<bool> logout_controller(context) async {
+Future<bool?> logout_controller(context) async {
+  bool connectionResult = await getarqueo();
+  print(connectionResult);
+  
+  if (connectionResult == true){
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Arqueo abierto"),
+          content: Text("Cierra los arqueos antes de cerrar sesion"),
+          actions: <Widget>[
+            ElevatedButton(
+              child: Text("Ir Pantalla Arqueo"),
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.popAndPushNamed(context, 'ventas');
+              },
+            ),
+            ElevatedButton(
+              child: Text("Cerrar Ventana"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }else{
   bool? user = await logout();
   if (user != null) {
     final prefs = await SharedPreferences.getInstance();
@@ -40,6 +70,7 @@ Future<bool> logout_controller(context) async {
     return true;
   } else {
     return false;
+  }
   }
 }
 
