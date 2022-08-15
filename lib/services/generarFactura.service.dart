@@ -17,7 +17,6 @@ Future crearFactura(
     } else {}
     return facturaCreada;
   } catch (e) {
-    print(e);
     return facturaCreada;
   } finally {
     http.Client().close();

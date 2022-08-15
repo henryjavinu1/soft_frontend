@@ -1,9 +1,6 @@
-import 'dart:async';
-import 'dart:core';
-
 import 'package:flutter/material.dart';
+import 'package:soft_frontend/constans.dart';
 
-import '../constans.dart';
 import '../models/crearFactura.model.dart';
 import '../screens/manipularFactura/manipularfactura.screen.dart';
 import '../services/generarFactura.service.dart';
@@ -30,17 +27,11 @@ Future<Factura?> crearFactura_Controller(
   final token = await paToken(context);
   if (token != '') {
     if (idVenta.isNotEmpty && idTipoPago.isNotEmpty) {
-      List<Factura?> factura =
-          await crearFactura(idVenta, idTipoPago, token, context);
+      final factura = await crearFactura(idVenta, idTipoPago, token, context);
       if (factura != null) {
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("Factura añadido con exito")));
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ManipularFactura(),
-          ),
-        );
+        return factura;
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("No se pudo agregar la factura")));
