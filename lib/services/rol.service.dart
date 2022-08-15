@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:soft_frontend/models/rolResponse.model.dart';
 import 'dart:convert';
 import 'dart:developer';
 import '../models/rol.model.dart';
 import '../models/gestionrol.model.dart';
 import 'package:soft_frontend/constans.dart';
 
-Future<List<Rol?>> crearRol(String rol, String descripcion, context) async {
+Future<List<Rol2?>> crearRol(String rol, String descripcion, context) async {
   var client = http.Client();
-  Rol? role;
-  List<Rol?> RolCreado = [];
+  Rol2? role;
+  List<Rol2?> RolCreado = [];
   try {
     var response = await client.post(Uri.parse(API_URL + "roles/create"),
         body: ({'rol': rol, 'descripcion': descripcion}));
-    print(response.body);
     if (response.statusCode == 200) {
-      print(Rol);
+      final decode = RolResponse.fromJson(response.body);
+      print('hola');
+      print(decode.data);
+      RolCreado.add(decode.data);
+    return RolCreado;
     } else {}
     return RolCreado;
   } catch (e) {

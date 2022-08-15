@@ -36,12 +36,7 @@ class _ActualizarRole2State extends State<ActualizarRole2> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 3),
-                const Text(
-                  "Por favor llene los campos",
-                  style: TextStyle(fontSize: 15, color: Color(0xff606060)),
-                ),
-                const SizedBox(height: 10),
+                
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Container(
@@ -52,6 +47,14 @@ class _ActualizarRole2State extends State<ActualizarRole2> {
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            const Text(
+                              "Por favor llene los campos",
+                              style: TextStyle(
+                                  fontSize: 15, color: Color(0xff606060)),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
                             const Text(
                               "Rol",
                               style: TextStyle(fontSize: 18),

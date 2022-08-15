@@ -38,7 +38,6 @@ Future getPermisos() async {
     if (response.statusCode == 200) {
       // print(response.body);
       Permisos decode = Permisos.fromJson(response.body);
-      print('hola: '+decode.data.toString());
       return decode;
     } else {
       // print(response.statusCode);

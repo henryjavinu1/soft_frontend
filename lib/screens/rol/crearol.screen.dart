@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:grouped_buttons_ns/grouped_buttons_ns.dart';
 import 'package:soft_frontend/controllers/roles.controller.dart';
 import 'package:soft_frontend/models/permisos.model.dart';
+import 'package:soft_frontend/models/rol.model.dart';
+import 'package:soft_frontend/models/rolResponse.model.dart';
 import 'package:soft_frontend/services/permiso.service.dart';
 import 'package:soft_frontend/services/rol.service.dart';
 import 'package:soft_frontend/services/rolpermiso.service.dart';
@@ -17,6 +19,7 @@ class _CrearRolState extends State<CrearRol> {
   List<Permiso2> listpermisos = [];
   List<String> nombrePermisos = [];
   List<String> permisossignados = [];
+  List<int> idPermisos = [];
   var idRolController = TextEditingController();
   var rolController = TextEditingController();
   var descripcionController = TextEditingController();
@@ -134,29 +137,38 @@ class _CrearRolState extends State<CrearRol> {
                                 // SizedBox(
                                 //   height: 40,
                                 // ),
-
+                                SizedBox(
+                                  height: 0.5,
+                                ),
+                                Text(
+                                  'Permisos',
+                                  style: TextStyle(fontSize: 18),
+                                ),
                                 SizedBox(
                                   height: 200,
                                   child: SingleChildScrollView(
                                     child: CheckboxGroup(
-                                      labels: nombrePermisos,
-                                      onChange: (bool isChecked, String label,
-                                              int index) =>
-                                          print(
-                                              'isChecked: $isChecked   label: $label  index: $index'),
-                                    ),
+                                        labels: nombrePermisos,
+                                        onChange: (bool isChecked, String label,
+                                            int index) {
+                                          idPermisos.add(index + 1);
+                                        }),
                                   ),
                                 ),
                                 TextButton(
                                   onPressed: null,
                                   child: Center(
                                     child: ElevatedButton(
-                                        onPressed: () { /*CreaRol_controller(
-                                            idRolController.text,
+                                        onPressed: () {
+                                          Future<Rol2?> rolCreado = CreaRol_controller(
                                             rolController.text,
                                             descripcionController.text,
-                                            context);*/
-                                            crearRolPermiso();},
+                                            context);
+                                          rolCreado.then((value) {
+                                            print(value!.id.toString());
+                                            crearRolPermiso(idPermisos, value.id.toString());
+                                          });
+                                        },
                                         child: Padding(
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 10, vertical: 10),
