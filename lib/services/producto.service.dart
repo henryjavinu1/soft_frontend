@@ -135,12 +135,10 @@ Future<List<Producto?>> crearProducto2(
     var parsedJson = json.decode(event);
     print(parsedJson);
     print(response.statusCode);
-    //It's done...
   });
   if (response.statusCode == 200) {
     print(Producto);
 
-    //return empleadoCreado;
   } else {
     print(response.statusCode);
   }
@@ -195,58 +193,13 @@ Future<List<Producto?>> ActualizarProducto2(
     });
     if (response.statusCode == 200) {
       print(Producto);
-      //return clienteCreado;
     } else {
-      // return clienteCreado;
     }
     return productoCreado;
   } catch (e) {
     return productoCreado;
   } finally {
     http.Client().close();
-  }
-}
-
-Future<void> editarProducto(
-    String codigoProducto,
-    String nombreProducto,
-    String precioProducto,
-    String cantidadProducto,
-    String isvProducto,
-    String descProducto,
-    String isExcento,
-    String idTipoProducto,
-    String idProducto,
-    context) async {
-  if (codigoProducto.isNotEmpty &&
-      nombreProducto.isNotEmpty &&
-      precioProducto.isNotEmpty &&
-      cantidadProducto.isNotEmpty &&
-      isvProducto.isNotEmpty &&
-      descProducto.isNotEmpty &&
-      isExcento.isNotEmpty &&
-      idTipoProducto.isNotEmpty) {
-    var response =
-        await http.post(Uri.parse(API_URL + 'producto/crearproducto/'),
-            body: ({
-              'codigoProducto': codigoProducto,
-              'nombreProducto': nombreProducto,
-              'precioProducto': precioProducto,
-              'cantidadProducto': cantidadProducto,
-              'isvProducto': isvProducto,
-              'descProducto': descProducto,
-              'isExcento': isExcento,
-              'idTipoProducto': idTipoProducto,
-              'id': idProducto
-            }));
-
-    if (response.statusCode == 200) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Producto creado exitosamente.')));
-    } else {}
-  } else {
-    ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Error al crear el producto.')));
   }
 }
 
@@ -309,6 +262,7 @@ Future<void> ActualizarSaldo(
 }
 
 Future<void> EliminarProducto(String idProducto, context) async {
+  
   var response =
       await http.post(Uri.parse(API_URL + 'producto/eliminarproducto'),
           body: ({
@@ -389,12 +343,84 @@ Future<List<Producto?>> eliminarProducto2(String id) async {
         body: ({'id': id}));
     print(response.body);
     if (response.statusCode == 200) {
-    } else {}
+
+    } else {
+
+    }
     return productoCreado;
   } catch (e) {
     print(e);
     return productoCreado;
   } finally {}
+}
+
+Future<List<Producto?>> ActualizarSaldo2(
+    String codigoProducto, String cantidadProducto, context) async {
+  Producto? producto= null;
+  List<Producto?> productoC = [];
+  try {
+    var response = await http.post(
+        Uri.parse(API_URL + 'producto/actualizarsaldo'),
+        body: ({
+          'codigoProducto': codigoProducto,
+          'cantidadProducto': cantidadProducto
+        }));
+
+    if (response.statusCode == 200) {
+    } else {
+    }
+    return productoC;
+  } catch (e){
+    print(e);
+    return productoC;
+  }
+
+}
+
+
+
+
+
+Future<List<Producto?>> ActualizarProductoSinImagen(
+    String idProducto,
+    String codigoProducto,
+    String nombreProducto,
+    String precioProducto,
+    String cantidadProducto,
+    String isvProducto,
+    String descProducto,
+    String isExcento,
+    String idTipoProducto,
+    context
+    ) async {
+  Producto? producto = null;
+  List<Producto?> productoC = [];
+  try {
+    var response =
+    await http.post(Uri.parse(API_URL + 'producto/actualizarsinimagen'),
+        body: ({
+          'id': idProducto,
+          'codigoProducto': codigoProducto,
+          'nombreProducto': nombreProducto,
+          'precioProducto': precioProducto,
+          'cantidadProducto': cantidadProducto,
+          'isvProducto': isvProducto,
+          'descProducto': descProducto,
+          'isExcento': isExcento,
+          'idTipoproducto': idTipoProducto,
+        }));
+    print(response.body);
+    if (response.statusCode == 200) {
+      print(producto);
+    } else {
+    }
+    return productoC;
+
+  } catch (e) {
+    return productoC;
+
+  } finally {
+  }
 }
 
 class UserApi {
@@ -415,6 +441,8 @@ class UserApi {
     }
   }
 }
+
+// ????
 
 class Tipoproducto2 {
   final String tipoProducto;

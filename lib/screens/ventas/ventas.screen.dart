@@ -46,6 +46,8 @@ class _VentanaVentaState extends State<VentanaVenta> {
   int idDetalleActual = 0;
   late DetalleDeVentasXid datosDetalle;
   double subtotal = 0;
+  int isExcento = 0;
+  bool isExcento2 = false;
 
   @override
   Widget build(BuildContext context) {
@@ -81,10 +83,10 @@ class _VentanaVentaState extends State<VentanaVenta> {
             child: Column(
               children: [
                 const SizedBox(
-                  height: 30,
+                  height: 5,
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(1.0),
                   child: SingleChildScrollView(
 
                      scrollDirection: Axis.horizontal,
@@ -109,7 +111,7 @@ class _VentanaVentaState extends State<VentanaVenta> {
                                 },
                                 child: Padding(
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 10),
+                                      horizontal: 10, vertical: 5),
                                   child: Text('Agregar Cliente'),
                                 ),
                                 style: ButtonStyle(
@@ -205,7 +207,7 @@ class _VentanaVentaState extends State<VentanaVenta> {
                   ),
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 10,
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -214,6 +216,46 @@ class _VentanaVentaState extends State<VentanaVenta> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Container(
+                          width: size.width * 0.2,
+                          child: Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Text(
+                                      "Excento",
+                                      style: TextStyle(fontSize: 15),
+                                    ),
+                                  ),
+                        ),
+                        Container(
+                          width: size.width * 0.20,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: RadioListTile<int>(
+                                value: 1,
+                                groupValue: isExcento,
+                                title: Text('Si', style: TextStyle(fontSize: 15),
+                                ),
+                                onChanged: (value) { setState(() => isExcento = 1);
+                                isExcento2 = true;
+                                },
+                              ),
+                            ),
+                              Expanded(
+                              child: RadioListTile<int>(
+                              value: 0,
+                              groupValue: isExcento,
+                              title: Text('No',  style: TextStyle(fontSize: 15)),
+                              onChanged: (value) {
+                              setState(() => isExcento = 0);
+                              isExcento2 = false;
+                              }
+                            ),
+                          ),
+                      ],
+                    ),
+                        ),
+
                           Container(
                             width: size.width * 0.2,
                             child: TextFormField(
@@ -231,7 +273,7 @@ class _VentanaVentaState extends State<VentanaVenta> {
                             ),
                           ),
                           const SizedBox(
-                            height: 10,
+                            height: 5,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -278,9 +320,9 @@ class _VentanaVentaState extends State<VentanaVenta> {
                                           await buscarProductoController(
                                               codProductoController,
                                               cantidadProducController,
+                                              isExcento2,
                                               idVentaActual,
                                               context);
-
                                       if (response == DetalleDeVentasXid) {
                                         // idDetalleActual = response.id;
                                         datosDetalle = response;
@@ -385,7 +427,7 @@ class _VentanaVentaState extends State<VentanaVenta> {
                             ),
                           ),
                           SizedBox(
-                            height: 40,
+                            height: 30,
                           ),
                           Container(
                             child: Column(

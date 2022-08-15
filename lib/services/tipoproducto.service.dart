@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+//import 'package:soft_frontend/models/buscarProducto.dart';
+//import 'package:soft_frontend/models/buscarProducto.dart';
 import 'package:soft_frontend/models/Tipoproducto.model.dart';
 import 'dart:convert';
 import '../constans.dart';
@@ -93,12 +95,20 @@ Future<void> crearTipoProducto(String tipoProducto, String descripcionProducto,
   }
 }
 
-Future<void> ActualizarTipoProducto(String idTipoProducto, String tipoProducto,
-    String descripcionProducto, String isvTipoProducto, context) async {
+Future<Tipoproducto?> ActualizarTipoProducto(
+    String idTipoProducto,
+    String tipoProducto,
+    String descripcionProducto,
+    String isvTipoProducto,
+    context) async {
   if (idTipoProducto.isNotEmpty &&
       tipoProducto.isNotEmpty &&
       descripcionProducto.isNotEmpty &&
       isvTipoProducto.isNotEmpty) {
+    Tipoproducto tipoproducto = Tipoproducto(
+        tipoProducto: tipoProducto,
+        descripcionProducto: descripcionProducto,
+        isvTipoProducto: isvTipoProducto);
     var response =
         await http.post(Uri.parse(API_URL + "producto/actualizartipo/"),
             body: ({
@@ -111,6 +121,7 @@ Future<void> ActualizarTipoProducto(String idTipoProducto, String tipoProducto,
     if (response.statusCode == 200) {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Tipo de Producto Actualizado.")));
+      return tipoproducto;
     }
   } else {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -135,7 +146,6 @@ Future<List<Tipoproducto>> obtenerTipos() async {
   var url = Uri.parse(API_URL + "producto/mostrartipos");
   var response = await http.get(url);
   List<Tipoproducto> users = [];
-
   try {
     if (response.statusCode == 200) {
       var units =
@@ -155,4 +165,53 @@ Future<List<Tipoproducto>> obtenerTipos() async {
     print('error: $e');
   }
   return users;
+}
+
+Future<List<Tipoproducto?>> crearTipoProducto2(String tipoProducto,
+    String descripcionProducto, String isvTipoProducto, context) async {
+  Tipoproducto? tipoproducto = null;
+  List<Tipoproducto?> productoCreado = [];
+  try {
+    var response =
+        await http.post(Uri.parse(API_URL + "producto/tipoproducto/"),
+            body: ({
+              'tipoProducto': tipoProducto,
+              'descripcionProducto': descripcionProducto,
+              'isvTipoProducto': isvTipoProducto,
+            }));
+    print(response.body);
+    if (response.statusCode == 200) {
+      print(tipoproducto);
+    } else {}
+    return productoCreado;
+  } catch (e) {
+    return productoCreado;
+  } finally {}
+}
+
+Future<List<Tipoproducto?>> ActualizarTipoProducto2(
+    String idTipoProducto,
+    String tipoProducto,
+    String descripcionProducto,
+    String isvTipoProducto,
+    context) async {
+  Tipoproducto? tipoProductom = null;
+  List<Tipoproducto?> productoCreado = [];
+  try {
+    var response =
+        await http.post(Uri.parse(API_URL + "producto/actualizartipo/"),
+            body: ({
+              'id': idTipoProducto.toString(),
+              'tipoProducto': tipoProducto,
+              'descripcionProducto': descripcionProducto,
+              'isvTipoProducto': isvTipoProducto
+            }));
+    print(response.body);
+    if (response.statusCode == 200) {
+      print(tipoProductom);
+    } else {}
+    return productoCreado;
+  } catch (e) {
+    return productoCreado;
+  } finally {}
 }
