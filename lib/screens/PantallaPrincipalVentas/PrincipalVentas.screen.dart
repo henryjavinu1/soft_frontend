@@ -15,7 +15,6 @@ class PantallaPrincipalVenta extends StatefulWidget {
 }
 
 class _PantallaPrincipalVentaState extends State<PantallaPrincipalVenta> {
-  /*
   @override
   /*void initState() {
     validarArqueoActivo_Controller(context);
