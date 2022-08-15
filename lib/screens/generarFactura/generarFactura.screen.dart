@@ -117,8 +117,8 @@ class _CrearFacturaState extends State<CrearFactura> {
                           crearFactura_Controller(idVentaController.text,
                                   idTipoPagoController.text, context)
                               .then((value) {
-                                dialogOpcionDeImpresion(context, value!, 1);
-                                
+                            dialogOpcionDeImpresion(context, value!, 1);
+
                             // descargarFacturaOriginal(context,
                             //     value!.insertfactura.numeroFactura, 1, 1);
                           }

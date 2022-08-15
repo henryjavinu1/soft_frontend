@@ -15,9 +15,8 @@ class PantallaPrincipalVenta extends StatefulWidget {
 }
 
 class _PantallaPrincipalVentaState extends State<PantallaPrincipalVenta> {
-  /*
   @override
-  void initState() {
+  /*void initState() {
     validarArqueoActivo_Controller(context);
     super.initState();
   }*/
@@ -116,6 +115,21 @@ class _Pantalla extends StatelessWidget {
                     img: 'notas.png',
                     name: 'Facturacion',
                     route: 'manipular_factura',
+                    width: 0.3,
+                    fontSize: 18,
+                  ),
+                ),
+              ],
+              SizedBox(
+                width: 30,
+              ),
+              if (permisosId.contains(15)) ...[
+                Visibility(
+                  visible: true,
+                  child: TextButtons(
+                    img: 'venta-cruzada.png',
+                    name: 'Procesar Ventas',
+                    route: 'mostrar_ventas',
                     width: 0.3,
                     fontSize: 18,
                   ),

@@ -9,8 +9,8 @@ import 'package:soft_frontend/models/tipoPago.model.dart';
 import 'package:soft_frontend/models/unPagoBuscado.model.dart';
 import '../constans.dart';
 
-Future<List<Tipopago?>> CrearTipoPago(
-    String tipoDePago, String descripcionTipoPago, context) async {
+Future<List<Tipopago?>> CrearTipoPago(String tipoDePago,
+    String descripcionTipoPago, String token, context) async {
   var tipopag = http.Client();
   Tipopago? tipopago = null;
   List<Tipopago?> tipopagoCreado = [];
@@ -19,6 +19,7 @@ Future<List<Tipopago?>> CrearTipoPago(
         body: ({
           'tipoDePago': tipoDePago,
           'descripcionTipoPago': descripcionTipoPago,
+          'token': token
         }));
     print(response.body);
     if (response.statusCode == 200) {
@@ -32,14 +33,15 @@ Future<List<Tipopago?>> CrearTipoPago(
   }
 }
 
-Future<List<TipoPago?>> EliminarTipoPago(String idTipoPago, context) async {
+Future<List<TipoPago?>> EliminarTipoPago(
+    String idTipoPago, String token, context) async {
   print(idTipoPago);
   var tipo = http.Client();
   TipoPago? tipopag = null;
   List<TipoPago?> tipoPagoCreado = [];
   try {
     var response = await http.post(Uri.parse(API_URL + 'gene/eliminartipopago'),
-        body: ({'idTipoPago': idTipoPago}));
+        body: ({'idTipoPago': idTipoPago, 'token': token}));
     print(response.body);
     if (response.statusCode == 200) {
       print(TipoPago);
@@ -56,7 +58,7 @@ Future<List<TipoPago?>> EliminarTipoPago(String idTipoPago, context) async {
 }
 
 Future<List<TipoPago?>> actualizarTipoPago(String idTipoPago, String tipoDePago,
-    String descripcionTipoPago, context) async {
+    String descripcionTipoPago, String token, context) async {
   var client = http.Client();
   TipoPago? tipopago = null;
   List<TipoPago?> tipoPagoCreado = [];
@@ -67,6 +69,7 @@ Future<List<TipoPago?>> actualizarTipoPago(String idTipoPago, String tipoDePago,
               'idTipoPago': idTipoPago,
               'tipoDePago': tipoDePago,
               'descripcionTipoPago': descripcionTipoPago,
+              'token': token
             }));
     print(response.body);
     if (response.statusCode == 200) {

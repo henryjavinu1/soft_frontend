@@ -56,7 +56,7 @@ class _EscogerVentaPruebState extends State<EscogerVentaPrueb> {
           ],
         ),
         body: FutureBuilder(
-          future: mostrarVentasDetalladas(),
+          future: listarVentas_Controller(context),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const CircularProgressIndicator();
