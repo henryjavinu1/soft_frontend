@@ -111,12 +111,12 @@ Future validarArqueoActivo_Controller(context) async {
   final token = await expectToken(context);
   if (token != '') {
     //List<ManipularArqueo?> arqueo1 = await validarArqueoActivo(token);
-    var resp = await validarArqueoActivo(token);
+    final resp = await validarArqueoActivo(token);
     print(resp);
     if (!resp) {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Por favor Cree un nuevo')));
-      Navigator.popAndPushNamed(context, 'crear_arqueo');
+      Navigator.pushReplacementNamed(context, 'crear_arqueo');
     } else {}
   }
 }
