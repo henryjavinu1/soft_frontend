@@ -182,7 +182,7 @@ Future filtrarFacturasPorEmpleado(String nombreEmpleado, String token) async {
 }
 
 Future mostrarDatosDeUnaFactura(String numeroFactura, String token) async {
-  String url = 'http://localhost:8080/api/traerunafactura/';
+  String url = API_URL+'traerunafactura/';
   if (numeroFactura.isNotEmpty) {
     url = url + '?numeroFactura=$numeroFactura';
   }
